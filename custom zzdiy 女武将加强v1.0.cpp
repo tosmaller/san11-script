@@ -120,7 +120,7 @@ namespace 女武将加强 {
       if (unit_id >= 0)
       {
         pk::unit@ dst = pk::get_unit(unit_id);
-        pk::add_troops(dst, dst.troops, true);
+        ch::add_troops(dst, dst.troops, true);
         pk::say(pk::encode("士兵好像回来了，但总感觉不一样..."), pk::get_person(dst.leader));
         pk::store(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), -1);
       }
@@ -138,7 +138,7 @@ namespace 女武将加强 {
         return pk::encode("气力不足.");
       else if (src_unit.troops < 兵力条件_离魂)
         return pk::encode(pk::format("兵力不足,兵力至少{}。", 兵力条件_离魂));
-      else if (src_unit.troops == pk::get_max_troops(src_unit))
+      else if (int(src_unit.troops) == pk::get_max_troops(src_unit))
         return pk::encode("兵力已达上限.");
       else if (id >= 0)
         return pk::encode("本回合已经使用过");
@@ -151,7 +151,7 @@ namespace 女武将加强 {
       const int id = uint64(pk::load(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
       if (src_unit.energy < 计略气力消耗_通用) return false;
       else if (src_unit.troops < 兵力条件_离魂) return false;
-      else if (src_unit.troops == pk::get_max_troops(src_unit)) return false;
+      else if (int(src_unit.troops) == pk::get_max_troops(src_unit)) return false;
       else if (id >= 0) return false;
       return true;
     }
@@ -174,11 +174,11 @@ namespace 女武将加强 {
       {
         pk::create_effect(63, dst_pos);
         pk::wait(2000);
-        pk::add_troops(target_unit, -int(target_troops), true);
+        ch::add_troops(target_unit, -int(target_troops), true);
         pk::say(pk::encode("怎么回事，快拦住士兵们！"), pk::get_person(target_unit.leader));
       }
 
-      pk::add_troops(src_unit, int(target_troops), true);
+      ch::add_troops(src_unit, int(target_troops), true);
       pk::wait(1000);
       pk::say(pk::encode("一场好戏，嗯哼哼。"), person_貂蝉);
 

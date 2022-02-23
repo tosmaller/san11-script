@@ -10,13 +10,10 @@ v1.0 2022/02/12 新增周瑜神术【业火焚天】
  */
 
 namespace 人物加强 {
-  const int 计略气力消耗_通用 = 30;
+  const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
 
-  const int 计略气力消耗_业火焚天 = 60;
-  const int 计略气力消耗_神雷灭世 = 60;
   const int 计略气力消耗_黄天泰平 = 100;
-  const int 计略气力消耗_天下归心 = 60;
 
   array<string> 已影响城市; // 存储处理过的城市
 
@@ -40,7 +37,6 @@ namespace 人物加强 {
     bool 开启_神雷灭世 = true; // 张角大招
     bool 开启_黄天泰平 = true; // 张角三兄弟大招
     bool 开启_天下归心 = true; // 曹操大招
-    bool 开启_七进七出 = true; // 赵云大招
 
     void add_menu_unit_order()
     {
@@ -82,11 +78,11 @@ namespace 人物加强 {
         pk::menu_item 神术_黄天泰平;
         神术_黄天泰平.menu = 菜单_神术;
         神术_黄天泰平.init = pk::unit_menu_item_init_t(init);
-        神术_黄天泰平.get_text = pk::menu_item_get_text_t(getText_神术_黄天泰平);
+        神术_黄天泰平.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称(pk::encode("黄天泰平"), 计略气力消耗_黄天泰平); });
         神术_黄天泰平.get_desc = pk::menu_item_get_desc_t(getDesc_神术_黄天泰平);
         神术_黄天泰平.is_visible = pk::menu_item_is_visible_t(isVisible_神术_黄天泰平);
         神术_黄天泰平.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_黄天泰平);
-        神术_黄天泰平.get_targets = pk::unit_menu_item_get_targets_t(getTargets_神术_黄天泰平);
+        神术_黄天泰平.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(3); });
         神术_黄天泰平.handler = pk::unit_menu_item_handler_t(handler_神术_黄天泰平);
         pk::add_menu_item(神术_黄天泰平);
       }
@@ -94,16 +90,16 @@ namespace 人物加强 {
         pk::menu_item 神术_天下归心;
         神术_天下归心.menu = 菜单_神术;
         神术_天下归心.init = pk::unit_menu_item_init_t(init);
-        神术_天下归心.get_text = pk::menu_item_get_text_t(getText_神术_天下归心);
+        神术_天下归心.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称(pk::encode("天下归心"), 计略气力消耗_通用); });
         神术_天下归心.get_desc = pk::menu_item_get_desc_t(getDesc_神术_天下归心);
-        神术_天下归心.is_visible = pk::menu_item_is_visible_t(isVisible_神术_天下归心);
+        神术_天下归心.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_曹操); });
         神术_天下归心.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_天下归心);
-        神术_天下归心.get_targets = pk::unit_menu_item_get_targets_t(getTargets_神术_天下归心);
+        神术_天下归心.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(3); });
         神术_天下归心.handler = pk::unit_menu_item_handler_t(handler_神术_天下归心);
         pk::add_menu_item(神术_天下归心);
       }
     }
-
+    // ----------- 基础 ------------------
     void init(pk::unit@ unit, pk::point src_pos)
     {
       @src_unit = @unit;
@@ -116,7 +112,21 @@ namespace 人物加强 {
       src_pos_ = src_pos;
     }
 
-  // ------------------ 通用 ------------------
+    bool isVisible_神术()
+    {
+      if (pk::is_campaign()) return false;
+      array<int> 神术技能武将= {
+        person_周瑜.get_id(),
+        person_张角.get_id(),
+        person_张宝.get_id(),
+        person_张梁.get_id(),
+        person_曹操.get_id(),
+      };
+      if (神术技能武将.find(src_leader.get_id()) >= 0) return true;
+      return false;
+    }
+
+    // ------------------ 通用 ------------------
 
     string getText_神术_名称(string 神术名称, int 气力消耗)
     {
@@ -156,20 +166,6 @@ namespace 人物加强 {
         }
 
         return targets;
-    }
-
-    bool isVisible_神术()
-    {
-      if (pk::is_campaign()) return false;
-      array<int> 神术技能武将= {
-        person_周瑜.get_id(),
-        person_张角.get_id(),
-        person_张宝.get_id(),
-        person_张梁.get_id(),
-        person_曹操.get_id(),
-      };
-      if (神术技能武将.find(src_leader.get_id()) >= 0) return true;
-      return false;
     }
 
     void fun_处理城市(pk::building@ building, pk::point pos, int hp_damage)
@@ -249,21 +245,32 @@ namespace 人物加强 {
       return false;
     }
 
+    void 减少武将寿命(pk::person@ person, int 减少值)
+    {
+      person.death -= 减少值;
+      if (person.death - person.birth <= 0) { // 生命小于等于0，死亡预定
+        person.estimated_death = true;
+        pk::kill(src_unit);
+        pk::wait(2000);
+        pk::kill(person);
+      }
+    }
+
     // ------------------- 业火焚天------------------
 
     string getDesc_神术_业火焚天()
     {
-      if (src_unit.energy < 计略气力消耗_业火焚天)
+      if (src_unit.energy < 计略气力消耗_通用)
         return pk::encode("气力不足.");
-      else if (src_unit.troops < 部队妙计_兵力条件)
-        return pk::encode("兵力不足,兵力至少5000.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
       else
-        return pk::encode(pk::format("使用业火焚天.(气力至少 {} 以上)", 计略气力消耗_业火焚天));
+        return pk::encode(pk::format("使用业火焚天.(气力至少 {} 以上)", 计略气力消耗_通用));
     }
     bool isEnabled_神术_业火焚天()
     {
-      if (src_unit.energy < 计略气力消耗_业火焚天) return false;
-      else if (src_unit.troops < 部队妙计_兵力条件) return false;
+      if (src_unit.energy < 计略气力消耗_通用) return false;
+      else if (src_unit.troops < 兵力条件_通用) return false;
       return true;
     }
 
@@ -292,7 +299,7 @@ namespace 人物加强 {
           pk::set_status(dst, dst, 部队状态_伪报, pk::rand(2) + 3, true);
           pk::create_fire(arr[l], pk::rand(2) + 3, dst, true); //火计
           pk::add_energy(dst, -30, true); //减气
-          pk::add_troops(dst, -random(500, 1500), true); // 随机减兵500~1500
+          ch::add_troops(dst, -random(500, 1500), true); // 随机减兵500~1500
           if (dst.troops <= 0) {
             pk::kill(dst, src_unit);
           }
@@ -338,7 +345,7 @@ namespace 人物加强 {
         // pk::wait(1000);
       }
 
-      pk::add_energy(src_unit, -计略气力消耗_业火焚天, true);
+      pk::add_energy(src_unit, -计略气力消耗_通用, true);
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 10);
 
@@ -347,13 +354,15 @@ namespace 人物加强 {
       // pk::wait(100);
 
       pk::say(pk::encode("怎么感觉有点虚弱呢，难道是天谴吗。。。"), person_周瑜);
-      person_周瑜.death -= random(3, 10);
-      if (person_周瑜.death - person_周瑜.birth <= 0) { // 生命小于等于0，死亡
-        person_周瑜.estimated_death = true; // 死亡预定
-        pk::kill(src_unit);
-        pk::wait(2000);
-        pk::kill(person_周瑜); // 防止死亡预定因为队伍在外无法及时处理，补充设置武将死亡
-      }
+
+      减少武将寿命(person_周瑜, random(3, 10));
+      // person_周瑜.death -= random(3, 10);
+      // if (person_周瑜.death - person_周瑜.birth <= 0) { // 生命小于等于0，死亡
+      //   person_周瑜.estimated_death = true; // 死亡预定
+      //   pk::kill(src_unit);
+      //   pk::wait(2000);
+      //   pk::kill(person_周瑜); // 防止死亡预定因为队伍在外无法及时处理，补充设置武将死亡
+      // }
       person_周瑜.update();
 
       已影响城市.removeRange(0, 已影响城市.length() - 1); // 清除处理过的
@@ -370,19 +379,19 @@ namespace 人物加强 {
     //
     string getDesc_神术_神雷灭世()
     {
-      if (src_unit.energy < 计略气力消耗_神雷灭世)
+      if (src_unit.energy < 计略气力消耗_通用)
         return pk::encode("气力不足.");
-      else if (src_unit.troops < 部队妙计_兵力条件)
-        return pk::encode("兵力不足,兵力至少5000.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
       else
-        return pk::encode(pk::format("使用神雷灭世.(气力至少 {} 以上)", 计略气力消耗_神雷灭世));
+        return pk::encode(pk::format("使用神雷灭世.(气力至少 {} 以上)", 计略气力消耗_通用));
     }
 
 
     bool isEnabled_神术_神雷灭世()
     {
-      if (src_unit.energy < 计略气力消耗_神雷灭世) return false;
-      else if (src_unit.troops < 部队妙计_兵力条件) return false;
+      if (src_unit.energy < 计略气力消耗_通用) return false;
+      else if (src_unit.troops < 兵力条件_通用) return false;
       return true;
     }
 
@@ -411,7 +420,7 @@ namespace 人物加强 {
             pk::create_fire(arr[l], pk::rand(2), dst, true); //火计
           }
           pk::add_energy(dst, -30, true); //减气
-          pk::add_troops(dst, -(部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(2000)), true); // 在雷电伤害基础上随机加2000
+          ch::add_troops(dst, -(部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(2000)), true); // 在雷电伤害基础上随机加2000
           if (dst.troops <= 0) {
             pk::kill(dst, src_unit);
           }
@@ -457,7 +466,7 @@ namespace 人物加强 {
         }
       }
 
-      pk::add_energy(src_unit, -计略气力消耗_神雷灭世, true);
+      pk::add_energy(src_unit, -计略气力消耗_通用, true);
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 10);
 
@@ -466,13 +475,14 @@ namespace 人物加强 {
       // pk::wait(100);
 
       pk::say(pk::encode("黄天既覆，苍生何存......"), person_张角);
-      person_张角.death -= random(3, 10);
-      if (person_张角.death - person_张角.birth <= 0) { // 生命小于等于0，死亡预定
-        person_张角.estimated_death = true;
-        pk::kill(src_unit);
-        pk::wait(2000);
-        pk::kill(person_张角);
-      }
+      减少武将寿命(person_张角, random(3, 10));
+      // person_张角.death -= random(3, 10);
+      // if (person_张角.death - person_张角.birth <= 0) { // 生命小于等于0，死亡预定
+      //   person_张角.estimated_death = true;
+      //   pk::kill(src_unit);
+      //   pk::wait(2000);
+      //   pk::kill(person_张角);
+      // }
       person_张角.update();
 
       src_unit.action_done = true;
@@ -483,17 +493,12 @@ namespace 人物加强 {
     }
 
     // ----------- 黄天泰平 ----------
-    string getText_神术_黄天泰平()
-    {
-      return pk::encode(pk::format("黄天泰平 ({})", 计略气力消耗_黄天泰平));
-    }
-
     string getDesc_神术_黄天泰平()
     {
       if (src_unit.energy < 计略气力消耗_黄天泰平)
         return pk::encode("气力不足.");
-      else if (src_unit.troops < 部队妙计_兵力条件)
-        return pk::encode("兵力不足,兵力至少5000.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
       else
         return pk::encode(pk::format("使用黄天泰平.(气力至少 {} 以上, 本部队混乱，蛊惑3格内部队)", 计略气力消耗_黄天泰平));
     }
@@ -506,21 +511,8 @@ namespace 人物加强 {
     bool isEnabled_神术_黄天泰平()
     {
       if (src_unit.energy < 计略气力消耗_黄天泰平) return false;
-      else if (src_unit.troops < 部队妙计_兵力条件) return false;
+      else if (src_unit.troops < 兵力条件_通用) return false;
       return true;
-    }
-
-
-    pk::array<pk::point_int> getTargets_神术_黄天泰平()
-    {
-        pk::array<pk::point_int> targets;
-        array<pk::point> rings = pk::range(src_pos_, 1, 3);
-        for (int pos_index = 0; pos_index < int(rings.length); pos_index++)
-        {
-          pk::point dst_pos = rings[pos_index];
-          targets.insertLast(pk::point_int(dst_pos, 1));
-        }
-        return targets;
     }
 
     void func_黄天泰平(pk::point src_pos, int range) {
@@ -694,15 +686,15 @@ namespace 人物加强 {
       pk::say(pk::encode("救苍生于水火，平天下于乱世!"), src_leader);
 
       // pk::wait(100);
-
-      src_leader.death -= random(5, 15);
-      pk::say(pk::encode("逆天而行，必遭天谴呐!"), src_leader);
-      if (src_leader.death - src_leader.birth <= 0) { // 生命小于等于0，死亡预定
-        src_leader.estimated_death = true;
-        pk::kill(src_unit);
-        pk::wait(2000);
-        pk::kill(src_leader);
-      }
+      减少武将寿命(src_leader, random(5, 10));
+      // src_leader.death -= random(5, 15);
+      // pk::say(pk::encode("逆天而行，必遭天谴呐!"), src_leader);
+      // if (src_leader.death - src_leader.birth <= 0) { // 生命小于等于0，死亡预定
+      //   src_leader.estimated_death = true;
+      //   pk::kill(src_unit);
+      //   pk::wait(2000);
+      //   pk::kill(src_leader);
+      // }
       src_leader.update();
 
       src_unit.action_done = true;
@@ -713,44 +705,21 @@ namespace 人物加强 {
     }
 
     // ----------- 天下归心 ----------
-    string getText_神术_天下归心()
-    {
-      return pk::encode(pk::format("天下归心 ({})", 计略气力消耗_天下归心));
-    }
-
     string getDesc_神术_天下归心()
     {
-      if (src_unit.energy < 计略气力消耗_天下归心)
+      if (src_unit.energy < 计略气力消耗_通用)
         return pk::encode("气力不足.");
-      else if (src_unit.troops < 部队妙计_兵力条件)
-        return pk::encode("兵力不足,兵力至少5000.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
       else
-        return pk::encode(pk::format("使用天下归心.(气力至少 {} 以上, 本部队伪报，俘虏3格内部队的女性武将)", 计略气力消耗_天下归心));
-    }
-
-    bool isVisible_神术_天下归心()
-    {
-      return src_leader.get_id() == person_曹操.get_id();
+        return pk::encode(pk::format("使用天下归心.(气力至少 {} 以上, 本部队伪报，俘虏3格内部队的女性武将)", 计略气力消耗_通用));
     }
 
     bool isEnabled_神术_天下归心()
     {
-      if (src_unit.energy < 计略气力消耗_天下归心) return false;
-      else if (src_unit.troops < 部队妙计_兵力条件) return false;
+      if (src_unit.energy < 计略气力消耗_通用) return false;
+      else if (src_unit.troops < 兵力条件_通用) return false;
       return true;
-    }
-
-
-    pk::array<pk::point_int> getTargets_神术_天下归心()
-    {
-        pk::array<pk::point_int> targets;
-        array<pk::point> rings = pk::range(src_pos_, 1, 3);
-        for (int pos_index = 0; pos_index < int(rings.length); pos_index++)
-        {
-          pk::point dst_pos = rings[pos_index];
-          targets.insertLast(pk::point_int(dst_pos, 1));
-        }
-        return targets;
     }
 
     void func_天下归心(pk::point src_pos, int range) {
@@ -837,7 +806,7 @@ namespace 人物加强 {
         // pk::wait(1000);
       }
 
-      pk::add_energy(src_unit, -计略气力消耗_天下归心, true);
+      pk::add_energy(src_unit, -计略气力消耗_通用, true);
 
       pk::set_status(src_unit, null, 部队状态_伪报, 1, true); // 自己眩晕一回合
 
@@ -846,15 +815,15 @@ namespace 人物加强 {
       pk::say(pk::encode("汝妻子吾自养之，汝勿虑也"), src_leader);
 
       // pk::wait(100);
-
-      src_leader.death -= random(5, 10);
-      pk::say(pk::encode("身体不行啊!"), src_leader);
-      if (person_曹操.death - person_曹操.birth <= 0) { // 生命小于等于0，死亡预定
-        src_leader.estimated_death = true;
-        pk::kill(src_unit);
-        pk::wait(2000);
-        pk::kill(src_leader);
-      }
+      减少武将寿命(src_leader, random(5, 10));
+      // src_leader.death -= random(5, 10);
+      // pk::say(pk::encode("身体不行啊!"), src_leader);
+      // if (person_曹操.death - person_曹操.birth <= 0) { // 生命小于等于0，死亡预定
+      //   src_leader.estimated_death = true;
+      //   pk::kill(src_unit);
+      //   pk::wait(2000);
+      //   pk::kill(src_leader);
+      // }
       src_leader.update();
 
       src_unit.action_done = true;
