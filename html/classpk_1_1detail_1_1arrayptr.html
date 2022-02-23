@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>San11PK: pk::detail::arrayptr&lt; T &gt; class模板参照</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">San11PK
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 创建于 :  Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacepk.html">pk</a></li><li class="navelem"><a class="el" href="namespacepk_1_1detail.html">detail</a></li><li class="navelem"><a class="el" href="classpk_1_1detail_1_1arrayptr.html">arrayptr</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="classpk_1_1detail_1_1arrayptr-members.html">所有成员名单</a>  </div>
+  <div class="headertitle">
+<div class="title">pk::detail::arrayptr&lt; T &gt; class模板参照</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="pk__types_8h_source.html">pk_types.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:adaf7e146953ac9bffb714619dc29e2d7"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpk_1_1detail_1_1arrayptr.html#adaf7e146953ac9bffb714619dc29e2d7">operator[]</a> (<a class="el" href="pk__types_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>)</td></tr>
+<tr class="separator:adaf7e146953ac9bffb714619dc29e2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95c1910eb99e92b71e3bf735abc68888"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpk_1_1detail_1_1arrayptr.html#a95c1910eb99e92b71e3bf735abc68888">operator[]</a> (<a class="el" href="pk__types_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>) const</td></tr>
+<tr class="separator:a95c1910eb99e92b71e3bf735abc68888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:aa8584ae0a20f227e5683a34969a946e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pk__types_8h.html#a524c03ebef1870cbf6ecc94a8c7adbfb">PROPERTY</a> const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpk_1_1detail_1_1arrayptr.html#aa8584ae0a20f227e5683a34969a946e9">length</a></td></tr>
+<tr class="separator:aa8584ae0a20f227e5683a34969a946e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细说明</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class pk::detail::arrayptr&lt; T &gt;</h3>
+
+<p>value 类型.  这是一种包装一维数组指针的类型，仅在set_func和bind回调的参数中使用。 这是创建的类型，因为要转换为脚本支持的数组类型很麻烦。 这是一种包装一维数组指针的类型，仅在set_func和bind回调的参数中使用。 这是创建的类型，因为要转换为脚本支持的数组类型很麻烦。. </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> arr[3];</div><div class="line">asIScriptEngine* engine;</div><div class="line">asIScriptContext* context;</div><div class="line"></div><div class="line"><span class="comment">// 불필요한 메모리 할당 발생. 타입까지 지정해야 하는 번거로움.</span></div><div class="line">CScriptArray* arr2 = CScriptArray::Create(engine-&gt;GetTypeInfoByDecl(<span class="stringliteral">&quot;array&lt;int&gt;&quot;</span>), 3);</div><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; i++)</div><div class="line">    arr2-&gt;SetValue(i, &amp;arr[i]);</div><div class="line">context-&gt;SetArgObject(0, arr2);</div><div class="line">context-&gt;Execute();</div><div class="line">arr2-&gt;Release();</div><div class="line"></div><div class="line"><span class="comment">// 매우 간단!</span></div><div class="line">arrayptr arr3 = arrayptr(arr, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>), 3);</div><div class="line">context-&gt;SetArgObject(0, &amp;arr3);</div><div class="line">context-&gt;Execute();</div></div><!-- fragment --> </div><h2 class="groupheader">成员函数文档</h2>
+<a id="adaf7e146953ac9bffb714619dc29e2d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaf7e146953ac9bffb714619dc29e2d7">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T&amp; <a class="el" href="classpk_1_1detail_1_1arrayptr.html">pk::detail::arrayptr</a>&lt; T &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pk__types_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95c1910eb99e92b71e3bf735abc68888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95c1910eb99e92b71e3bf735abc68888">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T&amp; <a class="el" href="classpk_1_1detail_1_1arrayptr.html">pk::detail::arrayptr</a>&lt; T &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pk__types_8h.html#a4f5fce8c1ef282264f9214809524d836">uint</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">成员数据文档</h2>
+<a id="aa8584ae0a20f227e5683a34969a946e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8584ae0a20f227e5683a34969a946e9">&#9670;&nbsp;</a></span>length</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pk__types_8h.html#a524c03ebef1870cbf6ecc94a8c7adbfb">PROPERTY</a> const int <a class="el" href="classpk_1_1detail_1_1arrayptr.html">pk::detail::arrayptr</a>&lt; T &gt;::length</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>此类文档化的页面来自下列文件.:<ul>
+<li>E:/Projects/San11PK/src/assets/script/<a class="el" href="pk__types_8h_source.html">pk_types.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+创建于 :  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

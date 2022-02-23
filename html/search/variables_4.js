@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['death',['death',['../structpk_1_1person.html#a74f30dabc1a27f226ae8b6542ebe54eb',1,'pk::person']]],
+  ['debuffer',['debuffer',['../structpk_1_1damage__info.html#a7f1824b62f6f329afae9bcdce83948ea',1,'pk::damage_info']]],
+  ['debut',['debut',['../structpk_1_1scenario.html#a072b0097f0c709e901799a206b0caf77',1,'pk::scenario']]],
+  ['def',['def',['../structpk_1_1equipment.html#a015f6726517b7422f17cfa405b4dc48b',1,'pk::equipment']]],
+  ['def_5fskill',['def_skill',['../structpk_1_1damage__info.html#a92ac8bae810f465ad54e6b077b7f179d',1,'pk::damage_info']]],
+  ['def_5ftech',['def_tech',['../structpk_1_1damage__info.html#ac95695245c531b1ab65336e1bb469b18',1,'pk::damage_info']]],
+  ['defense',['defense',['../structpk_1_1hex.html#ac2cea9b21d0434f596f1601930f77ed8',1,'pk::hex']]],
+  ['den',['den',['../structpk_1_1hex.html#a82bcfac838374a413e5b6593f8f4057d',1,'pk::hex']]],
+  ['deputy',['deputy',['../structpk_1_1unit.html#a3011120ac4c097c68440e2130754de84',1,'pk::unit']]],
+  ['desc',['desc',['../structpk_1_1ability.html#a75413269e509d4194571e788ed26023c',1,'pk::ability::desc()'],['../structpk_1_1equipment.html#ab3f7d28cc15a17107fd8ffd2e4cdbdd8',1,'pk::equipment::desc()'],['../structpk_1_1facility.html#acd45eb98253262e149c2c4531ae6722e',1,'pk::facility::desc()'],['../structpk_1_1province.html#accd85a54cab1e226d935ae9d12653784',1,'pk::province::desc()'],['../structpk_1_1scenario.html#a7e8cd6a048647f4d8c7bc49e1412556a',1,'pk::scenario::desc()'],['../structpk_1_1skill.html#ac23a997a1b699668099d78307000a2e6',1,'pk::skill::desc()'],['../structpk_1_1tech.html#a221b01da880fd5d0dc9b23d8e6fd4924',1,'pk::tech::desc()']]],
+  ['dev',['dev',['../structpk_1_1city.html#a8d4a633364bed2103931c86a24b65515',1,'pk::city']]],
+  ['development',['development',['../structpk_1_1hex.html#a91555ebd6a3c5d5ae531ba8af2be0b59',1,'pk::hex']]],
+  ['difficulty',['difficulty',['../structpk_1_1scenario.html#a00bec6519a7708b16d6bc8e704b80bfd',1,'pk::scenario']]],
+  ['diplomacy_5fban_5ftimer',['diplomacy_ban_timer',['../structpk_1_1force.html#ac31f17bc8723ed8acbbd589dde2f8b23',1,'pk::force']]],
+  ['direction',['direction',['../structpk_1_1unit.html#ab6a75544c35364f4c6223bd1fcc56d8b',1,'pk::unit::direction()'],['../structpk_1_1hex.html#aa3305c9cd9975a4bd593ad9858a29866',1,'pk::hex::direction()']]],
+  ['disaster',['disaster',['../structpk_1_1city.html#a7db0c2615e55238b1e445b6adaa08743',1,'pk::city']]],
+  ['disliked',['disliked',['../structpk_1_1person.html#a0d751c1b8dde565ab6faee2fa4605048',1,'pk::person']]],
+  ['district',['district',['../structpk_1_1city.html#ac1e36fa15c44594298c525c7ccd3467e',1,'pk::city::district()'],['../structpk_1_1gate.html#a6f573bd3c2725053204b565cbdb40867',1,'pk::gate::district()'],['../structpk_1_1person.html#adeafe5eac5bd9299c7cd0a94e6c2dcfc',1,'pk::person::district()'],['../structpk_1_1port.html#a9427112b4d03c9ba8e0a6386b9d3a80e',1,'pk::port::district()'],['../structpk_1_1msg__param.html#aa97a56558afe1a960ee6073d19f32587',1,'pk::msg_param::district()'],['../structpk_1_1district__dissolve__cmd__info.html#a8281d6936b5e78c12c4ca434a6838ccd',1,'pk::district_dissolve_cmd_info::district()']]],
+  ['drills_5fended',['drills_ended',['../structpk_1_1city.html#a09d34b7c1d0dfc03c6dcb9bafa88b52b',1,'pk::city::drills_ended()'],['../structpk_1_1gate.html#ab5b8338d3c6c31e8bc757de4df518005',1,'pk::gate::drills_ended()'],['../structpk_1_1port.html#ad2bdd73daa64a29ee67c572d37ec1e9c',1,'pk::port::drills_ended()']]],
+  ['dst',['dst',['../structpk_1_1request__reinforcements__cmd__info.html#ae00652de93769333a40b39de2593f5a0',1,'pk::request_reinforcements_cmd_info::dst()'],['../structpk_1_1disrupt__relations__cmd__info.html#a84c9924a3bd9e97c7d61762fccfe69cc',1,'pk::disrupt_relations_cmd_info::dst()'],['../structpk_1_1merge__cmd__info.html#a431be46a8682b655e8df311a5f2ffcbe',1,'pk::merge_cmd_info::dst()']]],
+  ['dst_5fmove_5fpos',['dst_move_pos',['../structpk_1_1damage__info.html#ae908001d6175dd8bfe1aad816b2f854e',1,'pk::damage_info']]],
+  ['dst_5fpos',['dst_pos',['../structpk_1_1damage__info.html#ac51677d96af69e6e34b832408c431dbc',1,'pk::damage_info']]],
+  ['dst_5ftroops',['dst_troops',['../structpk_1_1damage__info.html#ac3befaf412e5246496cba673b330ae96',1,'pk::damage_info']]]
+];

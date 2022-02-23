@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>San11PK: 修正记录</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">San11PK
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 创建于 :  Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">修正记录 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="toc"><h3>目录</h3>
+<ul><li class="level1"><a href="#page_patchnote_180120">180120</a></li>
+<li class="level1"><a href="#page_patchnote_180121">180121</a></li>
+<li class="level1"><a href="#page_patchnote_180122">180122</a></li>
+<li class="level1"><a href="#page_patchnote_180124">180124</a></li>
+<li class="level1"><a href="#page_patchnote_180126">180126</a></li>
+<li class="level1"><a href="#page_patchnote_180128">180128</a></li>
+<li class="level1"><a href="#page_patchnote_180128v2">180128v2</a></li>
+<li class="level1"><a href="#page_patchnote_180207">180207</a></li>
+<li class="level1"><a href="#page_patchnote_180214">180214</a></li>
+<li class="level1"><a href="#page_patchnote_180307">180307</a></li>
+</ul>
+</div>
+<div class="textblock"><h1><a class="anchor" id="page_patchnote_180120"></a>
+180120</h1>
+<ul>
+<li>将脚本语言再次更改为angelscript</li>
+<li>pk2 气力, 行动力 相关错误修复</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180121"></a>
+180121</h1>
+<ul>
+<li>修改xml语音和游戏声音重复执行的问题</li>
+<li>命令信息 클래스들의 기본 생성자에서 멤버를 기본값으로 初始化 하도록 수정</li>
+<li>命令信息 클래스들의 복사 생성자 추가</li>
+<li>命令信息 클래스들이 alias 타입들과 호환되지 않던 문제 수정</li>
+<li>출진관련 <a class="el" href="namespacepk.html#abd2b6f39561a5973d84524c6341f9c71" title="개발 ">pk::command</a> 함수 리턴 타입 수정</li>
+<li><a class="el" href="namespacepk.html#abd2b6f39561a5973d84524c6341f9c71" title="개발 ">pk::command</a> 함수 버그 수정</li>
+<li>pk::func173_t 추가</li>
+<li><a class="el" href="namespacepk.html#a34a760a466af965d0565eceb56c28ebf" title="군단 아이디 ">pk::get_district_id</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a121df702763b59e150ed624d3b7d0fb1" title="명령 가능한 武将 ">pk::get_idle_person_list</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a7c7975fabb055a2982ce0eb0fb7ab6e3" title="독립(반란) ">pk::hanran</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a33a30b54bc5485d904bfaba5cdf200da" title="거병 ">pk::hataage</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a72ef09f714482f32abe9ea9e6afe4f0e" title="훈련 완료 여부 ">pk::is_drills_ended</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a37e6b206c2087905eda87fe856037290">pk::is_first_month_of_quarter()</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a29375c122d7ef08bcde5ccc04314b1ac">pk::is_idle</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#ad5cf267d22e26314aaa5c320cd2974db">pk::is_normal_force</a>(force@) 함수 추가</li>
+<li><a class="el" href="namespacepk.html#aa87907a6725c9313fd12ce0c3ac6b066" title="부대 任务 ">pk::is_valid_unit_order</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a2ccb9326827bd530509a2deaf4870b60" title="주도권 위임 ">pk::leave_control</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a6ef84ce360b5e3659b3fe78221595c1d" title="세력에 맞게 충성도 初始化 ">pk::reset_loyalty</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a0c59c9146c14151df040371bcd2842e2">pk::rise</a> 함수 deprecated</li>
+<li><a class="el" href="namespacepk.html#aa1a5693278aab3e89589d0995ba4a622" title="전체 동맹 设置 ">pk::set_all_ally</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#af9669e904517e523978647e8ac7c9561" title="전체 우호도 设置 ">pk::set_all_relations</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a539034314a20e2573e2b403b73197105" title="동맹 设置 ">pk::set_ally(int, int, bool)</a> 버그 수정</li>
+<li><a class="el" href="namespacepk.html#a62b61274d6fd05a4b09b10624a55dfc0" title="훈련 완료 设置 ">pk::set_drills_ended</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a3cb74665292fbb1e852dae7c5a7a6e38" title="timeGetTime ">pk::time</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#af2f21dc39b36309963a842bed808ccb5" title="동맹, 정전 해제 ">pk::unally</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#ab8d05d6851d0aad389e23332411aa54d" title="내부 값으로 항상 true입니다. ">pk::NDEBUG</a> 상수 추가(내부 값으로 항상 true)</li>
+<li>173 거병 확률.cpp 추가</li>
+<li>evolutionkit.cpp 수정(NDEBUG 관련)</li>
+<li>ai_script.cpp 추가(에볼루션킷 인공지능설명 파일과 동일)</li>
+<li>거점철수.cpp 추가(에볼루션킷과 동일)</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180122"></a>
+180122</h1>
+<ul>
+<li>xml 로드 이벤트, 스크립트 빌드 이벤트 로그 메시지 수정.</li>
+<li>xml 에러 메시지가 표시되지 않던 문제 수정.</li>
+<li>스크립트 빌드에 실패할 경우 메시지 박스 표시.(에볼루션킷과 동일)</li>
+<li>163 부대能力值.cpp 매개변수 이름 수정</li>
+<li>거점철수.cpp 버그 수정(체인 관련)</li>
+<li>철거금지.cpp 버그 수정(isEnabled 함수)</li>
+<li>evolutionkit.cpp 수정(혼인성별무시, 의형제성별무시 设置 삭제)</li>
+<li><a class="el" href="namespacepk.html#a6c3a2efe1d99bd0a63cf87cf3133b83d" title="부대 任务 初始化 ">pk::reset_order</a> 함수 추가</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180124"></a>
+180124</h1>
+<ul>
+<li><a class="el" href="namespacepk.html#ac27bfe619c905a2efe867cb5230b9788">pk::choose</a> 함수를 <a class="el" href="namespacepk.html#addd0c9657c8bb68a28d8770f500cc87f">pk::scene_t</a> 콜백 밖에서 사용할 경우 게임이 멈추던 버그 수정</li>
+<li><a class="el" href="namespacepk.html#ac27bfe619c905a2efe867cb5230b9788">pk::choose</a>(const array&lt;string&gt;&amp;, const string&amp;, person@) 함수 추가</li>
+<li><a class="el" href="namespacepk.html#ad1fff129215b77667a97d6a9b55f2470" title="미션 종료 ">pk::clear_mission</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a8516e258a37ddd5bef1ad79bff1a790a">pk::fade(uint8, uint8, uint8, uint8, int)</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a25b3f7f9c4724f6a77e2241de3adfb03" title="경로 ">pk::get_path</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#abf23e7de330d4bd6d3f9f06d92bd6ca3" title="칸 강조 ">pk::highlight</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#aefd658f3e6e61366bb3835c87c304c49">pk::is_mission_running</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a8c7e64ff9970cf698d1a03c173c1ac46" title="칸 강조 전체 삭제 ">pk::remove_all_highlights</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a7918fa90725b19a52d51664f4e1ec6a3" title="병기 设置 ">pk::set_weapon_amount</a>(<a class="el" href="structpk_1_1unit.html" title="부대 ">pk::unit</a>@, int, int, int) 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a2964569670d9b2a2344298e965e6744d" title="미션 ">pk::start_mission</a> 함수 추가</li>
+<li>部队 삭제 이벤트 버그 수정</li>
+<li>ai_script.cpp 오타 수정(bind가 아니라 set_func)</li>
+<li>设施.xml '陷阱금지' '군사시설금지' 范围가 +1 되서 적용되던 문제 수정.</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180126"></a>
+180126</h1>
+<ul>
+<li>势力 관련 이벤트 버그 수정</li>
+<li><a class="el" href="namespacepk.html#a24c37c1b0fbec36d2125700a44fe5741">pk::kill</a>(<a class="el" href="structpk_1_1force.html" title="세력 ">pk::force</a>@, bool, <a class="el" href="structpk_1_1force.html" title="세력 ">pk::force</a>@) 함수 추가</li>
+<li><a class="el" href="namespacepk.html#a3e643e422019885cce6cd45d776b7aec" title="포로 해방 ">pk::release</a> 함수 추가</li>
+<li><a class="el" href="namespacepk.html#acbf83e2019fae5a6cbfe12a3649341d3" title="하야(자세력 武将 추방) ">pk::resign</a> 함수 버그 수정</li>
+<li>158 월별 根据地 발생 확률.cpp 주석 수정</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180128"></a>
+180128</h1>
+<ul>
+<li>关卡, 항구 메뉴가 제대로 표시되지 않던 문제 수정</li>
+<li>'위임군단제어' 버그 수정</li>
+<li>처형.cpp 수정(isVisible 함수)</li>
+<li>기타.xml '武将.기초능력육성제한' 설명 수정</li>
+<li><a class="el" href="namespacepk.html#a154b30f4e5f51e2bcba6fd523368ad79">pk::get_movable_pos</a> 함수 추가</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180128v2"></a>
+180128v2</h1>
+<ul>
+<li><a class="el" href="namespacepk.html#a154b30f4e5f51e2bcba6fd523368ad79">pk::get_movable_pos</a> 버그 수정</li>
+<li><a class="el" href="namespacepk.html#a25b3f7f9c4724f6a77e2241de3adfb03" title="경로 ">pk::get_path</a> 버그 수정</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180207"></a>
+180207</h1>
+<ul>
+<li><a class="el" href="namespacepk.html#a411da725b9ade4b27f8e6b378659df8b" title="地格坐标를 화면坐标로 변환 ">pk::hex_pos_to_screen_pos</a> 기본 매개변수 추가</li>
+<li><a class="el" href="namespacepk.html#a751aa3bfac1f32bb3b49819277e906b4" title="地格坐标를 월드坐标로 변환 ">pk::hex_pos_to_world_pos</a> 기본 매개변수 추가</li>
+<li><a class="el" href="structpk_1_1point.html#aec775ce5ac54fed233f0486d53799c2f">pk::point::notEqual</a> 기본 매개변수 수정</li>
+<li><a class="el" href="structpk_1_1rectangle.html#a90e593e9f49c338b81a28a45c8475088">pk::rectangle::notEqual</a> 기본 매개변수 수정</li>
+<li><a class="el" href="structpk_1_1size.html#a441afd9e9125a6f72ac1749672c29b02">pk::size::notEqual</a> 기본 매개변수 수정</li>
+<li>'위임군단제어' 버그 수정(180128 관련)</li>
+<li>211 건물의 공격 대미지.cpp 수정(func_5af370 함수)</li>
+<li>철거금지.cpp <a class="el" href="namespacepk.html#a1ed0d721e8518b15a424ae3fbe6eee87" title="함수 设置 ">pk::set_func</a> 256, 257 추가(특수 건물에 적용되지 않던 문제 수정)</li>
+<li>evolutionkit.cpp 수정(철거금지.cpp 수정에 대한 <a class="el" href="namespacepk.html#a1ed0d721e8518b15a424ae3fbe6eee87" title="함수 设置 ">pk::set_func</a> 256 체인 적용. 애초에 체인이었어야 함.)</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180214"></a>
+180214</h1>
+<ul>
+<li><a class="el" href="namespacepk.html#a2e2ea00a27fbc26afe70058013d090b1" title="신武将 기본 얼굴 ">pk::get_default_face</a> 함수 추가</li>
+<li><a class="el" href="structpk_1_1object.html#aa1f01138a37499c8d3f9c4c384a3cb92" title="初始化 ">pk::object::init</a> 함수 추가</li>
+<li><a class="el" href="structpk_1_1object.html#ac9a5f1a2c4a9d06f6293e4a8b74301fa" title="메모리 주소 ">pk::object::p</a> 财产？프로퍼티 버그 수정</li>
+<li><a class="el" href="structpk_1_1person.html#a95d75b0640fa1a0396d507870fdea3a5" title="상성 ">pk::person::aishou</a> 멤버 누락 수정</li>
+<li>kr enums.cpp 수정(신武将_*, 적장_*, 성씨_*, 화술_*, 화제_* 추가)</li>
+<li>宝物 소유 변경 시 xml能力值가 제대로 반영되지 않던 문제 수정</li>
+<li>部队 任务 핸들러 콜백 추가</li>
+<li>SS적성에 대한 부대능력치 기본값이 2가 아닌 1로 적용되던 문제 수정</li>
+<li>기타.xml '일기토.교대없음' 추가</li>
+<li>#武将생성.cpp 추가</li>
+</ul>
+<h1><a class="anchor" id="page_patchnote_180307"></a>
+180307</h1>
+<ul>
+<li>기타.xml '武将.능력상승필요经验치' 오타 수정</li>
+<li>evolutionkit.cpp 맵 관련 xml 주석 오타 수정</li>
+<li>군마 생산 시 武将선택 화면에서能力值 탭이 표시되지 않던 문제 수정 </li>
+</ul>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+创建于 :  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
