@@ -7,6 +7,7 @@ v1.3 2022/02/17 修复对城池耐久归0归属变更bug，张角新增神术【
 v1.2 2022/02/14 修复措施耐久归0归属变更bug
 v1.1 2022/02/13 修复周瑜神术对关卡跟港口无效bug，张角新增神术【神雷灭世】
 v1.0 2022/02/12 新增周瑜神术【业火焚天】
+描述：针对高智武将，设置了大招【神术】，旨在增加游戏娱乐性
  */
 
 namespace 人物加强 {
@@ -31,12 +32,14 @@ namespace 人物加强 {
     pk::person@ person_张宝;
     pk::person@ person_张梁;
     pk::person@ person_曹操;
+    pk::person@ person_郭嘉;
     pk::point src_pos_;
 
     bool 开启_业火焚天 = true; // 周瑜大招
     bool 开启_神雷灭世 = true; // 张角大招
     bool 开启_黄天泰平 = true; // 张角三兄弟大招
     bool 开启_天下归心 = true; // 曹操大招
+    bool 开启_十胜十败 = true; // 郭嘉大招
 
     void add_menu_unit_order()
     {
@@ -54,7 +57,7 @@ namespace 人物加强 {
         pk::menu_item 神术_业火焚天;
         神术_业火焚天.menu = 菜单_神术;
         神术_业火焚天.init = pk::unit_menu_item_init_t(init);
-        神术_业火焚天.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称(pk::encode("业火焚天"), 计略气力消耗_通用); });
+        神术_业火焚天.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称('业火焚天', 计略气力消耗_通用); });
         神术_业火焚天.get_desc = pk::menu_item_get_desc_t(getDesc_神术_业火焚天);
         神术_业火焚天.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_周瑜); });
         神术_业火焚天.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_业火焚天);
@@ -66,7 +69,7 @@ namespace 人物加强 {
         pk::menu_item 神术_神雷灭世;
         神术_神雷灭世.menu = 菜单_神术;
         神术_神雷灭世.init = pk::unit_menu_item_init_t(init);
-        神术_神雷灭世.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称(pk::encode("神雷灭世"), 计略气力消耗_通用); });
+        神术_神雷灭世.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("神雷灭世", 计略气力消耗_通用); });
         神术_神雷灭世.get_desc = pk::menu_item_get_desc_t(getDesc_神术_神雷灭世);
         神术_神雷灭世.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_张角); });
         神术_神雷灭世.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_神雷灭世);
@@ -78,7 +81,7 @@ namespace 人物加强 {
         pk::menu_item 神术_黄天泰平;
         神术_黄天泰平.menu = 菜单_神术;
         神术_黄天泰平.init = pk::unit_menu_item_init_t(init);
-        神术_黄天泰平.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称(pk::encode("黄天泰平"), 计略气力消耗_黄天泰平); });
+        神术_黄天泰平.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("黄天泰平", 计略气力消耗_黄天泰平); });
         神术_黄天泰平.get_desc = pk::menu_item_get_desc_t(getDesc_神术_黄天泰平);
         神术_黄天泰平.is_visible = pk::menu_item_is_visible_t(isVisible_神术_黄天泰平);
         神术_黄天泰平.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_黄天泰平);
@@ -90,13 +93,25 @@ namespace 人物加强 {
         pk::menu_item 神术_天下归心;
         神术_天下归心.menu = 菜单_神术;
         神术_天下归心.init = pk::unit_menu_item_init_t(init);
-        神术_天下归心.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称(pk::encode("天下归心"), 计略气力消耗_通用); });
+        神术_天下归心.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("天下归心", 计略气力消耗_通用); });
         神术_天下归心.get_desc = pk::menu_item_get_desc_t(getDesc_神术_天下归心);
         神术_天下归心.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_曹操); });
         神术_天下归心.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_天下归心);
         神术_天下归心.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(3); });
         神术_天下归心.handler = pk::unit_menu_item_handler_t(handler_神术_天下归心);
         pk::add_menu_item(神术_天下归心);
+      }
+      if (开启_十胜十败) {
+        pk::menu_item 神术_十胜十败;
+        神术_十胜十败.menu = 菜单_神术;
+        神术_十胜十败.init = pk::unit_menu_item_init_t(init);
+        神术_十胜十败.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("十胜十败", 计略气力消耗_通用); });
+        神术_十胜十败.get_desc = pk::menu_item_get_desc_t(getDesc_神术_十胜十败);
+        神术_十胜十败.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_郭嘉); });
+        神术_十胜十败.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_十胜十败);
+        // 神术_十胜十败.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(0); });
+        神术_十胜十败.handler = pk::unit_menu_item_handler_t(handler_神术_十胜十败);
+        pk::add_menu_item(神术_十胜十败);
       }
     }
     // ----------- 基础 ------------------
@@ -109,6 +124,7 @@ namespace 人物加强 {
       @person_张宝 = pk::get_person(武将_张宝);
       @person_张梁 = pk::get_person(武将_张梁);
       @person_曹操 = pk::get_person(武将_曹操);
+      @person_郭嘉 = pk::get_person(武将_郭嘉);
       src_pos_ = src_pos;
     }
 
@@ -121,6 +137,7 @@ namespace 人物加强 {
         person_张宝.get_id(),
         person_张梁.get_id(),
         person_曹操.get_id(),
+        person_郭嘉.get_id(),
       };
       if (神术技能武将.find(src_leader.get_id()) >= 0) return true;
       return false;
@@ -128,7 +145,7 @@ namespace 人物加强 {
 
     // ------------------ 通用 ------------------
 
-    string getText_神术_名称(string 神术名称, int 气力消耗)
+    string getText_神术_名称(string& 神术名称, int 气力消耗)
     {
       return pk::encode(pk::format("{} ({})", 神术名称, 气力消耗));
     }
@@ -685,16 +702,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("救苍生于水火，平天下于乱世!"), src_leader);
 
-      // pk::wait(100);
       减少武将寿命(src_leader, random(5, 10));
-      // src_leader.death -= random(5, 15);
-      // pk::say(pk::encode("逆天而行，必遭天谴呐!"), src_leader);
-      // if (src_leader.death - src_leader.birth <= 0) { // 生命小于等于0，死亡预定
-      //   src_leader.estimated_death = true;
-      //   pk::kill(src_unit);
-      //   pk::wait(2000);
-      //   pk::kill(src_leader);
-      // }
       src_leader.update();
 
       src_unit.action_done = true;
@@ -816,14 +824,92 @@ namespace 人物加强 {
 
       // pk::wait(100);
       减少武将寿命(src_leader, random(5, 10));
-      // src_leader.death -= random(5, 10);
-      // pk::say(pk::encode("身体不行啊!"), src_leader);
-      // if (person_曹操.death - person_曹操.birth <= 0) { // 生命小于等于0，死亡预定
-      //   src_leader.estimated_death = true;
-      //   pk::kill(src_unit);
-      //   pk::wait(2000);
-      //   pk::kill(src_leader);
-      // }
+      src_leader.update();
+
+      src_unit.action_done = true;
+      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
+        src_unit.action_done = false;
+
+      return true;
+    }
+
+    // ----------------- 十胜十败 ---------------
+    string getDesc_神术_十胜十败()
+    {
+      if (src_unit.energy < 计略气力消耗_通用)
+        return pk::encode("气力不足.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
+      else
+        return pk::encode(pk::format("消耗气力{}，距离最近十只地方部队眩晕，最近十只已方部队回兵", 计略气力消耗_通用));
+    }
+
+    bool isEnabled_神术_十胜十败()
+    {
+      if (src_unit.energy < 计略气力消耗_通用) return false;
+      else if (src_unit.troops < 兵力条件_通用) return false;
+      return true;
+    }
+
+    void fun_十胜十败_处理敌方部队(int range)
+    {
+      int max_unit = 10;
+      array<pk::unit@> target_unit_list = pk::list_to_array(pk::get_unit_list());
+      if (int(target_unit_list.length) < max_unit) {
+        for (int i = 0; i < int(target_unit_list.length); i++)
+        {
+          pk::unit@ target_unit = target_unit_list[i];
+          pk::set_status(target_unit, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+          if (int(target_unit.troops) > int(0.5 * pk::get_max_troops(target_unit))) { // 兵力超过最大兵力一半
+            ch::add_troops(target_unit, -int(0.5 * pk::get_max_troops(target_unit)), true);
+          }
+          pk::say(pk::encode("这，这是发生什么"), pk::get_person(target_unit.leader));
+        }
+      }
+      array<pk::point> arr = pk::range(src_pos_, range, range);
+      for (int i = 0; i < int(arr.length); i++)
+      {
+        pk::point dst_pos = arr[i];
+        if (!pk::is_valid_pos(dst_pos)) {
+          max_unit = 0;
+          return;
+        }
+        pk::unit@ dst = pk::get_unit(dst_pos);
+        if (dst !is null and dst.get_force_id() != src_unit.get_force_id() and max_unit > 0)
+        {
+          pk::set_status(dst, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+          if (int(dst.troops) > int(0.5 * pk::get_max_troops(dst))) { // 兵力超过最大兵力一半
+            ch::add_troops(dst, -int(0.5 * pk::get_max_troops(dst)), true);
+          }
+          pk::say(pk::encode("这，这是发生什么"), pk::get_person(dst.leader));
+          max_unit -= 1;
+        }
+      }
+      if (max_unit > 0)
+      {
+        fun_十胜十败_处理敌方部队(++range);
+      }
+    }
+
+    void func_十胜十败()
+    {
+      fun_十胜十败_处理敌方部队(1);
+    }
+
+    bool handler_神术_十胜十败(pk::point dst_pos)
+    {
+      pk::play_se(120);
+      pk::special_cutin(126,1000); // 妖术遮罩
+
+      func_十胜十败();
+
+      pk::add_energy(src_unit, -计略气力消耗_通用, true);
+
+      pk::add_stat_exp(src_unit, 武将能力_智力, 20);
+
+      pk::say(pk::encode("救苍生于水火，平天下于乱世!"), src_leader);
+
+      减少武将寿命(src_leader, random(5, 10));
       src_leader.update();
 
       src_unit.action_done = true;
