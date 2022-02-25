@@ -16,6 +16,8 @@ namespace 人物加强 {
 
   const int 计略气力消耗_黄天泰平 = 100;
 
+  const int 神术_十胜十败_影响部队 = 0;
+
   array<string> 已影响城市; // 存储处理过的城市
 
   class Main
@@ -854,46 +856,101 @@ namespace 人物加强 {
     void fun_十胜十败_处理敌方部队(int range)
     {
       int max_unit = 10;
+      pk::force@ force = pk::get_force(src_unit.get_force_id());
+      array<pk::unit@> force_unit_list = pk::list_to_array(pk::get_unit_list(force));
       array<pk::unit@> target_unit_list = pk::list_to_array(pk::get_unit_list());
-      if (int(target_unit_list.length) < max_unit) {
+      if ((int(target_unit_list.length) - int(force_unit_list.length)) < max_unit)
+      {
         for (int i = 0; i < int(target_unit_list.length); i++)
         {
           pk::unit@ target_unit = target_unit_list[i];
-          pk::set_status(target_unit, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
-          if (int(target_unit.troops) > int(0.5 * pk::get_max_troops(target_unit))) { // 兵力超过最大兵力一半
-            ch::add_troops(target_unit, -int(0.5 * pk::get_max_troops(target_unit)), true);
+          if (target_unit.get_force_id() != src_unit.get_force_id()) {
+            pk::set_status(target_unit, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+            if (int(target_unit.troops) > int(0.5 * pk::get_max_troops(target_unit))) { // 兵力超过最大兵力一半
+              ch::add_troops(target_unit, -int(0.5 * pk::get_max_troops(target_unit)), true);
+            }
+            pk::say(pk::encode("这，这是发生什么"), pk::get_person(target_unit.leader));
           }
-          pk::say(pk::encode("这，这是发生什么"), pk::get_person(target_unit.leader));
         }
       }
-      array<pk::point> arr = pk::range(src_pos_, range, range);
-      for (int i = 0; i < int(arr.length); i++)
+      else
       {
-        pk::point dst_pos = arr[i];
-        if (!pk::is_valid_pos(dst_pos)) {
-          max_unit = 0;
-          return;
-        }
-        pk::unit@ dst = pk::get_unit(dst_pos);
-        if (dst !is null and dst.get_force_id() != src_unit.get_force_id() and max_unit > 0)
+        array<pk::point> arr = pk::range(src_pos_, range, range);
+        for (int i = 0; i < int(arr.length); i++)
         {
-          pk::set_status(dst, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
-          if (int(dst.troops) > int(0.5 * pk::get_max_troops(dst))) { // 兵力超过最大兵力一半
-            ch::add_troops(dst, -int(0.5 * pk::get_max_troops(dst)), true);
+          pk::point dst_pos = arr[i];
+          if (!pk::is_valid_pos(dst_pos)) {
+            max_unit = 0;
+            return;
           }
-          pk::say(pk::encode("这，这是发生什么"), pk::get_person(dst.leader));
-          max_unit -= 1;
+          pk::unit@ dst = pk::get_unit(dst_pos);
+          if (dst !is null and dst.get_force_id() != src_unit.get_force_id() and max_unit > 0)
+          {
+            pk::set_status(dst, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+            if (int(dst.troops) > int(0.5 * pk::get_max_troops(dst))) { // 兵力超过最大兵力一半
+              ch::add_troops(dst, -int(0.5 * pk::get_max_troops(dst)), true);
+            }
+            pk::say(pk::encode("这，这是发生什么"), pk::get_person(dst.leader));
+            max_unit -= 1;
+          }
+        }
+        if (max_unit > 0)
+        {
+          fun_十胜十败_处理敌方部队(++range);
         }
       }
-      if (max_unit > 0)
+    }
+
+    void fun_十胜十败_处理已方部队(int range)
+    {
+      int max_unit = 10;
+      pk::force@ force = pk::get_force(src_unit.get_force_id());
+      array<pk::unit@> force_unit_list = pk::list_to_array(pk::get_unit_list(force));
+      if (int(force_unit_list.length) < max_unit)
       {
-        fun_十胜十败_处理敌方部队(++range);
+        for (int i = 0; i < int(force_unit_list.length); i++)
+        {
+          pk::unit@ target_unit = force_unit_list[i];
+          // pk::set_status(target_unit, src_unit, 部队状态_混乱, 2 + pk::rand(3), true);
+          pk::add_energy(target_unit, 5 + pk::rand(10), true);
+          if (int(target_unit.troops) < int(0.5 * pk::get_max_troops(target_unit))) { // 兵力超过最大兵力一半
+            ch::add_troops(target_unit, int(0.5 * pk::get_max_troops(target_unit)), true);
+          }
+          pk::say(pk::encode("先生真乃世之奇士也"), pk::get_person(target_unit.leader));
+        }
+      }
+      else
+      {
+        array<pk::point> arr = pk::range(src_pos_, range, range);
+        for (int i = 0; i < int(arr.length); i++)
+        {
+          pk::point dst_pos = arr[i];
+          if (!pk::is_valid_pos(dst_pos)) {
+            max_unit = 0;
+            return;
+          }
+          pk::unit@ dst = pk::get_unit(dst_pos);
+          if (dst !is null and dst.get_force_id() != src_unit.get_force_id() and max_unit > 0)
+          {
+            pk::set_status(dst, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+            if (int(dst.troops) > int(0.5 * pk::get_max_troops(dst))) { // 兵力超过最大兵力一半
+              ch::add_troops(dst, -int(0.5 * pk::get_max_troops(dst)), true);
+            }
+            pk::say(pk::encode("这，这是发生什么"), pk::get_person(dst.leader));
+            max_unit -= 1;
+          }
+        }
+        if (max_unit > 0)
+        {
+          fun_十胜十败_处理敌方部队(++range);
+        }
       }
     }
 
     void func_十胜十败()
     {
       fun_十胜十败_处理敌方部队(1);
+      fun_十胜十败_处理已方部队(1);
     }
 
     bool handler_神术_十胜十败(pk::point dst_pos)
@@ -907,7 +964,7 @@ namespace 人物加强 {
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 20);
 
-      pk::say(pk::encode("救苍生于水火，平天下于乱世!"), src_leader);
+      pk::say(pk::encode("策谋本天成，妙手偶得之!"), src_leader);
 
       减少武将寿命(src_leader, random(5, 10));
       src_leader.update();
