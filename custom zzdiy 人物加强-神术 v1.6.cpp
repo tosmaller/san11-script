@@ -1,6 +1,7 @@
 
 /*
 作者：黑店小小二
+v1.6 2022/02/25 郭嘉新增神术【十胜十败】
 v1.5 2022/02/22 调整写法，优化代码体积
 v1.4 2022/02/19 修复【黄天泰平】劝降君主，都督后的处理
 v1.3 2022/02/17 修复对城池耐久归0归属变更bug，张角新增神术【黄天泰平】,调整【神雷灭世】动画效果，曹操新增神术【天下归心】
@@ -11,12 +12,15 @@ v1.0 2022/02/12 新增周瑜神术【业火焚天】
  */
 
 namespace 人物加强 {
+
   const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
 
   const int 计略气力消耗_黄天泰平 = 100;
 
   const int 神术_十胜十败_影响部队 = 0;
+
+  pk::func209_t@ prev_callback_;
 
   array<string> 已影响城市; // 存储处理过的城市
 
@@ -25,6 +29,10 @@ namespace 人物加强 {
     pk::random random(pk::rand());
     Main() {
       add_menu_unit_order();
+
+      @prev_callback_ = cast<pk::func209_t@>(pk::get_func(209));
+      pk::reset_func(209);
+      pk::set_func(209, pk::func209_t(func209));
     }
 
     pk::unit@ src_unit;
@@ -35,6 +43,7 @@ namespace 人物加强 {
     pk::person@ person_张梁;
     pk::person@ person_曹操;
     pk::person@ person_郭嘉;
+    pk::person@ person_袁术;
     pk::point src_pos_;
 
     bool 开启_业火焚天 = true; // 周瑜大招
@@ -42,6 +51,9 @@ namespace 人物加强 {
     bool 开启_黄天泰平 = true; // 张角三兄弟大招
     bool 开启_天下归心 = true; // 曹操大招
     bool 开启_十胜十败 = true; // 郭嘉大招
+    bool 开启_妄尊仲帝 = true; // 袁术大招
+
+    bool 妄尊仲帝_启用状态 = true;
 
     void add_menu_unit_order()
     {
@@ -115,6 +127,18 @@ namespace 人物加强 {
         神术_十胜十败.handler = pk::unit_menu_item_handler_t(handler_神术_十胜十败);
         pk::add_menu_item(神术_十胜十败);
       }
+      if (开启_妄尊仲帝) {
+        pk::menu_item 神术_妄尊仲帝;
+        神术_妄尊仲帝.menu = 菜单_神术;
+        神术_妄尊仲帝.init = pk::unit_menu_item_init_t(init);
+        神术_妄尊仲帝.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_妄尊仲帝(); });
+        神术_妄尊仲帝.get_desc = pk::menu_item_get_desc_t(getDesc_神术_妄尊仲帝);
+        神术_妄尊仲帝.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_袁术); });
+        // 神术_妄尊仲帝.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_妄尊仲帝);
+        // 神术_十胜十败.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(0); });
+        神术_妄尊仲帝.handler = pk::unit_menu_item_handler_t(handler_神术_妄尊仲帝);
+        pk::add_menu_item(神术_妄尊仲帝);
+      }
     }
     // ----------- 基础 ------------------
     void init(pk::unit@ unit, pk::point src_pos)
@@ -127,6 +151,7 @@ namespace 人物加强 {
       @person_张梁 = pk::get_person(武将_张梁);
       @person_曹操 = pk::get_person(武将_曹操);
       @person_郭嘉 = pk::get_person(武将_郭嘉);
+      @person_袁术 = pk::get_person(武将_袁术);
       src_pos_ = src_pos;
     }
 
@@ -140,6 +165,7 @@ namespace 人物加强 {
         person_张梁.get_id(),
         person_曹操.get_id(),
         person_郭嘉.get_id(),
+        person_袁术.get_id()
       };
       if (神术技能武将.find(src_leader.get_id()) >= 0) return true;
       return false;
@@ -147,7 +173,7 @@ namespace 人物加强 {
 
     // ------------------ 通用 ------------------
 
-    string getText_神术_名称(string& 神术名称, int 气力消耗)
+    string getText_神术_名称(string& 神术名称, int 气力消耗 = 0)
     {
       return pk::encode(pk::format("{} ({})", 神术名称, 气力消耗));
     }
@@ -272,6 +298,35 @@ namespace 人物加强 {
         pk::kill(src_unit);
         pk::wait(2000);
         pk::kill(person);
+      }
+    }
+
+    void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
+    {
+      prev_callback_(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
+      pk::unit@ dst = pk::get_unit(target_pos);
+      if (dst !is null and dst.leader == 武将_袁术)
+      {
+        info.troops_damage = int(0.5 * info.troops_damage);
+        if (妄尊仲帝_启用状态)
+        {
+          if (dst.gold > 0)
+          {
+            int troops_damage = info.troops_damage;
+            info.troops_damage -= dst.gold;
+            pk::wait(300);
+            pk::add_gold(dst, -troops_damage, true);
+            pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), person_袁术);
+          }
+          else
+          {
+            pk::say(pk::encode("可恶！就差……一步了……"), person_袁术);
+          }
+        }
+        else
+        {
+          pk::say(pk::encode("我袁家人何以至此！"), src_leader);
+        }
       }
     }
 
@@ -966,7 +1021,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("策谋本天成，妙手偶得之!"), src_leader);
 
-      减少武将寿命(src_leader, random(5, 10));
+      减少武将寿命(src_leader, random(0, 1));
       src_leader.update();
 
       src_unit.action_done = true;
@@ -975,6 +1030,34 @@ namespace 人物加强 {
 
       return true;
     }
+
+
+    // --------------- 妄尊仲帝 ---------------
+    string getText_神术_妄尊仲帝()
+    {
+      return pk::encode(pk::format("神术_妄尊仲帝({})", 妄尊仲帝_启用状态 ? '已开启' : '已关闭'));
+    }
+    string getDesc_神术_妄尊仲帝()
+    {
+      return pk::encode("伤害减半，且可用金钱代替（可关闭）。每回合回兵势力数%，回合结束减兵势力数%");
+    }
+
+    bool isEnabled_神术_妄尊仲帝()
+    {
+      return true;
+    }
+
+    bool handler_神术_妄尊仲帝(pk::point dst_pos)
+    {
+      // pk::play_se(120);
+      // pk::special_cutin(126,1000); // 妖术遮罩
+      妄尊仲帝_启用状态 = !妄尊仲帝_启用状态;
+      pk::say(pk::encode("策谋本天成，妙手偶得之!"), src_leader);
+
+      return true;
+    }
+
+
   }
   Main main;
 }
