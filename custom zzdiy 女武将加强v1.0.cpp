@@ -1,9 +1,10 @@
 
 
 namespace 女武将加强 {
-  const int KEY = pk::hash("神术");
 
-  const int KEY_索引_武将起始 = 0;
+  const int KEY_离魂 = pk::hash("神术_离魂");
+
+  const int KEY_离魂_索引_武将起始 = 0;
 
   const int 计略气力消耗_通用 = 30;
   const int 兵力条件_通用 = 5000;
@@ -116,24 +117,24 @@ namespace 女武将加强 {
     void onTurnEnd(pk::force@ force)
     {
       int force_id = force.get_id();
-      const int unit_id = uint64(pk::load(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
+      const int unit_id = uint64(pk::load(KEY_离魂, KEY_离魂_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
       if (unit_id >= 0)
       {
         pk::unit@ dst = pk::get_unit(unit_id);
         ch::add_troops(dst, dst.troops, true);
         pk::say(pk::encode("士兵好像回来了，但总感觉不一样..."), pk::get_person(dst.leader));
-        pk::store(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), -1);
+        pk::store(KEY_离魂, KEY_离魂_索引_武将起始 + person_貂蝉.get_id(), -1);
       }
       else
       {
-        pk::store(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), -1);
+        pk::store(KEY_离魂, KEY_离魂_索引_武将起始 + person_貂蝉.get_id(), -1);
       }
     }
 
     // --------------------------- 离魂 ---------------------
     string getDesc_神术_离魂()
     {
-      const int id = uint64(pk::load(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
+      const int id = uint64(pk::load(KEY_离魂, KEY_离魂_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
       if (src_unit.energy < 计略气力消耗_通用)
         return pk::encode("气力不足.");
       else if (src_unit.troops < 兵力条件_离魂)
@@ -148,7 +149,7 @@ namespace 女武将加强 {
 
     bool isEnabled_神术_离魂()
     {
-      const int id = uint64(pk::load(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
+      const int id = uint64(pk::load(KEY_离魂, KEY_离魂_索引_武将起始 + person_貂蝉.get_id(), uint64(-1)));
       if (src_unit.energy < 计略气力消耗_通用) return false;
       else if (src_unit.troops < 兵力条件_离魂) return false;
       else if (int(src_unit.troops) == pk::get_max_troops(src_unit)) return false;
@@ -186,7 +187,7 @@ namespace 女武将加强 {
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 10);
 
-      pk::store(KEY, KEY_索引_武将起始 + person_貂蝉.get_id(), target_unit.get_id());
+      pk::store(KEY_离魂, KEY_离魂_索引_武将起始 + person_貂蝉.get_id(), target_unit.get_id());
 
       person_貂蝉.update();
 

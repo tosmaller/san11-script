@@ -1,6 +1,8 @@
 
 /*
 作者：黑店小小二
+v1.8 2022/03/01 诸葛亮新增神术【神鬼八阵】
+v1.7 2022/02/28 袁术新增神术【妄尊仲帝】
 v1.6 2022/02/25 郭嘉新增神术【十胜十败】
 v1.5 2022/02/22 调整写法，优化代码体积
 v1.4 2022/02/19 修复【黄天泰平】劝降君主，都督后的处理
@@ -8,10 +10,13 @@ v1.3 2022/02/17 修复对城池耐久归0归属变更bug，张角新增神术【
 v1.2 2022/02/14 修复措施耐久归0归属变更bug
 v1.1 2022/02/13 修复周瑜神术对关卡跟港口无效bug，张角新增神术【神雷灭世】
 v1.0 2022/02/12 新增周瑜神术【业火焚天】
+
 描述：针对高智武将，设置了大招【神术】，旨在增加游戏娱乐性
  */
 
 namespace 人物加强 {
+  const int KEY_神鬼八阵 = pk::hash("神术_神鬼八阵");
+  const int KEY_神鬼八阵_索引_武将起始 = 0;
 
   const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
@@ -33,6 +38,8 @@ namespace 人物加强 {
       @prev_callback_ = cast<pk::func209_t@>(pk::get_func(209));
       pk::reset_func(209);
       pk::set_func(209, pk::func209_t(func209));
+
+      pk::bind(111, pk::trigger111_t(onTurnBegin));
     }
 
     pk::unit@ src_unit;
@@ -44,6 +51,7 @@ namespace 人物加强 {
     pk::person@ person_曹操;
     pk::person@ person_郭嘉;
     pk::person@ person_袁术;
+    pk::person@ person_诸葛亮;
     pk::point src_pos_;
 
     bool 开启_业火焚天 = true; // 周瑜大招
@@ -52,8 +60,10 @@ namespace 人物加强 {
     bool 开启_天下归心 = true; // 曹操大招
     bool 开启_十胜十败 = true; // 郭嘉大招
     bool 开启_妄尊仲帝 = true; // 袁术大招
+    bool 开启_神鬼八阵 = true; // 诸葛亮大招
 
     bool 妄尊仲帝_启用状态 = true;
+    bool 神鬼八阵_启用状态 = true;
 
     void add_menu_unit_order()
     {
@@ -134,10 +144,18 @@ namespace 人物加强 {
         神术_妄尊仲帝.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_妄尊仲帝(); });
         神术_妄尊仲帝.get_desc = pk::menu_item_get_desc_t(getDesc_神术_妄尊仲帝);
         神术_妄尊仲帝.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_袁术); });
-        // 神术_妄尊仲帝.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_妄尊仲帝);
-        // 神术_十胜十败.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(0); });
         神术_妄尊仲帝.handler = pk::unit_menu_item_handler_t(handler_神术_妄尊仲帝);
         pk::add_menu_item(神术_妄尊仲帝);
+      }
+      if (开启_神鬼八阵) {
+        pk::menu_item 神术_神鬼八阵;
+        神术_神鬼八阵.menu = 菜单_神术;
+        神术_神鬼八阵.init = pk::unit_menu_item_init_t(init);
+        神术_神鬼八阵.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("神鬼八阵", 计略气力消耗_通用); });
+        神术_神鬼八阵.get_desc = pk::menu_item_get_desc_t(getDesc_神术_神鬼八阵);
+        神术_神鬼八阵.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_诸葛亮); });
+        神术_神鬼八阵.handler = pk::unit_menu_item_handler_t(handler_神术_神鬼八阵);
+        pk::add_menu_item(神术_神鬼八阵);
       }
     }
     // ----------- 基础 ------------------
@@ -152,6 +170,7 @@ namespace 人物加强 {
       @person_曹操 = pk::get_person(武将_曹操);
       @person_郭嘉 = pk::get_person(武将_郭嘉);
       @person_袁术 = pk::get_person(武将_袁术);
+      @person_诸葛亮 = pk::get_person(武将_诸葛亮);
       src_pos_ = src_pos;
     }
 
@@ -165,7 +184,8 @@ namespace 人物加强 {
         person_张梁.get_id(),
         person_曹操.get_id(),
         person_郭嘉.get_id(),
-        person_袁术.get_id()
+        person_袁术.get_id(),
+        person_诸葛亮.get_id()
       };
       if (神术技能武将.find(src_leader.get_id()) >= 0) return true;
       return false;
@@ -205,6 +225,23 @@ namespace 人物加强 {
           pk::point dst_pos = rings[i];
           pk::unit@ dst = pk::get_unit(dst_pos);
           if (dst !is null and dst.get_force_id() != src_unit.get_force_id())
+          {
+            targets.insertLast(pk::point_int(dst_pos, 1));
+          }
+        }
+
+        return targets;
+    }
+
+    pk::array<pk::point_int> getTargets_势力_目标部队(pk::force@ force, int range)
+    {
+        pk::array<pk::point_int> targets;
+        array<pk::point> rings = pk::range(src_pos_, 1, range);
+        for (int i = 0; i < int(rings.length); i++)
+        {
+          pk::point dst_pos = rings[i];
+          pk::unit@ dst = pk::get_unit(dst_pos);
+          if (dst !is null and dst.get_force_id() == force.get_force_id())
           {
             targets.insertLast(pk::point_int(dst_pos, 1));
           }
@@ -303,30 +340,26 @@ namespace 人物加强 {
 
     void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
     {
-      prev_callback_(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
+
       pk::unit@ dst = pk::get_unit(target_pos);
-      if (dst !is null and dst.leader == 武将_袁术)
+      if (dst !is null) {
+        switch(dst.leader)
+        {
+          case 武将_袁术:
+            神术_妄尊仲帝_伤害处理(info);
+            break;
+        }
+      }
+      prev_callback_(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
+    }
+
+    void onTurnStart(pk::force@ force)
+    {
+      switch(force.get_force_id())
       {
-        info.troops_damage = int(0.5 * info.troops_damage);
-        if (妄尊仲帝_启用状态)
-        {
-          if (dst.gold > 0)
-          {
-            int troops_damage = info.troops_damage;
-            info.troops_damage -= dst.gold;
-            pk::wait(300);
-            pk::add_gold(dst, -troops_damage, true);
-            pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), person_袁术);
-          }
-          else
-          {
-            pk::say(pk::encode("可恶！就差……一步了……"), person_袁术);
-          }
-        }
-        else
-        {
-          pk::say(pk::encode("我袁家人何以至此！"), src_leader);
-        }
+        case 武将_袁术.get_force_id():
+          神术_妄尊仲帝_补兵处理();
+          break;
       }
     }
 
@@ -416,7 +449,6 @@ namespace 人物加强 {
 
       for (int l = 0; l < 11; l++) {
         func_业火焚天(dst_pos, l);
-        // pk::wait(1000);
       }
 
       pk::add_energy(src_unit, -计略气力消耗_通用, true);
@@ -429,15 +461,8 @@ namespace 人物加强 {
 
       pk::say(pk::encode("怎么感觉有点虚弱呢，难道是天谴吗。。。"), person_周瑜);
 
-      减少武将寿命(person_周瑜, random(3, 10));
-      // person_周瑜.death -= random(3, 10);
-      // if (person_周瑜.death - person_周瑜.birth <= 0) { // 生命小于等于0，死亡
-      //   person_周瑜.estimated_death = true; // 死亡预定
-      //   pk::kill(src_unit);
-      //   pk::wait(2000);
-      //   pk::kill(person_周瑜); // 防止死亡预定因为队伍在外无法及时处理，补充设置武将死亡
-      // }
-      person_周瑜.update();
+      减少武将寿命(src_leader, random(3, 10));
+      src_leader.update();
 
       已影响城市.removeRange(0, 已影响城市.length() - 1); // 清除处理过的
 
@@ -450,7 +475,6 @@ namespace 人物加强 {
 
 
     //-------------------------神雷灭世---------------
-    //
     string getDesc_神术_神雷灭世()
     {
       if (src_unit.energy < 计略气力消耗_通用)
@@ -549,15 +573,8 @@ namespace 人物加强 {
       // pk::wait(100);
 
       pk::say(pk::encode("黄天既覆，苍生何存......"), person_张角);
-      减少武将寿命(person_张角, random(3, 10));
-      // person_张角.death -= random(3, 10);
-      // if (person_张角.death - person_张角.birth <= 0) { // 生命小于等于0，死亡预定
-      //   person_张角.estimated_death = true;
-      //   pk::kill(src_unit);
-      //   pk::wait(2000);
-      //   pk::kill(person_张角);
-      // }
-      person_张角.update();
+      减少武将寿命(src_leader, random(3, 10));
+      src_leader.update();
 
       src_unit.action_done = true;
       if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
@@ -700,7 +717,6 @@ namespace 人物加强 {
                     }
                   }
 
-                  // pk::set_district(member_t, src_leader.get_district_id());
                 }
                 continue;
               }
@@ -748,7 +764,6 @@ namespace 人物加强 {
 
       for (int l = 0; l < 3; l++) {
         func_黄天泰平(dst_pos, l);
-        // pk::wait(1000);
       }
 
       pk::add_energy(src_unit, -计略气力消耗_黄天泰平, true);
@@ -997,7 +1012,7 @@ namespace 人物加强 {
         }
         if (max_unit > 0)
         {
-          fun_十胜十败_处理敌方部队(++range);
+          fun_十胜十败_处理已方部队(++range);
         }
       }
     }
@@ -1035,11 +1050,11 @@ namespace 人物加强 {
     // --------------- 妄尊仲帝 ---------------
     string getText_神术_妄尊仲帝()
     {
-      return pk::encode(pk::format("神术_妄尊仲帝({})", 妄尊仲帝_启用状态 ? '已开启' : '已关闭'));
+      return pk::encode(pk::format("妄尊仲帝({})", 妄尊仲帝_启用状态 ? '已开启' : '已关闭'));
     }
     string getDesc_神术_妄尊仲帝()
     {
-      return pk::encode("伤害减半，且可用金钱代替（可关闭）。每回合回兵势力数%，回合结束减兵势力数%");
+      return pk::encode("伤害减半，且可用金钱代替（可关闭）。每回合回兵势力数%");
     }
 
     bool isEnabled_神术_妄尊仲帝()
@@ -1057,6 +1072,82 @@ namespace 人物加强 {
       return true;
     }
 
+    void 神术_妄尊仲帝_伤害处理(pk::damage_info& info)
+    {
+      info.troops_damage = int(0.5 * info.troops_damage);
+      if (妄尊仲帝_启用状态)
+      {
+        if (dst.gold > 0)
+        {
+          int troops_damage = info.troops_damage;
+          info.troops_damage -= dst.gold;
+          pk::wait(300);
+          pk::add_gold(dst, -troops_damage, true);
+          pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), person_袁术);
+        }
+        else
+        {
+          pk::say(pk::encode("可恶！就差……一步了……"), person_袁术);
+        }
+      }
+      else
+      {
+        pk::say(pk::encode("我袁家人何以至此！"), src_leader);
+      }
+    }
+
+    void 神术_妄尊仲帝_补兵处理()
+    {
+      auto force_list = pk::list_to_array(pk::get_force_list());
+      int troops = int(force_list.length / 100 * src_unit.troops);
+      pk::unit 袁术部队 = pk::get_unit(person_袁术.location);
+      ch::add_troops(袁术部队, troops, true);
+      pk::say(pk::encode("乱世之中，必出枭雄！哈哈哈"), person_袁术);
+    }
+
+    // --------- 神鬼八阵 -----------
+
+    string getText_神术_神鬼八阵()
+    {
+      return pk::encode(pk::format("神鬼八阵"));
+    }
+    string getDesc_神术_神鬼八阵()
+    {
+      return pk::encode("伤害50%为0，已方3格内部队本回合获得一击必杀能力");
+    }
+
+    bool isEnabled_神术_神鬼八阵()
+    {
+      return true;
+    }
+
+    bool handler_神术_神鬼八阵(pk::point dst_pos)
+    {
+      pk::play_se(120);
+      pk::special_cutin(126,1000); // 妖术遮罩
+
+      pk::force@ force = pk::get_force(src_unit.get_force_id());
+      pk::list<pk::unit@> target_unit_list = getTargets_势力_目标部队(force, 3);
+      for (int i = 0; i < int(target_unit_list.length); i++)
+      {
+        pk::unit@ target_unit = target_unit_list[i];
+        pk::store(KEY_神鬼八阵, KEY_神鬼八阵_索引_武将起始 + i + 1, target_unit_list_id);
+      }
+      pk::say(pk::encode("八阵图!"), src_leader);
+
+      return true;
+    }
+
+    void 神术_神鬼八阵_伤害处理(pk::damage_info& info)
+    {
+      if (开启_神鬼八阵)
+      {
+        if (pk::rand_bool(50)) {
+          info.troops_damage = 0;
+        }
+      }
+
+    }
 
   }
   Main main;
