@@ -39,7 +39,7 @@ namespace 人物加强 {
       pk::reset_func(209);
       pk::set_func(209, pk::func209_t(func209));
 
-      pk::bind(111, pk::trigger111_t(onTurnBegin));
+      pk::bind(111, pk::trigger111_t(onTurnStart));
     }
 
     pk::unit@ src_unit;
@@ -233,9 +233,9 @@ namespace 人物加强 {
         return targets;
     }
 
-    pk::array<pk::point_int> getTargets_势力_目标部队(pk::force@ force, int range)
+    pk::list<pk::unit@> getTargets_势力_目标部队(pk::force@ force, int range)
     {
-        pk::array<pk::point_int> targets;
+        pk::list<pk::unit@> targets;
         array<pk::point> rings = pk::range(src_pos_, 1, range);
         for (int i = 0; i < int(rings.length); i++)
         {
@@ -243,7 +243,7 @@ namespace 人物加强 {
           pk::unit@ dst = pk::get_unit(dst_pos);
           if (dst !is null and dst.get_force_id() == force.get_force_id())
           {
-            targets.insertLast(pk::point_int(dst_pos, 1));
+            targets.add(dst);
           }
         }
 
@@ -340,26 +340,25 @@ namespace 人物加强 {
 
     void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
     {
-
+      prev_callback_(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
       pk::unit@ dst = pk::get_unit(target_pos);
       if (dst !is null) {
         switch(dst.leader)
         {
           case 武将_袁术:
-            神术_妄尊仲帝_伤害处理(info);
+            神术_妄尊仲帝_伤害处理(info, dst);
             break;
         }
       }
-      prev_callback_(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
     }
 
     void onTurnStart(pk::force@ force)
     {
-      switch(force.get_force_id())
+      pk::say(pk::encode(pk::format("force {}, 袁术 {}", force.get_id(), person_袁术.get_force_id())), person_袁术);
+      if (force.get_id() == person_袁术.get_force_id())
       {
-        case 武将_袁术.get_force_id():
-          神术_妄尊仲帝_补兵处理();
-          break;
+        pk::say(pk::encode("符合条件"), person_袁术);
+        神术_妄尊仲帝_补兵处理();
       }
     }
 
@@ -1067,12 +1066,11 @@ namespace 人物加强 {
       // pk::play_se(120);
       // pk::special_cutin(126,1000); // 妖术遮罩
       妄尊仲帝_启用状态 = !妄尊仲帝_启用状态;
-      pk::say(pk::encode("策谋本天成，妙手偶得之!"), src_leader);
 
       return true;
     }
 
-    void 神术_妄尊仲帝_伤害处理(pk::damage_info& info)
+    void 神术_妄尊仲帝_伤害处理(pk::damage_info& info, pk::unit@ dst)
     {
       info.troops_damage = int(0.5 * info.troops_damage);
       if (妄尊仲帝_启用状态)
@@ -1081,13 +1079,13 @@ namespace 人物加强 {
         {
           int troops_damage = info.troops_damage;
           info.troops_damage -= dst.gold;
-          pk::wait(300);
+          // pk::wait(300);
           pk::add_gold(dst, -troops_damage, true);
-          pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), person_袁术);
+          pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), src_leader);
         }
         else
         {
-          pk::say(pk::encode("可恶！就差……一步了……"), person_袁术);
+          pk::say(pk::encode("可恶！就差……一步了……"), src_leader);
         }
       }
       else
@@ -1098,19 +1096,17 @@ namespace 人物加强 {
 
     void 神术_妄尊仲帝_补兵处理()
     {
-      auto force_list = pk::list_to_array(pk::get_force_list());
-      int troops = int(force_list.length / 100 * src_unit.troops);
-      pk::unit 袁术部队 = pk::get_unit(person_袁术.location);
-      ch::add_troops(袁术部队, troops, true);
-      pk::say(pk::encode("乱世之中，必出枭雄！哈哈哈"), person_袁术);
+      auto force_list = pk::get_force_list();
+      int troops = int(force_list.count / 100 * src_unit.troops);
+      pk::unit@ 袁术部队 = pk::get_unit(person_袁术.location);
+      if (袁术部队 !is null)
+      {
+        ch::add_troops(袁术部队, troops, true);
+        pk::say(pk::encode("乱世之中，必出枭雄！哈哈哈"), person_袁术);
+      }
     }
 
     // --------- 神鬼八阵 -----------
-
-    string getText_神术_神鬼八阵()
-    {
-      return pk::encode(pk::format("神鬼八阵"));
-    }
     string getDesc_神术_神鬼八阵()
     {
       return pk::encode("伤害50%为0，已方3格内部队本回合获得一击必杀能力");
@@ -1128,10 +1124,10 @@ namespace 人物加强 {
 
       pk::force@ force = pk::get_force(src_unit.get_force_id());
       pk::list<pk::unit@> target_unit_list = getTargets_势力_目标部队(force, 3);
-      for (int i = 0; i < int(target_unit_list.length); i++)
+      for (int i = 0; i < target_unit_list.count; i++)
       {
         pk::unit@ target_unit = target_unit_list[i];
-        pk::store(KEY_神鬼八阵, KEY_神鬼八阵_索引_武将起始 + i + 1, target_unit_list_id);
+        pk::store(KEY_神鬼八阵, KEY_神鬼八阵_索引_武将起始 + i + 1, target_unit.get_id());
       }
       pk::say(pk::encode("八阵图!"), src_leader);
 
