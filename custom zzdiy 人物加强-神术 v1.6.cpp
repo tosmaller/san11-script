@@ -1136,6 +1136,7 @@ namespace 人物加强 {
       pk::say(pk::encode("八阵图!"), src_leader);
 
       return true;
+
     }
 
     void 神术_神鬼八阵_伤害处理(pk::damage_info& info)
