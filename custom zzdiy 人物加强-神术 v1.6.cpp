@@ -25,7 +25,8 @@ namespace 人物加强 {
 
   const int 神术_十胜十败_影响部队 = 0;
 
-  pk::func209_t@ prev_callback_;
+  pk::func209_t@ prev_callback_209;
+  pk::func58_t@ prev_callback_58;
 
   array<string> 已影响城市; // 存储处理过的城市
 
@@ -35,9 +36,13 @@ namespace 人物加强 {
     Main() {
       add_menu_unit_order();
 
-      @prev_callback_ = cast<pk::func209_t@>(pk::get_func(209));
+      @prev_callback_209 = cast<pk::func209_t@>(pk::get_func(209));
       pk::reset_func(209);
       pk::set_func(209, pk::func209_t(func209));
+
+      @prev_callback_58 = cast<pk::func58_t@>(pk::get_func(58));
+      pk::reset_func(58);
+      pk::set_func(58, pk::func58_t(func58));
 
       pk::bind(111, pk::trigger111_t(onTurnStart));
     }
@@ -340,26 +345,30 @@ namespace 人物加强 {
 
     void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
     {
-      prev_callback_(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
-      pk::unit@ dst = pk::get_unit(target_pos);
-      if (dst !is null) {
-        switch(dst.leader)
-        {
-          case 武将_袁术:
-            神术_妄尊仲帝_伤害处理(info, dst);
-            break;
-        }
-      }
+      prev_callback_209(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
     }
 
     void onTurnStart(pk::force@ force)
     {
-      pk::say(pk::encode(pk::format("force {}, 袁术 {}", force.get_id(), person_袁术.get_force_id())), person_袁术);
+      if (person_袁术 is null)
+      {
+        @person_袁术 = pk::get_person(武将_袁术);
+      }
       if (force.get_id() == person_袁术.get_force_id())
       {
-        pk::say(pk::encode("符合条件"), person_袁术);
         神术_妄尊仲帝_补兵处理();
       }
+    }
+
+    int func58(pk::unit@ unit,int value, int rettype)
+    {
+      pk::trace(pk::format("unit:{},value:{},rettype:{}", unit.leader, value, rettype));
+      int troops = prev_callback_58(unit, value, rettype);
+      if (unit.leader == 武将_袁术 and 妄尊仲帝_启用状态)
+      {
+        troops = 神术_妄尊仲帝_伤害处理(unit, troops, rettype);
+      }
+      return int(troops);
     }
 
     // ------------------- 业火焚天------------------
@@ -1070,37 +1079,34 @@ namespace 人物加强 {
       return true;
     }
 
-    void 神术_妄尊仲帝_伤害处理(pk::damage_info& info, pk::unit@ dst)
+    int 神术_妄尊仲帝_伤害处理(pk::unit@ unit, int value, int rettype)
     {
-      info.troops_damage = int(0.5 * info.troops_damage);
-      if (妄尊仲帝_启用状态)
+      int troops = value;
+      if (troops < 0 and (rettype == 14 or rettype == 100))
       {
-        if (dst.gold > 0)
+        if (unit.gold > 0)
         {
-          int troops_damage = info.troops_damage;
-          info.troops_damage -= dst.gold;
+          troops = int(0.5f * troops);
+          pk::add_gold(unit, troops, true);
+          troops += unit.gold;
+          troops = troops > 0 ? 0 : troops;
           // pk::wait(300);
-          pk::add_gold(dst, -troops_damage, true);
-          pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), src_leader);
+          pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), person_袁术);
         }
         else
         {
-          pk::say(pk::encode("可恶！就差……一步了……"), src_leader);
+          pk::say(pk::encode("可恶！就差……一步了……"), person_袁术);
         }
       }
-      else
-      {
-        pk::say(pk::encode("我袁家人何以至此！"), src_leader);
-      }
+      return troops;
     }
 
     void 神术_妄尊仲帝_补兵处理()
     {
-      auto force_list = pk::get_force_list();
-      int troops = int(force_list.count / 100 * src_unit.troops);
-      pk::unit@ 袁术部队 = pk::get_unit(person_袁术.location);
+      pk::unit@ 袁术部队 = pk::get_unit(pk::hex_object_id_to_unit_id(person_袁术.location));
       if (袁术部队 !is null)
       {
+        int troops = int(pk::get_force_list().count * 袁术部队.troops / 100);
         ch::add_troops(袁术部队, troops, true);
         pk::say(pk::encode("乱世之中，必出枭雄！哈哈哈"), person_袁术);
       }
