@@ -207,6 +207,33 @@ namespace 人物加强 {
     {
       return src_leader.get_id() == 武将Id;
     }
+    void 历史日志(pk::person@ person, string action_name, string result)
+    {
+      const string person_name = pk::encode(pk::format("\x1b[1x{}\x1b[0x"), pk::decode(pk::get_name(person)));
+      const string action_name = pk::encode(pk::format("\x1b[27x{}\x1b[0x"), action_name);
+
+      string str = pk::format("武将{}由于{}的效果，{}", person_name, action_name, result);
+
+      pk::history_log(unit.pos, pk::get_force(unit.get_force_id()).color, pk::encode(str));
+    }
+    void 历史日志(pk::unit@ unit, string action_name, string result)
+    {
+      const string person_name = pk::encode(pk::format("\x1b[1x{}\x1b[0x"), pk::decode(pk::get_name(unit)));
+      const string action_name = pk::encode(pk::format("\x1b[27x{}\x1b[0x"), action_name);
+
+      string str = pk::format("{}队由于{}的效果，{}", person_name, action_name, result);
+
+      pk::history_log(unit.pos, pk::get_force(unit.get_force_id()).color, pk::encode(str));
+    }
+    void 历史日志(pk::building@ building, string action_name, string result)
+    {
+      const string person_name = pk::encode(pk::format("\x1b[1x{}\x1b[0x"), pk::decode(pk::get_name(building)));
+      const string action_name = pk::encode(pk::format("\x1b[27x{}\x1b[0x"), action_name);
+
+      string str = pk::format("{}由于{}的效果，{}", person_name, action_name, result);
+
+      pk::history_log(unit.pos, pk::get_force(unit.get_force_id()).color, pk::encode(str));
+    }
 
     pk::array<pk::point_int> getTargets_神术_目标(int range)
     {
@@ -412,9 +439,11 @@ namespace 人物加强 {
             continue;
           }
           pk::set_status(dst, dst, 部队状态_伪报, pk::rand(2) + 3, true);
+          历史日志(dst, '神术_业火焚天', '陷入伪报');
           pk::create_fire(arr[l], pk::rand(2) + 3, dst, true); //火计
           pk::add_energy(dst, -30, true); //减气
           ch::add_troops(dst, -random(500, 1500), true); // 随机减兵500~1500
+          历史日志(dst, '神术_业火焚天', '受到了巨大伤害');
           if (dst.troops <= 0) {
             pk::kill(dst, src_unit);
           }
@@ -436,7 +465,7 @@ namespace 人物加强 {
           int hp_damage = 建筑火伤_练成炸药附加 + pk::rand(建筑火伤_练成炸药附加) + pk::rand(5000);
 
           fun_处理城市(building, arr[l], hp_damage);
-
+          历史日志(building, '神术_业火焚天', '受到了巨大伤害');
           building.update();
         }
 
@@ -522,11 +551,13 @@ namespace 人物加强 {
             continue;
           }
           pk::set_status(dst, src_unit, 部队状态_混乱, pk::rand(2) + 3, true); // 雷电麻痹
+          历史日志(dst, '神术_神雷灭世', '陷入混乱');
           if (pk::rand_bool(50)) { // 50%概率着火
             pk::create_fire(arr[l], pk::rand(2), dst, true); //火计
           }
           pk::add_energy(dst, -30, true); //减气
           ch::add_troops(dst, -(部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(2000)), true); // 在雷电伤害基础上随机加2000
+          历史日志(dst, '神术_神雷灭世', '受到了巨大伤害');
           if (dst.troops <= 0) {
             pk::kill(dst, src_unit);
           }
@@ -546,6 +577,7 @@ namespace 人物加强 {
           if (!pk::is_enemy(src_unit, building)) continue;
           if (building.has_skill(特技_鬼门)) continue;
           int hp_damage = 建筑落雷伤害 + pk::rand(建筑落雷伤害_1) + pk::rand(2000);
+          历史日志(building, '神术_神雷灭世', '受到了巨大伤害');
           fun_处理城市(building, arr[l], hp_damage);
           building.update();
         }
@@ -560,7 +592,6 @@ namespace 人物加强 {
 
     bool handler_神术_神雷灭世(pk::point dst_pos)
     {
-
       pk::special_cutin(127,1000); // 雷电遮罩
       pk::play_se(121);
 
@@ -654,7 +685,7 @@ namespace 人物加强 {
                 if (ch::rand_bool_1000(1))
                 {
                   pk::say(pk::encode("黄天有道，吾愿降。。。"), member_t);
-
+                  // 历史日志(dst, '神术_黄天泰平', '的蛊惑，投靠');
                   int member_district_id = member_t.get_district_id();
                   int attack_district_id = src_leader.get_district_id();
 
@@ -730,18 +761,20 @@ namespace 人物加强 {
               }
               if (pk::rand_bool(5))
               { // 5%概率武将直接叛变
+                历史日志(member_t, '神术_黄天泰平', '的蛊惑，投靠别的势力了');
                 pk::set_district(member_t, src_leader.get_district_id());
                 member_t.mibun = 身份_一般;
               }
               else if (pk::rand_bool(20))
               {
                 // 20% 概率下野
+                历史日志(member_t, '神术_黄天泰平', '的蛊惑，下野了');
                 switch (pk::rand(4))
                 {
-                case 0: pk::say(pk::encode("良禽折木而栖"), member_t); break;
-                case 1: pk::say(pk::encode("果然还是不适合"), member_t); break;
-                case 2: pk::say(pk::encode("再见了..."), member_t); break;
-                case 3: pk::say(pk::encode("世界那么大，我想去看看"), member_t); break;
+                  case 0: pk::say(pk::encode("良禽折木而栖"), member_t); break;
+                  case 1: pk::say(pk::encode("果然还是不适合"), member_t); break;
+                  case 2: pk::say(pk::encode("再见了..."), member_t); break;
+                  case 3: pk::say(pk::encode("世界那么大，我想去看看"), member_t); break;
                 }
 
                 if (m == 0) // 主将在野，部队解散
@@ -840,6 +873,7 @@ namespace 人物加强 {
                   rang += 40;
                 }
                 if (pk::rand_bool(rang)) {
+                  历史日志(member_t, '神术_天下归心', '被俘虏了');
                   member_t.former_force = member_t.get_force_id();
                   pk::set_district(member_t, (pk::get_person(pk::get_kunshu_id(member_t))).get_district_id());
                   member_t.mibun = 身份_俘虏;
@@ -944,8 +978,10 @@ namespace 人物加强 {
           pk::unit@ target_unit = target_unit_list[i];
           if (target_unit.get_force_id() != src_unit.get_force_id()) {
             pk::set_status(target_unit, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+            历史日志(target_unit, '神术_十胜十败', '陷入混乱');
             if (int(target_unit.troops) > int(0.5 * pk::get_max_troops(target_unit))) { // 兵力超过最大兵力一半
               ch::add_troops(target_unit, -int(0.5 * pk::get_max_troops(target_unit)), true);
+              历史日志(target_unit, '神术_十胜十败', '受到了巨大伤害');
             }
             pk::say(pk::encode("这，这是发生什么"), pk::get_person(target_unit.leader));
           }
@@ -965,8 +1001,10 @@ namespace 人物加强 {
           if (dst !is null and dst.get_force_id() != src_unit.get_force_id() and max_unit > 0)
           {
             pk::set_status(dst, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
+            历史日志(dst, '神术_十胜十败', '陷入混乱');
             if (int(dst.troops) > int(0.5 * pk::get_max_troops(dst))) { // 兵力超过最大兵力一半
               ch::add_troops(dst, -int(0.5 * pk::get_max_troops(dst)), true);
+              历史日志(dst, '神术_十胜十败', '受到了巨大伤害');
             }
             pk::say(pk::encode("这，这是发生什么"), pk::get_person(dst.leader));
             max_unit -= 1;
@@ -993,6 +1031,7 @@ namespace 人物加强 {
           pk::add_energy(target_unit, 5 + pk::rand(10), true);
           if (int(target_unit.troops) < int(0.5 * pk::get_max_troops(target_unit))) { // 兵力超过最大兵力一半
             ch::add_troops(target_unit, int(0.5 * pk::get_max_troops(target_unit)), true);
+            历史日志(target_unit, '神术_十胜十败', '补充了大量兵士');
           }
           pk::say(pk::encode("先生真乃世之奇士也"), pk::get_person(target_unit.leader));
         }
@@ -1092,6 +1131,7 @@ namespace 人物加强 {
           troops = troops > 0 ? 0 : troops;
           // pk::wait(300);
           pk::say(pk::encode("大胆！冒犯天威，大逆不道！！"), person_袁术);
+          历史日志(unit, '神术_妄尊仲帝', '减少了大量伤害');
         }
         else
         {
@@ -1109,13 +1149,14 @@ namespace 人物加强 {
         int troops = int(pk::get_force_list().count * 袁术部队.troops / 100);
         ch::add_troops(袁术部队, troops, true);
         pk::say(pk::encode("乱世之中，必出枭雄！哈哈哈"), person_袁术);
+        历史日志(袁术部队, '神术_妄尊仲帝', '补充了大量兵士');
       }
     }
 
     // --------- 神鬼八阵 -----------
     string getDesc_神术_神鬼八阵()
     {
-      return pk::encode("伤害50%为0，已方3格内部队本回合获得一击必杀能力");
+      return pk::encode("3格内友军本旬获得必杀能力，敌军眩晕3旬且每旬减兵一成");
     }
 
     bool isEnabled_神术_神鬼八阵()
