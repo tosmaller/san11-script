@@ -179,14 +179,14 @@ namespace 道具许愿
 			}
 			bool handler_查看任务道具()
 			{
-				pk::item@ _任务道具1 = pk::get_item(int(pk::load(KEY_任务道具, 1, -1)));
-				pk::item@ _任务道具2 = pk::get_item(int(pk::load(KEY_任务道具, 2, -1)));
-				pk::item@ _任务道具3 = pk::get_item(int(pk::load(KEY_任务道具, 3, -1)));
-				pk::item@ _任务道具4 = pk::get_item(int(pk::load(KEY_任务道具, 4, -1)));
-				pk::item@ _任务道具5 = pk::get_item(int(pk::load(KEY_任务道具, 5, -1)));
+				pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
+				pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
+				pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
+				pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
+				pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
 				if (_任务道具1 !is null)
 				{
-					string str = pk::format("当前任务道具分别是\x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x", pk::get_name(_任务道具1), pk::get_name(_任务道具2), pk::get_name(_任务道具3), pk::get_name(_任务道具4),pk::get_name(_任务道具5));
+					string str = pk::format("当前任务道具分别是\x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x", pk::decode(pk::get_name(_任务道具1)), pk::decode(pk::get_name(_任务道具2)), pk::decode(pk::get_name(_任务道具3)), pk::decode(pk::get_name(_任务道具4)),pk::decode(pk::get_name(_任务道具5)));
 					pk::message_box(pk::encode(str), 小乔);
 				}
 				return false;
@@ -201,6 +201,59 @@ namespace 道具许愿
 			}
 			bool handler_检测任务道具()
 			{
+				pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
+				pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
+				pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
+				pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
+				pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
+				int count = 0;
+				string str = "已收集任务道具有";
+				if (_任务道具1 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具1.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具1)));
+					}
+				}
+				if (_任务道具2 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具2.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具2)));
+					}
+				}
+				if (_任务道具3 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具3.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具3)));
+					}
+				}
+				if (_任务道具4 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具4.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具4)));
+					}
+				}
+				if (_任务道具5 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具5.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+						str += pk::format("\x1b[27x{}\x1b[0x", pk::decode(pk::get_name(_任务道具5)));
+					}
+				}
+				pk::message_box(pk::encode(count == 0 ? '还没有收集任务道具呢，快去收集吧' : str), 小乔);
 				return false;
 			}
 
@@ -213,6 +266,58 @@ namespace 道具许愿
 			}
 			bool handler_终止事件()
 			{
+				pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
+				pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
+				pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
+				pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
+				pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
+				int count = 0;
+				if (_任务道具1 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具1.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+					}
+				}
+				if (_任务道具2 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具2.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+					}
+				}
+				if (_任务道具3 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具3.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+					}
+				}
+				if (_任务道具4 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具4.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+					}
+				}
+				if (_任务道具5 !is null)
+				{
+					pk::person@ owner = pk::get_person(_任务道具5.owner);
+					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
+					{
+						count += 1;
+					}
+				}
+				bool confirm = pk::yes_no(pk::encode(pk::format("确定终止\x1b[1x{}\x1b[0x事件吗？ \n您已收集\x1b[2x{}\x1b[0x任务道具了?", "道具收集", count)));
+				if (confirm)
+				{
+					pk::message_box(pk::encode("已终止\x1b[27x道具收集\x1b[0x事件呢，可以随时打开哦。"), 小乔);
+					pk::store(KEY_任务道具, 0, 0);
+				}
 				return false;
 			}
 
