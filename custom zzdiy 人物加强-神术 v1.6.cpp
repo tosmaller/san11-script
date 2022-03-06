@@ -15,8 +15,9 @@ v1.0 2022/02/12 新增周瑜神术【业火焚天】
  */
 
 namespace 人物加强 {
-  const int KEY_神鬼八阵 = pk::hash("神术_神鬼八阵");
-  const int KEY_神鬼八阵_索引_武将起始 = 0;
+  const int KEY_神鬼八阵_一击必杀 = pk::hash("神术_神鬼八阵_一击必杀");
+  const int KEY_神鬼八阵_回合数 = pk::hash("神术_神鬼八阵_回合数");
+  const int KEY_神鬼八阵_一击必杀_索引_武将起始 = 0;
 
   const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
@@ -44,7 +45,10 @@ namespace 人物加强 {
       pk::reset_func(58);
       pk::set_func(58, pk::func58_t(func58));
 
+      pk::bind(108, pk::trigger108_t(onMonthStart));
       pk::bind(111, pk::trigger111_t(onTurnStart));
+      pk::bind(171, pk::trigger171_t(onUnitRemove));
+      pk::bind(174, pk::trigger174_t(onUnitActionDone));
     }
 
     pk::unit@ src_unit;
@@ -159,6 +163,7 @@ namespace 人物加强 {
         神术_神鬼八阵.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("神鬼八阵", 计略气力消耗_通用); });
         神术_神鬼八阵.get_desc = pk::menu_item_get_desc_t(getDesc_神术_神鬼八阵);
         神术_神鬼八阵.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_诸葛亮); });
+        神术_神鬼八阵.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_神鬼八阵);
         神术_神鬼八阵.handler = pk::unit_menu_item_handler_t(handler_神术_神鬼八阵);
         pk::add_menu_item(神术_神鬼八阵);
       }
@@ -207,32 +212,43 @@ namespace 人物加强 {
     {
       return src_leader.get_id() == 武将Id;
     }
-    void 历史日志(pk::person@ person, string action_name, string result)
+    void 历史日志(pk::person@ person, string name, string result)
     {
-      const string person_name = pk::encode(pk::format("\x1b[1x{}\x1b[0x"), pk::decode(pk::get_name(person)));
-      const string action_name = pk::encode(pk::format("\x1b[27x{}\x1b[0x"), action_name);
-
-      string str = pk::format("武将{}由于{}的效果，{}", person_name, action_name, result);
-
-      pk::history_log(unit.pos, pk::get_force(unit.get_force_id()).color, pk::encode(str));
-    }
-    void 历史日志(pk::unit@ unit, string action_name, string result)
-    {
-      const string person_name = pk::encode(pk::format("\x1b[1x{}\x1b[0x"), pk::decode(pk::get_name(unit)));
-      const string action_name = pk::encode(pk::format("\x1b[27x{}\x1b[0x"), action_name);
-
-      string str = pk::format("{}队由于{}的效果，{}", person_name, action_name, result);
-
-      pk::history_log(unit.pos, pk::get_force(unit.get_force_id()).color, pk::encode(str));
-    }
-    void 历史日志(pk::building@ building, string action_name, string result)
-    {
-      const string person_name = pk::encode(pk::format("\x1b[1x{}\x1b[0x"), pk::decode(pk::get_name(building)));
-      const string action_name = pk::encode(pk::format("\x1b[27x{}\x1b[0x"), action_name);
+      string person_name = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(person)));
+      string action_name = pk::format("\x1b[27x{}\x1b[0x", name);
 
       string str = pk::format("{}由于{}的效果，{}", person_name, action_name, result);
 
+      pk::unit@ unit = pk::get_unit(pk::hex_object_id_to_unit_id(person.location));
+      pk::building@ building = pk::get_building(pk::hex_object_id_to_building_id(person.location));
+      pk::point persion_pos;
+      if (unit !is null)
+      {
+        persion_pos = unit.pos;
+      }
+      else
+      {
+        persion_pos = building.pos;
+      }
+      pk::history_log(persion_pos, pk::get_force(person.get_force_id()).color, pk::encode(str));
+    }
+    void 历史日志(pk::unit@ unit, string name, string result)
+    {
+      string unit_name = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(unit)));
+      string action_name = pk::format("\x1b[27x{}\x1b[0x", name);
+
+      string str = pk::format("{}队由于{}的效果，{}", unit_name, action_name, result);
+
       pk::history_log(unit.pos, pk::get_force(unit.get_force_id()).color, pk::encode(str));
+    }
+    void 历史日志(pk::building@ building, string name, string result)
+    {
+      string building_name = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(building)));
+      string action_name = pk::format("\x1b[27x{}\x1b[0x", name);
+
+      string str = pk::format("{}由于{}的效果，{}", building_name, action_name, result);
+
+      pk::history_log(building.pos, pk::get_force(building.get_force_id()).color, pk::encode(str));
     }
 
     pk::array<pk::point_int> getTargets_神术_目标(int range)
@@ -248,17 +264,17 @@ namespace 人物加强 {
         return targets;
     }
 
-    pk::array<pk::point_int> getTargets_神术_目标部队(int range)
+    pk::list<pk::unit@> getTargets_神术_目标部队(int range)
     {
-        pk::array<pk::point_int> targets;
+        pk::list<pk::unit@> targets;
         array<pk::point> rings = pk::range(src_pos_, 1, range);
         for (int i = 0; i < int(rings.length); i++)
         {
           pk::point dst_pos = rings[i];
           pk::unit@ dst = pk::get_unit(dst_pos);
-          if (dst !is null and dst.get_force_id() != src_unit.get_force_id())
+          if (dst !is null)
           {
-            targets.insertLast(pk::point_int(dst_pos, 1));
+            targets.add(dst);
           }
         }
 
@@ -281,6 +297,7 @@ namespace 人物加强 {
 
         return targets;
     }
+
 
     void fun_处理城市(pk::building@ building, pk::point pos, int hp_damage)
     {
@@ -370,11 +387,12 @@ namespace 人物加强 {
       }
     }
 
-    void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
+    // ------------------------------------------------
+    void onMonthStart()
     {
-      prev_callback_209(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
+      const bool use = bool(pk::load(KEY_神鬼八阵_回合数, 0, false));
+      if(use) pk::store(KEY_神鬼八阵_回合数, 0, true);;
     }
-
     void onTurnStart(pk::force@ force)
     {
       if (person_袁术 is null)
@@ -384,6 +402,32 @@ namespace 人物加强 {
       if (force.get_id() == person_袁术.get_force_id())
       {
         神术_妄尊仲帝_补兵处理();
+      }
+    }
+    void onUnitRemove(pk::unit@ unit,pk::hex_object@ dst, int type)
+    {
+      const bool has_effect = bool(pk::load(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + unit.get_id(), false));
+      if (has_effect)
+      {
+        pk::store(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + unit.get_id(), false);
+      }
+    }
+
+    void onUnitActionDone(pk::unit@ unit,int type)
+    {
+      const bool has_effect = bool(pk::load(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + unit.get_id(), false));
+      if (has_effect)
+      {
+        pk::store(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + unit.get_id(), false);
+      }
+    }
+
+    void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
+    {
+      prev_callback_209(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
+      if (开启_神鬼八阵)
+      {
+        神术_神鬼八阵_伤害处理(info, attacker, target_pos);
       }
     }
 
@@ -438,7 +482,7 @@ namespace 人物加强 {
             pk::say(pk::encode("区区小计，也要丢人现眼吗"), pk::get_person(dst.who_has_skill(特技_洞察)));
             continue;
           }
-          pk::set_status(dst, dst, 部队状态_伪报, pk::rand(2) + 3, true);
+          pk::set_status(dst, src_unit, 部队状态_伪报, pk::rand(2) + 3, true);
           历史日志(dst, '神术_业火焚天', '陷入伪报');
           pk::create_fire(arr[l], pk::rand(2) + 3, dst, true); //火计
           pk::add_energy(dst, -30, true); //减气
@@ -463,9 +507,9 @@ namespace 人物加强 {
           if (!pk::is_enemy(src_unit, building)) continue;
           if (building.has_skill(特技_火神) or building.has_skill(特技_洞察)) continue;
           int hp_damage = 建筑火伤_练成炸药附加 + pk::rand(建筑火伤_练成炸药附加) + pk::rand(5000);
-
-          fun_处理城市(building, arr[l], hp_damage);
           历史日志(building, '神术_业火焚天', '受到了巨大伤害');
+          fun_处理城市(building, arr[l], hp_damage);
+
           building.update();
         }
 
@@ -1156,41 +1200,71 @@ namespace 人物加强 {
     // --------- 神鬼八阵 -----------
     string getDesc_神术_神鬼八阵()
     {
-      return pk::encode("3格内友军本旬获得必杀能力，敌军眩晕3旬且每旬减兵一成");
+      const bool use = bool(pk::load(KEY_神鬼八阵_回合数, 0, false));
+      if (use)
+        return pk::encode("本月已经使用过.");
+      else if (src_unit.energy < 计略气力消耗_通用)
+        return pk::encode("气力不足.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
+      else
+        return pk::encode("每月限一次,3格内友军本旬获得一击必杀能力，敌军眩晕3~8旬");
     }
 
     bool isEnabled_神术_神鬼八阵()
     {
+      const bool use = bool(pk::load(KEY_神鬼八阵_回合数, 0, false));
+      if(use) return false;
       return true;
     }
 
     bool handler_神术_神鬼八阵(pk::point dst_pos)
     {
+      pk::store(KEY_神鬼八阵_回合数, 0, true);
       pk::play_se(120);
       pk::special_cutin(126,1000); // 妖术遮罩
 
       pk::force@ force = pk::get_force(src_unit.get_force_id());
-      pk::list<pk::unit@> target_unit_list = getTargets_势力_目标部队(force, 3);
+      pk::list<pk::unit@> target_unit_list = getTargets_神术_目标部队(3);
       for (int i = 0; i < target_unit_list.count; i++)
       {
         pk::unit@ target_unit = target_unit_list[i];
-        pk::store(KEY_神鬼八阵, KEY_神鬼八阵_索引_武将起始 + i + 1, target_unit.get_id());
+        if (target_unit.get_force_id() == src_unit.get_force_id())
+        {
+          历史日志(target_unit, '神术_神鬼八阵', '获得一击必杀能力');
+          pk::set_status(target_unit, src_unit, 部队状态_引诱, 1, true);
+          pk::store(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + target_unit.get_id(), true);
+        }
+        else
+        {
+          pk::set_status(target_unit, src_unit, 部队状态_混乱, 3 + pk::rand(5), true);
+        }
       }
-      pk::say(pk::encode("八阵图!"), src_leader);
+      pk::add_energy(src_unit, -计略气力消耗_通用, true);
+
+      pk::add_stat_exp(src_unit, 武将能力_智力, 50);
+
+      pk::say(pk::encode("奇正相生，循环无端!"), src_leader);
 
       return true;
 
     }
 
-    void 神术_神鬼八阵_伤害处理(pk::damage_info& info)
+    void 神术_神鬼八阵_伤害处理(pk::damage_info& info, pk::unit@ attacker, const pk::point& in target_pos)
     {
-      if (开启_神鬼八阵)
+      const bool has_effect = bool(pk::load(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + attacker.get_id(), false));
+      if (has_effect)
       {
-        if (pk::rand_bool(50)) {
-          info.troops_damage = 0;
+        pk::building@ building = pk::get_building(target_pos);
+        if (building !is null and building.facility != 设施_城市 and building.facility != 设施_关隘 and building.facility != 设施_港口)
+        {
+          info.hp_damage = building.hp;
+        }
+        else
+        {
+          info.troops_damage = info.dst_troops;
         }
       }
-
     }
 
   }
