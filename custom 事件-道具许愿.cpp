@@ -46,6 +46,7 @@ namespace 道具许愿
       Main()
       {
       	add_menu_道具许愿();
+      	pk::bind(106, pk::trigger106_t(onReadSave));
       	pk::bind(111, pk::trigger111_t(onTurnStart));
 			}
 			pk::item@ 任务道具1;
@@ -55,8 +56,14 @@ namespace 道具许愿
 			pk::item@ 任务道具5;
 
 	    // -------------- trigger ----------------
+	    void onReadSave(int file_id)
+	    {
+	    	展开面板 = checkout_event_open();
+	    }
+
 	    void onTurnStart(pk::force@ force)
 	    {
+	    	check_item_complute(force);
 	    	// if (force.is_player())
 	    	// {
 	    	// 	check_item_setting();
@@ -135,8 +142,7 @@ namespace 道具许愿
 
 			string getText_道具许愿()
 			{
-				const int setting = int(pk::load(KEY_任务道具, 0, 0));
-				bool open = setting == 1 or setting == 2;
+				bool open = checkout_event_open();
 				return pk::encode(pk::format("道具收集事件\x1b[1x{}\x1b[0x", open ? '(已开启)' : '(未开启)' ));
 			}
 
@@ -147,9 +153,6 @@ namespace 道具许愿
 
 			bool isVisible_道具许愿()
 			{
-				// const int setting = int(pk::load(KEY_任务道具, 0, 0));
-
-				// return setting == 1 or setting == 2;
 				if (building_.get_id() != king_building.get_id()) return false;
 				return true;
 			}
@@ -173,21 +176,22 @@ namespace 道具许愿
 			// 查看任务道具
 			bool isMenuVisible_查看任务道具()
 			{
-				const int setting = int(pk::load(KEY_任务道具, 0, 0));
-				bool open = setting == 1 or setting == 2;
-				return 展开面板 and open;
+				return 展开面板 and checkout_event_open();
 			}
 			bool handler_查看任务道具()
 			{
-				pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
-				pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
-				pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
-				pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
-				pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
-				if (_任务道具1 !is null)
+
+				pk::list<pk::item@> items = get_items();
+
+				if (items.count > 0)
 				{
-					string str = pk::format("当前任务道具分别是\x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x, \x1b[27x{}\x1b[0x", pk::decode(pk::get_name(_任务道具1)), pk::decode(pk::get_name(_任务道具2)), pk::decode(pk::get_name(_任务道具3)), pk::decode(pk::get_name(_任务道具4)),pk::decode(pk::get_name(_任务道具5)));
-					pk::message_box(pk::encode(str), 小乔);
+					string str;
+					for (int i = 0; i < items.count; i += 1)
+					{
+						str += pk::format(",\x1b[27x{}\x1b[0x", pk::decode(pk::get_name(items[i])));
+					}
+
+					pk::message_box(pk::encode(pk::format("当前任务道具分别是{}", str)), 小乔);
 				}
 				return false;
 			}
@@ -195,64 +199,25 @@ namespace 道具许愿
 			// 检测任务道具
 			bool isMenuVisible_检测任务道具()
 			{
-				const int setting = int(pk::load(KEY_任务道具, 0, 0));
-				bool open = setting == 1 or setting == 2;
-				return 展开面板 and open;
+				return 展开面板 and checkout_event_open();
 			}
 			bool handler_检测任务道具()
 			{
-				pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
-				pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
-				pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
-				pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
-				pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
 				int count = 0;
 				string str = "已收集任务道具有";
-				if (_任务道具1 !is null)
+
+				pk::list<pk::item@> items = get_items();
+
+				for (int i = 0; i < items.count; i += 1)
 				{
-					pk::person@ owner = pk::get_person(_任务道具1.owner);
+					pk::person@ owner = pk::get_person(items[i].owner);
 					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
 					{
 						count += 1;
-						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具1)));
+						str += pk::format(",\x1b[27x{}\x1b[0x", pk::decode(pk::get_name(items[i])));
 					}
 				}
-				if (_任务道具2 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具2.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具2)));
-					}
-				}
-				if (_任务道具3 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具3.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具3)));
-					}
-				}
-				if (_任务道具4 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具4.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-						str += pk::format("\x1b[27x{}\x1b[0x，", pk::decode(pk::get_name(_任务道具4)));
-					}
-				}
-				if (_任务道具5 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具5.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-						str += pk::format("\x1b[27x{}\x1b[0x", pk::decode(pk::get_name(_任务道具5)));
-					}
-				}
+
 				pk::message_box(pk::encode(count == 0 ? '还没有收集任务道具呢，快去收集吧' : str), 小乔);
 				return false;
 			}
@@ -260,62 +225,27 @@ namespace 道具许愿
 			// 终止事件
 			bool isMenuVisible_终止事件()
 			{
-				const int setting = int(pk::load(KEY_任务道具, 0, 0));
-				bool open = setting == 1 or setting == 2;
-				return 展开面板 and open;
+				return 展开面板 and checkout_event_open();
 			}
 			bool handler_终止事件()
 			{
-				pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
-				pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
-				pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
-				pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
-				pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
+
+				pk::list<pk::item@> items = get_items();
 				int count = 0;
-				if (_任务道具1 !is null)
+
+				for (int i = 0; i < items.count; i += 1)
 				{
-					pk::person@ owner = pk::get_person(_任务道具1.owner);
+					pk::person@ owner = pk::get_person(items[i].owner);
 					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
 					{
 						count += 1;
 					}
 				}
-				if (_任务道具2 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具2.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-					}
-				}
-				if (_任务道具3 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具3.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-					}
-				}
-				if (_任务道具4 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具4.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-					}
-				}
-				if (_任务道具5 !is null)
-				{
-					pk::person@ owner = pk::get_person(_任务道具5.owner);
-					if (owner !is null and owner.get_force_id() == king_building.get_force_id())
-					{
-						count += 1;
-					}
-				}
-				bool confirm = pk::yes_no(pk::encode(pk::format("确定终止\x1b[1x{}\x1b[0x事件吗？ \n您已收集\x1b[2x{}\x1b[0x任务道具了?", "道具收集", count)));
+
+				bool confirm = pk::yes_no(pk::encode(pk::format("确定终止\x1b[1x道具收集\x1b[0x事件吗？ \n您已收集\x1b[2x{}\x1b[0x件任务道具了?", count)));
 				if (confirm)
 				{
-					pk::message_box(pk::encode("已终止\x1b[27x道具收集\x1b[0x事件呢，可以随时打开哦。"), 小乔);
+					pk::message_box(pk::encode("已终止\x1b[27x道具收集\x1b[0x事件呢，可以随时开启哦。"), 小乔);
 					pk::store(KEY_任务道具, 0, 0);
 				}
 				return false;
@@ -324,9 +254,7 @@ namespace 道具许愿
 			// 开启事件
 			bool isMenuVisible_开启事件()
 			{
-				const int setting = int(pk::load(KEY_任务道具, 0, 0));
-				bool open = setting == 1 or setting == 2;
-				return 展开面板 and !open;
+				return 展开面板 and !checkout_event_open();
 			}
 			bool handler_开启事件()
 			{
@@ -337,9 +265,7 @@ namespace 道具许愿
 			// 事件说明
 			bool isMenuVisible_查看事件说明()
 			{
-				const int setting = int(pk::load(KEY_任务道具, 0, 0));
-				bool open = setting == 1 or setting == 2;
-				return 展开面板 and !open;
+				return 展开面板 and !checkout_event_open();
 			}
 			bool handler_查看事件说明()
 			{
@@ -347,17 +273,48 @@ namespace 道具许愿
 				return false;
 			}
 
-	    // void check_item_setting()
-	    // {
-	    // 	const int setting = int(pk::load(KEY_任务道具, 0, 0));
-	    // 	if (setting == 0)
-	    // 	{
-	    // 		pk::person@ 小乔 = pk::get_person(武将_小乔);
-	    // 		pk::message_box(pk::encode("还没设置任务道具呢，快设置吧。"), 小乔);
-	    // 		item_settin();
-	    // 	}
-	    // }
-			//------------------------------------------------------------------------------------
+			//---------------------------- Common Function----------------------------
+
+			bool checkout_event_open()
+			{
+				const int setting = int(pk::load(KEY_任务道具, 0, 0));
+				bool open = setting == 1 or setting == 2;
+				return open;
+			}
+
+			pk::list<pk::item@> get_items()
+			{
+				pk::list<pk::item@> items;
+				if (checkout_event_open())
+				{
+					pk::item@ _任务道具1 = pk::get_item(uint32(pk::load(KEY_任务道具, 1, -1)));
+					pk::item@ _任务道具2 = pk::get_item(uint32(pk::load(KEY_任务道具, 2, -1)));
+					pk::item@ _任务道具3 = pk::get_item(uint32(pk::load(KEY_任务道具, 3, -1)));
+					pk::item@ _任务道具4 = pk::get_item(uint32(pk::load(KEY_任务道具, 4, -1)));
+					pk::item@ _任务道具5 = pk::get_item(uint32(pk::load(KEY_任务道具, 5, -1)));
+					if (_任务道具1 !is null)
+					{
+						items.add(_任务道具1);
+					}
+					if (_任务道具2 !is null)
+					{
+						items.add(_任务道具2);
+					}
+					if (_任务道具3 !is null)
+					{
+						items.add(_任务道具3);
+					}
+					if (_任务道具4 !is null)
+					{
+						items.add(_任务道具4);
+					}
+					if (_任务道具5 !is null)
+					{
+						items.add(_任务道具5);
+					}
+				}
+				return items;
+			}
 	    void item_settin()
 	    {
 	    	array<string> select =
@@ -383,34 +340,80 @@ namespace 道具许愿
 					pk::store(KEY_任务道具, 4, 任务道具4.get_id());
 					pk::store(KEY_任务道具, 5, 任务道具5.get_id());
 					pk::message_box(pk::encode("设置成功，请到游戏中体验吧。\n 小提示：可使用【查看任务道具】菜单查看设置的的道具哦"), 小乔);
-					pk::trace("任务道具:" + 任务道具1.get_id());
 				}
 				else if (n == 1)
 				{
-					array<int> items = {};
-					for (int l = 0; l < 99; l++)
+					array<int> old_items = {};
+					array<int> new_items = {};
+					for (int l = 0; l <= 42; l++)
 					{
-						items.insertLast(l);
+						old_items.insertLast(l);
 					}
-					int id_1 = items[random(0, items.length)];
-					@任务道具1 = pk::get_item(id_1);
-					items.removeAt(id_1);
+					for (int l = 50; l <= 98; l++)
+					{
+						new_items.insertLast(l);
+					}
+					string str;
+					for (int i = 1; i <= 5 ; i += 1)
+					{
+						int item_id;
+						if (pk::rand_bool(50)) {
+							int index = pk::rand(old_items.length);
+							item_id = old_items[index];
+							old_items.removeAt(index);
+						}
+						else
+						{
+							int index = pk::rand(new_items.length);
+							item_id = new_items[index];
+							new_items.removeAt(index);
+						}
+						pk::trace("任务道具:" + item_id);
+						str += ("," + item_id);
+						switch(i)
+						{
+							case 1:
+								@任务道具1 = pk::get_item(item_id);
+								break;
+							case 2:
+								@任务道具2 = pk::get_item(item_id);
+								break;
+							case 3:
+								@任务道具3 = pk::get_item(item_id);
+								break;
+							case 4:
+								@任务道具4 = pk::get_item(item_id);
+								break;
+							case 5:
+								@任务道具5 = pk::get_item(item_id);
+								break;
+						}
+					}
 
-					int id_2 = items[random(0, items.length)];
-					@任务道具2 = pk::get_item(id_2);
-					items.removeAt(id_2);
+					// int id_1 = items[pk::rand(items.length)];
+					// pk::trace("任务道具:" + items.length + "," +id_1);
+					// @任务道具1 = pk::get_item(id_1);
+					// items.removeAt(id_1);
 
-					int id_3 = items[random(0, items.length)];
-					@任务道具3 = pk::get_item(id_3);
-					items.removeAt(id_3);
+					// int id_2 = items[pk::rand(items.length)];
+					// pk::trace("任务道具:" + items.length + "," +id_2);
+					// @任务道具2 = pk::get_item(id_2);
+					// items.removeAt(id_2);
 
-					int id_4 = items[random(0, items.length)];
-					@任务道具4 = pk::get_item(id_4);
-					items.removeAt(id_4);
+					// int id_3 = items[pk::rand(items.length)];
+					// pk::trace("任务道具:" + items.length + "," +id_3);
+					// @任务道具3 = pk::get_item(id_3);
+					// items.removeAt(id_3);
 
-					int id_5 = items[random(0, items.length)];
-					@任务道具5 = pk::get_item(id_5);
-					items.removeAt(id_5);
+					// int id_4 = items[pk::rand(items.length)];
+					// pk::trace("任务道具:" + items.length + "," +id_4);
+					// @任务道具4 = pk::get_item(id_4);
+					// items.removeAt(id_4);
+
+					// int id_5 = items[pk::rand(items.length)];
+					// pk::trace("任务道具:" + items.length + "," +id_5);
+					// @任务道具5 = pk::get_item(id_5);
+					// items.removeAt(id_5);
 
 					pk::store(KEY_任务道具, 0, 2);
 					pk::store(KEY_任务道具, 1, 任务道具1.get_id());
@@ -419,11 +422,17 @@ namespace 道具许愿
 					pk::store(KEY_任务道具, 4, 任务道具4.get_id());
 					pk::store(KEY_任务道具, 5, 任务道具5.get_id());
 					pk::message_box(pk::encode("设置成功，请到游戏中体验吧。\n 小提示：可使用【查看任务道具】菜单查看设置的的道具哦"), 小乔);
+					pk::trace("任务道具:" + str);
 				}
 				else if (n == 2)
 				{
 
 				}
+	    }
+
+	    void check_item_complute(pk::force@ force)
+	    {
+
 	    }
 
 	}
