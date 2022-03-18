@@ -81,7 +81,7 @@ const int 拱戍攻防倍率 = 150;
 const int 要击伤害倍率 = 150;
 const int 兵圣受伤倍率 = 50;
 const float 战神暴击系数 = 0.40; //1.0表示伤害加100%
-const int 坚城受伤倍率 = 70;//60表示伤害为原伤害的60%
+const int 坚城受伤倍率 = 50;//60表示伤害为原伤害的60%
 const int 陷阵伤害倍率 = 150;
 
 const int 蓄势减少消耗 = 20;

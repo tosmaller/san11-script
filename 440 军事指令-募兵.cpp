@@ -21,7 +21,7 @@ namespace 募兵
 	// ================ CUSTOMIZE ================
 
 	const int TP_COST = 100; 	 // 기교P 필요량
-	const int ACTION_COST = 20;  // 행동력 필요량
+	const int ACTION_COST = 50;  // 행동력 필요량
 	const int GOLD_COST = 600;
 	const int energy_ = 10; 	 // 기력 상승 수치
 	const int 募兵倍率 = 100;

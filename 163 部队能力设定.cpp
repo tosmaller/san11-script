@@ -1,4 +1,4 @@
-﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
 // ## 2021/11/15 # 江东新风 # 修复能力公式bug ##
 // ## 2021/11/06 # 江东新风 # 移动力bug修复 ##
 // ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
@@ -36,16 +36,16 @@ namespace UNIT_ATTR
 	const bool 移动力_领土影响 = true;   // 계절에 따라 이동력 증감
 
 	const int 适性等级修正比率 = 10;
-	const int 精锐加攻 = 15;
-	const int 精锐加防 = 15;
+	const int 精锐加攻 = 10;
+	const int 精锐加防 = 10;
 	const int 剑兵攻防倍率 = 60;
 	const int 运输队攻倍率 = 40;
 	const int 运输队防倍率 = 33;
 	const int 混乱攻防倍率 = 80;
 	const int 建设政治占比 = 70;
 	const int 建设修正参数 = 50;
-	const int 攻武占比 = 50;
-	const int 攻统占比 = 50;
+	const int 攻武占比 = 80;
+	const int 攻统占比 = 20;
 	const int 防武占比 = 20;
 	const int 防统占比 = 80;
 
