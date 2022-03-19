@@ -21,10 +21,10 @@
 // ## 2020/11/15 @ 江东新风 @ 初次编写 @@
 namespace AI_刺杀
 {
-	const int 发生率_通常 = 5;//12
+	const int 发生率_通常 = 7;//12
 	const int AI_刺杀_可执行距离 = 3;
 	const int AI刺杀_发动时期 = 1;        // 0: 每旬,  1: 每月第一旬,  2: 每季第一旬,  3: 每年第一旬 默认 1
-	const int AI刺杀_保护月数 = 12;//5
+	const int AI刺杀_保护月数 = 8;//5
 
 	const int AI_刺杀失败_被俘率 = 6;  //原定6
 	const int AI_刺杀失败_处死率 = 0;

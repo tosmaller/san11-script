@@ -78,7 +78,7 @@ const int 基础攻击力_港口 = 200;
 const int 基础攻击力_阵 = 100;
 const int 基础攻击力_砦 = 200;
 const int 基础攻击力_城塞 = 300;
-const int 基础攻击力_箭楼 = 500;
+const int 基础攻击力_箭楼 = 400;
 const int 基础攻击力_连弩楼 = 600;
 const int 基础攻击力_投石台 = 900;
 

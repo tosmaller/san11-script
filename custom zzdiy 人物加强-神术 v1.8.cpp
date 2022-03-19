@@ -178,7 +178,7 @@ namespace 人物加强 {
         神术_狼顾权变.get_desc = pk::menu_item_get_desc_t(getDesc_神术_狼顾权变);
         神术_狼顾权变.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_司马懿); });
         神术_狼顾权变.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_狼顾权变);
-        神术_狼顾权变.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标部队位置(3); });
+        神术_狼顾权变.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_狼顾权变_目标部队位置(3); });
         神术_狼顾权变.handler = pk::unit_menu_item_handler_t(handler_神术_狼顾权变);
         pk::add_menu_item(神术_狼顾权变);
       }
@@ -1313,6 +1313,8 @@ namespace 人物加强 {
         return pk::encode("本回合已经使用过.");
       else if (src_unit.energy < 计略气力消耗_通用)
         return pk::encode("气力不足.");
+      else if (getTargets_狼顾权变_目标部队位置(3).length == 0)
+        return pk::encode("周围没有目标.");
       else
         return pk::encode("每回合限一次,回合内获得3格内任一部队的一个技能，回合外获得已方部队一个技能");
     }
@@ -1321,7 +1323,31 @@ namespace 人物加强 {
     {
       const int skill_id = int(pk::load(KEY_狼顾权变_回合内技能, 0, -1));
       if(skill_id >= 0) return false;
+      if (src_unit.energy < 计略气力消耗_通用) return false;
+      if (getTargets_狼顾权变_目标部队位置(3).length == 0) return false;
       return true;
+    }
+
+    pk::array<pk::point_int> getTargets_狼顾权变_目标部队位置(int range)
+    {
+        pk::array<pk::point_int> targets;
+        array<pk::point> rings = pk::range(src_pos_, 1, range);
+        for (int i = 0; i < int(rings.length); i++)
+        {
+          pk::point dst_pos = rings[i];
+          pk::unit@ dst = pk::get_unit(dst_pos);
+          if (dst !is null)
+          {
+            array<string> skill_names = get_skill_name(dst);
+            if (skill_names.length > 0)
+            {
+              targets.insertLast(pk::point_int(dst_pos, 1));
+            }
+
+          }
+        }
+
+        return targets;
     }
 
     array<int> get_skill_id(pk::unit@ unit)
@@ -1430,18 +1456,12 @@ namespace 人物加强 {
       array<int> skill_ids = get_skill_id(unit);
       array<string> skill_names = get_skill_name(unit);
       int skill_id = choose_skill(skill_ids, skill_names);
-      // pk::core::skill_constant(member, 特技_强行)
-      string skill_xml = """
-        <skill id="222">
-          <type value="3"/>
-          <level value="4"/>
-          <bind_skill value="67, 132, 22"/>
-        </skill>""";
-
-      pk::load_xml(skill_xml);
-
-      person_司马懿.skill = 222;
+      pk::person@ leader = pk::get_person(unit.leader);
+      leader.skill = -1;
+      leader.update();
+      person_司马懿.skill = skill_id;
       person_司马懿.update();
+      src_unit.update();
     }
 
     bool handler_神术_狼顾权变(pk::point dst_pos)

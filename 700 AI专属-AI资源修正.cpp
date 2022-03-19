@@ -26,11 +26,11 @@ namespace 보상_AI
 
 
 		// AI 세력이 보상을 얻는 시기 설정
-	const int 发动时期 = 1;              // 0: 매턴,  1: 매월 1일,  2: 매분기 첫달1일,  3: 매년 1월1일
+	const int 发动时期 = 0;              // 0: 매턴,  1: 매월 1일,  2: 매분기 첫달1일,  3: 매년 1월1일
 
 	// 구체적인 내용 설정 (AI 세력)
 	const bool 金补偿_城市 = true;		  	  // 금 상승설정 (true = on, false = off)
-	const int gold_1 = 2000;		  // 획득 금 (기본: 5000)
+	const int gold_1 = 1500;		  // 획득 금 (기본: 5000)
 	const int gold_max1 = 50000;    //城市金超过上限不再增加
 
 	const bool 兵粮补偿_城市 = true;		  // 병량 상승설정 (true = on, false = off)
@@ -53,10 +53,10 @@ namespace 보상_AI
 	const int public_order_1 = 10;	  // 치안 상승치 (기본: 20)
 
 	const bool 兵装补偿_城市 = true;		  // 병기 상승설정 (true = on, false = off)
-	const int 枪_1 = 1000;		      // 병기(창) (기본: 20000)		
-	const int 戟_1 = 1000;		      // 병기(극) (기본: 20000)		
-	const int 弩_1 = 1000;		      // 병기(노) (기본: 20000)		
-	const int 战马_1 = 1000;		      // 병기(군마) (기본: 20000)
+	const int 枪_1 = 750;		      // 병기(창) (기본: 20000)		
+	const int 戟_1 = 750;		      // 병기(극) (기본: 20000)		
+	const int 弩_1 = 750;		      // 병기(노) (기본: 20000)		
+	const int 战马_1 = 750;		      // 병기(군마) (기본: 20000)
 	const int weapon_max1 = 40000;    // 城市兵装超过上限不再增加
 
 ////////////////////////港关加資源////////////////////////////////		
@@ -72,7 +72,7 @@ namespace 보상_AI
 
 	const bool 兵粮补偿_港关 = true;		  // 병량 상승설정 (true = on, false = off)
 	const int food_2 = 2000;		  // 병량 (기본: 20000)
-	const int food_max2 = 100000;		  // 城关粮食超过上限不再增加
+	const int food_max2 = 120000;		  // 城关粮食超过上限不再增加
 
 	const bool 气力补偿_港关 = true;		  // 기력 상승설정 (true = on, false = off)
 	const int energy_2 = 5;		  // 기력 (기본: 50)	
@@ -90,10 +90,10 @@ namespace 보상_AI
 	const int public_order_2 = 5;	  // 치안 상승치 (기본: 20)
 
 	const bool 兵装补偿_港关 = true;		  // 병기 상승설정 (true = on, false = off)
-	const int 枪_2 = 200;		      // 병기(창) (기본: 20000)		
-	const int 戟_2 = 200;		      // 병기(극) (기본: 20000)		
-	const int 弩_2 = 200;		      // 병기(노) (기본: 20000)		
-	const int 战马_2 = 200;		      // 병기(군마) (기본: 20000)
+	const int 枪_2 = 500;		      // 병기(창) (기본: 20000)		
+	const int 戟_2 = 500;		      // 병기(극) (기본: 20000)		
+	const int 弩_2 = 500;		      // 병기(노) (기본: 20000)		
+	const int 战马_2 = 500;		      // 병기(군마) (기본: 20000)
 	const int weapon_max2 = 30000;    // 城关兵装超过上限不再增加
 
 
