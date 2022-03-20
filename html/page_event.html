@@ -1,295 +1,532 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.13"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>San11PK: 事件(pk::bind) 说明</title>
-<link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
+  <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
+  <meta name="generator" content="Doxygen 1.8.13" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>San11PK: 事件(pk::bind) 说明</title>
+  <link href="tabs.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="dynsections.js"></script>
+  <link href="search/search.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="search/searchdata.js"></script>
+  <script type="text/javascript" src="search/search.js"></script>
+  <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">San11PK
-   </div>
-  </td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
-<!-- 创建于 :  Doxygen 1.8.13 -->
-<script type="text/javascript">
-var searchBox = new SearchBox("searchBox", "search",false,'搜索');
-</script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',true,false,'search.php','搜索');
-  $(document).ready(function() { init_search(); });
-});
-</script>
-<div id="main-nav"></div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+  <div id="top">
+    <!-- do not remove this div, it is closed by doxygen! -->
+    <div id="titlearea">
+      <table cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr style="height: 56px;">
+            <td id="projectalign" style="padding-left: 0.5em;">
+              <div id="projectname">San11PK
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- end header part -->
+    <!-- 创建于 :  Doxygen 1.8.13 -->
+    <script type="text/javascript">
+    var searchBox = new SearchBox("searchBox", "search", false, '搜索');
 
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
+    </script>
+    <script type="text/javascript" src="menudata.js"></script>
+    <script type="text/javascript" src="menu.js"></script>
+    <script type="text/javascript">
+    $(function () {
+      initMenu('', true, false, 'search.php', '搜索');
+      $(document).ready(function () { init_search(); });
+    });
 
-</div><!-- top -->
-<div class="header">
-  <div class="headertitle">
-<div class="title">事件(pk::bind) 说明 </div>  </div>
-</div><!--header-->
-<div class="contents">
-<div class="toc"><h3>目录</h3>
-<ul><li class="level1"><a href="#page_event_details">说明</a></li>
-<li class="level1"><a href="#page_event_list">目录</a><ul><li class="level2"><a href="#page_event_100">100 首页标题画面</a></li>
-<li class="level2"><a href="#page_event_101">101 游戏结束</a></li>
-<li class="level2"><a href="#page_event_102">102 剧本初始化</a></li>
-<li class="level2"><a href="#page_event_103">103 剧本开始</a></li>
-<li class="level2"><a href="#page_event_104">104 剧本结束</a></li>
-<li class="level2"><a href="#page_event_105">105 保存</a></li>
-<li class="level2"><a href="#page_event_106">106 读档</a></li>
-<li class="level2"><a href="#page_event_107">107 新日</a></li>
-<li class="level2"><a href="#page_event_108">108 新月</a></li>
-<li class="level2"><a href="#page_event_109">109 新季</a></li>
-<li class="level2"><a href="#page_event_110">110 新年</a></li>
-<li class="level2"><a href="#page_event_111">111 回合开始</a></li>
-<li class="level2"><a href="#page_event_112">112 回合结束</a></li>
-<li class="level2"><a href="#page_event_120">120 游戏画面绘制</a></li>
-<li class="level2"><a href="#page_event_130">132 主导权委任</a></li>
-<li class="level2"><a href="#page_event_140">140 军团生成</a></li>
-<li class="level2"><a href="#page_event_152">152 武将势力变更</a></li>
-<li class="level2"><a href="#page_event_160">160 建筑生成</a></li>
-<li class="level2"><a href="#page_event_161">161 建筑清除</a></li>
-<li class="level2"><a href="#page_event_162">162 建筑完成</a></li>
-<li class="level2"><a href="#page_event_170">170 部队生成</a></li>
-<li class="level2"><a href="#page_event_171">171 部队清除</a></li>
-<li class="level2"><a href="#page_event_172">172 部队坐标变更</a></li>
-<li class="level2"><a href="#page_event_173">173 部队经验值获得</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="textblock"><h1><a class="anchor" id="page_event_details"></a>
-说明</h1>
-<ul>
-<li>用于事件处理，您可以注册多个函数.</li>
-</ul>
-<h1><a class="anchor" id="page_event_list"></a>
-目录</h1>
-<h2><a class="anchor" id="page_event_100"></a>
-100 首页标题画面</h2>
-<p>void trigger100_t(); </p>
-<h2><a class="anchor" id="page_event_101"></a>
-101 游戏结束</h2>
-<p>void trigger101_t(); </p>
-<h2><a class="anchor" id="page_event_102"></a>
-102 剧本初始化</h2>
-<p>void trigger102_t();<br />
-<br />
- 映射状态不显示맵이 보이지 않는 상태입니다. </p>
-<h2><a class="anchor" id="page_event_103"></a>
-103 剧本开始</h2>
-<p>void trigger103_t();<br />
-<br />
- 映射状态显示. </p>
-<h2><a class="anchor" id="page_event_104"></a>
-104 剧本结束</h2>
-<p>void trigger104_t(); </p>
-<h2><a class="anchor" id="page_event_105"></a>
-105 保存</h2>
-<p>void trigger105_t(int file_id); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file_id</td><td>文件编号('Save001.s11' 的值是001 .) </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_106"></a>
-106 读档</h2>
-<p>void trigger106_t(int file_id); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file_id</td><td>文件编号 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_107"></a>
-107 新天</h2>
-<p>void trigger107_t(); </p>
-<h2><a class="anchor" id="page_event_108"></a>
-108 新月</h2>
-<p>void trigger108_t(); </p>
-<h2><a class="anchor" id="page_event_109"></a>
-109 新季</h2>
-<p>void trigger109_t(); </p>
-<h2><a class="anchor" id="page_event_110"></a>
-110 新年</h2>
-<p>void trigger110_t(); </p>
-<h2><a class="anchor" id="page_event_111"></a>
-111 回合开始</h2>
-<p>void trigger111_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">force</td><td>势力 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_112"></a>
-112 回合结束</h2>
-<p>void trigger112_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">force</td><td>势力 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_120"></a>
-120 游戏画面绘制</h2>
-<p>void trigger120_t(); </p>
-<h2><a class="anchor" id="page_event_130"></a>
-132 主导权委任</h2>
-<p>void trigger132_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">force</td><td>势力 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_140"></a>
-140 军团生成</h2>
-<p>void trigger140_t(<a class="el" href="structpk_1_1district.html" title="军团 ">pk::district</a>@ district, int type); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">district</td><td>军团 </td></tr>
-    <tr><td class="paramname">type</td><td>未使用 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_152"></a>
-152 武将势力变更</h2>
-<p>void trigger152_t(<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ person, <a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">person</td><td>武将 </td></tr>
-    <tr><td class="paramname">force</td><td>势力 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_160"></a>
-160 建筑生成</h2>
-<p>void trigger160_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, int type);<br />
-<br />
- 堤坝, 遗迹, 庙完成事件不发生. </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">building</td><td>建筑 </td></tr>
-    <tr><td class="paramname">type</td><td>未使用 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_161"></a>
-161 建筑清除</h2>
-<p>void trigger161_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, int type); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">building</td><td>建筑 </td></tr>
-    <tr><td class="paramname">type</td><td><table class="doxtable">
-<tr>
-<th>值</th><th>说明  </th></tr>
-<tr>
-<td>0</td><td>破坏 </td></tr>
-<tr>
-<td>1</td><td>吸收合并 </td></tr>
-</table>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>参考</dt><dd><a class="el" href="namespacepk.html#a24c37c1b0fbec36d2125700a44fe5741">pk::kill</a> </dd></dl>
-<h2><a class="anchor" id="page_event_162"></a>
-162 建筑完成</h2>
-<p>void trigger162_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">building</td><td>建筑 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_170"></a>
-170 部队生成</h2>
-<p>void trigger170_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">unit</td><td>部队 </td></tr>
-    <tr><td class="paramname">type</td><td><table class="doxtable">
-<tr>
-<th>值</th><th>说明  </th></tr>
-<tr>
-<td>0</td><td>出征 </td></tr>
-<tr>
-<td>1</td><td>任意 </td></tr>
-</table>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_171"></a>
-171 部队清除</h2>
-<p>void trigger171_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">unit</td><td>部队 </td></tr>
-    <tr><td class="paramname">type</td><td><table class="doxtable">
-<tr>
-<th>值</th><th>说明  </th></tr>
-<tr>
-<td>0</td><td>消灭 </td></tr>
-<tr>
-<td>1</td><td>进入 </td></tr>
-</table>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>参考</dt><dd><a class="el" href="namespacepk.html#a24c37c1b0fbec36d2125700a44fe5741">pk::kill</a> </dd></dl>
-<h2><a class="anchor" id="page_event_172"></a>
-172 部队坐标变更</h2>
-<p>void trigger172_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, const <a class="el" href="structpk_1_1point.html">pk::point</a> &amp;in);<br />
-<br />
- <a class="el" href="namespacepk.html#aa04c824de89af4c6675ea260c9ada5f1" title="坐标设定 ">pk::set_pos</a> 如果您直接修改单位的坐标属性，而不是pk::set_pos函数，则不会触发该事件。. </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">unit</td><td>部队 </td></tr>
-    <tr><td class="paramname">pos</td><td>坐标 </td></tr>
-  </table>
-  </dd>
-</dl>
-<h2><a class="anchor" id="page_event_173"></a>
-173 部队经验值获得</h2>
-<p>void trigger173_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p><dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">unit</td><td>部队 </td></tr>
-    <tr><td class="paramname">type</td><td>经验值种类 <br />
-</td></tr>
-  </table>
-  </dd>
-</dl>
-</div></div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-创建于 :  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+    </script>
+    <div id="main-nav"></div>
+    <!-- window showing the filter options -->
+    <div id="MSearchSelectWindow" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()" onkeydown="return searchBox.OnSearchSelectKey(event)">
+    </div>
+    <!-- iframe showing the search results (closed by default) -->
+    <div id="MSearchResultsWindow">
+      <iframe src="javascript:void(0)" frameborder="0" name="MSearchResults" id="MSearchResults">
+      </iframe>
+    </div>
+  </div><!-- top -->
+  <div class="header">
+    <div class="headertitle">
+      <div class="title">事件(pk::bind) 说明 </div>
+    </div>
+  </div>
+  <!--header-->
+  <div class="contents">
+    <div class="toc">
+      <h3>目录</h3>
+      <ul>
+        <li class="level1"><a href="#page_event_details">说明</a></li>
+        <li class="level1"><a href="#page_event_list">目录</a>
+          <ul>
+            <li class="level2"><a href="#page_event_50">50 武将列传</a></li>
+            <li class="level2"><a href="#page_event_51">51 部队战法无视地形（巧变）</a></li>
+            <li class="level2"><a href="#page_event_52">52 建筑破坏不损失资源（清野）</a></li>
+            <li class="level2"><a href="#page_event_53">53 战法消耗气力（百战）</a></li>
+            <li class="level2"><a href="#page_event_54">54 部队攻击范围（神臂）</a></li>
+            <li class="level2"><a href="#page_event_100">100 首页标题画面</a></li>
+            <li class="level2"><a href="#page_event_101">101 游戏结束</a></li>
+            <li class="level2"><a href="#page_event_102">102 剧本初始化</a></li>
+            <li class="level2"><a href="#page_event_103">103 剧本开始</a></li>
+            <li class="level2"><a href="#page_event_104">104 剧本结束</a></li>
+            <li class="level2"><a href="#page_event_105">105 保存</a></li>
+            <li class="level2"><a href="#page_event_106">106 读档</a></li>
+            <li class="level2"><a href="#page_event_107">107 新日</a></li>
+            <li class="level2"><a href="#page_event_108">108 新月</a></li>
+            <li class="level2"><a href="#page_event_109">109 新季</a></li>
+            <li class="level2"><a href="#page_event_110">110 新年</a></li>
+            <li class="level2"><a href="#page_event_111">111 回合开始</a></li>
+            <li class="level2"><a href="#page_event_112">112 回合结束</a></li>
+            <li class="level2"><a href="#page_event_120">120 游戏画面绘制</a></li>
+            <li class="level2"><a href="#page_event_130">132 主导权委任</a></li>
+            <li class="level2"><a href="#page_event_140">140 军团生成</a></li>
+            <li class="level2"><a href="#page_event_152">152 武将势力变更</a></li>
+            <li class="level2"><a href="#page_event_160">160 建筑生成</a></li>
+            <li class="level2"><a href="#page_event_161">161 建筑清除</a></li>
+            <li class="level2"><a href="#page_event_162">162 建筑完成</a></li>
+            <li class="level2"><a href="#page_event_170">170 部队生成</a></li>
+            <li class="level2"><a href="#page_event_171">171 部队清除</a></li>
+            <li class="level2"><a href="#page_event_172">172 部队坐标变更</a></li>
+            <li class="level2"><a href="#page_event_173">173 部队经验值获得</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="textblock">
+      <h1><a class="anchor" id="page_event_details"></a>
+        说明</h1>
+      <ul>
+        <li>用于事件处理，您可以注册多个函数.</li>
+      </ul>
+      <h1><a class="anchor" id="page_event_list"></a>
+        目录</h1>
+      <h2><a class="anchor" id="page_event_50"></a>
+        50 武将列传</h2>
+      <p>void trigger50_t(int person_id, string& str);
+        <br />
+        <br />
+        用于设置武将列传
+      </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">person_id</td>
+              <td>武将Id, 可通过<a href="../300%20S11KR常量.cpp" target="_blank">300 S11KR常量.cpp</a>查看</td>
+            </tr>
+            <tr>
+              <td class="paramname">str</td>
+              <td>列传文本</td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_51"></a>
+        51 部队战法无视地形（巧变）</h2>
+      <p>bool trigger51_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a> unit);
+        <br />
+        <br />
+        可设置部队战法无视地形的条件，用于实现巧变效果。
+        <br />
+        返回是否战法无视地形。
+      </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队</td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_52"></a>
+        52 建筑破坏不损失资源（清野）</h2>
+      <p>bool trigger52_t(<a class="el" href="structpk_1_1city.html" title="城市 ">pk::city@</a> city);
+        <br />
+        <br />
+        可设置建筑破坏后不损失资源的条件，用于实现清野效果。
+        <br />
+        返回是否建筑破坏后不损失资源。
+      </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">city</td>
+              <td>城市</td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_53"></a>
+        53 战法消耗气力（百战）</h2>
+      <p>bool trigger53_t(<a class="el" href="structpk_1_1unit.html" title="部队">pk::unit@</a> unit, <a class="el" href="structpk_1_1tactics.html" title="战法">pk::tactics@</a> tactics, int type);
+        <br />
+        <br />
+        可设置战法实际消耗气力，用于实现清野效果。
+        <br />
+        返回战法最终消耗气力。
+      </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队</td>
+            </tr>
+            <tr>
+              <td class="paramname">tactics</td>
+              <td>战法</td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>显示</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>需要</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>实际</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_100"></a>
+        100 首页标题画面</h2>
+      <p>void trigger100_t(); </p>
+      <h2><a class="anchor" id="page_event_101"></a>
+        101 游戏结束</h2>
+      <p>void trigger101_t(); </p>
+      <h2><a class="anchor" id="page_event_102"></a>
+        102 剧本初始化</h2>
+      <p>void trigger102_t();<br />
+        <br />
+        映射状态不显示맵이 보이지 않는 상태입니다. </p>
+      <h2><a class="anchor" id="page_event_103"></a>
+        103 剧本开始</h2>
+      <p>void trigger103_t();<br />
+        <br />
+        映射状态显示. </p>
+      <h2><a class="anchor" id="page_event_104"></a>
+        104 剧本结束</h2>
+      <p>void trigger104_t(); </p>
+      <h2><a class="anchor" id="page_event_105"></a>
+        105 保存</h2>
+      <p>void trigger105_t(int file_id); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">file_id</td>
+              <td>文件编号('Save001.s11' 的值是001 .) </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_106"></a>
+        106 读档</h2>
+      <p>void trigger106_t(int file_id); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">file_id</td>
+              <td>文件编号 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_107"></a>
+        107 新天</h2>
+      <p>void trigger107_t(); </p>
+      <h2><a class="anchor" id="page_event_108"></a>
+        108 新月</h2>
+      <p>void trigger108_t(); </p>
+      <h2><a class="anchor" id="page_event_109"></a>
+        109 新季</h2>
+      <p>void trigger109_t(); </p>
+      <h2><a class="anchor" id="page_event_110"></a>
+        110 新年</h2>
+      <p>void trigger110_t(); </p>
+      <h2><a class="anchor" id="page_event_111"></a>
+        111 回合开始</h2>
+      <p>void trigger111_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">force</td>
+              <td>势力 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_112"></a>
+        112 回合结束</h2>
+      <p>void trigger112_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">force</td>
+              <td>势力 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_120"></a>
+        120 游戏画面绘制</h2>
+      <p>void trigger120_t(); </p>
+      <h2><a class="anchor" id="page_event_130"></a>
+        132 主导权委任</h2>
+      <p>void trigger132_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">force</td>
+              <td>势力 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_140"></a>
+        140 军团生成</h2>
+      <p>void trigger140_t(<a class="el" href="structpk_1_1district.html" title="军团 ">pk::district</a>@ district, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">district</td>
+              <td>军团 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>未使用 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_152"></a>
+        152 武将势力变更</h2>
+      <p>void trigger152_t(<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ person, <a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">person</td>
+              <td>武将 </td>
+            </tr>
+            <tr>
+              <td class="paramname">force</td>
+              <td>势力 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_160"></a>
+        160 建筑生成</h2>
+      <p>void trigger160_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, int type);<br />
+        <br />
+        堤坝, 遗迹, 庙完成事件不发生. </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">building</td>
+              <td>建筑 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>未使用 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_161"></a>
+        161 建筑清除</h2>
+      <p>void trigger161_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">building</td>
+              <td>建筑 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>破坏 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>吸收合并 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section see"><dt>参考</dt>
+        <dd><a class="el" href="namespacepk.html#a24c37c1b0fbec36d2125700a44fe5741">pk::kill</a> </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_162"></a>
+        162 建筑完成</h2>
+      <p>void trigger162_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">building</td>
+              <td>建筑 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_170"></a>
+        170 部队生成</h2>
+      <p>void trigger170_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>出征 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>任意 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_171"></a>
+        171 部队清除</h2>
+      <p>void trigger171_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>消灭 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>进入 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section see"><dt>参考</dt>
+        <dd><a class="el" href="namespacepk.html#a24c37c1b0fbec36d2125700a44fe5741">pk::kill</a> </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_172"></a>
+        172 部队坐标变更</h2>
+      <p>void trigger172_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, const <a class="el" href="structpk_1_1point.html">pk::point</a> &amp;in);<br />
+        <br />
+        <a class="el" href="namespacepk.html#aa04c824de89af4c6675ea260c9ada5f1" title="坐标设定 ">pk::set_pos</a> 如果您直接修改单位的坐标属性，而不是pk::set_pos函数，则不会触发该事件。. </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">pos</td>
+              <td>坐标 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_173"></a>
+        173 部队经验值获得</h2>
+      <p>void trigger173_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>经验值种类 <br />
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+    </div>
+  </div><!-- contents -->
+  <!-- start footer part -->
+  <hr class="footer" /><address class="footer"><small>
+      创建于 : &#160;<a href="http://www.doxygen.org/index.html">
+        <img class="footer" src="doxygen.png" alt="doxygen" />
+      </a> 1.8.13
+    </small></address>
 </body>
+
 </html>

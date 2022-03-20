@@ -1350,27 +1350,35 @@ namespace 人物加强 {
         return targets;
     }
 
-    array<int> get_skill_id(pk::unit@ unit)
+    array<array<int>> get_skill_id(pk::unit@ unit)
     {
-      array<int> skill_ids;
-      for (int i = 0; i <= 159; i++)
+      array<array<int>> skill_person;
+      for (int m = 0; m < 3; m++)
       {
-        if (ch::has_skill(unit, i))
+        if (pk::is_valid_person_id(unit.member[m]))
         {
-          skill_ids.insertLast(i);
+          pk::person@ member_t = pk::get_person(unit.member[m]);  //隊伍中的武將
+          if (member_t is null || !pk::is_alive(member_t)) continue;
+            array<int> skill_ids;
+            skill_ids.insertLast(member_t.get_id());
+            skill_ids.insertLast(member_t.skill);
+            skill_person.insertLast(skill_ids);
         }
       }
-      return skill_ids;
+      return skill_person;
     }
 
     array<string> get_skill_name(pk::unit@ unit)
     {
       array<string> skill_names;
-      for (int i = 0; i <= 159; i++)
+      for (int m = 0; m < 3; m++)
       {
-        if (ch::has_skill(unit, i))
+        if (pk::is_valid_person_id(unit.member[m]))
         {
-          skill_names.insertLast(pk::get_skill(i).name);
+          pk::person@ member_t = pk::get_person(unit.member[m]);  //隊伍中的武將
+          if (member_t is null || !pk::is_alive(member_t)) continue;
+          pk::skill@ skill = pk::get_skill(member_t.skill);
+          skill_names.insertLast(skill.name);
         }
       }
       return skill_names;
@@ -1378,88 +1386,27 @@ namespace 人物加强 {
 
     int choose_skill(array<int> skill_ids, array<string> skill_names)
     {
-      // 头5+1 中间4+2 尾部 n+1
-      int num = int(skill_ids.length);
-      int choose_times = (num - 5) / 4;//除法直接去掉小数
-      int mod = (num - 5) % 4;//取余数做末尾
-      array<string> skill_name_list;
-      for (int i = 0; i < pk::min(5,num); ++i)
-      {
-        skill_name_list.insertLast(skill_names[i]);
-      }
-
-      if (num == 6) skill_name_list.insertLast(skill_names[num - 1]);
-      else if (num > 6) skill_name_list.insertLast(pk::encode("下一页"));
-
-      int n = pk::choose(pk::encode("请选择要获得的技能."), skill_name_list);
-      if (n == 5 and num!=6) return choose_skill_mid(skill_ids, skill_names, 1);
+      int n = pk::choose(pk::encode("请选择要获得的特技."), skill_names);
       return skill_ids[n];
-    }
-
-    int choose_skill_mid(array<int> skill_ids, array<string> skill_names, int page)
-    {
-      //一个城市最多8个？
-      // 头5+1 中间4+2 尾部 n+1
-      int num = int(skill_ids.length);
-      int num2 = (num - 1 - 4 * page);
-      if (num2 <= 5)
-      {
-        //最后一页
-        //要获取的是spec_id
-        array<string> skill_name_list;
-        for (int i = (1 +  page * 4); i < (1 + page * 4 + num2); ++i)
-        {
-          skill_name_list.insertLast(skill_names[i]);
-        }
-        skill_name_list.insertLast(pk::encode("上一页"));
-        int n = pk::choose(pk::encode("请选择要获得的技能."), skill_name_list);
-
-        if (n == 5 or n == int(skill_name_list.length -1))
-        {
-          if (page == 1) return choose_skill(skill_ids, skill_names);
-          return choose_skill_mid(skill_ids, skill_names, page - 1);//如何返回上一页
-        }
-
-        int t = n + (page - 1) * 4 + 5;
-
-        return skill_ids[t];
-      }
-      else//不是最后一页
-      {
-        array<string> skill_name_list;
-        for (int i = (1 + page * 4); i < (1 + page * 4 + 4); ++i)
-        {
-          skill_name_list.insertLast(skill_names[i]);
-        }
-        skill_name_list.insertLast(pk::encode("上一页"));
-        skill_name_list.insertLast(pk::encode("下一页"));
-
-        int n = pk::choose(pk::encode("请选择要获得的技能."), skill_name_list);
-
-        //非最后一页情况
-        if (n == 4)
-        {
-          if (page!= 1) return choose_skill_mid(skill_ids, skill_names, page - 1);
-          else return choose_skill(skill_ids, skill_names);
-        }
-        if (n == 5) return choose_skill_mid(skill_ids, skill_names, page + 1);
-
-        int t = n + (page - 1) * 4 + 5;
-
-        return skill_ids[t];
-      }
     }
 
     void func_狼顾权变(pk::point dst_pos)
     {
       pk::unit@ unit = pk::get_unit(dst_pos);
-      array<int> skill_ids = get_skill_id(unit);
+      array<array<int>> skill_person = get_skill_id(unit);
       array<string> skill_names = get_skill_name(unit);
+      array<int> skill_ids;
+      for (int i = 0; i < int(skill_person.length); i += 1)
+      {
+        skill_ids.insertLast(skill_person[1]);
+      }
       int skill_id = choose_skill(skill_ids, skill_names);
+
+      // pk::store(KEY_狼顾权变_回合内技能, unit.get_id(), skill_id);
       pk::person@ leader = pk::get_person(unit.leader);
-      leader.skill = -1;
+      pk::set_skill(leader, -1);
       leader.update();
-      person_司马懿.skill = skill_id;
+      pk::set_skill(person_司马懿, skill_id);
       person_司马懿.update();
       src_unit.update();
     }
