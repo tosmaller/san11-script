@@ -1,7 +1,7 @@
 
 /*
 作者：黑店小小二
-v1.9 2022/03/18 司马懿新增神术【狼顾权变】
+v1.9 2022/03/18 司马懿新增神术【狼顾权变】，修复郭嘉神术bug
 v1.8 2022/03/01 诸葛亮新增神术【神鬼八阵】
 v1.7 2022/02/28 袁术新增神术【妄尊仲帝】
 v1.6 2022/02/25 郭嘉新增神术【神鬼奇谋】
@@ -20,8 +20,7 @@ namespace 人物加强 {
   const int KEY_神鬼八阵_回合数 = pk::hash("神术_神鬼八阵_回合数");
   const int KEY_神鬼八阵_一击必杀_索引_武将起始 = 0;
 
-  const int KEY_狼顾权变_回合内技能 = pk::hash("神术_狼顾权变_回合内技能");
-  const int KEY_狼顾权变_回合外技能 = pk::hash("神术_狼顾权变_回合外技能");
+  const int KEY_狼顾权变_获得技能 = pk::hash("神术_狼顾权变_获得技能");
 
   const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
@@ -49,6 +48,7 @@ namespace 人物加强 {
 
       pk::bind(108, pk::trigger108_t(onMonthStart));
       pk::bind(111, pk::trigger111_t(onTurnStart));
+      pk::bind(112, pk::trigger111_t(onTurnEnd));
       pk::bind(171, pk::trigger171_t(onUnitRemove));
       pk::bind(174, pk::trigger174_t(onUnitActionDone));
     }
@@ -436,6 +436,17 @@ namespace 人物加强 {
       if (force.get_id() == person_袁术.get_force_id())
       {
         神术_妄尊仲帝_补兵处理();
+      }
+    }
+    void onTurnEnd(pk::force@ force)
+    {
+      if (person_司马懿 is null)
+      {
+        @person_司马懿 = pk::get_person(武将_司马懿);
+      }
+      if (force.get_id() == person_司马懿.get_force_id())
+      {
+        神术_狼顾权变_特技处理();
       }
     }
     void onUnitRemove(pk::unit@ unit,pk::hex_object@ dst, int type)
@@ -1308,7 +1319,7 @@ namespace 人物加强 {
     // ----------- 狼顾权变 --------------------
     string getDesc_神术_狼顾权变()
     {
-      const int skill_id = int(pk::load(KEY_狼顾权变_回合内技能, 0, -1));
+      const int skill_id = int(pk::load(KEY_狼顾权变_获得技能, 0, -1));
       if (skill_id >= 0)
         return pk::encode("本回合已经使用过.");
       else if (src_unit.energy < 计略气力消耗_通用)
@@ -1316,12 +1327,12 @@ namespace 人物加强 {
       else if (getTargets_狼顾权变_目标部队位置(3).length == 0)
         return pk::encode("周围没有目标.");
       else
-        return pk::encode("每回合限一次,回合内获得3格内任一部队的一个技能，回合外获得已方部队一个技能");
+        return pk::encode("每回合限一次,直到回合结束获得3格内任一部队的武将一个技能。");
     }
 
     bool isEnabled_神术_狼顾权变()
     {
-      const int skill_id = int(pk::load(KEY_狼顾权变_回合内技能, 0, -1));
+      const int skill_id = int(pk::load(KEY_狼顾权变_获得技能, 0, -1));
       if(skill_id >= 0) return false;
       if (src_unit.energy < 计略气力消耗_通用) return false;
       if (getTargets_狼顾权变_目标部队位置(3).length == 0) return false;
@@ -1362,7 +1373,7 @@ namespace 人物加强 {
             array<int> skill_ids;
             skill_ids.insertLast(member_t.get_id());
             skill_ids.insertLast(member_t.skill);
-            skill_person.insertLast(skill_ids);
+            skill_person.insertAt(skill_person.length, skill_ids);
         }
       }
       return skill_person;
@@ -1387,7 +1398,23 @@ namespace 人物加强 {
     int choose_skill(array<int> skill_ids, array<string> skill_names)
     {
       int n = pk::choose(pk::encode("请选择要获得的特技."), skill_names);
-      return skill_ids[n];
+      return n;
+    }
+
+    void 神术_狼顾权变_特技处理()
+    {
+      const int skill_id = int(pk::load(KEY_狼顾权变_获得技能, 0, -1));
+      const int person_id = int(pk::load(KEY_狼顾权变_获得技能, 1, -1));
+      const int person_skill_id = int(pk::load(KEY_狼顾权变_获得技能, 2, -1));
+      if (skill_id >= 0)
+      {
+        pk::set_skill(person_司马懿, skill_id);
+        pk::set_skill(pk::get_person(person_id), person_skill_id);
+        pk::say(pk::encode("总算回复了，恐怖如斯啊！！!"), pk::get_person(person_id));
+        pk::store(KEY_狼顾权变_获得技能, 0, -1);
+        pk::store(KEY_狼顾权变_获得技能, 1, -1);
+        pk::store(KEY_狼顾权变_获得技能, 2, -1);
+      }
     }
 
     void func_狼顾权变(pk::point dst_pos)
@@ -1398,17 +1425,37 @@ namespace 人物加强 {
       array<int> skill_ids;
       for (int i = 0; i < int(skill_person.length); i += 1)
       {
-        skill_ids.insertLast(skill_person[1]);
+        skill_ids.insertLast(skill_person[i][1]);
       }
-      int skill_id = choose_skill(skill_ids, skill_names);
+      int select_idx = choose_skill(skill_ids, skill_names);
+      int skill_id = skill_ids[select_idx];
+      int person_id = skill_person[select_idx][0];
 
-      // pk::store(KEY_狼顾权变_回合内技能, unit.get_id(), skill_id);
-      pk::person@ leader = pk::get_person(unit.leader);
-      pk::set_skill(leader, -1);
-      leader.update();
-      pk::set_skill(person_司马懿, skill_id);
-      person_司马懿.update();
-      src_unit.update();
+      pk::person@ select_person = pk::get_person(person_id);
+      int success = 100;
+      if (select_person.stat[武将能力_智力] >= person_司马懿.stat[武将能力_智力])
+      {
+        success -= pk::max(1, select_person.stat[武将能力_智力] - person_司马懿.stat[武将能力_智力]);
+      }
+
+      if (pk::rand_bool(success))
+      {
+        pk::store(KEY_狼顾权变_获得技能, 0, person_司马懿.skill);
+        pk::store(KEY_狼顾权变_获得技能, 1, person_id);
+        pk::store(KEY_狼顾权变_获得技能, 2, skill_id);
+
+        pk::set_skill(select_person, -1);
+        pk::say(pk::encode("不好，快撤！！!"), select_person);
+        select_person.update();
+        pk::say(pk::encode("精晓奇谋，诡变万策!"), src_leader);
+        pk::set_skill(person_司马懿, skill_id);
+        person_司马懿.update();
+        历史日志(person_司马懿, '神术_狼顾权变', pk::format("获得\x1b[1x{}\x1b[0x的特技\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(select_person)), pk::decode(skill_names[select_idx])));
+      }
+      else
+      {
+        pk::say(pk::encode("人算，终究不如天算..."), src_leader);
+      }
     }
 
     bool handler_神术_狼顾权变(pk::point dst_pos)
@@ -1422,8 +1469,6 @@ namespace 人物加强 {
       pk::add_energy(src_unit, -计略气力消耗_通用, true);
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 50);
-
-      pk::say(pk::encode("精晓奇谋，诡变万策!"), src_leader);
 
       return true;
     }
