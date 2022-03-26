@@ -1,7 +1,8 @@
 
 /*
 作者：黑店小小二
-v2.0 2022/03/21 庞统新增神术【火凤连环】,贾诩新增神术【乱武完杀】
+pk2.2 版本要求，至少为2.4.220319
+v2.0 2022/03/21 庞统新增神术【火凤连环】,贾诩新增神术【乱武完杀】, 法正新增神术【奇谋诡策】
 v1.9 2022/03/18 司马懿新增神术【狼顾权变】，修复郭嘉神术bug
 v1.8 2022/03/01 诸葛亮新增神术【神鬼八阵】
 v1.7 2022/02/28 袁术新增神术【妄尊仲帝】
@@ -27,15 +28,17 @@ namespace 人物加强 {
   const int KEY_狼顾权变_失去技能回合数 = pk::hash("神术_狼顾权变_失去技能回合数");
   const int KEY_狼顾权变_失去技能 = pk::hash("神术_狼顾权变_失去技能");
 
-
   const int KEY_火凤连环 = pk::hash("神术_火凤连环");
 
   const int KEY_乱武完杀 = pk::hash("神术_乱武完杀");
+
+  const int KEY_奇谋诡策 = pk::hash("神术_奇谋诡策");
 
   const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
 
   const int 计略气力消耗_黄天泰平 = 100;
+  const int 计略气力消耗_乱武完杀 = 100;
 
   pk::func209_t@ prev_callback_209;
   pk::func58_t@ prev_callback_58;
@@ -61,6 +64,7 @@ namespace 人物加强 {
       pk::bind(112, pk::trigger111_t(onTurnEnd));
       pk::bind(171, pk::trigger171_t(onUnitRemove));
       pk::bind(174, pk::trigger174_t(onUnitActionDone));
+      pk::bind(179, pk::trigger179_t(onUnitAfterAttack));
     }
 
     pk::unit@ src_unit;
@@ -76,6 +80,7 @@ namespace 人物加强 {
     pk::person@ person_司马懿;
     pk::person@ person_庞统;
     pk::person@ person_贾诩;
+    pk::person@ person_法正;
     pk::point src_pos_;
     pk::force@ src_force;
 
@@ -89,6 +94,7 @@ namespace 人物加强 {
     bool 开启_狼顾权变 = true; // 司马懿大招
     bool 开启_火凤连环 = true; // 庞统大招
     bool 开启_乱武完杀 = true; // 贾诩大招
+    bool 开启_奇谋诡策 = true; // 法正大招
 
     bool 妄尊仲帝_启用状态 = true;
     bool 神鬼八阵_启用状态 = true;
@@ -213,13 +219,25 @@ namespace 人物加强 {
         pk::menu_item 神术_乱武完杀;
         神术_乱武完杀.menu = 菜单_神术;
         神术_乱武完杀.init = pk::unit_menu_item_init_t(init);
-        神术_乱武完杀.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("乱武完杀", 计略气力消耗_通用); });
+        神术_乱武完杀.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("乱武完杀", 计略气力消耗_乱武完杀); });
         神术_乱武完杀.get_desc = pk::menu_item_get_desc_t(getDesc_神术_乱武完杀);
         神术_乱武完杀.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_贾诩); });
         神术_乱武完杀.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_乱武完杀);
         神术_乱武完杀.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(3); });
         神术_乱武完杀.handler = pk::unit_menu_item_handler_t(handler_神术_乱武完杀);
         pk::add_menu_item(神术_乱武完杀);
+      }
+      if (开启_奇谋诡策) {
+        pk::menu_item 神术_奇谋诡策;
+        神术_奇谋诡策.menu = 菜单_神术;
+        神术_奇谋诡策.init = pk::unit_menu_item_init_t(init);
+        神术_奇谋诡策.get_text = cast<pk::menu_item_get_desc_t@>(function() { return main.getText_神术_名称("奇谋诡策", 计略气力消耗_通用); });
+        神术_奇谋诡策.get_desc = pk::menu_item_get_desc_t(getDesc_神术_奇谋诡策);
+        神术_奇谋诡策.is_visible = cast<pk::menu_item_is_visible_t@>(function() { return main.isVisible_神术_名称(武将_法正); });
+        神术_奇谋诡策.is_enabled = pk::menu_item_is_enabled_t(isEnabled_神术_奇谋诡策);
+        神术_奇谋诡策.get_targets = cast<pk::unit_menu_item_get_targets_t@>(function() { return main.getTargets_神术_目标(3); });
+        神术_奇谋诡策.handler = pk::unit_menu_item_handler_t(handler_神术_奇谋诡策);
+        pk::add_menu_item(神术_奇谋诡策);
       }
     }
     // ----------- 基础 ------------------
@@ -238,6 +256,7 @@ namespace 人物加强 {
       @person_司马懿 = pk::get_person(武将_司马懿);
       @person_庞统 = pk::get_person(武将_庞统);
       @person_贾诩 = pk::get_person(武将_贾诩);
+      @person_法正 = pk::get_person(武将_法正);
       @src_force = pk::get_force(unit.get_force_id());
       src_pos_ = src_pos;
     }
@@ -256,7 +275,8 @@ namespace 人物加强 {
         person_诸葛亮.get_id(),
         person_司马懿.get_id(),
         person_庞统.get_id(),
-        person_贾诩.get_id()
+        person_贾诩.get_id(),
+        person_法正.get_id()
       };
       if (神术技能武将.find(src_leader.get_id()) >= 0) return true;
       return false;
@@ -496,6 +516,10 @@ namespace 人物加强 {
       {
         火凤连环清除();
       }
+      if (force.get_id() == person_法正.get_force_id())
+      {
+        奇谋诡策清除();
+      }
     }
     void onUnitRemove(pk::unit@ unit,pk::hex_object@ dst, int type)
     {
@@ -516,6 +540,14 @@ namespace 人物加强 {
       if (has_effect)
       {
         pk::store(KEY_神鬼八阵_一击必杀, KEY_神鬼八阵_一击必杀_索引_武将起始 + unit.get_id(), false);
+      }
+    }
+
+    void onUnitAfterAttack(pk::unit@ dst_unit, pk::unit@ unit, int troops_damage, int critical, int tactics)
+    {
+      if (开启_奇谋诡策)
+      {
+        神术_奇谋诡策_伤害处理(dst_unit, unit);
       }
     }
 
@@ -588,7 +620,7 @@ namespace 人物加强 {
           }
           pk::set_status(dst, src_unit, 部队状态_伪报, pk::rand(2) + 3, true);
           历史日志(dst, '神术_业火焚天', '陷入伪报');
-          pk::create_fire(arr[l], pk::rand(2) + 3, dst, true); //火计
+          pk::create_fire(arr[l], pk::rand(2) + 3, src_unit, true); //火计
           pk::add_energy(dst, -30, true); //减气
           ch::add_troops(dst, -random(500, 1500), true); // 随机减兵500~1500
           历史日志(dst, '神术_业火焚天', '受到了巨大伤害');
@@ -701,7 +733,7 @@ namespace 人物加强 {
           pk::set_status(dst, src_unit, 部队状态_混乱, pk::rand(2) + 3, true); // 雷电麻痹
           历史日志(dst, '神术_神雷灭世', '陷入混乱');
           if (pk::rand_bool(50)) { // 50%概率着火
-            pk::create_fire(arr[l], pk::rand(2), dst, true); //火计
+            pk::create_fire(arr[l], pk::rand(2), src_unit, true); //火计
           }
           pk::add_energy(dst, -30, true); //减气
           ch::add_troops(dst, -(部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(2000)), true); // 在雷电伤害基础上随机加2000
@@ -732,7 +764,7 @@ namespace 人物加强 {
 
         if (dst is null and building is null) {
           if (pk::rand_bool(50)) { // 50%概率着火
-            pk::create_fire(arr[l], pk::rand(2), dst, true); //火计
+            pk::create_fire(arr[l], pk::rand(2), src_unit, true); //火计
           }
         }
       }
@@ -1619,7 +1651,7 @@ namespace 人物加强 {
       else if (src_unit.energy < 计略气力消耗_通用)
         return pk::encode("气力不足.");
       else
-        return pk::encode("每回合限一次,3格内敌方任一部队受到伤害时，其他部队同样受伤，且火伤害翻倍。");
+        return pk::encode("每回合限一次,3格内敌方任一部队受到部队伤害时，其他部队同样受伤。");
     }
     bool isEnabled_神术_火凤连环()
     {
@@ -1668,18 +1700,9 @@ namespace 人物加强 {
             pk::unit@ dst = pk::get_unit(unit_id);
             if (unit.get_id() != unit_id)
             {
-              int troops = 0;
-              if (value < 0 and rettype >= 0)
+              if (value < 0 and rettype == 14)
               {
-                if (rettype != 13)
-                {
-                  troops = value;
-                  if (rettype == 3 or rettype == 4 or rettype == 9 or rettype == 11 or rettype == 12)
-                  {
-                    troops += troops;
-                  }
-                }
-                ch::add_troops(dst, troops, true);
+                ch::add_troops(dst, value, true);
                 历史日志(dst, '神术_火凤连环', '受到了巨大伤害');
                 pk::say(pk::encode("该死的，这是怎么回事"), pk::get_person(dst.leader));
                 if (dst.troops <= 0) {
@@ -1730,7 +1753,7 @@ namespace 人物加强 {
         return pk::encode("暂无多余部队.");
       else if (unit_length > 0)
         return pk::encode(pk::format("还有{}支小分队存在", unit_length));
-      else if (src_unit.energy < 计略气力消耗_通用)
+      else if (src_unit.energy < 计略气力消耗_乱武完杀)
         return pk::encode("气力不足.");
       else if (src_unit.troops < 兵力条件_通用)
         return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
@@ -1741,7 +1764,7 @@ namespace 人物加强 {
     {
       if (getEmptyPerson() is null) return false;
       if (get_乱武完杀部队().length > 0) return false;
-      if (src_unit.energy < 计略气力消耗_通用) return false;
+      if (src_unit.energy < 计略气力消耗_乱武完杀) return false;
       if (src_unit.troops < 兵力条件_通用) return false;
       return true;
     }
@@ -1775,11 +1798,12 @@ namespace 人物加强 {
     void setTempPerson(int person_id, int index)
     {
       pk::person@ farmer = pk::get_person(person_id);
-      pk::set_district(farmer, person_贾诩.get_district_id());
+      // pk::set_district(farmer, person_贾诩.get_district_id());
+
       farmer.name_read = pk::encode("贾诩小队");
       farmer.sex = 性别_男;
       farmer.sei = pk::encode("贾");
-      farmer.mei = pk::encode("诩" + index);
+      farmer.mei = pk::encode(pk::format("诩{}", index));
       farmer.service = 建筑_末 - 1;
       farmer.face = 武将_卫兵;
       farmer.mibun = 身份_一般;
@@ -1836,6 +1860,7 @@ namespace 人物加强 {
       farmer.wajutsu_mushi = person_贾诩.wajutsu_mushi;     //无視
       farmer.wajutsu_chinsei = person_贾诩.wajutsu_chinsei;   //?静
       farmer.wajutsu_gyakujou = person_贾诩.wajutsu_gyakujou;  //憤怒
+
       farmer.update();
     }
 
@@ -1877,9 +1902,10 @@ namespace 人物加强 {
         if (!valid_pos(target_pos)) continue;
         if (getEmptyPerson() is null) break;
         pk::person@ temp_person = getEmptyPerson();
+        pk::set_district(temp_person, person_贾诩.get_district_id());
         setTempPerson(temp_person.get_id(), unit_ids.length + 1);
         pk::unit@ unit = pk::create_unit(pk::get_building(person_贾诩.service), temp_person, null, null, 100, src_unit.weapon, 兵器_走舸, 0, 100, target_pos);
-        unit.energy = 0;
+        unit.energy = 10;
         unit_ids.insertLast(unit.get_id());
         pk::trace('完杀小队' + i + "队：" + unit.get_id());
       }
@@ -1924,12 +1950,12 @@ namespace 人物加强 {
 
     void 乱武完杀部队溃灭处理(pk::unit@ unit, pk::hex_object@ hex_object, int type)
     {
-      if (type == 0)
+      array<int> 完杀小队 = get_乱武完杀部队();
+      if (完杀小队.find(unit.get_id()) >= 0)
       {
-        array<int> 完杀小队 = get_乱武完杀部队();
-        if (完杀小队.find(unit.get_id()) >= 0)
+        pk::trace('溃灭部队：' + unit.get_id());
+        if (type == 0)
         {
-          pk::trace('溃灭部队：' + unit.get_id());
           array<pk::point> rings = pk::range(unit.get_pos(), 1, 1);
           for (int i = 0; i < int(rings.length); i++)
           {
@@ -1937,17 +1963,16 @@ namespace 人物加强 {
             pk::unit@ dst = pk::get_unit(dst_pos);
             if (dst !is null and dst.get_force_id() != person_贾诩.get_force_id())
             {
-              pk::trace('dst 势力ID：' + dst.get_force_id() + ";溃灭部队势力ID:" + person_贾诩.get_force_id());
               ch::add_troops(dst, -int(random(10, 100) * 100), true);
               历史日志(dst, '神术_乱武完杀', '受到了巨大伤害');
               pk::say(pk::encode("不好，中计了！"), pk::get_person(dst.leader));
               if (dst.troops <= 0) {
                 pk::kill(dst, src_unit);
               }
-              remove_乱武完杀部队(unit.get_id());
             }
           }
         }
+        remove_乱武完杀部队(unit.get_id());
       }
     }
     bool handler_神术_乱武完杀(pk::point dst_pos)
@@ -1959,9 +1984,143 @@ namespace 人物加强 {
       乱武完杀处理(dst_pos, max_unit);
       ch::add_troops(src_unit, max_unit * -100, true);
 
+      pk::add_energy(src_unit, -计略气力消耗_乱武完杀, true);
+
+      pk::add_stat_exp(src_unit, 武将能力_智力, 20);
+
+      pk::say(pk::encode("吾之所好，杀人诛心。"), src_leader);
+
+      src_unit.action_done = true;
+      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
+        src_unit.action_done = false;
+      return true;
+    }
+
+    // ------------ 神术_奇谋诡策 -----------
+    string getDesc_神术_奇谋诡策()
+    {
+      if (src_unit.energy < 计略气力消耗_通用)
+        return pk::encode("气力不足.");
+      else if (src_unit.troops < 兵力条件_通用)
+        return pk::encode(pk::format("兵力不足,兵力至少{}", 兵力条件_通用));
+      else
+        return pk::encode("令3格内我方部队气力回满，兵力回一半，并且本回合攻击敌方部队时一定概率斩将");
+    }
+    bool isEnabled_神术_奇谋诡策()
+    {
+      if (src_unit.energy < 计略气力消耗_通用) return false;
+      if (src_unit.troops < 兵力条件_通用) return false;
+      return true;
+    }
+
+    void fun_奇谋诡策(pk::point dst_pos)
+    {
+      array<pk::point> rings = pk::range(dst_pos, 0, 3);
+      for (int i = 0; i < int(rings.length); i++)
+      {
+        pk::point target_pos = rings[i];
+        if (!pk::is_valid_pos(target_pos)) continue;
+        pk::unit@ dst = pk::get_unit(target_pos);
+        if (dst !is null)
+        {
+          pk::trace("部队势力：" + dst.get_force_id() + ";法正势力：" + person_法正.get_force_id());
+          if (dst.get_force_id() == person_法正.get_force_id())
+          {
+            // KEY_奇谋诡策
+            pk::store(KEY_奇谋诡策, dst.get_id(), true);
+            pk::add_energy(dst, int(pk::core["部队.熟练兵最大气力"]), true);
+            ch::add_troops(dst, dst.troops, true);
+            pk::say(pk::encode("多谢孝直达人"), pk::get_person(dst.leader));
+            历史日志(dst, '神术_奇谋诡策', '回复了气力跟兵士');
+          }
+          else
+          {
+            pk::set_status(dst, src_unit, 部队状态_伪报, pk::rand(2), true);
+            历史日志(dst, '神术_奇谋诡策', '陷入了伪报');
+          }
+        }
+      }
+    }
+
+    void 神术_奇谋诡策_伤害处理(pk::unit@ dst_unit, pk::unit@ unit)
+    {
+      const bool 奇谋诡策部队 = bool(pk::load(KEY_奇谋诡策, unit.get_id(), false));
+      if (奇谋诡策部队 and dst_unit !is null)
+      {
+        for (int m = 0; m < 3; m++)
+        {
+          if (pk::is_valid_person_id(dst_unit.member[m]))
+          {
+            const int rand = random(0, 100);
+            pk::person@ member_t = pk::get_person(dst_unit.member[m]);
+            if (member_t is null || !pk::is_alive(member_t)) continue;
+            if (rand <= 50) { // 50%受伤
+              if (member_t.shoubyou != 3)
+              {
+                member_t.shoubyou += 1;
+              }
+              else if (pk::rand_bool(50))
+              {
+                pk::kill(member_t, pk::get_person(unit.leader), null, null, 2);
+                if (m == 0) pk::kill(dst_unit);
+              }
+            }
+            else if (rand > 50 and rand <= 80 and member_t.mibun != 身份_君主)
+            {
+              member_t.former_force = member_t.get_force_id();
+              // pk::set_district(member_t, (pk::get_person(pk::get_kunshu_id(member_t))).get_district_id());
+              member_t.mibun = 身份_俘虏;
+              member_t.location = src_unit.get_id();
+              pk::building@ building = pk::get_building(pk::get_service(src_unit));
+              pk::set_service(member_t, building.get_id());
+              pk::say(pk::encode("这是妖术！"), member_t);
+              if (m == 0) // 主将被俘，部队解散
+              {
+                pk::kill(dst_unit);
+              }
+              else
+              {
+                if (m == 1) {
+                  dst_unit.member[1] = dst_unit.member[2];
+                  dst_unit.member[2] = -1;
+                  m -= 1;
+                }
+                if (m == 2) {
+                  dst_unit.member[2] = -1;
+                }
+                pk::update_unit(dst_unit);
+              }
+            }
+            else
+            {
+              pk::kill(member_t, pk::get_person(unit.leader), null, null, 2);
+              if (m == 0) pk::kill(dst_unit);
+            }
+          }
+        }
+      }
+    }
+
+    void 奇谋诡策清除()
+    {
+      for (int i = 0; i < 部队_末; i++)
+      {
+        pk::store(KEY_奇谋诡策, i, false);
+      }
+    }
+
+    bool handler_神术_奇谋诡策(pk::point dst_pos)
+    {
+      pk::play_se(120);
+      pk::special_cutin(126,1000); // 妖术遮罩
+
+      fun_奇谋诡策(dst_pos);
+
       pk::add_energy(src_unit, -计略气力消耗_通用, true);
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 20);
+
+      pk::say(pk::encode("虚实不定，避重就轻，以眩远近。"), src_leader);
 
       src_unit.action_done = true;
       if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
