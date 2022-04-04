@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>San11PK: 文件夹说明</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">San11PK
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 다음에 의해 생성됨 :  Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">文件夹说明 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="toc"><h3>目录</h3>
+<ul><li class="level1"><a href="#page_dir_data">data 文件夹</a></li>
+<li class="level1"><a href="#page_dir_media">media 文件夹</a></li>
+<li class="level1"><a href="#page_dir_script">script 文件夹</a></li>
+</ul>
+</div>
+<div class="textblock"><h1><a class="anchor" id="page_dir_data"></a>
+data文件夹</h1>
+<ul>
+<li>data文件夹下所有的xml文件前面加 '#'，则启动时不加载.</li>
+<li>xml 不区分文件名，根节点的名称总是'pk'.</li>
+<li>如出现重复的值将应用于以后加载的xml文件中的值。.</li>
+<li>xml文件中的数据将覆盖scenario.s11载入后的数据.</li>
+<li>在设置图像、声音文件时，以xml文件路径为标准设置路径即可.</li>
+<li>制作和发布自己的模型或声音时，可以按照以下步骤进行制作和发布。玩家可以简单地将其放入data文件夹中，而无需进行其他工作。 配置xml文件时，请确保尽可能减少重复数据。(避免给造型设置诸如附加能力之类的值) <div class="image">
+<img src="howto_xml2.png" alt="howto_xml2.png"/>
+</div>
+</li>
+</ul>
+<h1><a class="anchor" id="page_dir_media"></a>
+media文件夹</h1>
+<ul>
+<li>media文件夹中的文件会覆盖san11pkres.bin 文件中相同文件名的文件.</li>
+</ul>
+<h1><a class="anchor" id="page_dir_script"></a>
+script 文件夹</h1>
+<ul>
+<li>script文件夹下所有的cpp文件前面加 '#'，则启动时不加载。 </li>
+</ul>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+创建于 :  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
