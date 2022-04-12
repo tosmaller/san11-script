@@ -84,9 +84,15 @@ namespace 포로후송
 			int base_id = building_base.get_id();
 			if (base_id >= 건물_도시시작 and base_id < 城市_末)
 				base_gold = pk::building_to_city(building_base).gold;
+<<<<<<< HEAD
 			if (base_id >= 건물_관문시작 and base_id < 건물_관문끝)
 				base_gold = pk::building_to_gate(building_base).gold;
 			if (base_id >= 건물_항구시작 and base_id < 건물_항구끝)
+=======
+			if (base_id >= 建筑_关卡开始 and base_id < 건물_관문끝)
+				base_gold = pk::building_to_gate(building_base).gold;
+			if (base_id >= 건물_항구시작 and base_id < 建筑_港口末)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				base_gold = pk::building_to_port(building_base).gold;
 
 			// 세력

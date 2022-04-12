@@ -41,7 +41,11 @@ namespace 도시보물수색
         pk::person@ kunshu;
         pk::person@ taishu;
         pk::point building_pos;
+<<<<<<< HEAD
         uint16 building_gold;
+=======
+        int building_gold;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         int building_energy;
         int item_id_found;
         int challange_result;

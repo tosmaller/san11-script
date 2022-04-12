@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// ## 2022/03/21 # 江东新风 # 部队异常消除bug ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
 // ## 2021/08/19 # 江东新风 # 袭击报告加入据点名称提示 ##
 // ## 2020/12/12 # 江东新风 # 修复Signed/Unsigned mismatch ##
@@ -21,8 +25,13 @@ namespace 황건_습격
 	const int min_distance = 4;      // 황건적 부대 생성 최소 위치
 	const int max_distance = 7;      // 황건적 부대 생성 최대 위치
 
+<<<<<<< HEAD
 	const int 黄巾袭击_发动时期 = 1;        // 0: 매턴,  1: 매월 1일,  2: 매분기 첫달1일,  3: 매년 1월1일
 	const int 黄巾袭击_发动概率_基本 = 6;  // 基本的发动概率
+=======
+	const int 黄巾袭击_发动时期 = 2;        // 0: 매턴,  1: 매월 1일,  2: 매분기 첫달1일,  3: 매년 1월1일
+	const int 黄巾袭击_发动概率_基本 = 10;  // 基本的发动概率
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const int 黄巾袭击_发动概率_都市 = 30;    // 在发动的基础上，每座城市被袭击的概率
 
 	const bool 黄巾袭击_仅对玩家 = true;         // true = 黄巾袭击_仅对玩家 적용, false = AI도 적용
@@ -87,7 +96,11 @@ namespace 황건_습격
 				if (黄巾袭击_最多城市 <= pk::get_city_count(pk::get_force(building_.get_force_id()))) continue;
 
 				if (pk::get_elapsed_months() < 黄巾袭击_保护月数) continue;
+<<<<<<< HEAD
 				pk::trace("满足月数条件：月数:" + pk::get_elapsed_months());
+=======
+				//pk::trace("满足月数条件：月数:" + pk::get_elapsed_months());
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (黄巾袭击_特技保护 and ch::has_skill(building_, 특기_신산) or ch::has_skill(building_, 특기_통찰)) continue;
 
 
@@ -192,12 +205,20 @@ namespace 황건_습격
 
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player()) break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, yellow_turban, null, null, 兵力, 병기_창, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, yellow_turban, null, null, 兵力, 兵器_枪, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -210,7 +231,11 @@ namespace 황건_습격
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 						} // for
 

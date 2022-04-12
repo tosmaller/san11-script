@@ -220,7 +220,11 @@ namespace 坐骑装备商店
 					else if (choose_ma == 2)
 					{
 						//读取马的背景图片
+<<<<<<< HEAD
 						bg_horse = "background/horse/h" + i + ".png";
+=======
+						bg_horse = "media/background/horse/h" + i + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_horse);
 						pk::message_box(pk::encode(pk::format("这匹\x1b[1x{}\x1b[0x可是难得一遇的良驹呀.", horse1_name[i])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一匹只要\x1b[1x{}\x1b[0x金.", gold_horse)), shangren_0);
@@ -236,7 +240,11 @@ namespace 坐骑装备商店
 					else if (choose_ma == 3)
 					{
 						//读取马的背景图片
+<<<<<<< HEAD
 						bg_horse = "background/horse/h" + j + ".png";
+=======
+						bg_horse = "media/background/horse/h" + j + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_horse);
 						pk::message_box(pk::encode(pk::format("这匹\x1b[1x{}\x1b[0x可是难得一遇的良驹呀.", horse1_name[j])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一匹只要\x1b[1x{}\x1b[0x金.", gold_horse)), shangren_0);
@@ -252,7 +260,11 @@ namespace 坐骑装备商店
 					else if (choose_ma == 4)
 					{
 						//读取马的背景图片
+<<<<<<< HEAD
 						bg_horse = "background/horse/" + m + ".png";
+=======
+						bg_horse = "media/background/horse/" + m + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_horse);
 						pk::message_box(pk::encode(pk::format("这匹\x1b[1x{}\x1b[0x可是极其稀有的良驹呀.", horse2_name[m])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一匹只要\x1b[1x{}\x1b[0x金.", gold_horse)), shangren_0);
@@ -268,7 +280,11 @@ namespace 坐骑装备商店
 					else if (choose_ma == 5)
 					{
 						//读取马的背景图片
+<<<<<<< HEAD
 						bg_horse = "background/horse/" + n + ".png";
+=======
+						bg_horse = "media/background/horse/" + n + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_horse);
 						pk::message_box(pk::encode(pk::format("这匹\x1b[1x{}\x1b[0x可是极其稀有的良驹呀.", horse2_name[n])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一匹只要\x1b[1x{}\x1b[0x金.", gold_horse)), shangren_0);
@@ -381,7 +397,11 @@ namespace 坐骑装备商店
 					else if (choose_wu == 2)
 					{
 						//读取武器的背景图片
+<<<<<<< HEAD
 						bg_weapon = "background/weapon/w" + i + ".png";
+=======
+						bg_weapon = "media/background/weapon/w" + i + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_weapon);
 						pk::message_box(pk::encode(pk::format("这件\x1b[1x{}\x1b[0x可是难得一遇的兵器呀.", weapon1_name[i])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一件只要\x1b[1x{}\x1b[0x金.", gold_weapon)), shangren_0);
@@ -398,7 +418,11 @@ namespace 坐骑装备商店
 					else if (choose_wu == 3)
 					{
 						//读取武器的背景图片
+<<<<<<< HEAD
 						bg_weapon = "background/weapon/w" + j + ".png";
+=======
+						bg_weapon = "media/background/weapon/w" + j + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_weapon);
 						pk::message_box(pk::encode(pk::format("这件\x1b[1x{}\x1b[0x可是难得一遇的兵器呀.", weapon1_name[j])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一件只要\x1b[1x{}\x1b[0x金.", gold_weapon)), shangren_0);
@@ -415,7 +439,11 @@ namespace 坐骑装备商店
 					else if (choose_wu == 4)
 					{
 						//读取武器的背景图片
+<<<<<<< HEAD
 						bg_weapon = "background/weapon/" + m + ".png";
+=======
+						bg_weapon = "media/background/weapon/" + m + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_weapon);
 						pk::message_box(pk::encode(pk::format("这件\x1b[1x{}\x1b[0x可是极其稀有的兵器呀.", weapon2_name[m])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一件只要\x1b[1x{}\x1b[0x金.", gold_weapon)), shangren_0);
@@ -432,7 +460,11 @@ namespace 坐骑装备商店
 					else if (choose_wu == 5)
 					{
 						//读取武器的背景图片
+<<<<<<< HEAD
 						bg_weapon = "background/weapon/" + n + ".png";
+=======
+						bg_weapon = "media/background/weapon/" + n + ".png";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::background(bg_weapon);
 						pk::message_box(pk::encode(pk::format("这件\x1b[1x{}\x1b[0x可是极其稀有的兵器呀.", weapon2_name[n])), shangren_0);
 						pk::message_box(pk::encode(pk::format("现在一件只要\x1b[1x{}\x1b[0x金.", gold_weapon)), shangren_0);

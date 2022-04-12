@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
+=======
+﻿// ## 2022/02/17 # 江东新风 # 部分人口函数移入 ##
+// ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/24 # 江东新风 # 将pk::add_troops换成ch::add_troops以修正显示错误 ##
 // ## 2021/10/24 # 江东新风 # get_stronghold_list改为get_base_list ##
 // ## 2021/10/10 # 江东新风 # 治安增减的非城市据点函数 ##
@@ -346,21 +351,102 @@ namespace ch
 		else return pk::add_tp(force, tp, pos);
 	}
 
-	int add_population(int base_id, int value, bool include_mil_pop = false)
+<<<<<<< HEAD
+=======
+	int add_revenue_bonus(int base_id, int value)
 	{
 		if (base_id > -1 and base_id < 据点_末)
 		{
 			BaseInfo@ base_t = @base_ex[base_id];
-			if ((base_t.population + value) < 5000) value = 5000 - base_t.population;//人口下限
-			//if (base_id == 城市_襄阳) pk::trace(pk::format("add_population,襄阳人口：{}，value:{}", base_t.population, value));
-			base_t.population += value;
-			if (include_mil_pop) base_t.mil_pop_all += uint32(value * 0.3f);
-
+			uint16 max = base_id < 城市_末 ? 300 : 150;
+			if (base_t.revenue_bonus > max) return 0;
+			if (uint16(base_t.revenue_bonus + value) > max) value = max - base_t.revenue_bonus;//人口下限
+			base_t.revenue_bonus += value;
 			return value;
 		}
 		return 0;
 	}
 
+	int add_harvest_bonus(int base_id, int value)
+	{
+		if (base_id > -1 and base_id < 据点_末)
+		{
+			BaseInfo@ base_t = @base_ex[base_id];
+			uint16 max = base_id < 城市_末 ? 2500 : 1250;
+			if (base_t.harvest_bonus > max) return 0;
+			if (uint16(base_t.harvest_bonus + value) > max) value = max - base_t.harvest_bonus;//人口下限
+			base_t.harvest_bonus += value;
+			return value;
+		}
+		return 0;
+	}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
+	int add_population(int base_id, int value, bool include_mil_pop = false)
+	{
+		if (base_id > -1 and base_id < 据点_末)
+		{
+			BaseInfo@ base_t = @base_ex[base_id];
+<<<<<<< HEAD
+			if ((base_t.population + value) < 5000) value = 5000 - base_t.population;//人口下限
+			//if (base_id == 城市_襄阳) pk::trace(pk::format("add_population,襄阳人口：{}，value:{}", base_t.population, value));
+			base_t.population += value;
+			if (include_mil_pop) base_t.mil_pop_all += uint32(value * 0.3f);
+
+=======
+			int pre_population = base_t.population;
+			if ((pre_population + value) < 5000) value = 5000 - pre_population;//人口下限
+			//if (base_id == 城市_襄阳) pk::trace(pk::format("add_population,襄阳人口：{}，value:{}", base_t.population, value));
+
+			base_t.population += value;
+			if (include_mil_pop) base_t.mil_pop_all += uint32(value * 0.3f);
+
+			if (value > 0 and base_id < 城市_末)//当人口增长超过阈值时城市升级
+			{
+				bool upgrade = false;
+				int level = 0;
+				if (pre_population < 一级城市阈值 and (pre_population + value) >= 一级城市阈值) { upgrade = true; level = 1; }
+				if (pre_population < 二级城市阈值 and (pre_population + value) >= 二级城市阈值) { upgrade = true; level = 2; }
+				if (pre_population < 三级城市阈值 and (pre_population + value) >= 三级城市阈值) { upgrade = true; level = 3; }
+				if (pre_population < 四级城市阈值 and (pre_population + value) >= 四级城市阈值) { upgrade = true; level = 4; }
+				if (upgrade) set_interior_land(base_id);
+			}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
+			return value;
+		}
+		return 0;
+	}
+
+<<<<<<< HEAD
+=======
+	float get_pop_inc_rate(int base_id, float pre_rate)
+	{
+		BaseInfo@ base_t = @base_ex[base_id];
+		//if (base_id == 城市_襄阳) pk::trace(pk::format("onNewDay 1,襄阳人口：{}", base_t.population));
+		int public_order = 0;
+		if (base_id < 城市_末) public_order = pk::get_city(base_id).public_order;
+		else public_order = base_t.public_order;
+		float porder_effect = (public_order - 70) / 30;
+
+		float population_max = base_id < 城市_末 ? (pk::is_large_city(pk::get_city(base_id)) ? 800000.f : 400000.f) : 100000.f;
+		float population_t = base_t.population;
+		//pk::trace(pk::format("population_max:{},population_t:{}", population_max, population_t));
+		float final_rate = 0;
+		float buf = 0;
+
+		//掌握人心科技
+		if (pk::get_building(base_id).has_tech(技巧_掌握人心)) buf += pre_rate * 0.2f;
+		//所以人口增长受到治安及人口上限影响
+		if ((population_t / population_max) < 0.25f) final_rate = (pre_rate + 0.02f + buf) * porder_effect;
+		else if ((population_t / population_max) < 0.5f) final_rate = (pre_rate + buf) * porder_effect;
+		else if ((population_t / population_max) < 0.7f) final_rate = ((pre_rate + buf) / 1.5f) * porder_effect;
+		else if ((population_t / population_max) < 0.9f) final_rate = ((pre_rate + buf) / 3.f) * porder_effect;
+		else if ((population_t / population_max) < 1.f) final_rate = ((pre_rate + buf) / 10.f) * porder_effect;
+		else final_rate = (人口基础增长率 / 20.f) * porder_effect;
+		return final_rate;
+	}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	int add_troops(pk::unit@ unit, int value, bool effect = false, int type = -1)
 	{
 		int n = cast<pk::func58_t>(pk::get_func(58))(unit, value, type);
@@ -655,6 +741,7 @@ namespace ch
 		string weapon_name;
 		switch (weapon_id)
 		{
+<<<<<<< HEAD
 		case 병기_검: weapon_name = "剑"; break;
 		case 병기_창: weapon_name = "枪"; break;
 		case 병기_극: weapon_name = "戟"; break;
@@ -664,6 +751,17 @@ namespace ch
 		case 병기_정란: weapon_name = "井阑"; break;
 		case 병기_투석: weapon_name = "投石"; break;
 		case 병기_목수: weapon_name = "木兽"; break;
+=======
+		case 兵器_剑: weapon_name = "剑"; break;
+		case 兵器_枪: weapon_name = "枪"; break;
+		case 兵器_戟: weapon_name = "戟"; break;
+		case 兵器_弩: weapon_name = "弩"; break;
+		case 兵器_战马: weapon_name = "战马"; break;
+		case 兵器_冲车: weapon_name = "冲车"; break;
+		case 兵器_井阑: weapon_name = "井阑"; break;
+		case 兵器_投石: weapon_name = "投石"; break;
+		case 兵器_木兽: weapon_name = "木兽"; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		case 兵器_走舸: weapon_name = "走舸"; break;
 		case 兵器_楼船: weapon_name = "楼船"; break;
 		case 兵器_斗舰: weapon_name = "斗舰"; break;
@@ -672,6 +770,14 @@ namespace ch
 		return weapon_name;
 	}
 
+<<<<<<< HEAD
+=======
+	string get_call(pk::person@ src,pk::person@dst)
+	{
+		pk::msg_param msg_param(46, src, dst);
+		return pk::get_msg(msg_param);
+	}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	// 计谋执行部队和目标部队的台词输出:调用msg文件的台词(计谋相关内容- S11MSG01.s11文件)   계략 실행부대 및 대상부대의 대사 출력 : msg 폴더의 s11 파일 대사 소환 (계략관련 내용 - S11MSG01.s11 파일)
 	void say_message(int msg_id, pk::person@ p0, pk::person@ p1, pk::unit@ u0, pk::unit@ p0_u)
 	{
@@ -687,6 +793,45 @@ namespace ch
 		pk::say(pk::get_msg(msg_param), p0, p0_b);
 	}
 
+<<<<<<< HEAD
+=======
+	void say_message(int msg_id, int num, pk::person@ p0, pk::person@ p1, pk::building@ b0, pk::building@ p0_b)
+	{
+		pk::msg_param msg_param(msg_id, p0, p1);
+		@msg_param.building[0] = @b0;
+		msg_param.num[0] = num;
+		pk::say(pk::get_msg(msg_param), p0, p0_b);
+	}
+
+	void history_log(int msg_id, int num, pk::person@ p0, pk::person@ p1, pk::building@ b0, pk::building@ p0_b)
+	{
+		pk::msg_param msg_param(msg_id, p0, p1);
+		@msg_param.building[0] = @b0;
+		msg_param.num[0] = num;
+		pk::force@ force = pk::get_force(p0.get_force_id());
+		pk::history_log(p0.get_pos(), force.color, pk::get_msg(msg_param));
+	}
+
+	bool player_check(pk::person@ person)
+	{
+		if (pk::is_alive(person))
+		{
+			pk::force@ force = pk::get_force(person.get_force_id());
+			if (pk::is_alive(force))
+			{
+				if (force.is_player())
+				{
+					pk::district@ district = pk::get_district(person.get_district_id());
+					if (pk::is_alive(district))
+					{
+						if (pk::is_player_controlled(district)) return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	int get_attacking_near_enemy_base(pk::ai_context@ context, pk::building@ building)
 	{
@@ -975,6 +1120,62 @@ namespace ch
 		person_ex[person_id].horse_id = horse_id;
 	}
 
+<<<<<<< HEAD
+=======
+	void set_interior_land(int city_id)
+	{
+		int level = get_city_level(city_id);
+		//内政用地升级[city_id][level - 1][];
+		for (int i = 1; i <= level; ++i)
+		{
+			set_interior_land(city_id, i);
+		}
+	}
+
+	void set_interior_land(int city_id, int level)
+	{
+		if (level > 0 and level <= 4)
+		{
+			//int population = base_ex[city_id].population;
+
+			//内政用地升级[city_id][level - 1][];
+			for (int j = 0; j < 2; ++j)
+			{
+				int index = 2 * j;
+				pk::point pos1 = pk::point(内政用地升级[city_id][level - 1][index], 内政用地升级[city_id][level - 1][index + 1]);
+				int result = pk::add_interior_land(pos1);
+				//如果此地兵舍，厩舍，锻造厂，需刷新计数-----实际上是city_dev的building信息没更新，另外，如果城市人口减少导致内政用地减少，此信息目前只能在读档后更新
+				if (false) pk::trace(pk::get_new_base_name(city_id) + "level:" + level + "x:" + pos1.x + "y:" + pos1.y + ",result" + result + "index" + index);
+			}
+		}
+
+	}
+
+	int get_city_level(int city_id)
+	{
+		int population = base_ex[city_id].population;
+		int level = 0;
+		if (population > 四级城市阈值) level = 4;
+		else if (population > 三级城市阈值) level = 3;
+		else if (population > 二级城市阈值) level = 2;
+		else if (population > 一级城市阈值) level = 1;
+		return level;
+	}
+
+	string get_level_string(int level)
+	{
+		string level_name;
+		switch (level)
+		{
+		case 0: level_name = "微"; break;
+		case 1: level_name = "小"; break;
+		case 2: level_name = "中"; break;
+		case 3: level_name = "大"; break;
+		case 4: level_name = "巨"; break;
+		}
+		return level_name;
+	}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	/*
 	const int 据点AI_开发 = 1;
 const int 据点AI_征兵 = 2;
@@ -1041,5 +1242,82 @@ const int 据点AI_吸收合并 = 27;
 		}
 		return cmd_name;
 	}
+<<<<<<< HEAD
 }
+=======
+
+	string get_stat_name(int stat_type)
+	{
+		switch (stat_type)
+		{
+		case 武将能力_统率:return "统率";
+		case 武将能力_武力:return "武力";
+		case 武将能力_智力:return "智力";
+		case 武将能力_政治:return "政治";
+		case 武将能力_魅力:return "魅力";
+		}
+		return "";
+	}
+
+	string get_tekisei_name(int tekisei_type)
+	{
+		switch (tekisei_type)
+		{
+		case 兵种_枪兵:return "枪兵";
+		case 兵种_戟兵:return "戟兵";
+		case 兵种_弩兵:return "弩兵";
+		case 兵种_骑兵:return "骑兵";
+		case 兵种_兵器:return "兵器";
+		case 兵种_水军:return "水军";
+		}
+		return "";
+	}
+
+	const array<array<array<int>>> 内政用地升级 = {
+{/*襄平*/{/*级别1*//*x*/179,/*y*/21,/*级别1*//*x*/180,/*y*/22},{/*级别2*//*x*/180,/*y*/21,/*级别2*//*x*/179,/*y*/20},{/*级别3*//*x*/178,/*y*/20,/*级别3*//*x*/177,/*y*/19},{/*级别4*//*x*/176,/*y*/20,/*级别4*//*x*/175,/*y*/20}},
+{/*北平*/{/*级别1*//*x*/150,/*y*/30,/*级别1*//*x*/150,/*y*/27},{/*级别2*//*x*/149,/*y*/26,/*级别2*//*x*/148,/*y*/26},{/*级别3*//*x*/147,/*y*/26,/*级别3*//*x*/146,/*y*/27},{/*级别4*//*x*/150,/*y*/26,/*级别4*//*x*/149,/*y*/25}},
+{/*蓟*/{/*级别1*//*x*/123,/*y*/24,/*级别1*//*x*/130,/*y*/6},{/*级别2*//*x*/130,/*y*/7,/*级别2*//*x*/129,/*y*/5},{/*级别3*//*x*/129,/*y*/6,/*级别3*//*x*/128,/*y*/5},{/*级别4*//*x*/128,/*y*/6,/*级别4*//*x*/127,/*y*/4}},
+{/*南皮*/{/*级别1*//*x*/141,/*y*/31,/*级别1*//*x*/140,/*y*/33},{/*级别2*//*x*/129,/*y*/35,/*级别2*//*x*/130,/*y*/36},{/*级别3*//*x*/129,/*y*/36,/*级别3*//*x*/130,/*y*/37},{/*级别4*//*x*/129,/*y*/37,/*级别4*//*x*/130,/*y*/38}},
+{/*平原*/{/*级别1*//*x*/123,/*y*/56,/*级别1*//*x*/124,/*y*/57},{/*级别2*//*x*/125,/*y*/57,/*级别2*//*x*/126,/*y*/58},{/*级别3*//*x*/123,/*y*/55,/*级别3*//*x*/124,/*y*/56},{/*级别4*//*x*/125,/*y*/56,/*级别4*//*x*/126,/*y*/57}},
+{/*晋阳*/{/*级别1*//*x*/101,/*y*/41,/*级别1*//*x*/100,/*y*/41},{/*级别2*//*x*/99,/*y*/41,/*级别2*//*x*/98,/*y*/41},{/*级别3*//*x*/97,/*y*/40,/*级别3*//*x*/101,/*y*/40},{/*级别4*//*x*/100,/*y*/40,/*级别4*//*x*/99,/*y*/40}},
+{/*邺*/{/*级别1*//*x*/114,/*y*/43,/*级别1*//*x*/114,/*y*/42},{/*级别2*//*x*/114,/*y*/41,/*级别2*//*x*/114,/*y*/40},{/*级别3*//*x*/114,/*y*/39,/*级别3*//*x*/115,/*y*/38},{/*级别4*//*x*/113,/*y*/43,/*级别4*//*x*/113,/*y*/42}},
+{/*北海*/{/*级别1*//*x*/170,/*y*/47,/*级别1*//*x*/170,/*y*/48},{/*级别2*//*x*/170,/*y*/49,/*级别2*//*x*/170,/*y*/50},{/*级别3*//*x*/169,/*y*/46,/*级别3*//*x*/169,/*y*/47},{/*级别4*//*x*/169,/*y*/48,/*级别4*//*x*/169,/*y*/49}},
+{/*广陵*/{/*级别1*//*x*/182,/*y*/96,/*级别1*//*x*/182,/*y*/95},{/*级别2*//*x*/182,/*y*/94,/*级别2*//*x*/182,/*y*/93},{/*级别3*//*x*/181,/*y*/96,/*级别3*//*x*/181,/*y*/95},{/*级别4*//*x*/181,/*y*/94,/*级别4*//*x*/181,/*y*/93}},
+{/*下邳*/{/*级别1*//*x*/158,/*y*/64,/*级别1*//*x*/158,/*y*/67},{/*级别2*//*x*/157,/*y*/67,/*级别2*//*x*/159,/*y*/67},{/*级别3*//*x*/155,/*y*/65,/*级别3*//*x*/155,/*y*/66},{/*级别4*//*x*/155,/*y*/67,/*级别4*//*x*/156,/*y*/68}},
+{/*寿春*/{/*级别1*//*x*/148,/*y*/92,/*级别1*//*x*/147,/*y*/91},{/*级别2*//*x*/147,/*y*/92,/*级别2*//*x*/147,/*y*/93},{/*级别3*//*x*/147,/*y*/94,/*级别3*//*x*/147,/*y*/95},{/*级别4*//*x*/147,/*y*/96,/*级别4*//*x*/147,/*y*/97}},
+{/*濮阳*/{/*级别1*//*x*/142,/*y*/68,/*级别1*//*x*/143,/*y*/68},{/*级别2*//*x*/144,/*y*/68,/*级别2*//*x*/143,/*y*/67},{/*级别3*//*x*/141,/*y*/67,/*级别3*//*x*/142,/*y*/67},{/*级别4*//*x*/144,/*y*/67,/*级别4*//*x*/145,/*y*/67}},
+{/*陈留*/{/*级别1*//*x*/113,/*y*/73,/*级别1*//*x*/113,/*y*/72},{/*级别2*//*x*/111,/*y*/73,/*级别2*//*x*/112,/*y*/73},{/*级别3*//*x*/111,/*y*/72,/*级别3*//*x*/110,/*y*/73},{/*级别4*//*x*/110,/*y*/74,/*级别4*//*x*/110,/*y*/75}},
+{/*许昌*/{/*级别1*//*x*/94,/*y*/96,/*级别1*//*x*/95,/*y*/97},{/*级别2*//*x*/95,/*y*/96,/*级别2*//*x*/95,/*y*/95},{/*级别3*//*x*/94,/*y*/95,/*级别3*//*x*/93,/*y*/94},{/*级别4*//*x*/93,/*y*/93,/*级别4*//*x*/94,/*y*/94}},
+{/*汝南*/{/*级别1*//*x*/113,/*y*/102,/*级别1*//*x*/115,/*y*/112},{/*级别2*//*x*/114,/*y*/113,/*级别2*//*x*/114,/*y*/112},{/*级别3*//*x*/113,/*y*/112,/*级别3*//*x*/113,/*y*/111},{/*级别4*//*x*/112,/*y*/112,/*级别4*//*x*/112,/*y*/111}},
+{/*洛阳*/{/*级别1*//*x*/76,/*y*/79,/*级别1*//*x*/82,/*y*/79},{/*级别2*//*x*/75,/*y*/79,/*级别2*//*x*/75,/*y*/80},{/*级别3*//*x*/83,/*y*/79,/*级别3*//*x*/83,/*y*/80},{/*级别4*//*x*/74,/*y*/79,/*级别4*//*x*/83,/*y*/78}},
+{/*宛*/{/*级别1*//*x*/87,/*y*/95,/*级别1*//*x*/87,/*y*/96},{/*级别2*//*x*/86,/*y*/97,/*级别2*//*x*/85,/*y*/97},{/*级别3*//*x*/86,/*y*/94,/*级别3*//*x*/87,/*y*/94},{/*级别4*//*x*/82,/*y*/98,/*级别4*//*x*/83,/*y*/98}},
+{/*长安*/{/*级别1*//*x*/52,/*y*/81,/*级别1*//*x*/54,/*y*/81},{/*级别2*//*x*/53,/*y*/80,/*级别2*//*x*/55,/*y*/80},{/*级别3*//*x*/52,/*y*/80,/*级别3*//*x*/56,/*y*/80},{/*级别4*//*x*/53,/*y*/79,/*级别4*//*x*/55,/*y*/79}},
+{/*上庸*/{/*级别1*//*x*/51,/*y*/96,/*级别1*//*x*/52,/*y*/97},{/*级别2*//*x*/53,/*y*/97,/*级别2*//*x*/54,/*y*/98},{/*级别3*//*x*/55,/*y*/98,/*级别3*//*x*/56,/*y*/98},{/*级别4*//*x*/53,/*y*/93,/*级别4*//*x*/54,/*y*/94}},
+{/*安定*/{/*级别1*//*x*/30,/*y*/66,/*级别1*//*x*/31,/*y*/65},{/*级别2*//*x*/31,/*y*/64,/*级别2*//*x*/32,/*y*/65},{/*级别3*//*x*/31,/*y*/63,/*级别3*//*x*/32,/*y*/64},{/*级别4*//*x*/31,/*y*/62,/*级别4*//*x*/32,/*y*/63}},
+{/*天水*/{/*级别1*//*x*/3,/*y*/67,/*级别1*//*x*/4,/*y*/69},{/*级别2*//*x*/4,/*y*/68,/*级别2*//*x*/4,/*y*/67},{/*级别3*//*x*/4,/*y*/66,/*级别3*//*x*/4,/*y*/64},{/*级别4*//*x*/4,/*y*/63,/*级别4*//*x*/4,/*y*/62}},
+{/*武威*/{/*级别1*//*x*/5,/*y*/34,/*级别1*//*x*/5,/*y*/33},{/*级别2*//*x*/3,/*y*/28,/*级别2*//*x*/3,/*y*/29},{/*级别3*//*x*/4,/*y*/29,/*级别3*//*x*/4,/*y*/30},{/*级别4*//*x*/5,/*y*/29,/*级别4*//*x*/5,/*y*/30}},
+{/*建业*/{/*级别1*//*x*/193,/*y*/120,/*级别1*//*x*/193,/*y*/126},{/*级别2*//*x*/194,/*y*/121,/*级别2*//*x*/194,/*y*/126},{/*级别3*//*x*/194,/*y*/120,/*级别3*//*x*/194,/*y*/127},{/*级别4*//*x*/193,/*y*/127,/*级别4*//*x*/194,/*y*/128}},
+{/*吴*/{/*级别1*//*x*/153,/*y*/138,/*级别1*//*x*/153,/*y*/141},{/*级别2*//*x*/152,/*y*/142,/*级别2*//*x*/154,/*y*/142},{/*级别3*//*x*/151,/*y*/138,/*级别3*//*x*/152,/*y*/138},{/*级别4*//*x*/154,/*y*/138,/*级别4*//*x*/155,/*y*/138}},
+{/*会稽*/{/*级别1*//*x*/144,/*y*/170,/*级别1*//*x*/145,/*y*/168},{/*级别2*//*x*/145,/*y*/169,/*级别2*//*x*/145,/*y*/170},{/*级别3*//*x*/142,/*y*/170,/*级别3*//*x*/143,/*y*/170},{/*级别4*//*x*/144,/*y*/171,/*级别4*//*x*/145,/*y*/171}},
+{/*庐江*/{/*级别1*//*x*/140,/*y*/119,/*级别1*//*x*/141,/*y*/119},{/*级别2*//*x*/141,/*y*/120,/*级别2*//*x*/141,/*y*/121},{/*级别3*//*x*/147,/*y*/115,/*级别3*//*x*/147,/*y*/116},{/*级别4*//*x*/148,/*y*/115,/*级别4*//*x*/148,/*y*/116}},
+{/*柴桑*/{/*级别1*//*x*/110,/*y*/140,/*级别1*//*x*/110,/*y*/141},{/*级别2*//*x*/110,/*y*/142,/*级别2*//*x*/111,/*y*/142},{/*级别3*//*x*/110,/*y*/143,/*级别3*//*x*/115,/*y*/138},{/*级别4*//*x*/115,/*y*/139,/*级别4*//*x*/115,/*y*/140}},
+{/*江夏*/{/*级别1*//*x*/99,/*y*/119,/*级别1*//*x*/100,/*y*/120},{/*级别2*//*x*/101,/*y*/119,/*级别2*//*x*/102,/*y*/120},{/*级别3*//*x*/100,/*y*/116,/*级别3*//*x*/101,/*y*/116},{/*级别4*//*x*/102,/*y*/117,/*级别4*//*x*/103,/*y*/117}},
+{/*河内*/{/*级别1*//*x*/73,/*y*/54,/*级别1*//*x*/72,/*y*/55},{/*级别2*//*x*/71,/*y*/54,/*级别2*//*x*/70,/*y*/53},{/*级别3*//*x*/70,/*y*/52,/*级别3*//*x*/70,/*y*/51},{/*级别4*//*x*/70,/*y*/50,/*级别4*//*x*/70,/*y*/49}},
+{/*襄阳*/{/*级别1*//*x*/74,/*y*/125,/*级别1*//*x*/75,/*y*/124},{/*级别2*//*x*/75,/*y*/123,/*级别2*//*x*/75,/*y*/122},{/*级别3*//*x*/75,/*y*/121,/*级别3*//*x*/75,/*y*/120},{/*级别4*//*x*/72,/*y*/125,/*级别4*//*x*/73,/*y*/125}},
+{/*江陵*/{/*级别1*//*x*/85,/*y*/142,/*级别1*//*x*/88,/*y*/141},{/*级别2*//*x*/84,/*y*/143,/*级别2*//*x*/89,/*y*/140},{/*级别3*//*x*/85,/*y*/141,/*级别3*//*x*/87,/*y*/140},{/*级别4*//*x*/84,/*y*/142,/*级别4*//*x*/88,/*y*/140}},
+{/*长沙*/{/*级别1*//*x*/107,/*y*/153,/*级别1*//*x*/107,/*y*/154},{/*级别2*//*x*/107,/*y*/155,/*级别2*//*x*/107,/*y*/156},{/*级别3*//*x*/106,/*y*/153,/*级别3*//*x*/106,/*y*/154},{/*级别4*//*x*/107,/*y*/152,/*级别4*//*x*/108,/*y*/152}},
+{/*武陵*/{/*级别1*//*x*/78,/*y*/149,/*级别1*//*x*/82,/*y*/149},{/*级别2*//*x*/79,/*y*/148,/*级别2*//*x*/81,/*y*/148},{/*级别3*//*x*/78,/*y*/151,/*级别3*//*x*/79,/*y*/151},{/*级别4*//*x*/80,/*y*/152,/*级别4*//*x*/79,/*y*/152}},
+{/*桂阳*/{/*级别1*//*x*/93,/*y*/181,/*级别1*//*x*/102,/*y*/195},{/*级别2*//*x*/103,/*y*/194,/*级别2*//*x*/103,/*y*/193},{/*级别3*//*x*/102,/*y*/194,/*级别3*//*x*/101,/*y*/194},{/*级别4*//*x*/101,/*y*/193,/*级别4*//*x*/100,/*y*/194}},
+{/*零陵*/{/*级别1*//*x*/72,/*y*/190,/*级别1*//*x*/73,/*y*/189},{/*级别2*//*x*/71,/*y*/189,/*级别2*//*x*/75,/*y*/189},{/*级别3*//*x*/70,/*y*/190,/*级别3*//*x*/76,/*y*/190},{/*级别4*//*x*/69,/*y*/190,/*级别4*//*x*/77,/*y*/190}},
+{/*永安*/{/*级别1*//*x*/40,/*y*/128,/*级别1*//*x*/48,/*y*/133},{/*级别2*//*x*/47,/*y*/132,/*级别2*//*x*/49,/*y*/132},{/*级别3*//*x*/48,/*y*/132,/*级别3*//*x*/49,/*y*/131},{/*级别4*//*x*/50,/*y*/131,/*级别4*//*x*/50,/*y*/132}},
+{/*汉中*/{/*级别1*//*x*/30,/*y*/93,/*级别1*//*x*/20,/*y*/93},{/*级别2*//*x*/19,/*y*/92,/*级别2*//*x*/21,/*y*/92},{/*级别3*//*x*/19,/*y*/91,/*级别3*//*x*/20,/*y*/92},{/*级别4*//*x*/20,/*y*/91,/*级别4*//*x*/21,/*y*/91}},
+{/*梓潼*/{/*级别1*//*x*/12,/*y*/108,/*级别1*//*x*/13,/*y*/107},{/*级别2*//*x*/13,/*y*/106,/*级别2*//*x*/14,/*y*/107},{/*级别3*//*x*/13,/*y*/105,/*级别3*//*x*/14,/*y*/106},{/*级别4*//*x*/13,/*y*/104,/*级别4*//*x*/14,/*y*/105}},
+{/*江州*/{/*级别1*//*x*/36,/*y*/146,/*级别1*//*x*/37,/*y*/151},{/*级别2*//*x*/36,/*y*/151,/*级别2*//*x*/35,/*y*/150},{/*级别3*//*x*/35,/*y*/149,/*级别3*//*x*/35,/*y*/148},{/*级别4*//*x*/35,/*y*/147,/*级别4*//*x*/35,/*y*/146}},
+{/*成都*/{/*级别1*//*x*/20,/*y*/132,/*级别1*//*x*/19,/*y*/130},{/*级别2*//*x*/20,/*y*/131,/*级别2*//*x*/20,/*y*/130},{/*级别3*//*x*/17,/*y*/130,/*级别3*//*x*/18,/*y*/130},{/*级别4*//*x*/19,/*y*/129,/*级别4*//*x*/20,/*y*/129}},
+{/*建宁*/{/*级别1*//*x*/35,/*y*/171,/*级别1*//*x*/15,/*y*/179},{/*级别2*//*x*/16,/*y*/180,/*级别2*//*x*/15,/*y*/178},{/*级别3*//*x*/16,/*y*/179,/*级别3*//*x*/17,/*y*/179},{/*级别4*//*x*/16,/*y*/178,/*级别4*//*x*/17,/*y*/178}},
+{/*云南*/{/*级别1*//*x*/15,/*y*/194,/*级别1*//*x*/14,/*y*/194},{/*级别2*//*x*/14,/*y*/195,/*级别2*//*x*/13,/*y*/196},{/*级别3*//*x*/13,/*y*/195,/*级别3*//*x*/13,/*y*/194},{/*级别4*//*x*/12,/*y*/196,/*级别4*//*x*/12,/*y*/195}}
+
+	};
+}//namespace end
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 

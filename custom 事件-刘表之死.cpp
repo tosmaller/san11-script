@@ -37,7 +37,11 @@ namespace 事件_刘表之死
 	const bool 事件剧本限定 = true;//默认限定剧本，限定2号剧本群雄割据可用，如不限定剧本，则可能在非对应剧本满足条件也会触发，但是会增加事件菜单的占用，以及可能会有未知bug
 	// ===========================================
 
+<<<<<<< HEAD
 
+=======
+	const bool 调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	class Main
 	{
 		pk::person@ 曹操;
@@ -159,8 +163,13 @@ namespace 事件_刘表之死
 					if (start_event)
 					{
 						show_info = false;
+<<<<<<< HEAD
 						pk::scene(pk::scene_t(event_刘表之死));
 						//after_event_2();
+=======
+						//pk::scene(pk::scene_t(event_刘表之死));
+						after_event();
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 				}
 				else
@@ -304,8 +313,14 @@ namespace 事件_刘表之死
 			}
 			for (int i = 0; i < list.count; ++i)
 			{
+<<<<<<< HEAD
 				for (int j = 0; j < 7; i++)
 				{
+=======
+				for (int j = 0; j < 7; j++)
+				{
+					//pk::trace("base_id,id:" + list[i].get_id() + j);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					int neighbor_base_id = pk::get_neighbor_area_building(list[i].get_id(), j);
 					if (pk::is_valid_base_id(neighbor_base_id))
 					{
@@ -482,7 +497,11 @@ namespace 事件_刘表之死
 			pk::message_box(pk::get_msg(set_msg_param(msg_param, 18562, null, null)));
 			pk::close_event_still();
 			//襄陽 江陵 柴桑 建業 中至少一都市的支配勢力和曹操君主勢力的友好度大幅下降
+<<<<<<< HEAD
 			after_event();
+=======
+			
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		} // void event()
 
@@ -513,7 +532,11 @@ namespace 事件_刘表之死
 					
 			}
 			//部队处理放在此处，可以确保刘备的势力不会出错
+<<<<<<< HEAD
 			array<int>person_arr = { 武将_伊籍/*2*/, 武将_马良/*519*/, 武将_诸葛亮/*289*/, 武将_庞统/*557*/,武将_马谡/*511*/, 武将_诸葛均/*283*/, 武将_霍峻, 武将_向朗,武将_魏延/*124*/, 武将_甘宁/*118*/, 武将_黄祖/*175*/, 武将_李严/*603*/, 武将_刘磐/*634*/ };
+=======
+			array<int>person_arr = { 武将_伊籍/*2*/, 武将_马良/*519*/, 武将_诸葛亮/*289*/, 武将_庞统/*557*/,武将_马谡/*511*/, 武将_诸葛均/*283*/, 武将_霍峻, 武将_向朗, 武将_邓芝,武将_魏延/*124*/, 武将_甘宁/*118*/, 武将_黄祖/*175*/, 武将_李严/*603*/, 武将_刘磐/*634*/ };
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			for (int i = 0; i < 部队_末; ++i)
 			{
@@ -522,9 +545,33 @@ namespace 事件_刘表之死
 				{
 					if (unit.get_force_id() == force_liubiao.get_id())
 					{
+<<<<<<< HEAD
 						auto person = pk::get_person(unit.leader);
 						if (person_arr.find(person.get_id())>0) pk::set_district(person, 刘备.get_district_id());
 						else pk::set_district(person, 曹操.get_district_id());
+=======
+						for (int j = 0; j < 3; ++j)
+						{
+							auto person = pk::get_person(unit.member[j]);
+							if (调试模式 and pk::is_alive(person)) pk::trace("分家：" + pk::decode(pk::get_name(person)));
+							if (person_arr.find(unit.member[j]) >= 0)
+							{
+								if (调试模式)pk::trace("刘备：" + pk::decode(pk::get_name(person)));
+								pk::set_force(person, force_liubei, 刘备, 0);
+								pk::set_district(person, 刘备.get_district_id());
+								
+								if (j != 0) person.location = 刘备.location;
+							}
+							else if (pk::is_valid_person_id(unit.member[j]))
+							{
+								if (调试模式)pk::trace("曹操：" + pk::decode(pk::get_name(person)));
+								pk::set_force(person, force_caocao, 曹操, 0);
+								pk::set_district(person, 曹操.get_district_id());
+
+							}
+						}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 				}
 			}
@@ -570,8 +617,19 @@ namespace 事件_刘表之死
 							}
 							
 						}
+<<<<<<< HEAD
 						break;
 					}
+=======
+						for (int j = 0; j < 5; ++j)
+						{
+							pk::building@ base = pk::get_building(city0.gate[j]);
+							if (pk::is_alive(base) and base.get_force_id() == force_liubiao.get_id()) pk::set_district(base,pk::get_district(刘备.get_district_id()), 2);
+						}
+						break;
+					}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 			}
 			
@@ -621,7 +679,11 @@ namespace 事件_刘表之死
 			pk::list<pk::person@> person_list2;
 			array<int>person_arr0 = { 武将_伊籍/*2*/, 武将_马良/*519*/, 武将_诸葛亮/*289*/, 武将_庞统/*557*/ };
 			array<int>person_arr1 = { 武将_马谡/*511*/, 武将_诸葛均/*283*/ };
+<<<<<<< HEAD
 			array<int>person_arr2 = { 武将_霍峻, 武将_向朗 };
+=======
+			array<int>person_arr2 = { 武将_霍峻, 武将_向朗, 武将_邓芝 };
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			array<int>person_arr3 = { 武将_魏延/*124*/, 武将_甘宁/*118*/, 武将_黄祖/*175*/, 武将_李严/*603*/, 武将_刘磐/*634*/ };
 			for (int i = 0; i< person_list0.count; i++)
 			{

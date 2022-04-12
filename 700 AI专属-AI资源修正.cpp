@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// ## 2022/02/17 # 江东新风 # 人口上限修正 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/11/03 # 江东新风 # 增长率放入301 ##
 // ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
 // ## 2021/10/26 # 江东新风 # 区分是否开启人口系统 ##
@@ -30,34 +34,58 @@ namespace 보상_AI
 
 	// 구체적인 내용 설정 (AI 세력)
 	const bool 金补偿_城市 = true;		  	  // 금 상승설정 (true = on, false = off)
+<<<<<<< HEAD
 	const int gold_1 = 1500;		  // 획득 금 (기본: 5000)
 	const int gold_max1 = 50000;    //城市金超过上限不再增加
 
 	const bool 兵粮补偿_城市 = true;		  // 병량 상승설정 (true = on, false = off)
 	const int food_1 = 5000;		  // 병량 (기본: 20000)
 	const int food_max1 = 250000;		  // 城市粮食超过上限不再增加
+=======
+	const int gold_1 = 750;		  // 획득 금 (기본: 5000)
+	const int gold_max1 = 30000;    //城市金超过上限不再增加
+
+	const bool 兵粮补偿_城市 = true;		  // 병량 상승설정 (true = on, false = off)
+	const int food_1 = 5000;		  // 병량 (기본: 20000)
+	const int food_max1 = 150000;		  // 城市粮食超过上限不再增加
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const bool 气力补偿_城市 = true;		  // 기력 상승설정 (true = on, false = off)
 	const int energy_1 = 20;		  // 기력 (기본: 50)	
 
 	const bool 兵力补偿_城市 = true;		  // 병력 상승설정 (true = on, false = off)
 	const int troops_1 = 1500;		  // 병력 (기본: 20000)
+<<<<<<< HEAD
 	const int troops_max1 = 75000;		  // 城市兵力超过上限不再增加
+=======
+	const int troops_max1 = 50000;		  // 城市兵力超过上限不再增加
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const bool 人口补偿_城市 = true;		  // 병력 상승설정 (true = on, false = off)
 
 	const bool 技巧补偿_城市 = true;		  // 기교P 상승설정 (true = on, false = off)
+<<<<<<< HEAD
 	const int tp_1 = 100;		      // 기교P (기본: 100)	
 
 	const bool 治安补偿_城市 = true;		  // 치안 상승설정 (true = on, false = off)
 	const int public_order_1 = 10;	  // 치안 상승치 (기본: 20)
+=======
+	const int tp_1 = 120;		      // 기교P (기본: 100)	
+
+	const bool 治安补偿_城市 = true;		  // 치안 상승설정 (true = on, false = off)
+	const int public_order_1 = 15;	  // 치안 상승치 (기본: 20)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const bool 兵装补偿_城市 = true;		  // 병기 상승설정 (true = on, false = off)
 	const int 枪_1 = 750;		      // 병기(창) (기본: 20000)		
 	const int 戟_1 = 750;		      // 병기(극) (기본: 20000)		
 	const int 弩_1 = 750;		      // 병기(노) (기본: 20000)		
 	const int 战马_1 = 750;		      // 병기(군마) (기본: 20000)
+<<<<<<< HEAD
 	const int weapon_max1 = 40000;    // 城市兵装超过上限不再增加
+=======
+	const int weapon_max1 = 30000;    // 城市兵装超过上限不再增加
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 ////////////////////////港关加資源////////////////////////////////		
 		// AI 세력이 보상을 얻는 시기 설정
@@ -67,6 +95,7 @@ namespace 보상_AI
 
 	// 구체적인 내용 설정 (AI 세력)
 	const bool 金补偿_港关 = true;		  	  // 금 상승설정 (true = on, false = off)
+<<<<<<< HEAD
 	const int gold_2 = 1000;		  // 획득 금 (기본: 5000)
 	const int gold_max2 = 30000;    //城关金超过上限不再增加
 
@@ -80,6 +109,21 @@ namespace 보상_AI
 	const bool 兵力补偿_港关 = true;		  // 병력 상승설정 (true = on, false = off)
 	const int troops_2 = 2000;		  // 병력 (기본: 20000)
 	const int troops_max2 = 30000;		  // 城关兵力超过上限不再增加
+=======
+	const int gold_2 = 250;		  // 획득 금 (기본: 5000)
+	const int gold_max2 = 30000;    //城关金超过上限不再增加
+
+	const bool 兵粮补偿_港关 = true;		  // 병량 상승설정 (true = on, false = off)
+	const int food_2 = 1500;		  // 병량 (기본: 20000)
+	const int food_max2 = 100000;		  // 城关粮食超过上限不再增加
+
+	const bool 气力补偿_港关 = true;		  // 기력 상승설정 (true = on, false = off)
+	const int energy_2 = 10;		  // 기력 (기본: 50)	
+
+	const bool 兵力补偿_港关 = true;		  // 병력 상승설정 (true = on, false = off)
+	const int troops_2 = 750;		  // 병력 (기본: 20000)
+	const int troops_max2 = 15000;		  // 城关兵力超过上限不再增加
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const bool 人口补偿_港关 = true;		  // 병력 상승설정 (true = on, false = off)
 
@@ -90,10 +134,17 @@ namespace 보상_AI
 	const int public_order_2 = 5;	  // 치안 상승치 (기본: 20)
 
 	const bool 兵装补偿_港关 = true;		  // 병기 상승설정 (true = on, false = off)
+<<<<<<< HEAD
 	const int 枪_2 = 500;		      // 병기(창) (기본: 20000)		
 	const int 戟_2 = 500;		      // 병기(극) (기본: 20000)		
 	const int 弩_2 = 500;		      // 병기(노) (기본: 20000)		
 	const int 战马_2 = 500;		      // 병기(군마) (기본: 20000)
+=======
+	const int 枪_2 = 750;		      // 병기(창) (기본: 20000)		
+	const int 戟_2 = 750;		      // 병기(극) (기본: 20000)		
+	const int 弩_2 = 750;		      // 병기(노) (기본: 20000)		
+	const int 战马_2 = 750;		      // 병기(군마) (기본: 20000)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const int weapon_max2 = 30000;    // 城关兵装超过上限不再增加
 
 
@@ -191,7 +242,12 @@ namespace 보상_AI
 				if (开启人口系统 and 人口补偿_城市)
 				{
 					int pop_max = pk::is_large_city(city) ? 750000 : 370000;
+<<<<<<< HEAD
 					BaseInfo@ city_t = @base_ex[city.get_id()];
+=======
+					int base_id = city.get_id();
+					BaseInfo@ city_t = @base_ex[base_id];
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 					if (int(city_t.population) < pop_max)
 					{
@@ -205,7 +261,12 @@ namespace 보상_AI
 						default: 发动倍率 = 1; break;
 						}
 						//if (city.get_id() == 城市_襄阳) pk::trace(pk::format("ai加资源前,襄阳人口：{}", city_t.population));
+<<<<<<< HEAD
 						ch::add_population(city.get_id(), int(city_t.population * 人口基础增长率 * 发动倍率),true);
+=======
+						float inc_rate = ch::get_pop_inc_rate(base_id, 人口基础增长率 * 发动倍率);
+						ch::add_population(base_id, int(city_t.population * inc_rate),true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						//if (city.get_id() == 城市_襄阳) pk::trace(pk::format("ai加资源后,襄阳人口：{}", city_t.population));
 					}
 				}
@@ -219,10 +280,17 @@ namespace 보상_AI
 				}
 				if (兵装补偿_城市)
 				{
+<<<<<<< HEAD
 					if (city.weapon_amount[1] < weapon_max1) pk::add_weapon_amount(city, 병기_창, 枪_1, 补偿效果开关);
 					if (city.weapon_amount[2] < weapon_max1) pk::add_weapon_amount(city, 병기_극, 戟_1, 补偿效果开关);
 					if (city.weapon_amount[3] < weapon_max1) pk::add_weapon_amount(city, 병기_노, 弩_1, 补偿效果开关);
 					if (city.weapon_amount[4] < weapon_max1) pk::add_weapon_amount(city, 병기_군마, 战马_1, 补偿效果开关);
+=======
+					if (city.weapon_amount[1] < weapon_max1) pk::add_weapon_amount(city, 兵器_枪, 枪_1, 补偿效果开关);
+					if (city.weapon_amount[2] < weapon_max1) pk::add_weapon_amount(city, 兵器_戟, 戟_1, 补偿效果开关);
+					if (city.weapon_amount[3] < weapon_max1) pk::add_weapon_amount(city, 兵器_弩, 弩_1, 补偿效果开关);
+					if (city.weapon_amount[4] < weapon_max1) pk::add_weapon_amount(city, 兵器_战马, 战马_1, 补偿效果开关);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 
 				city.update();
@@ -244,8 +312,14 @@ namespace 보상_AI
 					//if (治安补偿_港关) pk::add_public_order(city, public_order_1, true);
 					if (开启人口系统 and 人口补偿_港关)
 					{
+<<<<<<< HEAD
 						int pop_max = 180000;
 						BaseInfo@ base_t = @base_ex[building.get_id()];
+=======
+						int pop_max = 90000;
+						int base_id = building.get_id();
+						BaseInfo@ base_t = @base_ex[base_id];
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 						if (int(base_t.population) < pop_max)
 						{
@@ -258,7 +332,13 @@ namespace 보상_AI
 							case 3: 发动倍率 = 36; break;
 							default: 发动倍率 = 1; break;
 							}
+<<<<<<< HEAD
 							ch::add_population(building.get_id(), int(base_t.population * 人口基础增长率 * 发动倍率), true);
+=======
+							float inc_rate = ch::get_pop_inc_rate(base_id, 人口基础增长率 * 发动倍率);
+							ch::add_population(base_id, int(base_t.population * inc_rate), true);
+							//ch::add_population(building.get_id(), int(base_t.population * 人口基础增长率 * 发动倍率), true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						}
 
 					}
@@ -273,10 +353,17 @@ namespace 보상_AI
 
 					if (兵装补偿_港关)
 					{
+<<<<<<< HEAD
 						if (gate_0.weapon_amount[1] < weapon_max2) pk::add_weapon_amount(building, 병기_창, 枪_2, 补偿效果开关);
 						if (gate_0.weapon_amount[2] < weapon_max2) pk::add_weapon_amount(building, 병기_극, 戟_2, 补偿效果开关);
 						if (gate_0.weapon_amount[3] < weapon_max2) pk::add_weapon_amount(building, 병기_노, 弩_2, 补偿效果开关);
 						if (gate_0.weapon_amount[4] < weapon_max2) pk::add_weapon_amount(building, 병기_군마, 战马_2, 补偿效果开关);
+=======
+						if (gate_0.weapon_amount[1] < weapon_max2) pk::add_weapon_amount(building, 兵器_枪, 枪_2, 补偿效果开关);
+						if (gate_0.weapon_amount[2] < weapon_max2) pk::add_weapon_amount(building, 兵器_戟, 戟_2, 补偿效果开关);
+						if (gate_0.weapon_amount[3] < weapon_max2) pk::add_weapon_amount(building, 兵器_弩, 弩_2, 补偿效果开关);
+						if (gate_0.weapon_amount[4] < weapon_max2) pk::add_weapon_amount(building, 兵器_战马, 战马_2, 补偿效果开关);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 
 					gate_0.update();
@@ -311,10 +398,17 @@ namespace 보상_AI
 					if (兵力补偿_港关 and port_0.troops < troops_max2) ch::add_troops(building, troops_2, 补偿效果开关, 104);
 					if (兵装补偿_港关)
 					{
+<<<<<<< HEAD
 						if (port_0.weapon_amount[1] < weapon_max2) pk::add_weapon_amount(building, 병기_창, 枪_2, 补偿效果开关);
 						if (port_0.weapon_amount[2] < weapon_max2) pk::add_weapon_amount(building, 병기_극, 戟_2, 补偿效果开关);
 						if (port_0.weapon_amount[3] < weapon_max2) pk::add_weapon_amount(building, 병기_노, 弩_2, 补偿效果开关);
 						if (port_0.weapon_amount[4] < weapon_max2) pk::add_weapon_amount(building, 병기_군마, 战马_2, 补偿效果开关);
+=======
+						if (port_0.weapon_amount[1] < weapon_max2) pk::add_weapon_amount(building, 兵器_枪, 枪_2, 补偿效果开关);
+						if (port_0.weapon_amount[2] < weapon_max2) pk::add_weapon_amount(building, 兵器_戟, 戟_2, 补偿效果开关);
+						if (port_0.weapon_amount[3] < weapon_max2) pk::add_weapon_amount(building, 兵器_弩, 弩_2, 补偿效果开关);
+						if (port_0.weapon_amount[4] < weapon_max2) pk::add_weapon_amount(building, 兵器_战马, 战马_2, 补偿效果开关);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 
 					port_0.update();
@@ -325,10 +419,17 @@ namespace 보상_AI
 			{
 				ch::add_troops(building, troops_2, 补偿效果开关);
 				pk::add_energy(building, energy_2, 补偿效果开关);
+<<<<<<< HEAD
 				pk::add_weapon_amount(building, 병기_창, 枪_2, 补偿效果开关);
 				pk::add_weapon_amount(building, 병기_극, 戟_2, 补偿效果开关);
 				pk::add_weapon_amount(building, 병기_노, 弩_2, 补偿效果开关);
 				pk::add_weapon_amount(building, 병기_군마, 战马_2, 补偿效果开关);
+=======
+				pk::add_weapon_amount(building, 兵器_枪, 枪_2, 补偿效果开关);
+				pk::add_weapon_amount(building, 兵器_戟, 戟_2, 补偿效果开关);
+				pk::add_weapon_amount(building, 兵器_弩, 弩_2, 补偿效果开关);
+				pk::add_weapon_amount(building, 兵器_战马, 战马_2, 补偿效果开关);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 		}
 

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+﻿// ## 2022/03/21 # 江东新风 # 异族身份异常bug ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
 // ## 2020/12/26 # 江东新风 # 关掉trace ##
 // ## 2020/12/12 # 江东新风 # 修正Signed/Unsigned mismatch ##
@@ -79,7 +83,11 @@ namespace 根据地_发生
 
 	///	=============================================  < 유저 설정 >  =====================================================
 
+<<<<<<< HEAD
 	const bool 贼兵加强 = true;
+=======
+	const bool 贼兵加强 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const int 出贼治安 = 80;
 	const bool 电脑不出贼 = false;
@@ -694,7 +702,11 @@ namespace 根据地_发生
 	pk::person@ func_贼将_武将_生成(int bandit_force_id, int bandit_force_index, int bandit_person_index)
 	{
 		pk::person@ bandit_person = pk::create_bandit(pk::get_person(적장무장[bandit_person_index][bandit_force_index]));
+<<<<<<< HEAD
 
+=======
+		if (bandit_person.mibun == 身份_在野) pk::set_mibun(bandit_person, 身份_一般);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		pk::set_district(bandit_person, bandit_force_id);
 		bandit_person.base_stat[武将能力_统率] = func_排列_범위_랜덤값(무장통솔[bandit_person_index][bandit_force_index]);
 		bandit_person.base_stat[武将能力_武力] = func_排列_범위_랜덤값(무장무력[bandit_person_index][bandit_force_index]);

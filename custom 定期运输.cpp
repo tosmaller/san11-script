@@ -86,7 +86,11 @@ namespace ori정기배송
 			pk::com_deploy_cmd_info cmd;
 			@cmd.base = @b;
 			cmd.member[0] = person;
+<<<<<<< HEAD
 			cmd.type = 부대종류_수송;
+=======
+			cmd.type = 部队类型_运输;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			cmd.order = 部队任务_移动;
 			cmd.target_pos = pk::get_building(target).get_pos();
 
@@ -110,7 +114,11 @@ namespace ori정기배송
 				int weapon_amount = pk::get_weapon_amount(b, weapon_id);
 				if (weapon_amount > 0)
 				{
+<<<<<<< HEAD
 					if (weapon_id < 병기_창 or 병기_군마 < weapon_id)
+=======
+					if (weapon_id < 兵器_枪 or 兵器_战马 < weapon_id)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						cmd.weapon_id[i] = weapon_id;
 						cmd.weapon_amount[i] = weapon_amount;

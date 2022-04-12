@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿//## 2022/01/06 # 江东新风 # 头像范围重新设定 ##
+=======
+﻿//## 2022/02/15 # 江东新风 # 称号错误修复 ##
+//## 2022/01/06 # 江东新风 # 头像范围重新设定 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/03/06 # 江东新风 # 修复xml复制黏贴导致不识别错误 ##
 // ## 2021/01/14 # 江东新风 # 关掉trace ##
 // ## 2020/12/25 # 江东新风 # 去掉测试内容 ##
@@ -444,25 +449,41 @@ namespace 별명
 							if (person_0.get_id() == 무장_공손찬)
 							{
 								if (person_0.kouseki >= 공적비교_1)
+<<<<<<< HEAD
 									person_0.name_read = pk::encode("白马长史");
+=======
+									person_0.name_read = pk::encode("白马将军");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							}
 
 							if (person_0.get_id() == 무장_장각)
 							{
 								if (person_0.kouseki >= 공적비교_1)
+<<<<<<< HEAD
 									person_0.name_read = pk::encode("白马长史");
+=======
+									person_0.name_read = pk::encode("天公将军");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							}
 
 							if (person_0.get_id() == 무장_장보)
 							{
 								if (person_0.kouseki >= 공적비교_1)
+<<<<<<< HEAD
 									person_0.name_read = pk::encode("地马长史");
+=======
+									person_0.name_read = pk::encode("地公将军");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							}
 
 							if (person_0.get_id() == 무장_장량)
 							{
 								if (person_0.kouseki >= 공적비교_1)
+<<<<<<< HEAD
 									person_0.name_read = pk::encode("人马长史");
+=======
+									person_0.name_read = pk::encode("人公将军");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							}
 
 							if (person_0.get_id() == 무장_항적)

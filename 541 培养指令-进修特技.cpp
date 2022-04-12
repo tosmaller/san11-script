@@ -14,6 +14,7 @@ namespace 特技_进修
 	// ================ CUSTOMIZE ================		
 	const int ACTION_COST = 20;     	// (행동력 필요량: 기본 50 설정)	
 	const int GOLD_COST = 1000;
+<<<<<<< HEAD
 	const int TP_COST = 500;    	   	// (기교P 필요량: 기본 100 설정)		
 	const int KEY = pk::hash("特技进修");
 	// ===========================================	
@@ -21,6 +22,20 @@ namespace 特技_进修
 	class Main
 	{
 		bool 调试模式 = false;
+=======
+	const int TP_COST = 500;    	   	// (기교P 필요량: 기본 100 설정)	
+
+	const int 四级特技概率 = 20;//在武将能力满足对应特技需求时，获得对应等级特技的概率
+	const int 三级特技概率 = 30;//在武将能力满足对应特技需求时，获得对应等级特技的概率
+	const int 二级特技概率 = 30;//在武将能力满足对应特技需求时，获得对应等级特技的概率
+	const int 一级特技概率 = 20;//在武将能力满足对应特技需求时，获得对应等级特技的概率
+	const int KEY = pk::hash("特技进修");
+	// ===========================================	
+	const bool 调试模式 = false;
+	class Main
+	{
+		
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		pk::building@ building_;
 		int check_result_;
 
@@ -110,7 +125,11 @@ namespace 特技_进修
 				person_confirm = pk::yes_no(pk::encode(pk::format("是否让\x1b[1x{}\x1b[0x进修学习特技?", monster_name)));
 			}
 
+<<<<<<< HEAD
 			skill_study(monster);
+=======
+			limit_skill_set(monster);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			monster.update();
 
 			pk::message_box(pk::encode("我将以学习的新特技来为主公战斗."), monster);
@@ -126,6 +145,7 @@ namespace 特技_进修
 			return true;
 		}
 
+<<<<<<< HEAD
 		void skill_study(pk::person@person)
 		{
 			//array<array<uint8>> 可学特技;// (4, array<uint8>(160, 255));
@@ -202,6 +222,95 @@ namespace 特技_进修
 	const array<array<uint8>> 特技需求 = {
 	{/*000飞将*//*统率*/80,/*武力*/100,/*智力*/0,/*政治*/0,/*魅力*/0,/*枪*/2,/*戟*/2,/*弩*/2,/*马*/4,/*兵器*/0,/*水军*/0},
 	{/*001遁走*//*统率*/0,/*武力*/0,/*智力*/0,/*政治*/0,/*魅力*/0,/*枪*/0,/*戟*/0,/*弩*/0,/*马*/0,/*兵器*/0,/*水军*/0},
+=======
+	}
+
+	void limit_skill_set(pk::person@person, int min_luck = 0/*作为技能保底下限*/)
+	{
+		//array<array<uint8>> 可学特技;// (4, array<uint8>(160, 255));
+		array<uint8>可学特技level_1;
+		array<uint8>可学特技level_2;
+		array<uint8>可学特技level_3;
+		array<uint8>可学特技level_4;
+		for (int i = 0; i < 160; ++i)
+		{
+			bool include = true;
+			for (int j = 0; j < 11; ++j)
+			{
+				if (j < 武将能力_末)
+				{
+					if (person.base_stat[j] < 特技需求[i][j])
+					{
+						include = false;
+						//pk::trace("特技id" + i + "能力：" + person.base_stat[j] + "不满足需求：" + 特技需求[i][j]);
+						break;
+					}
+				}
+				else
+				{
+					if (uint8(person.tekisei[j - 武将能力_末]) < 特技需求[i][j])
+					{
+						//pk::trace("特技id" + i + "适性：" + person.tekisei[j - 武将能力_末] + "不满足需求：" + 特技需求[i][j]);
+						include = false;
+						break;
+					}
+				}
+			}
+			if (i == 特技_内助 and person.sex == 性别_男) { include = false; }
+			if (include)
+			{
+				pk::skill@ skill = pk::get_skill(i);
+				if (pk::is_alive(skill))
+				{
+					int level = skill.level - 1;
+					if (调试模式) pk::trace("特技:" + pk::decode(skill.name) + "level" + skill.level);
+					switch (level)
+					{
+					case 0: 可学特技level_1.insertLast(i);
+					case 1: 可学特技level_2.insertLast(i);
+					case 2: 可学特技level_3.insertLast(i);
+					case 3: 可学特技level_4.insertLast(i);
+					}
+				}
+			}
+		}
+		if (可学特技level_1.length() == 0) 可学特技level_1.insertLast(255);
+		int lucky = ch::randint(min_luck, 100);//pk::rand(100) + min_luck;
+		int 二级特技阈值 = 一级特技概率;
+		int 三级特技阈值 = 一级特技概率 + 二级特技概率;
+		int 四级特技阈值 = 一级特技概率 + 二级特技概率 + 三级特技概率;
+		if (可学特技level_3.length() > 0)
+		{
+			if (可学特技level_4.length() > 0)
+			{
+				if (调试模式) pk::trace("可学特技level_1.length()" + 可学特技level_1.length());
+				if (lucky > 四级特技阈值) person.skill = 可学特技level_4[pk::rand(可学特技level_4.length())];
+				else if (lucky > 三级特技阈值) person.skill = 可学特技level_3[pk::rand(可学特技level_3.length())];
+				else if (lucky > 二级特技阈值) person.skill = 可学特技level_2[pk::rand(可学特技level_2.length())];
+				else person.skill = 可学特技level_1[pk::rand(可学特技level_1.length())];
+			}
+			else
+			{
+				if (调试模式) pk::trace("可学特技level_1.length()" + 可学特技level_1.length());
+				if (lucky > 三级特技阈值) person.skill = 可学特技level_3[pk::rand(可学特技level_3.length())];
+				else if (lucky > 二级特技阈值) person.skill = 可学特技level_2[pk::rand(可学特技level_2.length())];
+				else person.skill = 可学特技level_1[pk::rand(可学特技level_1.length())];
+			}
+		}
+		else
+		{
+			if (调试模式) pk::trace("可学特技level_1.length()" + 可学特技level_1.length());
+			if (lucky > 二级特技阈值) person.skill = 可学特技level_2[pk::rand(可学特技level_2.length())];
+			else person.skill = 可学特技level_1[pk::rand(可学特技level_1.length())];
+		}
+
+
+	}
+
+	const array<array<uint8>> 特技需求 = {
+	{/*000飞将*//*统率*/80,/*武力*/100,/*智力*/0,/*政治*/0,/*魅力*/0,/*枪*/2,/*戟*/2,/*弩*/2,/*马*/4,/*兵器*/0,/*水军*/0},
+	{/*001遁走*//*统率*/70,/*武力*/70,/*智力*/0,/*政治*/0,/*魅力*/80,/*枪*/0,/*戟*/0,/*弩*/0,/*马*/0,/*兵器*/0,/*水军*/0},
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	{/*002强行*//*统率*/70,/*武力*/0,/*智力*/0,/*政治*/0,/*魅力*/0,/*枪*/0,/*戟*/0,/*弩*/0,/*马*/0,/*兵器*/0,/*水军*/0},
 	{/*003长驱*//*统率*/70,/*武力*/70,/*智力*/0,/*政治*/0,/*魅力*/0,/*枪*/0,/*戟*/0,/*弩*/0,/*马*/2,/*兵器*/0,/*水军*/0},
 	{/*004推进*//*统率*/70,/*武力*/70,/*智力*/0,/*政治*/0,/*魅力*/0,/*枪*/0,/*戟*/0,/*弩*/0,/*马*/0,/*兵器*/0,/*水军*/2},

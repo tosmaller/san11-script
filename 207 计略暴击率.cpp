@@ -82,10 +82,17 @@ namespace STRATEGY_CRITICAL_CHANCE
 		{
 			switch (weapon_id)
 			{
+<<<<<<< HEAD
 			case 병기_검: return 5;
 			case 병기_창: return 10;
 			case 병기_극: return 10;
 			case 병기_노: return 5;
+=======
+			case 兵器_剑: return 5;
+			case 兵器_枪: return 10;
+			case 兵器_戟: return 10;
+			case 兵器_弩: return 5;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 			return 0;
 		}

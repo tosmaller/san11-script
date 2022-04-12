@@ -60,8 +60,13 @@ namespace 전투부대_수송량_손실
 	};
 
 	/// 항목별 손실확률 설정
+<<<<<<< HEAD
 	const array<int> 损失概率_金 = {/*玩家第1军团*/40, /*玩家委任军团*/40, /*AI势力*/10 };
 	const array<int> 损失概率_兵粮 = {/*玩家第1军团*/40, /*玩家委任军团*/40, /*AI势力*/10 };
+=======
+	const array<int> 损失概率_金 = {/*玩家第1军团*/80, /*玩家委任军团*/80, /*AI势力*/10 };
+	const array<int> 损失概率_兵粮 = {/*玩家第1军团*/80, /*玩家委任军团*/80, /*AI势力*/10 };
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	/// 金兵比或粮兵比小于阈值时，不触发损失 by 江东新风
 	const array<float> 损失触发阈值_金 = {/*玩家第1军团*/0.2f, /*玩家委任军团*/0.2f, /*AI势力*/0.4f };
@@ -354,10 +359,17 @@ namespace 전투부대_수송량_손실
 
 		bool check_wpn_for_tech(int weapon_id, int tech_id)
 		{
+<<<<<<< HEAD
 			if ((tech_id == 技巧_枪兵锻练 or tech_id == 技巧_精锐枪兵) and weapon_id != 병기_창)   return false;
 			if ((tech_id == 技巧_戟兵锻练 or tech_id == 技巧_精锐戟兵) and weapon_id != 병기_극)   return false;
 			if ((tech_id == 技巧_弩兵锻练 or tech_id == 技巧_精锐弩兵) and weapon_id != 병기_노)   return false;
 			if ((tech_id == 技巧_骑兵锻练 or tech_id == 技巧_精锐骑兵) and weapon_id != 병기_군마) return false;
+=======
+			if ((tech_id == 技巧_枪兵锻练 or tech_id == 技巧_精锐枪兵) and weapon_id != 兵器_枪)   return false;
+			if ((tech_id == 技巧_戟兵锻练 or tech_id == 技巧_精锐戟兵) and weapon_id != 兵器_戟)   return false;
+			if ((tech_id == 技巧_弩兵锻练 or tech_id == 技巧_精锐弩兵) and weapon_id != 兵器_弩)   return false;
+			if ((tech_id == 技巧_骑兵锻练 or tech_id == 技巧_精锐骑兵) and weapon_id != 兵器_战马) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			return true;
 		}
@@ -411,7 +423,11 @@ namespace 전투부대_수송량_손실
 			if (!pk::rand_bool(int(loss_chance))) return;
 
 			curr_pos = pk::get_screen_center_hex_pos();
+<<<<<<< HEAD
 			func_武器_变更(unit, ground_wpn_id, 병기_검, /*검 수량*/1, /*육상 병기*/0);
+=======
+			func_武器_变更(unit, ground_wpn_id, 兵器_枪, /*검 수량*/1, /*육상 병기*/0);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			if (画面移动_兵器[controller_index]) func_화면_이동(unit);
 			if (通知窗显示_兵器[controller_index]) func_메시지박스_표시(unit, ground_wpn_id, "\x1b[2x陆地\x1b[0x", "\x1b[1x剑\x1b[0x");
 			pk::scene(cast<pk::scene_t@>(function() { pk::move_screen(main.curr_pos, 500); }));

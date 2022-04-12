@@ -553,7 +553,11 @@ void global_func_枪兵冲锋(pk::point src_pos, pk::unit@ src_unit, pk::person@
 
 		pk::person@ dst_leader = pk::get_person(dst_unit.leader);
 
+<<<<<<< HEAD
 		if (dst_unit.weapon != 병기_군마) continue;
+=======
+		if (dst_unit.weapon != 兵器_战马) continue;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		if (ch::has_skill(dst_unit, 特技_韬略)) continue;
 
 		int chance = 部队战术_成功率 + 韬略成功率上升 + ch::minZero(src_unit.attr.stat[武将能力_武力] - dst_unit.attr.stat[武将能力_武力]);
@@ -621,7 +625,11 @@ void global_func_戟兵破甲(pk::point src_pos, pk::unit@ src_unit, pk::person@
 
 		pk::person@ dst_leader = pk::get_person(dst_unit.leader);
 
+<<<<<<< HEAD
 		if (dst_unit.weapon != 병기_노 && dst_unit.weapon != 병기_창) continue;
+=======
+		if (dst_unit.weapon != 兵器_弩 && dst_unit.weapon != 兵器_枪) continue;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		if (ch::has_skill(dst_unit, 特技_韬略)) continue;
 
 		int chance = 部队战术_成功率 + 韬略成功率上升 + ch::minZero(src_unit.attr.stat[武将能力_武力] - dst_unit.attr.stat[武将能力_武力]);
@@ -689,7 +697,11 @@ void global_func_骑兵突袭(pk::point src_pos, pk::unit@ src_unit, pk::person@
 
 		pk::person@ dst_leader = pk::get_person(dst_unit.leader);
 
+<<<<<<< HEAD
 		if (dst_unit.weapon != 병기_극) continue;
+=======
+		if (dst_unit.weapon != 兵器_戟) continue;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		if (ch::has_skill(dst_unit, 特技_韬略)) continue;
 
 		int chance = 部队战术_成功率 + 韬略成功率上升 + ch::minZero(src_unit.attr.stat[武将能力_武力] - dst_unit.attr.stat[武将能力_武力]);

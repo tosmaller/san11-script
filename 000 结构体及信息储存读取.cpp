@@ -60,6 +60,12 @@ namespace 结构体读取与储存
 			}
 			for (int i = 0; i < 部队_末; i++)
 			{
+<<<<<<< HEAD
+=======
+				//if (i== 1) pk::trace("unit_ex[i].movement_remain" + unit_ex[i].movement_remain + "pk::get_remain_movement(i)" + pk::get_remain_movement(i));
+				//if (pk::is_fog_set()) unit_ex[i].movement_remain = pk::get_remain_movement(i);
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				unit_ex[i].update(i);
 				for (int j = 0; j < (部队结构体_uint32数 - 1); j++)
 					pk::store(KEY, (KEY_索引_追加_部队起始 + (i * 部队结构体_uint32数 + j)), unit_ex_info_temp[j][i]);
@@ -85,9 +91,15 @@ namespace 结构体读取与储存
 				for (int j = 0; j < (组队结构体_int32数 - 1); j++)
 					pk::store(KEY, (KEY_索引_追加_组队起始 + (i * 组队结构体_int32数 + j)), autoarmy_ex_info_temp[j][i]);
 			}
+<<<<<<< HEAD
 			pk::trace("nanzheng1:" + setting_ex.eve_happened[5]);
 			setting_ex.update();
 			pk::trace("nanzheng2:"+ setting_ex.eve_happened[5]);
+=======
+			//pk::trace("nanzheng1:" + setting_ex.eve_happened[5]);
+			setting_ex.update();
+			//pk::trace("nanzheng2:"+ setting_ex.eve_happened[5]);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			for (int j = 0; j < (设定结构体_uint32数 - 1); j++)
 			{
 				pk::store(KEY, (KEY_索引_追加_设定起始 + (j)), setting_ex_info_temp[j]);
@@ -110,8 +122,11 @@ namespace 结构体读取与储存
 					if (i >= 城市_末) base_ex[i].public_order = 85;
 					if (i < 城市_末)
 					{
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						//base_t.can_inspections = false;
 						//base_t.can_drill = false;
 						//base_t.can_recruit = false;
@@ -124,6 +139,15 @@ namespace 结构体读取与储存
 						base_ex[i].recruit_std_porder = 95;
 						base_ex[i].recruit_std_gold = 2500;
 						base_ex[i].reward_std = 90;
+<<<<<<< HEAD
+=======
+						base_ex[i].harvest_bonus = 0;
+						base_ex[i].revenue_bonus = 0;
+						base_ex[i].recruit_person = -1;//征兵执行官
+						base_ex[i].inspections_person = -1;//巡查执行官
+						base_ex[i].drill_person = -1;//训练执行官
+						base_ex[i].produce_person = -1;//生产执行官
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 					for (int j = 0; j < 势力_末; ++j)
 					{
@@ -222,6 +246,12 @@ namespace 结构体读取与储存
 						unit_ex_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_部队起始 + (i * 部队结构体_uint32数 + j)), 0));
 					unitinfo unit_t(i);
 					unit_ex[i] = unit_t;
+<<<<<<< HEAD
+=======
+					
+					//if (pk::is_fog_set()) pk::set_remain_movement(i, unit_ex[i].movement_remain);
+					//if (i == 1) pk::trace("load unit_ex[i].movement_remain" + unit_ex[i].movement_remain + "pk::get_remain_movement(i)" + pk::get_remain_movement(i));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 				for (int i = 0; i < 势力_末; i++)
 				{
@@ -548,6 +578,15 @@ class BaseInfo
 	bool can_recruit;//征兵许可-目前限城市
 	bool can_reward;//褒奖许可-目前限城市，可扩展
 	bool can_transport;//运输许可-目前限城市，可扩展
+<<<<<<< HEAD
+=======
+	array<bool> can_produce(兵种_末, false);//枪戟弩马兵器水军
+	int16 recruit_person;//征兵执行官
+	int16 inspections_person;//巡查执行官
+	int16 drill_person;//训练执行官
+	int16 produce_person;//生产执行官
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	uint8 auto_sequence;//自动化顺序
 	uint8 inspections_std;//巡察标准
 	uint8 drill_std;//训练标准
@@ -577,7 +616,12 @@ class BaseInfo
 	uint8 farmer_count;//一回合可以进行农民兵召唤的次数
 
 	uint8 provoke_cd;//被挑衅的cd,每回合自动减少，被挑衅时设置cd，据点所属变化时清零
+<<<<<<< HEAD
 
+=======
+	uint16 revenue_bonus;//金收入附加值--通过事件获得
+	uint16 harvest_bonus;//粮收入附加值--通过事件获得
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	/*在300文件定义的暂存数组，读档时将存档加载入数组，
 	array<array<uint32>> person_ex_info_temp(10, array<uint32>(武将_末, uint32(-1)));
 	array<array<uint32>> base_ex_info_temp(10, array<uint32>(据点_末, uint32(-1)));
@@ -614,6 +658,13 @@ class BaseInfo
 		fromInt32_19(base_ex_info_temp[19][base_id]);
 		fromInt32_20(base_ex_info_temp[20][base_id]);
 		fromInt32_21(base_ex_info_temp[21][base_id]);
+<<<<<<< HEAD
+=======
+		fromInt32_22(base_ex_info_temp[22][base_id]);
+		fromInt32_23(base_ex_info_temp[23][base_id]);
+		fromInt32_24(base_ex_info_temp[24][base_id]);
+		fromInt32_25(base_ex_info_temp[25][base_id]);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	}
 
 	//bool equal(const BaseInfo&, bool both = true);
@@ -642,6 +693,13 @@ class BaseInfo
 		base_ex_info_temp[19][base_id] = toInt32_19();
 		base_ex_info_temp[20][base_id] = toInt32_20();
 		base_ex_info_temp[21][base_id] = toInt32_21();
+<<<<<<< HEAD
+=======
+		base_ex_info_temp[22][base_id] = toInt32_22();
+		base_ex_info_temp[23][base_id] = toInt32_23();
+		base_ex_info_temp[24][base_id] = toInt32_24();
+		base_ex_info_temp[25][base_id] = toInt32_25();
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	}
 
 	//储存的时候应是PersonInfo.toInt32_0,作为一个单位储存
@@ -659,6 +717,10 @@ class BaseInfo
 		uint8 can_reward_t = can_reward ? 1 : 0;
 		uint8 can_transport_t = can_transport ? 1 : 0;
 		uint8 return_buf_t = return_buf ? 1 : 0;//人口返回buf
+<<<<<<< HEAD
+=======
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		//pk::trace(pk::format("内部，转为数组，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", can_inspections, can_drill, can_recruit, can_reward, can_transport));
 		uint32 x = can_recruit_t + (recruit_done_t << 1) + (inspections_done_t << 2) + (can_inspections_t << 3) + (can_drill_t << 4) + (can_reward_t << 5) + (can_transport_t << 6) + (return_buf_t << 7) + (auto_sequence << 8) + (inspections_std << 16) + (drill_std << 24);
 		return x;
@@ -850,6 +912,39 @@ class BaseInfo
 		uint32 x = mobilize_done_t + (repair_done_t << 1) + (enlist_done_t << 2) + (perturb_done_t << 3) + (misinform_done_t << 4) + (fire_done_t << 5) + (beguile_done_t << 6) + (raid_done_t << 7) + (mobilize_done_t << 8) + (reinforce_done_t << 9);
 		return x;
 	}
+<<<<<<< HEAD
+=======
+
+	uint32 toInt32_22(void)
+	{
+		uint32 x = revenue_bonus + (harvest_bonus << 16);//
+		return x;
+	}
+
+	uint32 toInt32_23(void)
+	{
+		array<uint8> can_produce_t(兵种_末, 0);
+		for (int i = 0; i < 兵种_末; ++i)
+		{
+			can_produce_t[i] = can_produce[i] ? 1 : 0;
+		}
+		uint32 x = can_produce_t[0] + (can_produce_t[1] << 1) + (can_produce_t[2] << 2) + (can_produce_t[3] << 3) + (can_produce_t[4] << 4) + (can_produce_t[5] << 5);
+		return x;
+	}
+
+	uint32 toInt32_24(void)
+	{
+		uint32 x = recruit_person + (inspections_person << 16);//
+		return x;
+	}
+
+	uint32 toInt32_25(void)
+	{
+		uint32 x = drill_person + (produce_person << 16);//
+		return x;
+	}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	//读取后解析
 	void fromInt32_0(uint32 x)
 	{
@@ -1037,6 +1132,35 @@ class BaseInfo
 		//enlist_done = (((x << 23) >> 31) == 1);
 	}
 
+<<<<<<< HEAD
+=======
+	void fromInt32_22(uint32 x)
+	{
+		revenue_bonus = x;
+		harvest_bonus = x >> 16;
+	}
+
+	void fromInt32_23(uint32 x)
+	{
+		for (int i = 0; i < 兵种_末; ++i)
+		{
+			can_produce[i] = (((x << (31-i)) >> 31) == 1);
+		}
+	}
+
+	void fromInt32_24(uint32 x)
+	{
+		recruit_person = x;
+		inspections_person = x >> 16;
+	}
+
+	void fromInt32_25(uint32 x)
+	{
+		drill_person = x;
+		produce_person = x >> 16;
+	}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	uint8 booltoint(bool t)
 	{
 		return t ? 1 : 0;
@@ -1053,6 +1177,10 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 {
 	//int id;//结构初始化时获得，update时直接用？那嵌套还可以用吗
 	bool has_contact;//和所有其他部队初次作战还是和玩家初次作战？
+<<<<<<< HEAD
+=======
+	bool has_luezhen;//判断本回合是否被掠阵
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	uint8 cd_1;//各种特技cd
 	uint8 cd_2;//各种特技cd
 	uint8 cd_3;//各种特技cd
@@ -1062,6 +1190,10 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 	uint8 cd_7;//各种特技cd
 	uint8 cd_8;//各种特技cd
 	uint16 wounded;//伤兵
+<<<<<<< HEAD
+=======
+	uint8 movement_remain;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	//初始化
 	unitinfo(int id)
 	{
@@ -1078,6 +1210,10 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 		fromInt32_1(unit_ex_info_temp[1][id]);
 		fromInt32_2(unit_ex_info_temp[2][id]);
 		fromInt32_3(unit_ex_info_temp[3][id]);
+<<<<<<< HEAD
+=======
+		fromInt32_4(unit_ex_info_temp[4][id]);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	}
 
 	void update(int id)
@@ -1086,12 +1222,20 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 		unit_ex_info_temp[1][id] = toInt32_1();
 		unit_ex_info_temp[2][id] = toInt32_2();
 		unit_ex_info_temp[3][id] = toInt32_3();
+<<<<<<< HEAD
+=======
+		unit_ex_info_temp[4][id] = toInt32_4();
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	}
 
 	uint32 toInt32_0(void)
 	{
 		uint8 has_contact_t = has_contact ? 1 : 0;//初次遭遇
+<<<<<<< HEAD
 		//uint8 recruit_done_t = recruit_done ? 1 : 0;
+=======
+		uint8 has_luezhen_t = has_luezhen ? 1 : 0;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		//uint8 inspections_done_t = inspections_done ? 1 : 0;
 		//uint8 can_inspections_t = can_inspections ? 1 : 0;
 		//uint8 can_drill_t = can_drill ? 1 : 0;
@@ -1099,7 +1243,11 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 		//uint8 can_transport_t = can_transport ? 1 : 0;
 		//uint8 return_buf_t = return_buf ? 1 : 0;//人口返回buf
 		//pk::trace(pk::format("内部，转为数组，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", can_inspections, can_drill, can_recruit, can_reward, can_transport));
+<<<<<<< HEAD
 		uint32 x = has_contact_t + (has_contact_t << 1) + (has_contact_t << 2) + (has_contact_t << 3) + (has_contact_t << 4) + (has_contact_t << 5) + (has_contact_t << 6) + (has_contact_t << 7) + (has_contact_t << 8) + (has_contact_t << 9) + (has_contact_t << 10);
+=======
+		uint32 x = has_contact_t + (has_luezhen_t << 1) + (has_contact_t << 2) + (has_contact_t << 3) + (has_contact_t << 4) + (has_contact_t << 5) + (has_contact_t << 6) + (has_contact_t << 7) + (has_contact_t << 8) + (has_contact_t << 9) + (has_contact_t << 10);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		return x;
 	}
 
@@ -1120,11 +1268,24 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 		uint32 x = wounded + (wounded << 16);//return_timer
 		return x;
 	}
+<<<<<<< HEAD
+=======
+
+	uint32 toInt32_4(void)
+	{
+		uint32 x = movement_remain + (movement_remain << 8) + (movement_remain << 16) + (movement_remain << 24);//return_timer
+		return x;
+	}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	//读取后解析
 	void fromInt32_0(uint32 x)
 	{
 		has_contact = (((x << 31) >> 31) == 1);
+<<<<<<< HEAD
 		//recruit_done = (((x << 30) >> 31) == 1);
+=======
+		has_luezhen = (((x << 30) >> 31) == 1);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		//inspections_done = (((x << 29) >> 31) == 1);
 		//can_inspections = (((x << 28) >> 31) == 1);
 		//can_drill = (((x << 27) >> 31) == 1);
@@ -1157,6 +1318,18 @@ class unitinfo//需要在部队生成的时候初始化，还是毁灭时？
 	{
 		wounded = x;
 	}
+<<<<<<< HEAD
+=======
+
+	void fromInt32_4(uint32 x)
+	{
+		movement_remain = x;
+		//cd_6 = x >> 8;
+		//cd_7 = x >> 16;
+		//cd_8 = x >> 24;
+	}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 }
 
 class forceinfo
@@ -1170,6 +1343,10 @@ class forceinfo
 	bool sangu_2;
 	bool sangu_3;
 	bool xuzhou;//三让徐州
+<<<<<<< HEAD
+=======
+	bool all_ability_researched;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	uint16 sangu_1_turn_count;//触发三顾1时经过的旬数
 	uint16 sangu_2_turn_count;//触发三顾2时经过的旬数
@@ -1260,8 +1437,15 @@ class forceinfo
 		uint8 sangu_2_t = sangu_2 ? 1 : 0;
 		uint8 sangu_3_t = sangu_3 ? 1 : 0;
 		uint8 xuzhou_t = xuzhou ? 1 : 0;
+<<<<<<< HEAD
 		//pk::trace(pk::format("内部，转为数组，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", can_inspections, can_drill, can_recruit, can_reward, can_transport));
 		uint32 x = sangu_1_t + (sangu_2_t << 1) + (sangu_3_t << 2) + (xuzhou_t << 3);
+=======
+		uint8 jisi_done_t = jisi_done ? 1 : 0;
+		uint8 all_ability_researched_t = all_ability_researched ? 1 : 0;
+		//pk::trace(pk::format("内部，转为数组，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", can_inspections, can_drill, can_recruit, can_reward, can_transport));
+		uint32 x = sangu_1_t + (sangu_2_t << 1) + (sangu_3_t << 2) + (xuzhou_t << 3) + (jisi_done_t << 4) + (all_ability_researched_t << 5);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		return x;
 	}
 
@@ -1351,6 +1535,11 @@ class forceinfo
 		sangu_2 = (((x << 30) >> 31) == 1);
 		sangu_3 = (((x << 29) >> 31) == 1);
 		xuzhou = (((x << 28) >> 31) == 1);
+<<<<<<< HEAD
+=======
+		jisi_done = (((x << 27) >> 31) == 1);
+		all_ability_researched = (((x << 26) >> 31) == 1);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	}
 
 	void fromInt32_3(uint32 x)
@@ -1932,7 +2121,10 @@ class settinginfo
 
 	void fromInt32_14(uint32 x)
 	{
+<<<<<<< HEAD
 		pk::trace("x:" + x);
+=======
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		for (int i = 0; i < 32; ++i)
 		{
 			eve_happened[i] = ch::test_bit(x, i);

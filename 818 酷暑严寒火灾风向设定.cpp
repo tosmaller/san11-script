@@ -524,7 +524,11 @@ namespace 야전부대효과
                     int weapon_heishu = pk::equipment_id_to_heishu(unit.weapon);
 
                     // 소속도시가 대도시인 경우 병력 회복
+<<<<<<< HEAD
                     if (pk::is_large_city(city) and unit.type == 부대종류_전투 and unit.troops < 3000)
+=======
+                    if (pk::is_large_city(city) and unit.type == 部队类型_战斗 and unit.troops < 3000)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     {
                         ch::add_troops(unit, int(0.05f * unit.troops), true);
                     }
@@ -557,6 +561,7 @@ namespace 야전부대효과
             string weapon_name;
             switch (weapon_id)
             {
+<<<<<<< HEAD
             case 병기_검: weapon_name = "剑兵"; break;
             case 병기_창: weapon_name = "枪兵"; break;
             case 병기_극: weapon_name = "戟兵"; break;
@@ -566,6 +571,17 @@ namespace 야전부대효과
             case 병기_정란: weapon_name = "井阑"; break;
             case 병기_투석: weapon_name = "投石"; break;
             case 병기_목수: weapon_name = "木兽"; break;
+=======
+            case 兵器_剑: weapon_name = "剑兵"; break;
+            case 兵器_枪: weapon_name = "枪兵"; break;
+            case 兵器_戟: weapon_name = "戟兵"; break;
+            case 兵器_弩: weapon_name = "弩兵"; break;
+            case 兵器_战马: weapon_name = "骑兵"; break;
+            case 兵器_冲车: weapon_name = "冲车"; break;
+            case 兵器_井阑: weapon_name = "井阑"; break;
+            case 兵器_投石: weapon_name = "投石"; break;
+            case 兵器_木兽: weapon_name = "木兽"; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             case 兵器_走舸: weapon_name = "水军"; break;
             case 兵器_楼船: weapon_name = "水军"; break;
             case 兵器_斗舰: weapon_name = "水军"; break;

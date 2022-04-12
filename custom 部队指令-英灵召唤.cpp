@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/21 # 江东新风 # 结束时清空临时武将 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/01/17 # messi # 修复部队菜单初始化时会生成武将的bug ##
 // ## 2020/12/24 # messi # 只有专属武将召唤时才有可能成功 ##
 // ## 2020/12/24 # 江东新风 # 修复trace参数报错 ##
@@ -421,7 +426,11 @@ namespace 부대소환메뉴
 					set_person(n);
 
 					pk::point emptyPos = getEmptyPos();
+<<<<<<< HEAD
 					pk::unit@ ghost_unit = pk::create_unit(pk::get_building(pk::get_service(src_unit)), tempPerson, null, null, 1, 병기_창, 兵器_走舸, 1, 1, emptyPos);
+=======
+					pk::unit@ ghost_unit = pk::create_unit(pk::get_building(pk::get_service(src_unit)), tempPerson, null, null, 1, 兵器_枪, 兵器_走舸, 1, 1, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					pk::set_energy(ghost_unit, 100);
 					ghost_unit.action_done = true;
 
@@ -440,6 +449,10 @@ namespace 부대소환메뉴
 					발동성공 = true;
 					pk::say(pk::encode("再会了..."), tempPerson);
 					pk::kill(ghost_unit);
+<<<<<<< HEAD
+=======
+					pk::reset(tempPerson);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 				else { 발동실패 = true; }
 
@@ -461,7 +474,11 @@ namespace 부대소환메뉴
 					set_person(n);
 
 					pk::point emptyPos = getEmptyPos();
+<<<<<<< HEAD
 					pk::unit@ ghost_unit = pk::create_unit(pk::get_building(pk::get_service(src_unit)), tempPerson, null, null, 1, 병기_창, 兵器_走舸, 1, 1, emptyPos);
+=======
+					pk::unit@ ghost_unit = pk::create_unit(pk::get_building(pk::get_service(src_unit)), tempPerson, null, null, 1, 兵器_枪, 兵器_走舸, 1, 1, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					pk::set_energy(ghost_unit, 100);
 					ghost_unit.action_done = true;
 
@@ -501,7 +518,11 @@ namespace 부대소환메뉴
 					set_person(n);
 
 					pk::point emptyPos = getEmptyPos();
+<<<<<<< HEAD
 					pk::unit@ ghost_unit = pk::create_unit(pk::get_building(pk::get_service(src_unit)), tempPerson, null, null, 1, 병기_창, 兵器_走舸, 1, 1, emptyPos);
+=======
+					pk::unit@ ghost_unit = pk::create_unit(pk::get_building(pk::get_service(src_unit)), tempPerson, null, null, 1, 兵器_枪, 兵器_走舸, 1, 1, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					pk::set_energy(ghost_unit, 100);
 					ghost_unit.action_done = true;
 

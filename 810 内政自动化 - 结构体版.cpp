@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/26 # 江东新风 # 内政执行官死亡问题，关闭按钮 ##
+// ## 2022/03/21 # 江东新风 # 任务结束清空临时执行官信息 ##
+// ## 2022/03/15 # 江东新风 # 执行官内政试写 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
 // ## 2021/09/15 # 江东新风 # 更改pk::core[]函数为英文##
 // ## 2021/02/16 # 江东新风 # 无法征兵bug修复 ##
@@ -101,6 +108,20 @@ namespace 内政自动化
 	const string 子菜单_标准_征兵兵粮比率 = "6";
 	const string 子菜单_标准_褒賞忠诚 = "7";
 
+<<<<<<< HEAD
+=======
+	const string 上位菜单_生产 = "v";
+	const string 子菜单_许可_枪 = "1";
+	const string 子菜单_许可_戟 = "2";
+	const string 子菜单_许可_弩 = "3";
+	const string 子菜单_许可_马 = "4";
+
+	const string 上位菜单_负责 = "b";
+	const string 子菜单_负责_征兵 = "1";
+	const string 子菜单_负责_巡察 = "2";
+	const string 子菜单_负责_訓练 = "3";
+	const string 子菜单_负责_生产 = "4";
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	///	-----------------------------------------------------------------------------------------
 
 		/// 수송 내정 자동화 관련 설정
@@ -138,8 +159,13 @@ namespace 内政自动化
 	/// =========================================================================================
 
 
+<<<<<<< HEAD
 	const bool 디버깅 = false;
 
+=======
+	const bool 调试模式 = false;
+	const bool 开启完全自动内政 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	/// 정보 저장용 해시 값 信息保存緩冲zhi
 	// 테스트 결과 pk::hash 함수가 "澶祸滑张" 말고 다른 문장의 해시 값을 지원하지 않는 것으로 추정됨
 	// 부득이하게 "澶祸滑张" 문장의 해시 값을 사용하되 인덱스 값이 기존의 '철거금지.cpp' 파일과 충돌하지 않도록 적용
@@ -152,6 +178,14 @@ namespace 内政自动化
 	const int 内政自动化_征兵 = 2;
 	const int 内政自动化_褒赏 = 3;
 	const int 内政自动化_运输 = 4;
+<<<<<<< HEAD
+=======
+	const int 内政自动化_生产枪 = 5;
+	const int 内政自动化_生产戟 = 6;
+	const int 内政自动化_生产弩 = 7;
+	const int 内政自动化_生产马 = 8;
+	const int 内政自动化_生产 = 9;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	/// 참고 : 도시 메뉴
 	// 도시 : 개발, 징병(적용), 순찰(적용), 생산, 거래
@@ -304,7 +338,10 @@ namespace 内政自动化
 			内政自动化_菜单_运输_许可.handler = pk::menu_item_handler_t(handler_运输);
 			pk::add_menu_item(内政自动化_菜单_运输_许可);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::menu_item 内政自动化_上位菜单_标准;
 			内政自动化_上位菜单_标准.menu = global_menu::菜单_自动化;
 			内政自动化_上位菜单_标准.shortcut = 上位菜单_标准;
@@ -378,6 +415,131 @@ namespace 内政自动化
 			内政自动化_菜单_褒賞标准_忠诚度.get_desc = pk::menu_item_get_desc_t(getDesc_褒賞标准_忠诚度);
 			内政自动化_菜单_褒賞标准_忠诚度.handler = pk::menu_item_handler_t(handler_褒賞标准_忠诚度);
 			pk::add_menu_item(内政自动化_菜单_褒賞标准_忠诚度);
+<<<<<<< HEAD
+=======
+			if (开启完全自动内政)
+			{
+				//****************************生产菜单开始****************************
+
+				pk::menu_item 内政自动化_上位菜单_生产;
+				内政自动化_上位菜单_生产.menu = global_menu::菜单_自动化;
+				内政自动化_上位菜单_生产.shortcut = 上位菜单_生产;
+				内政自动化_上位菜单_生产.init = pk::building_menu_item_init_t(init);
+				内政自动化_上位菜单_生产.get_image_id = pk::menu_item_get_image_id_t(getImageID_1249);
+				内政自动化_上位菜单_生产.is_visible = pk::menu_item_is_visible_t(isVisible);
+				内政自动化_上位菜单_生产.get_text = cast<pk::menu_item_get_text_t@>(function() { return pk::encode("生产设置"); });
+				内政自动化_上位菜单_生产.get_desc = cast<pk::menu_item_get_desc_t@>(function() { return pk::encode("点击展开或收起"); });
+				内政自动化_上位菜单_生产.handler = pk::menu_item_handler_t(handler_上位菜单_生产);
+				pk::add_menu_item(内政自动化_上位菜单_生产);
+				/*
+							pk::menu_item 内政自动化_菜单_统一变更_许可;
+							内政自动化_菜单_统一变更_许可.menu = global_menu::菜单_自动化;
+							内政自动化_菜单_统一变更_许可.shortcut = 子菜单_许可_统一变更;
+							内政自动化_菜单_统一变更_许可.is_visible = pk::menu_item_is_visible_t(isMenuVisible_生产);
+							内政自动化_菜单_统一变更_许可.get_text = pk::menu_item_get_text_t(getText_统一变更_许可);
+							内政自动化_菜单_统一变更_许可.get_desc = pk::menu_item_get_desc_t(getDesc_统一变更_许可);
+							内政自动化_菜单_统一变更_许可.handler = pk::menu_item_handler_t(handler_统一变更_许可);
+							pk::add_menu_item(内政自动化_菜单_统一变更_许可);
+				*/
+				pk::menu_item 内政自动化_菜单_枪_许可;
+				内政自动化_菜单_枪_许可.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_枪_许可.shortcut = 子菜单_许可_枪;
+				内政自动化_菜单_枪_许可.is_visible = pk::menu_item_is_visible_t(isMenuVisible_生产);
+				内政自动化_菜单_枪_许可.get_text = pk::menu_item_get_text_t(getText_枪许可);
+				内政自动化_菜单_枪_许可.get_desc = pk::menu_item_get_desc_t(getDesc_枪许可);
+				内政自动化_菜单_枪_许可.handler = pk::menu_item_handler_t(handler_枪许可);
+				pk::add_menu_item(内政自动化_菜单_枪_许可);
+
+				pk::menu_item 内政自动化_菜单_戟_许可;
+				内政自动化_菜单_戟_许可.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_戟_许可.shortcut = 子菜单_许可_戟;
+				内政自动化_菜单_戟_许可.is_visible = pk::menu_item_is_visible_t(isMenuVisible_生产);
+				内政自动化_菜单_戟_许可.get_text = pk::menu_item_get_text_t(getText_戟许可);
+				内政自动化_菜单_戟_许可.get_desc = pk::menu_item_get_desc_t(getDesc_戟许可);
+				内政自动化_菜单_戟_许可.handler = pk::menu_item_handler_t(handler_戟许可);
+				pk::add_menu_item(内政自动化_菜单_戟_许可);
+
+				pk::menu_item 内政自动化_菜单_弩_许可;
+				内政自动化_菜单_弩_许可.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_弩_许可.shortcut = 子菜单_许可_弩;
+				内政自动化_菜单_弩_许可.is_visible = pk::menu_item_is_visible_t(isMenuVisible_生产);
+				内政自动化_菜单_弩_许可.get_text = pk::menu_item_get_text_t(getText_弩许可);
+				内政自动化_菜单_弩_许可.get_desc = pk::menu_item_get_desc_t(getDesc_弩许可);
+				内政自动化_菜单_弩_许可.handler = pk::menu_item_handler_t(handler_弩许可);
+				pk::add_menu_item(内政自动化_菜单_弩_许可);
+
+				pk::menu_item 内政自动化_菜单_马_许可;
+				内政自动化_菜单_马_许可.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_马_许可.shortcut = 子菜单_许可_马;
+				内政自动化_菜单_马_许可.is_visible = pk::menu_item_is_visible_t(isMenuVisible_生产);
+				内政自动化_菜单_马_许可.get_text = pk::menu_item_get_text_t(getText_马许可);
+				内政自动化_菜单_马_许可.get_desc = pk::menu_item_get_desc_t(getDesc_马许可);
+				内政自动化_菜单_马_许可.handler = pk::menu_item_handler_t(handler_马许可);
+				pk::add_menu_item(内政自动化_菜单_马_许可);
+
+				//****************************生产菜单结束****************************
+				//****************************负责菜单开始****************************
+
+				pk::menu_item 内政自动化_上位菜单_负责;
+				内政自动化_上位菜单_负责.menu = global_menu::菜单_自动化;
+				内政自动化_上位菜单_负责.shortcut = 上位菜单_负责;
+				内政自动化_上位菜单_负责.init = pk::building_menu_item_init_t(init);
+				内政自动化_上位菜单_负责.get_image_id = pk::menu_item_get_image_id_t(getImageID_1249);
+				内政自动化_上位菜单_负责.is_visible = pk::menu_item_is_visible_t(isVisible);
+				内政自动化_上位菜单_负责.get_text = cast<pk::menu_item_get_text_t@>(function() { return pk::encode("内政负责"); });
+				内政自动化_上位菜单_负责.get_desc = cast<pk::menu_item_get_desc_t@>(function() { return pk::encode("点击展开或收起"); });
+				内政自动化_上位菜单_负责.handler = pk::menu_item_handler_t(handler_上位菜单_负责);
+				pk::add_menu_item(内政自动化_上位菜单_负责);
+				/*
+							pk::menu_item 内政自动化_菜单_统一变更_许可;
+							内政自动化_菜单_统一变更_许可.menu = global_menu::菜单_自动化;
+							内政自动化_菜单_统一变更_许可.shortcut = 子菜单_许可_统一变更;
+							内政自动化_菜单_统一变更_许可.is_visible = pk::menu_item_is_visible_t(isMenuVisible_许可);
+							内政自动化_菜单_统一变更_许可.get_text = pk::menu_item_get_text_t(getText_统一变更_许可);
+							内政自动化_菜单_统一变更_许可.get_desc = pk::menu_item_get_desc_t(getDesc_统一变更_许可);
+							内政自动化_菜单_统一变更_许可.handler = pk::menu_item_handler_t(handler_统一变更_许可);
+							pk::add_menu_item(内政自动化_菜单_统一变更_许可);
+				*/
+				pk::menu_item 内政自动化_菜单_征兵_负责;
+				内政自动化_菜单_征兵_负责.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_征兵_负责.shortcut = 子菜单_负责_征兵;
+				内政自动化_菜单_征兵_负责.is_visible = pk::menu_item_is_visible_t(isMenuVisible_负责);
+				内政自动化_菜单_征兵_负责.get_text = pk::menu_item_get_text_t(getText_征兵负责);
+				内政自动化_菜单_征兵_负责.get_desc = pk::menu_item_get_desc_t(getDesc_征兵负责);
+				内政自动化_菜单_征兵_负责.handler = pk::menu_item_handler_t(handler_征兵负责);
+				pk::add_menu_item(内政自动化_菜单_征兵_负责);
+
+				pk::menu_item 内政自动化_菜单_巡察_负责;
+				内政自动化_菜单_巡察_负责.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_巡察_负责.shortcut = 子菜单_负责_巡察;
+				内政自动化_菜单_巡察_负责.is_visible = pk::menu_item_is_visible_t(isMenuVisible_负责);
+				内政自动化_菜单_巡察_负责.get_text = pk::menu_item_get_text_t(getText_巡察负责);
+				内政自动化_菜单_巡察_负责.get_desc = pk::menu_item_get_desc_t(getDesc_巡察负责);
+				内政自动化_菜单_巡察_负责.handler = pk::menu_item_handler_t(handler_巡察负责);
+				pk::add_menu_item(内政自动化_菜单_巡察_负责);
+
+				pk::menu_item 内政自动化_菜单_訓练_负责;
+				内政自动化_菜单_訓练_负责.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_訓练_负责.shortcut = 子菜单_负责_訓练;
+				内政自动化_菜单_訓练_负责.is_visible = pk::menu_item_is_visible_t(isMenuVisible_负责);
+				内政自动化_菜单_訓练_负责.get_text = pk::menu_item_get_text_t(getText_訓练负责);
+				内政自动化_菜单_訓练_负责.get_desc = pk::menu_item_get_desc_t(getDesc_訓练负责);
+				内政自动化_菜单_訓练_负责.handler = pk::menu_item_handler_t(handler_訓练负责);
+				pk::add_menu_item(内政自动化_菜单_訓练_负责);
+
+				pk::menu_item 内政自动化_菜单_生产_负责;
+				内政自动化_菜单_生产_负责.menu = global_menu::菜单_自动化;
+				内政自动化_菜单_生产_负责.shortcut = 子菜单_负责_生产;
+				内政自动化_菜单_生产_负责.is_visible = pk::menu_item_is_visible_t(isMenuVisible_负责);
+				内政自动化_菜单_生产_负责.get_text = pk::menu_item_get_text_t(getText_生产负责);
+				内政自动化_菜单_生产_负责.get_desc = pk::menu_item_get_desc_t(getDesc_生产负责);
+				内政自动化_菜单_生产_负责.handler = pk::menu_item_handler_t(handler_生产负责);
+				pk::add_menu_item(内政自动化_菜单_生产_负责);
+
+				//****************************负责菜单结束****************************
+			}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 
@@ -393,12 +555,30 @@ namespace 内政自动化
 			return false;
 		}
 
+<<<<<<< HEAD
+=======
+		bool handler_上位菜单_生产()
+		{
+			global_menu::自动化_展开_当前 = (global_menu::自动化_展开_当前 == global_menu::自动化_展开_生产) ? 0 : global_menu::自动化_展开_生产;
+			return false;
+		}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		bool handler_上位菜单_标准()
 		{
 			global_menu::自动化_展开_当前 = (global_menu::自动化_展开_当前 == global_menu::自动化_展开_标准) ? 0 : global_menu::自动化_展开_标准;
 			return false;
 		}
 
+<<<<<<< HEAD
+=======
+		bool handler_上位菜单_负责()
+		{
+			global_menu::自动化_展开_当前 = (global_menu::自动化_展开_当前 == global_menu::自动化_展开_负责) ? 0 : global_menu::自动化_展开_负责;
+			return false;
+		}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 		bool isMenuVisible_顺序()
@@ -419,7 +599,21 @@ namespace 内政自动化
 			return true;
 		}
 
+<<<<<<< HEAD
 
+=======
+		bool isMenuVisible_生产()
+		{
+			if (global_menu::自动化_展开_当前 != global_menu::自动化_展开_生产) return false;
+			return true;
+		}
+
+		bool isMenuVisible_负责()
+		{
+			if (global_menu::自动化_展开_当前 != global_menu::自动化_展开_负责) return false;
+			return true;
+		}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 		//内政自动化显示信息
@@ -462,7 +656,11 @@ namespace 内政自动化
 				pk::city@ city = city_list[i];
 				pk::building@ building = pk::city_to_building(city);
 
+<<<<<<< HEAD
 				if (디버깅)
+=======
+				if (调试模式)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					string city_name = pk::format("城市\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
 					pk::message_box(pk::encode(pk::format("已确认{}", city_name)));
@@ -483,6 +681,10 @@ namespace 内政自动化
 
 		void func_内政自动化_信息显示(pk::building@ building, int force_id, int city_id, int 内政自动化_顺序)
 		{
+<<<<<<< HEAD
+=======
+			
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			string building_name = pk::decode(pk::get_name(building));
 
 			string title = pk::format("太守自治方针(\x1b[1x{}\x1b[0x)", building_name);
@@ -520,7 +722,12 @@ namespace 内政自动化
 			else if (内政自动化_顺序 == 6)	str_内政标准_顺序 = { std_drills, std_inspections, std_recruit_order, std_recruit_gold, std_recruit_food, std_reward };
 
 			int width = int(pk::get_resolution().width) - 230;
+<<<<<<< HEAD
 
+=======
+			pk::point left_down = pk::point(int(pk::get_resolution().width) - 10, 75 + (11) * 20 + (开启完全自动内政?42 * 3:0) + 40 +5);
+			pk::draw_filled_rect(pk::rectangle(pk::point(width-5, 15), left_down), ((0xff / 2) << 24) | 0x010101);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::draw_text(pk::encode(title), pk::point(width, 20), 0xffffffff, FONT_BIG, 0xff000000);
 			pk::draw_text(pk::encode(order_info), pk::point(width, 55), 0xffffffff, FONT_SMALL, 0xff000000);
 
@@ -533,10 +740,41 @@ namespace 内政自动化
 			{
 				pk::draw_text(pk::encode(str_内政标准_顺序[i]), pk::point(width, 75 + (i + end) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 			}
+<<<<<<< HEAD
+=======
+			if (开启完全自动内政)
+			{
+				pk::draw_text(pk::encode("征兵执行者："), pk::point(width, 75 + (11) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				pk::point rightup = pk::point(int(pk::get_resolution().width) - 130, 75 + (11) * 20);
+				pk::point leftdown = pk::point(int(pk::get_resolution().width) - 130 + 32, 75 + (11) * 20 + 40);
+				auto rect = pk::rectangle(rightup, leftdown);
+				if (pk::is_valid_person_id(base_t.recruit_person)) pk::draw_face(FACE_SMALL, base_t.recruit_person, rect, FACE_R);
+
+				pk::draw_text(pk::encode("巡查执行者："), pk::point(width, 75 + (11) * 20 + 42 * 1), 0xffffffff, FONT_SMALL, 0xff000000);
+				rightup = pk::point(int(pk::get_resolution().width) - 130, 75 + (11) * 20 + 42 * 1);
+				leftdown = pk::point(int(pk::get_resolution().width) - 130 + 32, 75 + (11) * 20 + 42 * 1 + 40);
+				rect = pk::rectangle(rightup, leftdown);
+				if (pk::is_valid_person_id(base_t.inspections_person)) pk::draw_face(FACE_SMALL, base_t.inspections_person, rect, FACE_R);
+
+				pk::draw_text(pk::encode("训练执行者："), pk::point(width, 75 + (11) * 20 + 42 * 2), 0xffffffff, FONT_SMALL, 0xff000000);
+				rightup = pk::point(int(pk::get_resolution().width) - 130, 75 + (11) * 20 + 42 * 2);
+				leftdown = pk::point(int(pk::get_resolution().width) - 130 + 32, 75 + (11) * 20 + 42 * 2 + 40);
+				rect = pk::rectangle(rightup, leftdown);
+				if (pk::is_valid_person_id(base_t.drill_person)) pk::draw_face(FACE_SMALL, base_t.drill_person, rect, FACE_R);
+
+				pk::draw_text(pk::encode("生产执行者："), pk::point(width, 75 + (11) * 20 + 42 * 3), 0xffffffff, FONT_SMALL, 0xff000000);
+				rightup = pk::point(int(pk::get_resolution().width) - 130, 75 + (11) * 20 + 42 * 3);
+				leftdown = pk::point(int(pk::get_resolution().width) - 130 + 32, 75 + (11) * 20 + 42 * 3 + 40);
+				rect = pk::rectangle(rightup, leftdown);
+				if (pk::is_valid_person_id(base_t.produce_person)) pk::draw_face(FACE_SMALL, base_t.produce_person, rect, FACE_R);
+			}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 		void func_内政自动化(pk::force@ force, pk::city@ city, int 内政自动化_顺序)
 		{
+<<<<<<< HEAD
 			if (内政自动化_顺序 == 1) { func_内政自动化_巡察(force, city);	func_内政自动化_训练(force, city);	func_内政自动化_征兵(force, city); }
 			else if (内政自动化_顺序 == 2) { func_内政自动化_巡察(force, city);	func_内政自动化_征兵(force, city);	func_内政自动化_训练(force, city); }
 			else if (内政自动化_顺序 == 3) { func_内政自动化_征兵(force, city);	func_内政自动化_巡察(force, city);	func_内政自动化_训练(force, city); }
@@ -544,6 +782,26 @@ namespace 内政自动化
 			else if (内政自动化_顺序 == 5) { func_内政自动化_训练(force, city);	func_内政自动化_征兵(force, city);	func_内政自动化_巡察(force, city); }
 			else if (内政自动化_顺序 == 6) { func_内政自动化_训练(force, city);	func_内政自动化_巡察(force, city);	func_内政自动化_征兵(force, city); }
 
+=======
+			if (开启完全自动内政)
+			{
+				func_内政自动化_执行官征兵(force, city);	
+				func_内政自动化_执行官巡察(force, city);	
+				func_内政自动化_执行官训练(force, city);
+			}
+			else
+			{
+				if (内政自动化_顺序 == 1) { func_内政自动化_巡察(force, city);	func_内政自动化_训练(force, city);	func_内政自动化_征兵(force, city); }
+				else if (内政自动化_顺序 == 2) { func_内政自动化_巡察(force, city);	func_内政自动化_征兵(force, city);	func_内政自动化_训练(force, city); }
+				else if (内政自动化_顺序 == 3) { func_内政自动化_征兵(force, city);	func_内政自动化_巡察(force, city);	func_内政自动化_训练(force, city); }
+				else if (内政自动化_顺序 == 4) { func_内政自动化_征兵(force, city);	func_内政自动化_训练(force, city);	func_内政自动化_巡察(force, city); }
+				else if (内政自动化_顺序 == 5) { func_内政自动化_训练(force, city);	func_内政自动化_征兵(force, city);	func_内政自动化_巡察(force, city); }
+				else if (内政自动化_顺序 == 6) { func_内政自动化_训练(force, city);	func_内政自动化_巡察(force, city);	func_内政自动化_征兵(force, city); }
+
+			}
+		
+			func_内政自动化_执行官生产(force, city);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			func_内政自动化_褒赏(force, city);
 			func_内政自动化_运输(force, city);
 		}
@@ -556,7 +814,11 @@ namespace 内政自动化
 
 			string city_name = pk::format("顺序模式\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
 
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("开始确认{}的巡察运行条件", city_name)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的巡察运行条件", city_name)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			// 기본 조건 확인
 			if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
@@ -569,7 +831,11 @@ namespace 内政自动化
 			if (!base_t.can_inspections)	return;	// 허용/금지 여부
 			if (int(city.public_order) > int(base_t.inspections_std))		return;	// 치안 기준
 
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("{}的巡察运行条件通过", city_name)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的巡察运行条件通过", city_name)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			/// 순찰 명령 정보
 			pk::inspections_cmd_info cmd;
@@ -619,6 +885,78 @@ namespace 内政自动化
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		void func_内政自动化_执行官巡察(pk::force@ force, pk::city@ city)
+		{
+			pk::building@ building = pk::city_to_building(city);
+			pk::district@ district = pk::get_district(building.get_district_id());
+			//pk::list<pk::person@> person_list = pk::get_idle_person_list(building);
+
+			string city_name = pk::format("顺序模式\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的巡察运行条件", city_name)));
+
+			// 기본 조건 확인
+			if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
+			//if (int(person_list.count) == 0)							return;	// 행동가능 무장 조건
+			if (!pk::is_valid_person_id(base_ex[city.get_id()].inspections_person)) return;
+			if (int(city.gold) < 100)									return;	// 도시 금 확인
+			if (int(city.public_order) == 100)							return;	// 도시 치안 확인
+
+			// 설정 조건 확인
+			BaseInfo@ base_t = @base_ex[city.get_id()];
+			if (!base_t.can_inspections)	return;	// 허용/금지 여부
+			if (int(city.public_order) > int(base_t.inspections_std))		return;	// 치안 기준
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的巡察运行条件通过", city_name)));
+
+			/// 순찰 명령 정보
+			pk::inspections_cmd_info cmd;
+
+			// 순찰 실행 거점
+			@cmd.base = @building;
+
+
+			pk::person@ actor = pk::get_person(base_ex[city.get_id()].inspections_person);
+
+			int stat = actor.base_stat[int(pk::core["inspection.stat"])];
+			//执行cmd时会判断执行官是否已行动是否外出且会判断势力，所以没法让部队中的执行官执行任务？或者用文官替代？
+			if (pk::is_absent(actor) or pk::is_unitize(actor) or actor.action_done)
+			{
+				@actor = pk::create_bandit(actor, actor.service, actor.location);
+				actor.action_done = false;
+				if (actor.mibun == 身份_在野) pk::set_mibun(actor, 身份_一般);
+				actor.base_stat[int(pk::core["inspection.stat"])] = uint8(stat * 0.7f);
+				//pk::trace("person.mibun"+actor.mibun);
+			}
+			//actors.add(actor);
+			array<string> person_name_list(0);
+			//int end = int(actors.count);
+
+			@cmd.actors[0] = @actor;
+			person_name_list.insertLast(pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(actor))));
+
+			// 순찰 명령 실행
+			if (!内政自动化_行动力消耗_启用)  pk::add_ap(district, 20);
+			bool is_inspections_ended = pk::command(cmd);
+
+			// 순찰 실행 메시지
+			if (is_inspections_ended)
+			{
+				string building_name = pk::format("\x1b[1x{}\x1b[0x的", pk::decode(pk::get_name(building)));
+				string person_names = join(person_name_list, ",");
+				//string person_count_info = (end > 1) ? "等" : "";
+				string action_info = pk::format("{}名武将\n执行巡察", 1);
+				string action_message = building_name + person_names + action_info;
+
+				if (内政自动化_对话框提示_启用) pk::message_box(pk::encode(action_message));
+				else							pk::history_log(building.pos, force.color, pk::encode(action_message));
+			}
+			pk::reset(actor);
+		}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		// 计算是参考的104的函数，所以或许有必要直接call '104 순찰 치안 증감.cpp' 참고 (PK2.1 기본 제공 파일 기준)
 		int func_巡察治安增减_计算(pk::city@ city, pk::building@ building, pk::list<pk::person@> actors)
 		{
@@ -645,7 +983,11 @@ namespace 内政自动化
 
 			string city_name = pk::format("城市\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
 
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("开始确认{}的训练运行条件", city_name)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的训练运行条件", city_name)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			// 기본 조건 확인
 			if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
@@ -655,14 +997,22 @@ namespace 内政自动化
 			// 설정 조건 확인
 			BaseInfo@ base_t = @base_ex[city.get_id()];
 			if (!base_t.can_drill)	return;	// 허용/금지 여부
+<<<<<<< HEAD
 			if (디버깅)
+=======
+			if (调试模式)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				pk::message_box(pk::encode(pk::format("最大士气与当前士气的比率:{}", float(city.energy) / float(city_max_energy))));
 				pk::message_box(pk::encode(pk::format("训练值与士气的比率:{}", float(base_t.drill_std) / 100.0f)));
 			}
 			if (float(city.energy) / float(city_max_energy) > float(base_t.drill_std) / 100.0f) return;	// 기력비율 기준
 
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("{}的训练运行条件通过", city_name)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的训练运行条件通过", city_name)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			/// 훈련 명령 정보
 			pk::drill_cmd_info cmd;
@@ -711,6 +1061,87 @@ namespace 内政自动化
 				else							pk::history_log(building.pos, force.color, pk::encode(action_message));
 			}
 		}
+<<<<<<< HEAD
+=======
+		void func_内政自动化_执行官训练(pk::force@ force, pk::city@ city)
+		{
+			pk::building@ building = pk::city_to_building(city);
+			pk::district@ district = pk::get_district(building.get_district_id());
+			//pk::list<pk::person@> person_list = pk::get_idle_person_list(building);
+			int city_max_energy = (pk::has_tech(city, 기교_숙련병)) ? 150 : 120;
+
+			string city_name = pk::format("城市\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的训练运行条件", city_name)));
+
+			// 기본 조건 확인
+			if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
+			//if (int(person_list.count) == 0)							return;	// 행동가능 무장 조건
+			if (!pk::is_valid_person_id(base_ex[city.get_id()].drill_person)) return;
+			if (int(city.energy) == city_max_energy)					return;	// 도시 기력 확인
+
+			// 설정 조건 확인
+			BaseInfo@ base_t = @base_ex[city.get_id()];
+			if (!base_t.can_drill)	return;	// 허용/금지 여부
+			if (调试模式)
+			{
+				pk::message_box(pk::encode(pk::format("最大士气与当前士气的比率:{}", float(city.energy) / float(city_max_energy))));
+				pk::message_box(pk::encode(pk::format("训练值与士气的比率:{}", float(base_t.drill_std) / 100.0f)));
+			}
+			if (float(city.energy) / float(city_max_energy) > float(base_t.drill_std) / 100.0f) return;	// 기력비율 기준
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的训练运行条件通过", city_name)));
+
+			/// 훈련 명령 정보
+			pk::drill_cmd_info cmd;
+
+			// 훈련 실행 거점
+			@cmd.base = @building;
+
+			// 훈련 실행 무장
+			//person_list.sort(function(a, b) { return a.stat[int(pk::core["train.stat"])] > b.stat[int(pk::core["train.stat"])]; });
+
+			//pk::list<pk::person@> actors;
+			pk::person@ actor = pk::get_person(base_ex[city.get_id()].drill_person);		
+				
+			int stat = actor.base_stat[int(pk::core["train.stat"])];
+			//执行cmd时会判断执行官是否已行动是否外出且会判断势力，所以没法让部队中的执行官执行任务？或者用文官替代？
+			if (pk::is_absent(actor) or pk::is_unitize(actor) or actor.action_done)
+			{
+				@actor = pk::create_bandit(actor,actor.service,actor.location);
+				actor.action_done = false;
+				if (actor.mibun == 身份_在野) pk::set_mibun(actor, 身份_一般);
+				actor.base_stat[int(pk::core["train.stat"])] = uint8(stat * 0.7f);
+				//pk::trace("person.mibun"+actor.mibun);
+			}
+			//actors.add(actor);
+			array<string> person_name_list(0);
+			//int end = int(actors.count);
+
+			@cmd.actors[0] = @actor;
+			person_name_list.insertLast(pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(actor))));
+			//pk::trace("train" + cmd.actors[0].get_id() + "actor" + actor.get_id());
+			// 훈련 명령 실행
+			if (!内政自动化_行动力消耗_启用) pk::add_ap(district, 20);
+			bool is_drills_ended = pk::command(cmd);
+			//pk::trace("train" + cmd.actors[0].get_id() + "actor" + actor.get_id() + is_drills_ended);
+			// 훈련 실행 메시지
+			if (is_drills_ended)
+			{
+				if (actor.get_id() > 999) pk::reset(actor);
+
+				string building_name = pk::format("\x1b[1x{}\x1b[0x的", pk::decode(pk::get_name(building)));
+				string person_names = join(person_name_list, ",");
+				//string person_count_info = (end > 1) ? "等" : "";
+				string action_info = pk::format("{}名武将\n执行训练", 1);
+				string action_message = building_name + person_names + action_info;
+
+				if (内政自动化_对话框提示_启用)	pk::message_box(pk::encode(action_message));
+				else							pk::history_log(building.pos, force.color, pk::encode(action_message));
+			}
+			pk::reset(actor);
+		}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		// '105 훈련 기력c 증감.cpp' 참고 (PK2.1 기본 제공 파일 기준)
 		int func_訓练气力增减_计算(pk::city@ city, pk::building@ building, pk::list<pk::person@> actors)
@@ -734,6 +1165,139 @@ namespace 内政自动化
 			return n;
 		}
 
+<<<<<<< HEAD
+=======
+		void func_内政自动化_执行官生产(pk::force@ force, pk::city@ city)
+		{
+			pk::building@ building = pk::city_to_building(city);
+			pk::district@ district = pk::get_district(building.get_district_id());
+			
+			//生产设定执行人，一人生产，加2个副将50能力？
+			//确定3个兵器是否生产，马匹是否生产，兵器是否生产，舰船是否生产
+			//生产按特产及多少来？
+			array<bool> weapon_enable = base_ex[building.get_id()].can_produce;//枪戟弩马冲车井阑楼船
+			//根据是否开启及兵器量来确定该生产哪个
+			//array<int> weapon_count(3, -1);
+			int weapon_id = -1;
+			int min_weapon_count = 100000;
+			if (city.blacksmith_counter > 0)
+			{
+				//枪戟弩生产选择
+				for (int i = 0; i < 3; ++i)
+				{
+					if (weapon_enable[i])
+					{
+						int weapon_amount = pk::get_weapon_amount(building, i + 1);
+						if (调试模式) pk::trace("weapon_amount" + weapon_amount);
+						if (调试模式) pk::trace("city.tokusan[i]" + city.tokusan[i]);
+						int weapon_count = weapon_amount / (city.tokusan[i] ? 2 : 1);
+						if (weapon_count < min_weapon_count)
+						{
+							min_weapon_count = weapon_count;
+							weapon_id = i + 1;
+						}
+					}
+				}
+			}
+
+
+			//array<int> produce_weapon = weapon_id;
+			//if (weapon_enable[3]) produce_weapon.insertLast(3);//马匹是否生产
+			if (city.stable_counter > 0)
+			{
+				if (weapon_enable[3] and pk::get_weapon_amount(building, 兵器_战马) < 97000)
+				{
+					if (weapon_id != -1)
+					{
+						if (pk::rand_bool(50)) weapon_id = 兵器_战马;//如果可以生产其他兵器，50%生产战马
+					}
+					else  weapon_id = 兵器_战马;//如果不可以生产其他兵器，直接生产战马
+				}
+			}
+			if (调试模式) pk::trace("city_id" + city.get_id() + "weapon_id" + weapon_id);
+
+			if (weapon_id != -1)
+			{
+				//生产枪戟弩
+
+				//pk::list<pk::person@> person_list = pk::get_idle_person_list(building);
+				//int city_max_energy = (pk::has_tech(city, 기교_숙련병)) ? 120 : 100;
+
+				string city_name = pk::format("城市\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
+
+				if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的生产运行条件", city_name)));
+
+				// 기본 조건 확인
+				if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
+				//if (int(person_list.count) == 0)							return;	// 행동가능 무장 조건
+				//if (int(city.energy) == city_max_energy)					return;	// 도시 기력 확인
+				if (pk::get_weapon_amount(building, weapon_id) > 99999) return;
+
+				// 설정 조건 확인
+				BaseInfo@ base_t = @base_ex[city.get_id()];
+				if (!pk::is_valid_person_id(base_t.produce_person))	return;
+				//if (!base_t.can_drill)	return;	// 허용/금지 여부
+				if (调试模式)
+				{
+					pk::message_box(pk::encode(pk::format("自动生产，兵装:{}数量:{}", pk::decode(pk::get_name(pk::get_equipment(weapon_id))), pk::get_weapon_amount(building, weapon_id))));
+					pk::message_box(pk::encode(pk::format("{}的生产运行条件通过", city_name)));
+				}
+
+				/// 훈련 명령 정보
+				pk::outfit_cmd_info cmd;
+				//int weapon = 1;//读取设定的武器
+				// 훈련 실행 거점
+				@cmd.base = @building;
+				cmd.weapon = weapon_id;
+
+				// 훈련 실행 무장
+				//person_list.sort(function(a, b) { return a.stat[int(pk::core["weapon_produce.stat"])] > b.stat[int(pk::core["weapon_produce.stat"])]; });
+				pk::person@ actor = pk::get_person(base_ex[city.get_id()].produce_person);
+
+				int stat = actor.base_stat[int(pk::core["weapon_produce.stat"])];
+				//执行cmd时会判断执行官是否已行动是否外出且会判断势力，所以没法让部队中的执行官执行任务？或者用文官替代？
+				bool replace = false;
+				if (pk::is_absent(actor) or pk::is_unitize(actor) or actor.action_done)
+				{
+					@actor = pk::create_bandit(actor, actor.service, actor.location);
+					actor.action_done = false;
+					if (actor.mibun == 身份_在野) pk::set_mibun(actor, 身份_一般);
+					actor.base_stat[int(pk::core["weapon_produce.stat"])] = uint8(stat * 0.7f);
+					//pk::trace("person.mibun"+actor.mibun);
+					replace = true;
+				}
+				//actors.add(actor);
+				array<string> person_name_list(0);
+				//int end = int(actors.count);
+
+				@cmd.actors[0] = @actor;
+				person_name_list.insertLast(pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(actor))));
+			
+				// 훈련 명령 실행
+
+				if (!内政自动化_行动力消耗_启用) pk::add_ap(district, 20);//cmd有消耗行动力，所以如果设定不消耗就在此加回来
+				bool is_produce_ended = pk::command(cmd);
+				if (调试模式) pk::trace("is_produce_ended" + is_produce_ended);
+				// 훈련 실행 메시지
+				if (is_produce_ended)
+				{
+					if (actor.get_id() > 999) pk::reset(actor);
+					string building_name = pk::format("\x1b[1x{}\x1b[0x的", pk::decode(pk::get_name(building)));
+					string person_names = pk::decode(pk::get_name(actor));//join(person_name_list, ",");
+					//string person_count_info = (end > 1) ? "等" : "";
+					string action_info = pk::format("{}名武将\n执行生产{}", 1, pk::decode(pk::get_name(pk::get_equipment(weapon_id))));
+					string action_message = building_name + person_names + action_info;
+
+					if (内政自动化_对话框提示_启用)	pk::message_box(pk::encode(action_message));
+					else							pk::history_log(building.pos, force.color, pk::encode(action_message));
+				}
+				if (replace) pk::reset(actor);
+			}
+
+		}
+
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		void func_内政自动化_征兵(pk::force@ force, pk::city@ city)
 		{
 			pk::building@ building = pk::city_to_building(city);
@@ -742,6 +1306,7 @@ namespace 内政自动化
 
 			string city_name = pk::format("城市\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
 
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件", city_name)));
 
 
@@ -765,13 +1330,42 @@ namespace 内政自动化
 			if (int(city.gold) < int(base_t.recruit_std_gold))				return;	// 금 기준
 			if (디버깅) pk::message_box(pk::encode(pk::format("{}的征兵运行条件--资金通过", city_name)));
 			if (디버깅)
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件", city_name)));
+
+
+			// 기본 조건 확인
+			//if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--行动力", city_name)));
+			if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
+			//if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--人数", city_name)));
+			if (int(person_list.count) == 0)							return;	// 행동가능 무장 조건
+			//if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--金", city_name)));
+			if (int(city.gold) < 300)									return;	// 도시 금 확인
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--建筑", city_name)));
+			if (!pk::has_facility(city, 시설_병영) and !pk::has_facility(city, 시설_병영2단) and !pk::has_facility(city, 시설_병영3단)) return;	// 도시 시설 확인
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的征兵运行条件--建筑通过", city_name)));
+			// 설정 조건 확인
+			BaseInfo@ base_t = @base_ex[city.get_id()];
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--是否允许征兵：{}", city_name, base_t.can_recruit)));
+			if (!base_t.can_recruit)	return;	// 허용/금지 여부
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--治安：{}", city_name, int(base_t.recruit_std_porder))));
+			if (int(city.public_order) < int(base_t.recruit_std_porder))		return;	// 치안 기준
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件--金：{}", city_name, int(base_t.recruit_std_gold))));
+			if (int(city.gold) < int(base_t.recruit_std_gold))				return;	// 금 기준
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的征兵运行条件--资金通过", city_name)));
+			if (调试模式)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				pk::message_box(pk::encode(pk::format("当前兵粮与当前兵力的比率:{}", float(city.food) / float(city.troops))));
 				pk::message_box(pk::encode(pk::format("征兵值与粮兵的比率:{}", float(base_t.recruit_std_foodtroop) / 100.0f)));
 			}
 			if (float(city.food) / float(city.troops) < float(base_t.recruit_std_foodtroop) / 100.0f) return;	// 병량비율 기준
 
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("{}的征兵运行条件通过", city_name)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的征兵运行条件通过", city_name)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			/// 징병 명령 정보
 			pk::recruit_cmd_info cmd;
@@ -783,6 +1377,7 @@ namespace 内政自动化
 /**/
 			// 这是对征兵特技进行处理 징병 실행 무장
 			pk::list<pk::person@> actors;
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("{}，建筑id：{}，征兵能力：{}，征兵特技：{}", city_name, building.get_id(), int(pk::core["recruit.stat"]), int(pk::core["recruit.skill"]))));
 			
 			pk::list<pk::person@> person_list0 = get_cmd_actors(building, int(pk::core["recruit.stat"]), int(pk::core["recruit.skill"]));
@@ -791,6 +1386,16 @@ namespace 内政自动化
 			//pk::list<pk::person@> person_list0 = pk::array_to_list(person_array);
 			person_list = person_list0;
 			if (디버깅) pk::message_box(pk::encode(pk::format("{}的征兵cmd运行条件通过", city_name)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}，建筑id：{}，征兵能力：{}，征兵特技：{}", city_name, building.get_id(), int(pk::core["recruit.stat"]), int(pk::core["recruit.skill"]))));
+			
+			pk::list<pk::person@> person_list0 = get_cmd_actors(building, int(pk::core["recruit.stat"]), int(pk::core["recruit.skill"]));
+			//if (调试模式) pk::message_box(pk::encode(pk::format("数组1：{}，数组2：{}，数组3：{}", person_array[0].get_id(), person_array[1].get_id(), person_array[2].get_id())));
+
+			//pk::list<pk::person@> person_list0 = pk::array_to_list(person_array);
+			person_list = person_list0;
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的征兵cmd运行条件通过", city_name)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			actors.add(person_list[0]);
 			if (int(city.troops) + func_征兵兵力增减_计算(city, building, actors) < int(city.max_troops))
 			{
@@ -833,6 +1438,87 @@ namespace 内政自动化
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		void func_内政自动化_执行官征兵(pk::force@ force, pk::city@ city)
+		{
+			pk::building@ building = pk::city_to_building(city);
+			pk::district@ district = pk::get_district(building.get_district_id());
+			//pk::list<pk::person@> person_list = pk::get_idle_person_list(building);
+
+			string city_name = pk::format("城市\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(city)));
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("开始确认{}的征兵运行条件", city_name)));
+
+
+			// 기본 조건 확인
+			if (内政自动化_行动力消耗_启用 and int(district.ap) < 20)	return;	// 행동력 조건
+			//if (int(person_list.count) == 0)							return;	// 행동가능 무장 조건
+
+			if (int(city.gold) < 300)									return;	// 도시 금 확인
+			if (!pk::has_facility(city, 시설_병영) and !pk::has_facility(city, 시설_병영2단) and !pk::has_facility(city, 시설_병영3단)) return;	// 도시 시설 확인
+			// 설정 조건 확인
+			if (!pk::is_valid_person_id(base_ex[city.get_id()].recruit_person)) return;
+			BaseInfo@ base_t = @base_ex[city.get_id()];
+			if (!base_t.can_recruit)	return;	// 허용/금지 여부
+			if (int(city.public_order) < int(base_t.recruit_std_porder))		return;	// 치안 기준
+			if (int(city.gold) < int(base_t.recruit_std_gold))				return;	// 금 기준
+			if (调试模式)
+			{
+				pk::message_box(pk::encode(pk::format("当前兵粮与当前兵力的比率:{}", float(city.food) / float(city.troops))));
+				pk::message_box(pk::encode(pk::format("征兵值与粮兵的比率:{}", float(base_t.recruit_std_foodtroop) / 100.0f)));
+			}
+			if (float(city.food) / float(city.troops) < float(base_t.recruit_std_foodtroop) / 100.0f) return;	// 병량비율 기준
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("{}的征兵运行条件通过", city_name)));
+
+			/// 징병 명령 정보
+			pk::recruit_cmd_info cmd;
+
+			// 징병 실행 거점
+			@cmd.base = @building;
+
+
+			pk::person@ actor = pk::get_person(base_ex[city.get_id()].recruit_person);
+
+			int stat = actor.base_stat[int(pk::core["recruit.stat"])];
+			//执行cmd时会判断执行官是否已行动是否外出且会判断势力，所以没法让部队中的执行官执行任务？或者用文官替代？
+			if (pk::is_absent(actor) or pk::is_unitize(actor) or actor.action_done)
+			{
+				@actor = pk::create_bandit(actor, actor.service, actor.location);
+				actor.action_done = false;
+				if (actor.mibun == 身份_在野) pk::set_mibun(actor, 身份_一般);
+				actor.base_stat[int(pk::core["recruit.stat"])] = uint8(stat * 0.7f);
+				//pk::trace("person.mibun"+actor.mibun);
+			}
+			//actors.add(actor);
+			array<string> person_name_list(0);
+			//int end = int(actors.count);
+
+			@cmd.actors[0] = @actor;
+			person_name_list.insertLast(pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(actor))));
+
+			// 징병 명령 실행
+			if (!内政自动化_行动力消耗_启用)  pk::add_ap(district, 20);
+			bool is_recruit_ended = pk::command(cmd);
+			//pk::trace("recruit" + cmd.actors[0].get_id() + is_recruit_ended);
+			// 징병 실행 메시지
+			if (is_recruit_ended)
+			{
+				if (actor.get_id() > 999) pk::reset(actor);
+				string building_name = pk::format("\x1b[1x{}\x1b[0x的", pk::decode(pk::get_name(building)));
+				string person_names = join(person_name_list, ",");
+				//string person_count_info = (end > 1) ? "等" : "";
+				string action_info = pk::format("{}名武将\n执行征兵", 1);
+				string action_message = building_name + person_names + action_info;
+
+				if (内政自动化_对话框提示_启用)	pk::message_box(pk::encode(action_message));
+				else							pk::history_log(building.pos, force.color, pk::encode(action_message));
+			}
+			pk::reset(actor);
+		}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		// '100 징병 병력 증감.cpp' 참고 (PK2.1 기본 제공 파일 기준)
 		int func_征兵兵力增减_计算(pk::city@ city, pk::building@ building, pk::list<pk::person@> actors)
 		{
@@ -889,7 +1575,11 @@ namespace 内政自动化
 			// 실행가능 무장 확인
 			pk::list<pk::person@> list_idle_person = pk::get_idle_person_list(base);
 			if (list_idle_person.count == 0) return actors;
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("排序前，目标数量不为0", 1)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("排序前，目标数量不为0", 1)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 능력 높은 순으로 정렬, 특기 우대
 			list_idle_person.sort(function(a, b)
 			{
@@ -905,15 +1595,24 @@ namespace 内政自动化
 
 				return a.stat[main.cmd_stat] > b.stat[main.cmd_stat];
 			});
+<<<<<<< HEAD
 			//if (디버깅) pk::message_box(pk::encode(pk::format("排序后，数组1：{}，数组2：{}，数组3：{}", list_idle_person[0].get_id(), list_idle_person[1].get_id(), list_idle_person[2].get_id())));
 			if (디버깅) pk::message_box(pk::encode(pk::format("排序后，数组1：{}", list_idle_person[0].get_id())));
+=======
+			//if (调试模式) pk::message_box(pk::encode(pk::format("排序后，数组1：{}，数组2：{}，数组3：{}", list_idle_person[0].get_id(), list_idle_person[1].get_id(), list_idle_person[2].get_id())));
+			if (调试模式) pk::message_box(pk::encode(pk::format("排序后，数组1：{}", list_idle_person[0].get_id())));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			// 最多三人 최대 3명까지
 			//pk::array<pk::person@> arr_idle_person = pk::list_to_array(list_idle_person);
 			//int min_actors = pk::min(3, pk::max(1, int(arr_idle_person.length) / 2));
 			int min_actors = pk::min(3, list_idle_person.count);
 			//int sum_stat = 0;
+<<<<<<< HEAD
 			if (디버깅) pk::message_box(pk::encode(pk::format("赋值前，数组长度：{}", list_idle_person.count)));
+=======
+			if (调试模式) pk::message_box(pk::encode(pk::format("赋值前，数组长度：{}", list_idle_person.count)));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			for (int i = 0; i < min_actors; i++)
 			{
 				actors.add(list_idle_person[i]);
@@ -922,7 +1621,47 @@ namespace 内政自动化
 			return actors;
 		}
 
+<<<<<<< HEAD
 
+=======
+		pk::list<pk::person@> sort_person_list(pk::building@ base, int stat, int skill)
+		{
+			cmd_stat = stat;
+			cmd_skill = skill;
+			pk::list<pk::person@> actors;
+
+			// 실행가능 무장 확인
+			pk::list<pk::person@> list_person = pk::get_person_list(base,pk::mibun_flags(身份_君主,身份_都督, 身份_太守,身份_一般));
+			if (list_person.count == 0) return actors;
+
+			//需要排除其他已经设定过的执行者
+
+			if (调试模式) pk::message_box(pk::encode(pk::format("排序前，目标数量不为0", 1)));
+			// 능력 높은 순으로 정렬, 특기 우대
+			list_person.sort(function(a, b)
+			{
+				if (main.cmd_skill >= 0)    // 특기 보유 시
+				{
+					bool a_skill = ch::has_skill(a, main.cmd_skill);
+					bool b_skill = ch::has_skill(b, main.cmd_skill);
+					if (a_skill and !b_skill) return true;
+					if (!a_skill and b_skill) return false;
+
+					return a.stat[main.cmd_stat] > b.stat[main.cmd_stat];
+				}
+
+				return a.stat[main.cmd_stat] > b.stat[main.cmd_stat];
+			});
+			//if (调试模式) pk::message_box(pk::encode(pk::format("排序后，数组1：{}，数组2：{}，数组3：{}", list_idle_person[0].get_id(), list_idle_person[1].get_id(), list_idle_person[2].get_id())));
+			if (调试模式) pk::message_box(pk::encode(pk::format("排序后，数组1：{}", list_person[0].get_id())));
+
+			// 最多三人 최대 3명까지
+			//pk::array<pk::person@> arr_idle_person = pk::list_to_array(list_idle_person);
+			//int min_actors = pk::min(3, pk::max(1, int(arr_idle_person.length) / 2));
+
+			return list_person;
+		}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		void func_内政自动化_褒赏(pk::force@ force, pk::city@ city)
 		{
@@ -1051,7 +1790,11 @@ namespace 内政自动化
 			@cmd.base = @building;
 
 			// 출진 부대 종류
+<<<<<<< HEAD
 			cmd.type = 부대종류_수송;
+=======
+			cmd.type = 部队类型_运输;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			// 출진 부대 주장
 			pk::list<pk::person@> person_list = pk::get_idle_person_list(building);
@@ -1173,7 +1916,11 @@ namespace 内政自动化
 			return enemy_city_count;
 		}
 
+<<<<<<< HEAD
 		///	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+=======
+		///	*************************************菜单相关***********************************************************
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		int menu_city_id_;	// 건물 메뉴 도시
 		int menu_force_id_;	// 건물 메뉴 세력
@@ -1210,7 +1957,11 @@ namespace 内政自动化
 		}
 		string getDesc_统一变更_顺序()
 		{
+<<<<<<< HEAD
 			return pk::encode("在所有城市中,统一更改所选城市的内定顺序模式.");
+=======
+			return pk::encode("在所有城市中,统一更改所选城市的内政顺序模式.");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 		bool handler_统一变更_顺序()
 		{
@@ -1417,7 +2168,121 @@ namespace 内政自动化
 		{
 			toggle(menu_force_id_, menu_city_id_, 内政自动化_运输);	return true;
 		}
+<<<<<<< HEAD
 
+=======
+		
+		//**********************************生产菜单开始*************************************
+
+		string getText_枪许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产枪) ? pk::encode("允许生产枪") : pk::encode("禁止生产枪");
+		}
+		string getDesc_枪许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产枪) ? pk::encode("是否允许城市生产枪.") : pk::encode("是否禁止城市生产枪.");
+		}
+		bool handler_枪许可()
+		{
+			toggle(menu_force_id_, menu_city_id_, 内政自动化_生产枪);	return true;
+		}
+
+		string getText_戟许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产戟) ? pk::encode("允许生产戟") : pk::encode("禁止生产戟");
+		}
+		string getDesc_戟许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产戟) ? pk::encode("是否允许城市生产戟.") : pk::encode("是否禁止城市生产戟.");
+		}
+		bool handler_戟许可()
+		{
+			toggle(menu_force_id_, menu_city_id_, 内政自动化_生产戟);	return true;
+		}
+
+		string getText_弩许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产弩) ? pk::encode("允许生产弩") : pk::encode("禁止生产弩");
+		}
+		string getDesc_弩许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产弩) ? pk::encode("是否允许城市生产弩.") : pk::encode("是否禁止城市生产弩.");
+		}
+		bool handler_弩许可()
+		{
+			toggle(menu_force_id_, menu_city_id_, 内政自动化_生产弩);	return true;
+		}
+
+		string getText_马许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产马) ? pk::encode("允许生产马") : pk::encode("禁止生产马");
+		}
+		string getDesc_马许可()
+		{
+			return isEnabled(menu_force_id_, menu_city_id_, 内政自动化_生产马) ? pk::encode("是否允许城市生产马.") : pk::encode("是否禁止城市生产马.");
+		}
+		bool handler_马许可()
+		{
+			toggle(menu_force_id_, menu_city_id_, 内政自动化_生产马);	return true;
+		}
+
+
+		//**********************************生产菜单结束*************************************
+		//**********************************负责菜单开始************************************
+
+		string getText_巡察负责()
+		{
+			return  pk::encode("巡察负责");
+		}
+		string getDesc_巡察负责()
+		{
+			return  pk::encode("设定巡察负责人");
+		}
+		bool handler_巡察负责()
+		{
+			toggle_charge(menu_force_id_, menu_city_id_, 内政自动化_巡察);	return true;
+		}
+
+		string getText_訓练负责()
+		{
+			return pk::encode("训练负责");;
+		}
+		string getDesc_訓练负责()
+		{
+			return  pk::encode("设定训练负责人");
+		}
+		bool handler_訓练负责()
+		{
+			toggle_charge(menu_force_id_, menu_city_id_, 内政自动化_训练);	return true;
+		}
+
+		string getText_征兵负责()
+		{
+			return pk::encode("征兵负责");;
+		}
+		string getDesc_征兵负责()
+		{
+			return  pk::encode("设定征兵负责人");
+		}
+		bool handler_征兵负责()
+		{
+			toggle_charge(menu_force_id_, menu_city_id_, 内政自动化_征兵);	return true;
+		}
+
+		string getText_生产负责()
+		{
+			return pk::encode("生产负责");;
+		}
+		string getDesc_生产负责()
+		{
+			return  pk::encode("设定生产负责人");
+		}
+		bool handler_生产负责()
+		{
+			toggle_charge(menu_force_id_, menu_city_id_, 内政自动化_生产);	return true;
+		}
+		//**********************************负责菜单结束************************************
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		string getText_统一变更_标准()
 		{
 			return pk::encode("批量更改");
@@ -1632,7 +2497,14 @@ namespace 内政自动化
 			else if (内政自动化_项目 == 内政自动化_征兵) return base_t.can_recruit;
 			else if (内政自动化_项目 == 内政自动化_褒赏) return base_t.can_reward;
 			else if (内政自动化_项目 == 内政自动化_运输) return base_t.can_transport;
+<<<<<<< HEAD
 
+=======
+			else if (内政自动化_项目 == 内政自动化_生产枪) return base_t.can_produce[兵种_枪兵];
+			else if (内政自动化_项目 == 内政自动化_生产戟) return base_t.can_produce[兵种_戟兵];
+			else if (内政自动化_项目 == 内政自动化_生产弩) return base_t.can_produce[兵种_弩兵];
+			else if (内政自动化_项目 == 内政自动化_生产马) return base_t.can_produce[兵种_骑兵];
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			return false;
 		}
 
@@ -1640,9 +2512,15 @@ namespace 内政自动化
 		{
 			bool 允许与否 = false;
 			string 项目名称 = "";
+<<<<<<< HEAD
 			array<string> 项目名称_清单 = { "\x1b[1x巡察\x1b[0x", "\x1b[1x训练\x1b[0x", "\x1b[1x征兵\x1b[0x", "\x1b[1x褒奖\x1b[0x", "\x1b[1x运输\x1b[0x" };
 			//i只有0-4，为什么会有5
 			for (int i = 0; i < 5; i++)
+=======
+			array<string> 项目名称_清单 = { "\x1b[1x巡察\x1b[0x", "\x1b[1x训练\x1b[0x", "\x1b[1x征兵\x1b[0x", "\x1b[1x褒奖\x1b[0x", "\x1b[1x运输\x1b[0x", "\x1b[1x生产枪\x1b[0x", "\x1b[1x生产戟\x1b[0x", "\x1b[1x生产弩\x1b[0x", "\x1b[1x生产马\x1b[0x" };
+			//i只有0-4，为什么会有5
+			for (int i = 0; i < 9; i++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				//说明循环时，当i<num时，i是不会到达num的。
 				//pk::trace(pk::format("i:{}", i));
@@ -1659,7 +2537,11 @@ namespace 内政自动化
 			if (force_id == pk::get_current_turn_force_id())
 			{
 				string city_name = pk::decode(pk::get_name(pk::city_to_building(pk::get_city(city_id))));
+<<<<<<< HEAD
 				string toggle_msg = pk::format("将\x1b[1x{}\x1b[0x的自治方针中否允许{}改为:{}", city_name, str_允许与否, 项目名称);
+=======
+				string toggle_msg = pk::format("将\x1b[1x{}\x1b[0x的自治方针中是否允许{}改为:{}", city_name, 项目名称, str_允许与否);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				pk::message_box(pk::encode(toggle_msg));
 			}
 		}
@@ -1676,6 +2558,13 @@ namespace 内政自动化
 			case 内政自动化_征兵: base_t.can_recruit = value; break;
 			case 内政自动化_褒赏: base_t.can_reward = value; break;
 			case 内政自动化_运输: base_t.can_transport = value; break;
+<<<<<<< HEAD
+=======
+			case 内政自动化_生产枪: base_t.can_produce[兵种_枪兵] = value; break;
+			case 内政自动化_生产戟: base_t.can_produce[兵种_戟兵] = value; break;
+			case 内政自动化_生产弩: base_t.can_produce[兵种_弩兵] = value; break;
+			case 内政自动化_生产马: base_t.can_produce[兵种_骑兵] = value; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 			//pk::trace(pk::format("设置中，项目：{}，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", 内政自动化_项目, base_t.can_inspections, base_t.can_drill, base_t.can_recruit, base_t.can_reward, base_t.can_transport));
 			
@@ -1683,7 +2572,115 @@ namespace 内政自动化
 
 		}
 
+<<<<<<< HEAD
 
+=======
+		void toggle_charge(int force_id, int city_id, int 内政自动化_项目)
+		{
+			string 执行武将名称 = "无";
+			string 前执行武将名称 = "无";
+			string 项目名称 = "";
+			array<string> 项目名称_清单 = { "巡察执行官", "训练执行官", "征兵执行官", "生产执行官" };
+			int id = (内政自动化_项目 == 内政自动化_生产)?3:内政自动化_项目;
+			项目名称 = 项目名称_清单[id];
+			int person_id = get_charge(city_id, 内政自动化_项目);
+			pk::building@ base = pk::get_building(city_id);
+			if (pk::is_valid_person_id(person_id)) 执行武将名称 = pk::decode(pk::get_name(pk::get_person(person_id)));
+			前执行武将名称 = 执行武将名称;
+			//当前{}执行武将为{}，是否要变更执行官
+			bool confirm = pk::yes_no(pk::encode(pk::format("当前{}为\x1b[1x{}\x1b[0x，是否要变更执行官?", 项目名称, 执行武将名称)));
+			if (confirm)
+			{
+				pk::list<pk::person@> person_list;// = pk::get_person_list(pk::get_building(city_id), pk::mibun_flags(身份_君主, 身份_都督, 身份_太守, 身份_一般));
+				//10 巡查，33训练 16征兵，5生产
+				int list_type = 1;
+				switch (内政自动化_项目)
+				{
+				case 内政自动化_巡察: {list_type = 10; person_list = sort_person_list(base, int(pk::core["inspection.stat"]), -1); break; }
+				case 内政自动化_训练: list_type = 33; person_list = sort_person_list(base, int(pk::core["train.stat"]), -1); break;
+				case 内政自动化_征兵: list_type = 16; person_list = sort_person_list(base, int(pk::core["recruit.stat"]), int(pk::core["recruit.skill"])); break;
+				case 内政自动化_生产: list_type = 5; person_list = sort_person_list(base, int(pk::core["weapon_produce.stat"]), int(pk::core["weapon_produce.smith_skill"])); break;
+				}
+				pk::list<pk::person@> person_sel = pk::person_selector(pk::encode("执行官选择"), pk::encode(pk::format("选择{}.", 项目名称)), person_list, 1, 1, person_list,list_type);
+				if (person_sel.count == 0) return; // 未选擇时或取消时结束 미선택 시 취소 종료
+				person_id = person_sel[0].get_id();
+				set_charge(city_id, person_id, 内政自动化_项目);
+				if (force_id == pk::get_current_turn_force_id())
+				{
+					string city_name = pk::decode(pk::get_name(pk::city_to_building(pk::get_city(city_id))));
+					string person_name = pk::decode(pk::get_name(pk::get_person(person_id)));
+					string toggle_msg = pk::format("将{}由\x1b[1x{}\x1b[0x改为:\x1b[1x{}\x1b[0x", city_name, 前执行武将名称, person_name);
+					//如果该武将有其他任职，将自动取消
+					BaseInfo@ base_t = @base_ex[city_id];
+					if (内政自动化_项目 != 内政自动化_巡察 and base_t.inspections_person == person_id)
+					{
+						toggle_msg += person_name + "，原巡察官任务取消";
+						base_t.inspections_person = -1;
+					}
+					else if (内政自动化_项目 != 内政自动化_训练 and base_t.drill_person == person_id)
+					{
+						toggle_msg += person_name + "，原训练官任务取消";
+						base_t.drill_person = -1;
+					}
+					else if (内政自动化_项目 != 内政自动化_征兵 and base_t.recruit_person == person_id)
+					{
+						toggle_msg += person_name + "，原征兵官任务取消";
+						base_t.recruit_person = -1;
+					}						
+					else if (内政自动化_项目 != 内政自动化_生产 and base_t.produce_person == person_id)
+					{
+						toggle_msg += person_name + "，原生产官任务取消";
+						base_t.produce_person = -1;
+					}
+						
+					pk::message_box(pk::encode(toggle_msg));
+				}
+			}
+		}
+
+		void set_charge(int city_id, int person_id, int 内政自动化_项目)
+		{
+			BaseInfo@ base_t = @base_ex[city_id];
+			//pk::trace(pk::format("设置前，项目：{}，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", 内政自动化_项目,base_t.can_inspections, base_t.can_drill, base_t.can_recruit, base_t.can_reward, base_t.can_transport));
+			//此处转化有问题？
+			/*
+				int16 recruit_person;//征兵执行官
+	int16 inspections_person;//巡查执行官
+	int16 drill_person;//训练执行官
+	int16 produce_person;//生产执行官
+			*/
+			switch (内政自动化_项目)
+			{
+			case 内政自动化_巡察: base_t.inspections_person = person_id; break;
+			case 内政自动化_训练: base_t.drill_person = person_id; break;
+			case 内政自动化_征兵: base_t.recruit_person = person_id; break;
+			case 内政自动化_生产: base_t.produce_person = person_id; break;
+			}
+			//pk::trace(pk::format("设置中，项目：{}，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", 内政自动化_项目, base_t.can_inspections, base_t.can_drill, base_t.can_recruit, base_t.can_reward, base_t.can_transport));
+
+			//pk::trace(pk::format("设置后，项目：{}，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", 内政自动化_项目, base_t.can_inspections, base_t.can_drill, base_t.can_recruit, base_t.can_reward, base_t.can_transport));
+
+		}
+
+		int get_charge(int city_id, int 内政自动化_项目)
+		{
+			BaseInfo@ base_t = @base_ex[city_id];
+			int person_id = -1;
+	
+			switch (内政自动化_项目)
+			{
+			case 内政自动化_巡察: person_id = base_t.inspections_person; break;
+			case 内政自动化_训练: person_id = base_t.drill_person; break;
+			case 内政自动化_征兵: person_id = base_t.recruit_person; break;
+			case 内政自动化_生产: person_id = base_t.produce_person; break;
+			}
+			return person_id;
+			//pk::trace(pk::format("设置中，项目：{}，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", 内政自动化_项目, base_t.can_inspections, base_t.can_drill, base_t.can_recruit, base_t.can_reward, base_t.can_transport));
+
+			//pk::trace(pk::format("设置后，项目：{}，巡察：{}，训练：{}，征兵{}，褒奖：{}，运输：{}", 内政自动化_项目, base_t.can_inspections, base_t.can_drill, base_t.can_recruit, base_t.can_reward, base_t.can_transport));
+
+		}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		///	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	}

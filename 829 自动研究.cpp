@@ -1,8 +1,22 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/19 # 江东新风 # 游戏自带选择窗口选择能力研究 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/02/03 # 江东新风 # 重复研究bug修复 ##
 // ## 2021/11/08 # 江东新风 # 完善 ##
 // ## 2021/11/06 # 江东新风 # 自动研究能力的设定 ##
 
+<<<<<<< HEAD
+=======
+
+/*
+作者： 江东新风
+简介： 忘记研究能力时提醒玩家研究能力
+计划： 忘记培养武将特技或能力时也提醒
+*/
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 namespace 自动研究
 {
     // ================ CUSTOMIZE ================
@@ -11,6 +25,10 @@ namespace 自动研究
     //array<bool> research_info(非贼势力_末, false);
     class Main
     {
+<<<<<<< HEAD
+=======
+        pk::building@ research_building_;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         Main()
         {
             pk::bind(112, pk::trigger112_t(onTurnEnd));
@@ -23,7 +41,11 @@ namespace 自动研究
                 if (true)//research_info[force.get_id()])//判断放到回合开始时，因为回合结束时研究时间会自动减一，导致即将研究完的能力会被认为已经研究完
                 {
                     if (force.researching_ability != -1 or force.researching_ability_timer != 0) return; //排除玩家回合中研究的情况
+<<<<<<< HEAD
                     if (pk::get_district(pk::get_district_id(force, 1)).ap < 20)
+=======
+                    if (pk::get_district(pk::get_district_id(force, 1)).ap < 20 and !force_ex[force.get_id()].all_ability_researched)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     {
                         pk::message_box(pk::encode("主公似乎忘记了研究能力。\n目前行动力不足，请下回合务必注意。"), pk::get_person(武将_文官));
                         return;
@@ -102,6 +124,13 @@ namespace 自动研究
                             pk::person@ 文官 = pk::get_person(武将_文官);
                             if (pk::choose({ pk::encode("  是  "), pk::encode("  否  ") }, pk::encode("当前并未进行能力研究，是否要选择研究的能力?"), 文官) == 0)
                             {
+<<<<<<< HEAD
+=======
+                                @research_building_ = pk::get_building(building_id);
+                                
+                                pk::scene(pk::scene_t(research_choose));
+                                /*
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                                 //pk::research_ability_cmd_info cmd_draft;
                                 //@cmd_draft.base = pk::get_building(building_id);
                                 //if (pk::call_research_abillity_window(cmd_draft, pk::get_building(building_id)))
@@ -119,15 +148,28 @@ namespace 自动研究
                                         pk::command(cmd_draft);
                                         pk::ability@ ability = pk::get_ability(ability_id);
                                         string name = pk::decode(ability.name);
+<<<<<<< HEAD
                                         pk::trace(pk::format("{}自动研究能力：{}", pk::get_new_base_name(building_id), name));
                                     }
                                 }
+=======
+                                        //pk::trace(pk::format("{}自动研究能力：{}", pk::get_new_base_name(building_id), name));
+                                    }
+                                }*/
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
      
                             }
 
 
                         }
+<<<<<<< HEAD
 
+=======
+                        else
+                        {
+                            force_ex[force.get_id()].all_ability_researched = true;
+                        }
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         //pk::trace(pk::format("当前正在研究能力id：{},剩余时间：{}",force.researching_tech, force.researching_tech_timer));
                     }
 
@@ -135,6 +177,34 @@ namespace 自动研究
             }
         }
 
+<<<<<<< HEAD
+=======
+        void research_choose()
+        {
+            pk::research_ability_cmd_info cmd_draft;
+            @cmd_draft.base = @research_building_;
+            if (pk::call_research_abillity_window(cmd_draft, research_building_))
+            {
+                int ability_id = cmd_draft.ability;
+                if (ability_id > -1 and ability_id < 势力能力_末)
+                {
+
+                    //pk::play_se(6);
+                    //pk::message_box(pk::encode(pk::format("好的，马上开始\x1b[2x{}\x1b[0x的研究。", pk::decode(pk::get_ability(ability_id).name))), pk::get_person(武将_文官));
+
+                    //pk::research_ability_cmd_info cmd_draft;
+                    //@cmd_draft.base = pk::get_building(building_id);
+                    //cmd_draft.ability = ability_id;
+                    pk::command(cmd_draft);
+                    pk::ability@ ability = pk::get_ability(ability_id);
+                    string name = pk::decode(ability.name);
+                    pk::trace(pk::format("{}自动研究能力：{}", pk::get_new_base_name(research_building_.get_id()), name));
+                }
+            }
+            //ability_id_ = pk::call_research_abillity_window(cmd_draft, pk::get_building(building_id))
+        }
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         int choose_ability(array<int> ability_arr)
         {
             //一个城市最多8个？

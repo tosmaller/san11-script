@@ -57,7 +57,11 @@ namespace 선인_탐색
 		pk::force@ force_;
 		pk::person@ taishu_;
 		pk::city@ city_;
+<<<<<<< HEAD
 		uint16 building_gold;
+=======
+		int building_gold;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		Main()
 		{

@@ -21,10 +21,17 @@
 // ## 2020/11/15 @ 江东新风 @ 初次编写 @@
 namespace AI_刺杀
 {
+<<<<<<< HEAD
 	const int 发生率_通常 = 7;//12
 	const int AI_刺杀_可执行距离 = 3;
 	const int AI刺杀_发动时期 = 1;        // 0: 每旬,  1: 每月第一旬,  2: 每季第一旬,  3: 每年第一旬 默认 1
 	const int AI刺杀_保护月数 = 8;//5
+=======
+	const int 发生率_通常 = 3;//12
+	const int AI_刺杀_可执行距离 = 3;
+	const int AI刺杀_发动时期 = 1;        // 0: 每旬,  1: 每月第一旬,  2: 每季第一旬,  3: 每年第一旬 默认 1
+	const int AI刺杀_保护月数 = 10;//5
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const int AI_刺杀失败_被俘率 = 6;  //原定6
 	const int AI_刺杀失败_处死率 = 0;
@@ -392,7 +399,11 @@ namespace AI_刺杀
 		{
 			pk::unit@ dummy_unit;
 			//pk::point emptyPos = getEmptyPos(building_);
+<<<<<<< HEAD
 			//pk::unit@ unit_temp = pk::create_unit(building_, actor, null, null, 100, 병기_창, 兵器_走舸, 0, 100, emptyPos);
+=======
+			//pk::unit@ unit_temp = pk::create_unit(building_, actor, null, null, 100, 兵器_枪, 兵器_走舸, 0, 100, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			//@dummy_unit = pk::get_unit(0);
 			pk::person@ dummy_person;
 			//pk::person@ helper1;	

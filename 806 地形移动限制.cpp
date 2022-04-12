@@ -75,7 +75,11 @@ namespace 지형이동제한
 
                     if (관문주변지형_변경설정)
                     {
+<<<<<<< HEAD
                         for (int num = 건물_관문시작; num < 건물_관문끝; num++)
+=======
+                        for (int num = 建筑_关卡开始; num < 건물_관문끝; num++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         {
                             disable_terrain_around_building(num, 관문주변지형_변경범위);
                         }
@@ -83,7 +87,11 @@ namespace 지형이동제한
 
                     if (항구주변지형_변경설정)
                     {
+<<<<<<< HEAD
                         for (int num = 건물_항구시작; num < 건물_항구끝; num++)
+=======
+                        for (int num = 건물_항구시작; num < 建筑_港口末; num++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         {
                             disable_terrain_around_building(num, 항구주변지형_변경범위);
                         }

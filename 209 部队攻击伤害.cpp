@@ -161,7 +161,11 @@ namespace UNIT_ATTACK_DAMAGE
             // AI部队战法优化 ('20.10.13)----这个ai计算时也会被调用了，可能出问题
             if (!pk::is_campaign() and !pk::is_player_controlled(attacker) and !ambush and type == 0)
             {
+<<<<<<< HEAD
                 if (AI部队_弩兵攻击优化 and attacker.weapon == 병기_노)    // 노병 간접통상 → 전법화시로 최적화
+=======
+                if (AI部队_弩兵攻击优化 and attacker.weapon == 兵器_弩)    // 노병 간접통상 → 전법화시로 최적화
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     tactics_id = func_fire_on_arrow(attacker, target_obj, tactics_id);
 
                 if (AI部队_战法优化 and target_unit !is null)     // 근접 전법 최적화
@@ -285,7 +289,11 @@ namespace UNIT_ATTACK_DAMAGE
 
                 switch (weapon_id)
                 {
+<<<<<<< HEAD
                 case 병기_창:
+=======
+                case 兵器_枪:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (pk::has_tech(force, 기교_정예창병))
                         troops_damage *= 정예기교_공격력; // 1.15f
                     else if (pk::has_tech(force, 기교_창병단련))
@@ -307,7 +315,11 @@ namespace UNIT_ATTACK_DAMAGE
 
                     break;
 
+<<<<<<< HEAD
                 case 병기_극:
+=======
+                case 兵器_戟:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (pk::has_tech(force, 기교_정예극병))
                         troops_damage *= 정예기교_공격력; // 1.15f
                     else if (pk::has_tech(force, 기교_극병단련))
@@ -337,7 +349,11 @@ namespace UNIT_ATTACK_DAMAGE
 
                     break;
 
+<<<<<<< HEAD
                 case 병기_노:
+=======
+                case 兵器_弩:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (pk::has_tech(force, 기교_정예노병))
                         troops_damage *= 정예기교_공격력; // 1.15f
                     else if (pk::has_tech(force, 기교_노병단련))
@@ -345,7 +361,11 @@ namespace UNIT_ATTACK_DAMAGE
 
                     break;
 
+<<<<<<< HEAD
                 case 병기_군마:
+=======
+                case 兵器_战马:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (pk::has_tech(force, 기교_정예기병))
                         troops_damage *= 정예기교_공격력; // 1.15f
                     else if (pk::has_tech(force, 기교_기병단련))
@@ -401,7 +421,11 @@ namespace UNIT_ATTACK_DAMAGE
                 }
 
 
+<<<<<<< HEAD
                 if (pk::is_in_water(attacker) and (attacker.type == 부대종류_전투))
+=======
+                if (pk::is_in_water(attacker) and (attacker.type == 部队类型_战斗))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     if (pk::is_valid_tactics_id(tactics_id) and pk::equipment_id_to_heishu(target_unit.weapon) == 병종_병기)
                         troops_damage *= 兵器水上伤害系数;
@@ -539,9 +563,15 @@ namespace UNIT_ATTACK_DAMAGE
                 // 基本杀伤
                 float troops_damage = batt::get_troops_damage(atk, command, troops_atk, buffed, dst_def, dst_troops);
 
+<<<<<<< HEAD
                 if (attacker.weapon == 병기_정란)  troops_damage *= 井栏攻击据点兵力 / 100.f;
                 else if (attacker.weapon == 병기_투석)  troops_damage *= 投石攻击据点兵力 / 100.f;
                 else if (attacker.weapon == 병기_군마)  troops_damage *= 骑兵攻击据点兵力 / 100.f;
+=======
+                if (attacker.weapon == 兵器_井阑)  troops_damage *= 井栏攻击据点兵力 / 100.f;
+                else if (attacker.weapon == 兵器_投石)  troops_damage *= 投石攻击据点兵力 / 100.f;
+                else if (attacker.weapon == 兵器_战马)  troops_damage *= 骑兵攻击据点兵力 / 100.f;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
                 if (facility_id == 시설_도시)  troops_damage *= 部队防御倍率_城 / 100.f;
                 else if (facility_id == 시설_관문)  troops_damage *= 部队防御倍率_关 / 100.f;
@@ -549,7 +579,11 @@ namespace UNIT_ATTACK_DAMAGE
 
                 if (attacker.has_tech(기교_운제))  //云梯
                 {
+<<<<<<< HEAD
                     if (attacker.weapon >= 병기_검 and attacker.weapon < 병기_군마)
+=======
+                    if (attacker.weapon >= 兵器_剑 and attacker.weapon < 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         troops_damage *= 云梯步兵攻城倍率 / 100.f;
                     else
                         troops_damage *= 云梯其余攻城倍率 / 100.f;
@@ -609,7 +643,11 @@ namespace UNIT_ATTACK_DAMAGE
                     hp_damage *= 耐久防御倍率_内政 / 100.f;
                 else if (facility_id == 시설_제방)
                     hp_damage *= 耐久防御倍率_提防 / 100.f;
+<<<<<<< HEAD
                 else if (attacker.weapon != 병기_충차 and attacker.weapon != 병기_목수)
+=======
+                else if (attacker.weapon != 兵器_冲车 and attacker.weapon != 兵器_木兽)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     switch (facility_id)
                     {
@@ -626,6 +664,7 @@ namespace UNIT_ATTACK_DAMAGE
                 }
 
                 // 非攻城兵种获得破碎特技后的削弱 ('20.4.11)
+<<<<<<< HEAD
                 if (attacker.weapon <= 병기_군마 and tactics_id == 전법_공성파쇄)
                     hp_damage *= 0.3f;
 
@@ -634,6 +673,16 @@ namespace UNIT_ATTACK_DAMAGE
                     hp_damage *= 骑兵攻击据点耐久 / 100.f;
                 // 防御技巧对攻城武器的防御加强
                 if (facility_id <= 시설_항구 and (attacker.weapon >= 병기_충차 and attacker.weapon <= 병기_목수))
+=======
+                if (attacker.weapon <= 兵器_战马 and tactics_id == 전법_공성파쇄)
+                    hp_damage *= 0.3f;
+
+                //  骑兵攻城能力削弱
+                if (facility_id <= 시설_항구 and attacker.weapon == 兵器_战马)
+                    hp_damage *= 骑兵攻击据点耐久 / 100.f;
+                // 防御技巧对攻城武器的防御加强
+                if (facility_id <= 시설_항구 and (attacker.weapon >= 兵器_冲车 and attacker.weapon <= 兵器_木兽))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     if (target_building.has_tech(技巧_城壁强化))
                         hp_damage *= 耐久防御倍率_强化城墙 / 100.f;
@@ -647,7 +696,11 @@ namespace UNIT_ATTACK_DAMAGE
 
                 if (attacker.has_tech(기교_운제))  //云梯
                 {
+<<<<<<< HEAD
                     if (attacker.weapon >= 병기_검 and attacker.weapon < 병기_군마)
+=======
+                    if (attacker.weapon >= 兵器_剑 and attacker.weapon < 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         hp_damage *= 云梯步兵攻城倍率 / 100.f;
                     else
                         hp_damage *= 云梯其余攻城倍率 / 100.f;
@@ -703,7 +756,11 @@ namespace UNIT_ATTACK_DAMAGE
         {
             int tactics_opt = tactics_id;   // 기본값은 입력값
             if (!pk::is_alive(target_unit)) return tactics_id;
+<<<<<<< HEAD
             if (attacker.weapon > 병기_군마 or attacker.weapon == 병기_노) return tactics_id;
+=======
+            if (attacker.weapon > 兵器_战马 or attacker.weapon == 兵器_弩) return tactics_id;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if (pk::get_current_turn_force_id() != attacker.get_force_id()) return tactics_id;
 
             int atk_dist = pk::get_distance(attacker.pos, target_unit.pos); // 교전거리
@@ -787,7 +844,11 @@ namespace UNIT_ATTACK_DAMAGE
         {
             int tactics_opt = tactics_id;   // 기본값은 입력값
             if (!pk::is_alive(target_obj)) return tactics_id;
+<<<<<<< HEAD
             if (attacker.weapon != 병기_노) return tactics_id;
+=======
+            if (attacker.weapon != 兵器_弩) return tactics_id;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if (pk::get_current_turn_force_id() != attacker.get_force_id()) return tactics_id;
             int atk_dist = pk::get_distance(attacker.pos, target_obj.pos); // 교전거리
 

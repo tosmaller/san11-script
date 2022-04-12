@@ -39,7 +39,11 @@ namespace UNIT_FOOD_USE
 			int m = 100;
 			float burn = 0.f;
 
+<<<<<<< HEAD
 			if (unit.type == 부대종류_전투)
+=======
+			if (unit.type == 部队类型_战斗)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				int facility_id = func_49d8e0(unit);
 				if (facility_id == 시설_성채)  //城塞
@@ -51,7 +55,11 @@ namespace UNIT_FOOD_USE
 				else
 					m = 100;
 			}
+<<<<<<< HEAD
 			if (unit.type == 부대종류_수송)
+=======
+			if (unit.type == 部队类型_运输)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				m = int(m * 运输队耗粮倍率 / 100.f);
 			}

@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿// ## 2020/12/12 #江东新风# 修复trace参数类型错误 ##
+=======
+﻿// ## 2022/03/28 #江东新风# 默认关闭 ##
+// ## 2022/03/16 #江东新风# 随机分配爵位bug ##
+// ## 2020/12/12 #江东新风# 修复trace参数类型错误 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2020/08/23 # messi # 统一了下选擇格式 ##
 // ## 2020/08/01 ##
 /*
@@ -18,8 +24,13 @@ namespace ori개판만들기
 		Ori()
 		{
 			// 생성자
+<<<<<<< HEAD
 			pk::bind(102, pk::trigger102_t(cbGameStart)); // 게임 첫시작
 			pk::bind(111, pk::trigger111_t(cbTurnStart)); // 턴시작
+=======
+			//pk::bind(102, pk::trigger102_t(cbGameStart)); // 게임 첫시작
+			//pk::bind(111, pk::trigger111_t(cbTurnStart)); // 턴시작
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 		// 게임 시작
@@ -56,7 +67,11 @@ namespace ori개판만들기
 
 		Ps() {}
 
+<<<<<<< HEAD
 		Ps(int n, int c = -1, int t = -1, int k = -1)
+=======
+		Ps(int n, int c = -1, int t = 9, int k = -1)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		{
 			no = n;
 			color = c;
@@ -365,8 +380,13 @@ namespace ori개판만들기
 			Ps(18,7), // 원소
 			Ps(16,8), // 원술
 			Ps(493,5), // 동탁
+<<<<<<< HEAD
 			Ps(660,10), // 여포
 			Ps(403,28, 爵位_皇帝, 국호_황건), // 장각
+=======
+			Ps(660,10), // 여포吕布
+			Ps(403,28, 爵位_皇帝, 국호_황건), // 장각张角
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			Ps(517,3), // 마등
 			Ps(180,11), // 공손찬
 			Ps(225,15), // 사마의

@@ -127,7 +127,11 @@ namespace 信息隐藏
 
 			auto force = pk::get_force(pk::get_current_turn_force_id());
 			onTurnStart(force);
+<<<<<<< HEAD
 
+=======
+			pk::set_fog_state(visible);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			return true;
 		}
 		////--------------------------派驻细作--------------------------------/////       
@@ -765,7 +769,11 @@ namespace 信息隐藏
 
 		void func_信息显示_据点信息()
 		{
+<<<<<<< HEAD
 			军餉维护费::信息行数 = 0;
+=======
+			据点信息行数 = 0;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 光标指的坐标
 			pk::point cursor_pos = pk::get_cursor_hex_pos();
 			if (!pk::is_valid_pos(cursor_pos)) return;
@@ -799,8 +807,13 @@ namespace 信息隐藏
 
 			// pk::draw_rect(pk::rectangle(left, top, right, bottom), 0xff00ccff);
 			pk::draw_text(pk::encode(title), pk::point(left + 5, top + 5), 0xffffffff, FONT_BIG, 0xff000000);
+<<<<<<< HEAD
 			pk::draw_text(pk::encode(info_细作), pk::point(left + 10, top + 40 + 军餉维护费::信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 			军餉维护费::信息行数 += 1;
+=======
+			pk::draw_text(pk::encode(info_细作), pk::point(left + 10, top + 40 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+			据点信息行数 += 1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			//pk::draw_text(pk::encode(info_人口), pk::point(middle + 10, top + 40), 0xffffffff, FONT_SMALL, 0xff000000);
 
 		}

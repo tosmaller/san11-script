@@ -20,6 +20,7 @@ namespace AI优化_战斗部队移动
     const bool 冲车部队_回避行动 = true;        // true=적용, false=미적용 (충차: 회피기동)
 
     // 거점 공성전 시 기동최적화
+<<<<<<< HEAD
     const bool 도시거점_공성전기동 = true;       // 도시 거점 주변 공성병기(1선:충차/목수, 2선:노병/정란/투석)기동. 이동할 좌표 확보하여 공성공격
     const bool 관문항구_공성전기동 = true;       // 관문/항구 주변 공성병기(1선:충차/목수, 2선:노병/정란/투석)기동. 이동할 좌표 확보하여 공성공격
     const int  거점공성_기동부대수 = 3;          // 거점공격용 공성병기 기동 부대수 설정 (턴당/거점당, 최소=1~최대=5)
@@ -28,19 +29,37 @@ namespace AI优化_战斗部队移动
 
     //=======================================================================================
 
+=======
+    const bool 城市据点_攻城部队移动 = true;       // 城市据点周边攻城兵器(1线:冲车/木兽;2线:弩兵/井阑/投石)机动。 确保要移动的坐标攻击攻城   도시 거점 주변 공성병기(1선:충차/목수, 2선:노병/정란/투석)기동. 이동할 좌표 확보하여 공성공격
+    const bool 关卡港关_攻城部队移动 = true;       // 关卡/港口周边攻城兵器(1线:冲车/木兽;2线:弩兵/井阑/投石)机动。 确保要移动的坐标攻击攻城 관문/항구 주변 공성병기(1선:충차/목수, 2선:노병/정란/투석)기동. 이동할 좌표 확보하여 공성공격
+    const int  据点进攻_活动部队数 = 3;          // 设定攻击据点用攻城兵器机动部队数(每回合/据点，最少=1~最多=5)  거점공격용 공성병기 기동 부대수 설정 (턴당/거점당, 최소=1~최대=5)
+
+    const bool 攻城部队_优先行动 = true;       // 据点周围有攻城兵器(:冲车/木兽/井阑/投石)时，会比一般部队先移动攻城攻击  거점 주변 공성병기(충차,목수,정란,투석)가 있을 경우 일반부대보다 먼저 이동하여 공성공격
+
+    //=======================================================================================
+    const bool 调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
     class Main
     {
 
         Main()
         {
+<<<<<<< HEAD
             pk::bind(111, pk::trigger111_t(onTurnStart));
+=======
+            //pk::bind(111, pk::trigger111_t(onTurnStart));//---此函数会导致部队二动
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         }
 
         pk::func261_t@ prev_callback_261;
 
         //---------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
         // AI세력 스크립트 (부대행동 우선순위를 위하여 261함수 대신 턴시작 트리거 사용)
+=======
+        // AI势力脚本(回合开始时，而不是261函数)   AI세력 스크립트 (부대행동 우선순위를 위하여 261함수 대신 턴시작 트리거 사용)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         void onTurnStart(pk::force@ force)
         {
             int force_id = force.get_id();
@@ -50,9 +69,15 @@ namespace AI优化_战斗部队移动
                 if (pk::is_normal_force(force_id) and pk::get_scenario().difficulty == 难易度_超级 and !force.is_player())
                 {
                     // 관문항구 공성전
+<<<<<<< HEAD
                     if (관문항구_공성전기동)
                     {
                         for (int j = 건물_관문시작; j < 건물_항구끝; j++)
+=======
+                    if (关卡港关_攻城部队移动)
+                    {
+                        for (int j = 建筑_关卡开始; j < 建筑_港口末; j++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         {
                             pk::building@ dst_base = pk::get_building(j);
                             if (pk::enemies_around(dst_base) and pk::is_enemy(dst_base, force))
@@ -62,7 +87,11 @@ namespace AI优化_战斗部队移动
                         }
                     }
                     // 도시거점 공성전
+<<<<<<< HEAD
                     if (도시거점_공성전기동)
+=======
+                    if (城市据点_攻城部队移动)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     {
                         for (int j = 건물_도시시작; j < 城市_末; j++)
                         {
@@ -70,7 +99,11 @@ namespace AI优化_战斗部队移动
                             if (pk::enemies_around(dst_base) and pk::is_enemy(dst_base, force))
                             {
                                 func_siege_formation(dst_base, force);
+<<<<<<< HEAD
                                 if (공성부대_우선_기동)
+=======
+                                if (攻城部队_优先行动)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                                     func_siege_prior_atk(dst_base, force);
                             }
                         }
@@ -97,10 +130,17 @@ namespace AI优化_战斗部队移动
 
 
         // 병과 속성 확인
+<<<<<<< HEAD
         bool is_dir_weapon(int weapon_id) { return ((병기_검 <= weapon_id and weapon_id <= 병기_군마) and weapon_id != 병기_노); }
         bool is_siege_weapon(int weapon_id) { return (병기_충차 <= weapon_id and weapon_id <= 병기_목수); }
         bool is_siegeram_weapon(int weapon_id) { return (병기_충차 == weapon_id or weapon_id == 병기_목수); }
         bool is_siegerng_weapon(int weapon_id) { return (병기_정란 == weapon_id or weapon_id == 병기_투석); }
+=======
+        bool is_dir_weapon(int weapon_id) { return ((兵器_剑 <= weapon_id and weapon_id <= 兵器_战马) and weapon_id != 兵器_弩); }
+        bool is_siege_weapon(int weapon_id) { return (兵器_冲车 <= weapon_id and weapon_id <= 兵器_木兽); }
+        bool is_siegeram_weapon(int weapon_id) { return (兵器_冲车 == weapon_id or weapon_id == 兵器_木兽); }
+        bool is_siegerng_weapon(int weapon_id) { return (兵器_井阑 == weapon_id or weapon_id == 兵器_投石); }
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         bool is_ship_weapon(int weapon_id) { return (weapon_id == 兵器_楼船 or weapon_id == 兵器_斗舰); }
 
 
@@ -113,7 +153,11 @@ namespace AI优化_战斗部队移动
         void func_archer_evasion(pk::unit@ unit)
         {
             if (!check_valid_evasion_unit(unit)) return;
+<<<<<<< HEAD
             if (unit.weapon >= 兵器_走舸 or unit.weapon == 병기_군마) return;   // 수군, 기병 제외
+=======
+            if (unit.weapon >= 兵器_走舸 or unit.weapon == 兵器_战马) return;   // 수군, 기병 제외
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::unit@ enemy = get_neighbor_enemy_unit(unit);
             if (!pk::is_alive(enemy)) return;  // 주변에 접촉된 적부대 없음
@@ -149,7 +193,11 @@ namespace AI优化_战斗部队移动
         void func_siegeram_evasion(pk::unit@ unit)
         {
             if (!check_valid_evasion_unit(unit)) return;
+<<<<<<< HEAD
             if (unit.weapon != 병기_충차) return;   // 충차만 대상
+=======
+            if (unit.weapon != 兵器_冲车) return;   // 충차만 대상
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::unit@ enemy = get_neighbor_enemy_unit(unit);
             if (!pk::is_alive(enemy)) return;  // 주변에 접촉된 적부대 없음
@@ -315,7 +363,11 @@ namespace AI优化_战斗部队移动
 
         pk::hex_object@ get_target_obj(pk::unit@ unit, pk::point evasion_pos, int max_range)
         {
+<<<<<<< HEAD
             if (unit.weapon == 병기_충차) return null;
+=======
+            if (unit.weapon == 兵器_冲车) return null;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::point pos_t = get_atk_target_pos(unit, evasion_pos, max_range);
             if (pos_t != -1 and pk::is_valid_pos(pos_t))
@@ -333,7 +385,11 @@ namespace AI优化_战斗部队移动
             pk::point target_pos = -1;
             if (!pk::is_alive(unit)) return -1;
             if (max_range < 1) return -1;
+<<<<<<< HEAD
             if (unit.weapon == 병기_충차) return -1;
+=======
+            if (unit.weapon == 兵器_冲车) return -1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::array<pk::point> arr_target_pos;
             pk::array<pk::point> arr_atk_range = pk::range(evasion_pos, 1, max_range);
@@ -405,8 +461,13 @@ namespace AI优化_战斗部队移动
                 if (city_a and !city_b) return true;
                 if (!city_a and city_b) return false;
 
+<<<<<<< HEAD
                 bool gate_a = (건물_관문시작 <= a.get_id() and a.get_id() < 건물_항구끝);
                 bool gate_b = (건물_관문시작 <= b.get_id() and b.get_id() < 건물_항구끝);
+=======
+                bool gate_a = (建筑_关卡开始 <= a.get_id() and a.get_id() < 建筑_港口末);
+                bool gate_b = (建筑_关卡开始 <= b.get_id() and b.get_id() < 建筑_港口末);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 if (gate_a and !gate_b) return true;
                 if (!gate_a and gate_b) return false;
 
@@ -432,7 +493,11 @@ namespace AI优化_战斗部队移动
 
             if (pk::get_distance(src_unit.pos, target_pos) > atk_range) return false;
 
+<<<<<<< HEAD
             if (hex.terrain == 지형_숲 and src_unit.weapon == 병기_노)
+=======
+            if (hex.terrain == 지형_숲 and src_unit.weapon == 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 if (src_unit.has_skill(특기_사수)) return true;
                 else return false;
@@ -443,9 +508,15 @@ namespace AI优化_战斗部队移动
         int get_archer_range(pk::unit@ src_unit)
         {
             int atk_range = 1;
+<<<<<<< HEAD
             if (src_unit.weapon == 병기_노)
                 atk_range = 2 + ((src_unit.has_tech(기교_강노)) ? 1 : 0);
             else if (src_unit.weapon == 병기_군마)
+=======
+            if (src_unit.weapon == 兵器_弩)
+                atk_range = 2 + ((src_unit.has_tech(기교_강노)) ? 1 : 0);
+            else if (src_unit.weapon == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 atk_range = 1 + ((src_unit.has_tech(기교_기사) or src_unit.has_skill(특기_백마)) ? 1 : 0);
 
             return atk_range;
@@ -457,7 +528,11 @@ namespace AI优化_战斗部队移动
         pk::int_int get_atk_range(pk::unit@ unit)
         {
             pk::int_int atk_range = pk::int_int(1, 1);
+<<<<<<< HEAD
             if (!pk::is_alive(unit) or unit.weapon == 병기_검) return atk_range;
+=======
+            if (!pk::is_alive(unit) or unit.weapon == 兵器_剑) return atk_range;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             int weapon_id = unit.weapon;
             pk::equipment@ epq = pk::get_equipment(unit.weapon);
@@ -478,9 +553,15 @@ namespace AI优化_战斗部队移动
                     max_range = pk::max(max_range, tts.max_range);
                 }
             }
+<<<<<<< HEAD
             if (weapon_id == 병기_노 and unit.has_tech(기교_강노)) max_range += 1;
             if (weapon_id == 병기_군마 and (unit.has_tech(기교_기사) or unit.has_skill(특기_백마))) max_range = pk::max(2, max_range);
             if ((weapon_id == 병기_정란 or weapon_id == 병기_투석) and unit.has_skill(特技_射程)) max_range += 1;
+=======
+            if (weapon_id == 兵器_弩 and unit.has_tech(기교_강노)) max_range += 1;
+            if (weapon_id == 兵器_战马 and (unit.has_tech(기교_기사) or unit.has_skill(특기_백마))) max_range = pk::max(2, max_range);
+            if ((weapon_id == 兵器_井阑 or weapon_id == 兵器_投石) and unit.has_skill(特技_射程)) max_range += 1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             atk_range = pk::int_int(min_range, max_range);
             info += pk::format(": 最小({}),最大({})", min_range, max_range);
@@ -538,17 +619,29 @@ namespace AI优化_战斗部队移动
 
             if (is_moved)
             {
+<<<<<<< HEAD
                 // 이동처리 후 공격 가능 시 공격
                 if (!unit.action_done and (unit.weapon == 병기_노 or unit.weapon == 병기_군마) and max_atk_range > 1)
+=======
+                // 移动处理后可攻击时攻击 이동처리 후 공격 가능 시 공격
+                if (!unit.action_done and (unit.weapon == 兵器_弩 or unit.weapon == 兵器_战马) and max_atk_range > 1)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     pk::hex_object@ target = get_target_obj(unit, evasion_pos, max_atk_range);
                     if (pk::is_alive(target))
                     {
                         pk::attack(unit, target);
+<<<<<<< HEAD
                         unit.action_done = true;  // 부대행동 완료로 설정
                     }
                 }
                 if (!unit.action_done and unit.weapon != 병기_충차 and unit.order != 部队任务_攻击)
+=======
+                        unit.action_done = true;  // 부대행동 완료로 설정 设定为部队行动完成
+                    }
+                }
+                if (!unit.action_done and unit.weapon != 兵器_冲车 and unit.order != 部队任务_攻击)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     pk::point target_pos = set_atk_target(unit, evasion_pos, max_atk_range + (move_distance - 1));   // 부대임무 공격으로 변경
                     if (!is_func262 and target_pos != -1 and pk::is_valid_pos(target_pos)
@@ -664,7 +757,11 @@ namespace AI优化_战斗部队移动
             bool cmd_2 = true;
             int unit_count = 0;
             int push_count = 0;
+<<<<<<< HEAD
             int max_count = pk::max(1, pk::min(5, 거점공성_기동부대수));
+=======
+            int max_count = pk::max(1, pk::min(5, 据点进攻_活动部队数));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             while (push_count < max_count and unit_count < max_count)
             {
                 push_count++;
@@ -676,7 +773,11 @@ namespace AI优化_战斗部队移动
             }
         }
 
+<<<<<<< HEAD
         // 직접공성병기(충차/목수) 공성 진형
+=======
+        // 直接攻城兵器(冲车/木兽)攻城阵型 직접공성병기(충차/목수) 공성 진형
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         bool PushSiegeRamFormation(pk::building@ dst_base, pk::force@ force)
         {
             // 목표거점 주변의 거리별 일반/공성부대 검색
@@ -837,13 +938,21 @@ namespace AI优化_战斗部队移动
                                 list_siegeram_unit.add(unit);
                         }
                         // 간접병기 : 노/정란/투석 (사정거리에 있는 부대는 리스트에서 제외)
+<<<<<<< HEAD
                         if (is_siegerng_weapon(unit.weapon) or unit.weapon == 병기_노)
+=======
+                        if (is_siegerng_weapon(unit.weapon) or unit.weapon == 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         {
                             if (!(min_range <= distance and distance <= max_range) and !list_range_unit.contains(unit))
                                 list_range_unit.add(unit);
                         }
                         // 일반부대 (창극노기)
+<<<<<<< HEAD
                         if (unit.weapon <= 병기_군마)
+=======
+                        if (unit.weapon <= 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         {
                             if (distance == 1 and !list_combat_unit_n1.contains(unit))  // 1선
                                 list_combat_unit_n1.add(unit);
@@ -869,9 +978,15 @@ namespace AI优化_战斗部队移动
 
                 int wpn_a = pk::get_ground_weapon_id(a);
                 int wpn_b = pk::get_ground_weapon_id(b);
+<<<<<<< HEAD
                 if (wpn_a == 병기_노 and wpn_b != 병기_노) return true;
                 if (wpn_a != 병기_노 and wpn_b == 병기_노) return false;
                 if (wpn_a == 병기_노 and wpn_b == 병기_노)
+=======
+                if (wpn_a == 兵器_弩 and wpn_b != 兵器_弩) return true;
+                if (wpn_a != 兵器_弩 and wpn_b == 兵器_弩) return false;
+                if (wpn_a == 兵器_弩 and wpn_b == 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     if (skill_a and !skill_b) return true;
                     if (!skill_a and skill_b) return false;
@@ -891,9 +1006,15 @@ namespace AI优化_战斗部队移动
             {
                 int wpn_a = pk::get_ground_weapon_id(a);
                 int wpn_b = pk::get_ground_weapon_id(b);
+<<<<<<< HEAD
                 if (wpn_a != 병기_노 and wpn_b != 병기_노) return (a.attr.stat[部队能力_攻击] < b.attr.stat[部队能力_攻击]);
                 if (wpn_a == 병기_노 and wpn_b != 병기_노) return false;
                 if (wpn_a != 병기_노 and wpn_b == 병기_노) return true;
+=======
+                if (wpn_a != 兵器_弩 and wpn_b != 兵器_弩) return (a.attr.stat[部队能力_攻击] < b.attr.stat[部队能力_攻击]);
+                if (wpn_a == 兵器_弩 and wpn_b != 兵器_弩) return false;
+                if (wpn_a != 兵器_弩 and wpn_b == 兵器_弩) return true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
                 return (a.attr.stat[部队能力_攻击] < b.attr.stat[部队能力_攻击]);
             });
@@ -971,6 +1092,7 @@ namespace AI优化_战斗部队移动
             string weapon_name;
             switch (weapon_id)
             {
+<<<<<<< HEAD
             case 병기_검: weapon_name = "剑兵"; break;
             case 병기_창: weapon_name = "枪兵"; break;
             case 병기_극: weapon_name = "戟兵"; break;
@@ -980,6 +1102,17 @@ namespace AI优化_战斗部队移动
             case 병기_정란: weapon_name = "井阑"; break;
             case 병기_투석: weapon_name = "投石"; break;
             case 병기_목수: weapon_name = "木兽"; break;
+=======
+            case 兵器_剑: weapon_name = "剑兵"; break;
+            case 兵器_枪: weapon_name = "枪兵"; break;
+            case 兵器_戟: weapon_name = "戟兵"; break;
+            case 兵器_弩: weapon_name = "弩兵"; break;
+            case 兵器_战马: weapon_name = "骑兵"; break;
+            case 兵器_冲车: weapon_name = "冲车"; break;
+            case 兵器_井阑: weapon_name = "井阑"; break;
+            case 兵器_投石: weapon_name = "投石"; break;
+            case 兵器_木兽: weapon_name = "木兽"; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             case 兵器_走舸: weapon_name = "水军"; break;
             case 兵器_楼船: weapon_name = "水军"; break;
             case 兵器_斗舰: weapon_name = "水军"; break;
@@ -1016,7 +1149,11 @@ namespace AI优化_战斗部队移动
         //---------------------------------------------------------------------------------------
 
 
+<<<<<<< HEAD
         bool 调试模式 = false;
+=======
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 

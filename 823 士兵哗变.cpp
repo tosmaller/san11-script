@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/10/24 # 江东新风 # 将pk::add_troops换成ch::add_troops以修正显示错误 ##
+=======
+﻿// ## 2022/03/17 # 江东新风 # get_index势力空指针bug修复 ##
+// ## 2021/10/24 # 江东新风 # 将pk::add_troops换成ch::add_troops以修正显示错误 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/24 #江东新风#改写171trigger##
 // ## 2021/02/22 #江东新风#为登用概率添加调用类型##
 // ## 2020/08/01 ##
@@ -326,7 +331,19 @@ namespace 급변사태
 		}
 
 		int get_index(pk::hex_object@ hex_object) { return (pk::get_hex_object_id(hex_object) < 据点_末 ? /*거점*/0 : /*부대*/1); }
+<<<<<<< HEAD
 		int get_index(pk::force@ force) { return (force.is_player() ? /*플레이어*/0 : /*컴퓨터*/1); }
+=======
+		int get_index(pk::force@ force) 
+		{ 
+			int index = 1;
+			if (pk::is_alive(force))
+			{
+				index = force.is_player() ? /*플레이어*/0 : /*컴퓨터*/1;
+			}
+			return index; 
+		}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		///	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

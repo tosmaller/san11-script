@@ -157,7 +157,11 @@ namespace 거점철수
 			// 출진 명령 정보 생성.
 			pk::com_deploy_cmd_info cmd;
 			@cmd.base = @base;
+<<<<<<< HEAD
 			cmd.type = 부대종류_수송;
+=======
+			cmd.type = 部队类型_运输;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			cmd.member[0] = leader.get_id();
 			cmd.gold = pk::min(int(pk::get_gold(base) * supply_rate), 100000);
 			cmd.food = pk::min(int(pk::get_food(base) * supply_rate), 500000);
@@ -166,7 +170,11 @@ namespace 거점철수
 			for (int weapon_id = 0; weapon_id < 병기_끝; weapon_id++)
 			{
 				int weapon_amount = 0;
+<<<<<<< HEAD
 				if (weapon_id < 병기_충차)
+=======
+				if (weapon_id < 兵器_冲车)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					weapon_amount = pk::min(int(pk::get_weapon_amount(base, weapon_id) * weapon_rate), 100000);
 				else
 					weapon_amount = pk::min(int(pk::get_weapon_amount(base, weapon_id)), 100);

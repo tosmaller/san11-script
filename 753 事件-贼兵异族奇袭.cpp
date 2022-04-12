@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/21 # 江东新风 # 部队异常消除bug ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/11/16 # 江东新风 # 调整保护期，防止开局袭击 ##
 // ## 2020/12/12 # 江东新风 # 修复trace参数报错 ##
 // ## 2020/10/31 # 江东新风 # 同步honeybee大神的更新##
@@ -246,12 +251,20 @@ namespace 事件_贼兵异族奇袭
 								if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 									break;
 
+<<<<<<< HEAD
 								pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 병기_창, 兵器_走舸, gold, food, emptyPos);
+=======
+								pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 兵器_枪, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 								// 부대 생성이 실패한 경우 무장 삭제
 								if (!pk::is_alive(unit))
 								{
+<<<<<<< HEAD
 									pk::remove(unit);
+=======
+									pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 									continue;
 								}
 
@@ -264,7 +277,11 @@ namespace 事件_贼兵异族奇袭
 								// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 								if (!pk::run_order(unit))
 									// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 									pk::remove(unit);
+=======
+									pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							}
 
@@ -312,12 +329,20 @@ namespace 事件_贼兵异族奇袭
 								if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 									break;
 
+<<<<<<< HEAD
 								pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 병기_창, 兵器_走舸, gold, food, emptyPos);
+=======
+								pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 兵器_枪, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 								// 부대 생성이 실패한 경우 무장 삭제
 								if (!pk::is_alive(unit))
 								{
+<<<<<<< HEAD
 									pk::remove(unit);
+=======
+									pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 									continue;
 								}
 
@@ -330,7 +355,11 @@ namespace 事件_贼兵异族奇袭
 								// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 								if (!pk::run_order(unit))
 									// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 									pk::remove(unit);
+=======
+									pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							}
 
@@ -373,12 +402,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_1, 병기_창, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_1, 兵器_枪, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -391,7 +428,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 						} // for
 
@@ -515,12 +556,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 병기_군마, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 兵器_战马, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -533,7 +582,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for
@@ -576,12 +629,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 병기_군마, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 兵器_战马, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -594,7 +655,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for
@@ -719,12 +784,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 병기_군마, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 兵器_战马, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -737,7 +810,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 						} // for
 
@@ -780,12 +857,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 병기_군마, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 兵器_战马, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -798,7 +883,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for
@@ -924,12 +1013,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 병기_극, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 兵器_戟, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -942,7 +1039,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for
@@ -985,12 +1086,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 병기_극, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 兵器_戟, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -1003,7 +1112,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for
@@ -1128,12 +1241,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 병기_극, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_0, 兵器_戟, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -1146,7 +1267,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for
@@ -1189,12 +1314,20 @@ namespace 事件_贼兵异族奇袭
 							if (!pk::is_valid_pos(emptyPos) or !building_.is_player())
 								break;
 
+<<<<<<< HEAD
 							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 병기_극, 兵器_走舸, gold, food, emptyPos);
+=======
+							pk::unit@ unit = pk::create_unit(building_, bandit, null, null, troops_2, 兵器_戟, 兵器_走舸, gold, food, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 							// 부대 생성이 실패한 경우 무장 삭제
 							if (!pk::is_alive(unit))
 							{
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 								continue;
 							}
 
@@ -1207,7 +1340,11 @@ namespace 事件_贼兵异族奇袭
 							// 임무 실행(부대를 생성한 턴에 행동을 시작하지 않는다면 생략해도 됨.)
 							if (!pk::run_order(unit))
 								// 임무에 문제가 있다면 부대 삭제.
+<<<<<<< HEAD
 								pk::remove(unit);
+=======
+								pk::kill(unit);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 
 						} // for

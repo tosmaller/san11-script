@@ -467,29 +467,50 @@ namespace 군단통합명령
         // 무기정보 초기화
         void get_weapon_expense()
         {
+<<<<<<< HEAD
             weapon_siege0 = (pk::has_tech(building, 기교_목수개발)) ? 병기_목수 : 병기_충차;
             weapon_siege1 = (pk::has_tech(building, 기교_투석개발)) ? 병기_투석 : 병기_정란;
+=======
+            weapon_siege0 = (pk::has_tech(building, 기교_목수개발)) ? 兵器_木兽 : 兵器_冲车;
+            weapon_siege1 = (pk::has_tech(building, 기교_투석개발)) ? 兵器_投石 : 兵器_井阑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             weapon_warship = (pk::has_tech(building, 기교_투석개발)) ? 兵器_斗舰 : 兵器_楼船;
 
             for (int id = 0; id < 병기_끝; id++)
             {
+<<<<<<< HEAD
                 if (id != 병기_검 and id != 兵器_走舸)
+=======
+                if (id != 兵器_剑 and id != 兵器_走舸)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     weapon_cost[id] = pk::get_equipment(id).gold_cost;
             }
 
             // 시설별 가장 비싼 무기 검색
             int cost = 0;
+<<<<<<< HEAD
             cost = pk::max(weapon_cost[병기_창], weapon_cost[병기_극], weapon_cost[병기_노]);
             cost = pk::max(weapon_cost[병기_창], weapon_cost[병기_극], weapon_cost[병기_노]);
             if (cost == weapon_cost[병기_창]) weapon_cost_max[0] = 병기_창;
             else if (cost == weapon_cost[병기_극]) weapon_cost_max[0] = 병기_극;
             else if (cost == weapon_cost[병기_노]) weapon_cost_max[0] = 병기_노;
+=======
+            cost = pk::max(weapon_cost[兵器_枪], weapon_cost[兵器_戟], weapon_cost[兵器_弩]);
+            cost = pk::max(weapon_cost[兵器_枪], weapon_cost[兵器_戟], weapon_cost[兵器_弩]);
+            if (cost == weapon_cost[兵器_枪]) weapon_cost_max[0] = 兵器_枪;
+            else if (cost == weapon_cost[兵器_戟]) weapon_cost_max[0] = 兵器_戟;
+            else if (cost == weapon_cost[兵器_弩]) weapon_cost_max[0] = 兵器_弩;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             cost = pk::max(weapon_cost[weapon_siege0], weapon_cost[weapon_siege1]);
             if (cost == weapon_cost[weapon_siege0]) weapon_cost_max[2] = weapon_siege0;
             else if (cost == weapon_cost[weapon_siege1]) weapon_cost_max[2] = weapon_siege1;
 
+<<<<<<< HEAD
             weapon_cost_max[1] = 병기_군마;
+=======
+            weapon_cost_max[1] = 兵器_战马;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             weapon_cost_max[3] = weapon_warship;
 
         }
@@ -498,16 +519,27 @@ namespace 군단통합명령
         void get_min_amount_weapon(pk::building@ base)
         {
             int amount = 0;
+<<<<<<< HEAD
             amount = pk::min(int(pk::get_weapon_amount(base, 병기_창)), int(pk::get_weapon_amount(base, 병기_극)), int(pk::get_weapon_amount(base, 병기_노)));
             if (amount == int(pk::get_weapon_amount(base, 병기_창))) weapon_outfit[0] = 병기_창;
             else if (amount == int(pk::get_weapon_amount(base, 병기_극))) weapon_outfit[0] = 병기_극;
             else if (amount == int(pk::get_weapon_amount(base, 병기_노))) weapon_outfit[0] = 병기_노;
+=======
+            amount = pk::min(int(pk::get_weapon_amount(base, 兵器_枪)), int(pk::get_weapon_amount(base, 兵器_戟)), int(pk::get_weapon_amount(base, 兵器_弩)));
+            if (amount == int(pk::get_weapon_amount(base, 兵器_枪))) weapon_outfit[0] = 兵器_枪;
+            else if (amount == int(pk::get_weapon_amount(base, 兵器_戟))) weapon_outfit[0] = 兵器_戟;
+            else if (amount == int(pk::get_weapon_amount(base, 兵器_弩))) weapon_outfit[0] = 兵器_弩;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             amount = pk::min(int(pk::get_weapon_amount(base, weapon_siege0)), int(pk::get_weapon_amount(base, weapon_siege1)));
             if (amount == int(pk::get_weapon_amount(base, weapon_siege0))) weapon_outfit[2] = weapon_siege0;
             else if (amount == int(pk::get_weapon_amount(base, weapon_siege1))) weapon_outfit[2] = weapon_siege1;
 
+<<<<<<< HEAD
             weapon_outfit[1] = 병기_군마;
+=======
+            weapon_outfit[1] = 兵器_战马;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             weapon_outfit[3] = weapon_warship;
         }
 
@@ -751,13 +783,21 @@ namespace 군단통합명령
                     int district1_id = pk::get_district_id(force, 1);
                     pk::district@ district1 = pk::get_district(district1_id);
                     int back_ap = district1.ap;
+<<<<<<< HEAD
                     pk::trace(pk::format("0 ap{}",back_ap));
+=======
+                    //pk::trace(pk::format("0 ap{}",back_ap));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     bool action_done = func_base_drafts(base, true);
                     if (action_done)
                         arr_base_cmd.insertLast(base);
                     if (命令军团不消耗行动力)
                     {
+<<<<<<< HEAD
                         pk::trace(pk::format("1 ap{}", district1.ap));
+=======
+                        //pk::trace(pk::format("1 ap{}", district1.ap));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         if (district1_id != base.get_district_id())
                             district1.ap = back_ap;
                     }
@@ -1107,9 +1147,15 @@ namespace 군단통합명령
             bool drills_ended = false;
             if (건물_도시시작 <= base_id and base_id < 城市_末)
                 drills_ended = pk::building_to_city(base).drills_ended;
+<<<<<<< HEAD
             if (건물_관문시작 <= base_id and base_id < 건물_관문끝)
                 drills_ended = pk::building_to_gate(base).drills_ended;
             if (건물_항구시작 <= base_id and base_id < 건물_항구끝)
+=======
+            if (建筑_关卡开始 <= base_id and base_id < 건물_관문끝)
+                drills_ended = pk::building_to_gate(base).drills_ended;
+            if (건물_항구시작 <= base_id and base_id < 建筑_港口末)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 drills_ended = pk::building_to_port(base).drills_ended;
 
             // 훈련필요여부 확인
@@ -1380,7 +1426,11 @@ namespace 군단통합명령
             // 생산 무기 선택 (생산 메뉴별 핸들러에서 매개변수로 전달)
             int weapon_id = get_outfit_weapon_id(facility_select);    // 병장기 선택 확인 메시지
 
+<<<<<<< HEAD
             if (weapon_id <= 병기_검 or weapon_id == 兵器_走舸 or weapon_id >= 병기_끝) return false;
+=======
+            if (weapon_id <= 兵器_剑 or weapon_id == 兵器_走舸 or weapon_id >= 병기_끝) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             string weapon_name = arr_weapon_name[weapon_id];
 
             // 생산 실행
@@ -1436,7 +1486,11 @@ namespace 군단통합명령
 
             // 생산필요여부 확인
             pk::city@ city = pk::building_to_city(base);
+<<<<<<< HEAD
             if (weapon_id <= 병기_검 or weapon_id == 兵器_走舸 or weapon_id >= 병기_끝) return false;
+=======
+            if (weapon_id <= 兵器_剑 or weapon_id == 兵器_走舸 or weapon_id >= 병기_끝) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             bool need_weapon = (int(pk::get_weapon_amount(base, weapon_id)) < int(ref_weapon_ratio * float(pk::get_max_weapon_amount(base, weapon_id))));
 
             // 생산타입별 생산시설 카운트 확인
@@ -1498,16 +1552,26 @@ namespace 군단통합명령
                 int answer = pk::choose({ pk::encode("枪"), pk::encode("戟"), pk::encode("弓"), pk::encode("取消") },
                     pk::encode("请选择生产什么兵装?"), totoku);
                 // 병기 선택 결과 처리
+<<<<<<< HEAD
                 if (answer == 0) weapon_id = 병기_창;
                 else if (answer == 1) weapon_id = 병기_극;
                 else if (answer == 2) weapon_id = 병기_노;
+=======
+                if (answer == 0) weapon_id = 兵器_枪;
+                else if (answer == 1) weapon_id = 兵器_戟;
+                else if (answer == 2) weapon_id = 兵器_弩;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 else return -1;
             }
 
             // 구사
             else if (outfit_type == 1)
             {
+<<<<<<< HEAD
                 weapon_id = 병기_군마;
+=======
+                weapon_id = 兵器_战马;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             }
 
             // 공방
@@ -1539,9 +1603,15 @@ namespace 군단통합명령
         {
             int outfit_type = -1;
 
+<<<<<<< HEAD
             if (weapon_id >= 병기_창 and weapon_id <= 병기_노)         outfit_type = 0;
             else if (weapon_id == 병기_군마)                          outfit_type = 1;
             else if (weapon_id >= 병기_충차 and weapon_id <= 병기_목수) outfit_type = 2;
+=======
+            if (weapon_id >= 兵器_枪 and weapon_id <= 兵器_弩)         outfit_type = 0;
+            else if (weapon_id == 兵器_战马)                          outfit_type = 1;
+            else if (weapon_id >= 兵器_冲车 and weapon_id <= 兵器_木兽) outfit_type = 2;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             else if (weapon_id >= 兵器_楼船 and weapon_id <= 兵器_斗舰) outfit_type = 3;
 
             return outfit_type;
@@ -1555,7 +1625,11 @@ namespace 군단통합명령
             if (base_id < 건물_도시시작 or base_id >= 城市_末) return false; // 도시가 아니면 종료
 
             pk::city@ city = pk::building_to_city(base);
+<<<<<<< HEAD
             if (weapon_id <= 병기_검 or weapon_id == 兵器_走舸 or weapon_id >= 병기_끝) return false;
+=======
+            if (weapon_id <= 兵器_剑 or weapon_id == 兵器_走舸 or weapon_id >= 병기_끝) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::equipment@ eqp = pk::get_equipment(weapon_id);
 
@@ -1759,7 +1833,11 @@ namespace 군단통합명령
             int max = int(int(district.ap) / get_ap_cmd(base, ap_march, 시설_군사부));
             if (max < 1) return false;      // 행동력 부족
 
+<<<<<<< HEAD
             int weapon_id = 병기_검;
+=======
+            int weapon_id = 兵器_剑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             int unit_troops;
             func_weapon_select(base, 军团命令_출병최소병력, pk::get_troops(base), weapon_id, unit_troops);    // 최적 병과의 최소 병력 반환
             if (weapon_id == 0) return false;    // 육상 무기 또는 병력 부족
@@ -1796,7 +1874,11 @@ namespace 군단통합명령
                     func_get_tekisei(member0, member1, member2);
 
                     // 육상 무기 병력 설정
+<<<<<<< HEAD
                     int gnd_weapon_id = 병기_검;
+=======
+                    int gnd_weapon_id = 兵器_剑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     int unit_command = pk::min(pk::get_command(member0), pk::get_troops(base));     // 지휘가능 최대병력 (지휘값, 도시병력 중 최소)
                     func_weapon_select(base, 军团命令_출병최소병력, unit_command, gnd_weapon_id, unit_troops);    // 최적 병과의 최소 병력 반환
                     if (gnd_weapon_id == 0) return false;    // 육상 무기 또는 병력 부족
@@ -1821,7 +1903,11 @@ namespace 군단통합명령
                     if (pk::is_alive(member1)) march_cmd.member[1] = member1.get_id();
                     if (pk::is_alive(member2)) march_cmd.member[2] = member2.get_id();
                     @march_cmd.base = @base;
+<<<<<<< HEAD
                     march_cmd.type = 부대종류_전투;
+=======
+                    march_cmd.type = 部队类型_战斗;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     march_cmd.food = unit_food;
                     march_cmd.gold = 0;
                     march_cmd.troops = unit_troops;
@@ -1897,11 +1983,19 @@ namespace 군단통합명령
             int weapon_max = 0;
             int best_tekisei = 适性_C;
 
+<<<<<<< HEAD
             weapon_sel = 병기_검;
             troops_sel = 0;
 
             // 출병병력 이상 보유한 무기 중 최고 적성 확인
             for (int id = 병기_창; id <= 병기_군마; id++)
+=======
+            weapon_sel = 兵器_剑;
+            troops_sel = 0;
+
+            // 출병병력 이상 보유한 무기 중 최고 적성 확인
+            for (int id = 兵器_枪; id <= 兵器_战马; id++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 int tekisei = arr_tekisei[pk::equipment_id_to_heishu(id)];
                 int weapon_t = pk::get_weapon_amount(building_t, id);
@@ -1910,7 +2004,11 @@ namespace 군단통합명령
             }
 
             // 최고 적성 이상의 병과 중 무기 가장 많은 병과 선택
+<<<<<<< HEAD
             for (int id = 병기_창; id <= 병기_군마; id++)
+=======
+            for (int id = 兵器_枪; id <= 兵器_战马; id++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 int tekisei = arr_tekisei[pk::equipment_id_to_heishu(id)];
                 int weapon_t = pk::get_weapon_amount(building_t, id);

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/16 # 江东新风 # 玩家部队计算错误bug ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/02/13 # 江东新风 # ai针对ai的战术调整 ##
 // ## 2021/11/15 # 江东新风 # 改善ai人才积极性 ##
 // ## 2021/10/18 # 江东新风 # 部分变量汉化 ##
@@ -39,7 +44,11 @@ namespace AI_BUILDING_SET_ORDER
 		// 내용: AI 후방지역 무장이동 제한 - 도시 대 무장수 일정 % 미만의 경우 이동안함
 		bool	use_minimum_officer = true;
 		int		minimum_officer_rate = 25;		// 비율: 1 ~ 100% ex) 총무장 20명, 도시 2개 상황에서 50% 설정 시 무장 수 5명 (20 / 2 * 0.50) 이하의 후방 도시는 이동안함
+<<<<<<< HEAD
 		bool 调试模式 = true;
+=======
+		bool 调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		Main()
 		{
 			pk::set_func(255, pk::func255_t(callback));
@@ -610,7 +619,11 @@ namespace AI_BUILDING_SET_ORDER
 				int modify_troops = dst_unit.troops;
 				if (check_elite_unit(dst_unit)) modify_troops = int(dst_unit.troops * 1.5f);
 				if (dst_unit.get_force_id() == building.get_force_id()) modify_troops = -modify_troops;//己方部队作为减法，也就意味着最终算出来的是战力差
+<<<<<<< HEAD
 				if (!dst_unit.is_player()) player_troops += modify_troops;
+=======
+				if (dst_unit.is_player()) player_troops += modify_troops;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				troops_all += modify_troops;
 			}
 
@@ -629,4 +642,8 @@ namespace AI_BUILDING_SET_ORDER
 	}
 
 	Main main;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321

@@ -660,7 +660,11 @@ namespace 计略指令_刺杀
 		{
 			pk::unit@ dummy_unit;
 			//pk::point emptyPos = getEmptyPos(building_);
+<<<<<<< HEAD
 			//pk::unit@ unit_temp = pk::create_unit(building_, actor, null, null, 100, 병기_창, 兵器_走舸, 0, 100, emptyPos);
+=======
+			//pk::unit@ unit_temp = pk::create_unit(building_, actor, null, null, 100, 兵器_枪, 兵器_走舸, 0, 100, emptyPos);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			//@dummy_unit = pk::get_unit(0);
 			pk::person@ dummy_person;
 			pk::person@ helper1;

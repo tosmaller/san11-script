@@ -105,21 +105,33 @@ namespace 부대전술효과_AI
 
 					// 특기 [창장 or 창신]을 소유한 창병부대 주위에 있는 적군 기병부대 병력 및 기력 감소 (단, 해당 특기 소유자의 무력 이상인 적군 무장의 부대는 면역)
 					else if ((src.has_skill(특기_창장) or src.has_skill(특기_창신) or src.has_skill(특기_투신))
+<<<<<<< HEAD
 						and src.type_id == 병기_창)
+=======
+						and src.type_id == 兵器_枪)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						global_func_枪兵冲锋(pos, @src, @src_leader);
 					}
 
 					// 특기 [극장 or 극신 or 친월 or 친만]을 소유한 극병부대 주위에 있는 적군 창병부대 병력 및 기력 감소 (단, 해당 특기 소유자의 무력 이상인 적군 무장의 부대는 면역)
 					else if ((src.has_skill(특기_극장) or src.has_skill(특기_극신) or src.has_skill(특기_친월) or src.has_skill(특기_친만))
+<<<<<<< HEAD
 						and src.type_id == 병기_극)
+=======
+						and src.type_id == 兵器_戟)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						global_func_戟兵破甲(pos, @src, @src_leader);
 					}
 
 					// 특기 [기장 or 기신]을 소유한 기병부대 주위에 있는 적군 극병부대 병력 및 기력 감소 (단, 해당 특기 소유자의 무력 이상인 적군 무장의 부대는 면역)
 					else if ((src.has_skill(特技_疾驰) or src.has_skill(특기_기장) or src.has_skill(특기_기신) or src.has_skill(특기_친강) or src.has_skill(특기_친오))
+<<<<<<< HEAD
 						and src.type_id == 병기_군마)
+=======
+						and src.type_id == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						global_func_骑兵突袭(pos, @src, @src_leader);
 					}

@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/17 # 江东新风 # 文字往下掉问题 ##
+// ## 2022/02/17 # 江东新风 # 人口上限修正 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/02/12 # 江东新风 # 丰收不起效bug，伤兵恢复下限 ##
 // ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
 // ## 2021/10/10 # 江东新风 # 人口设定扩展到非城市据点，蝗灾，疫病，丰收，掌握人心的影响 ##
@@ -17,28 +23,45 @@ namespace 人口系统
 		Main()
 		{
 			pk::bind(102, pk::trigger102_t(onGameStart));
+<<<<<<< HEAD
+=======
+			pk::bind(106, pk::trigger106_t(onLoad));//在读档前
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::bind(107, pk::trigger107_t(onNewDay));//测试时107，实际运行改109
 			pk::bind(107, pk::trigger107_t(onNewDay2));//作为人口削减的地方，每旬如城市周边3格有敌部队，人口减2%
 			//pk::bind(108, pk::trigger108_t(onNewMonth));
 			pk::bind(120, pk::trigger120_t(func_信息显示_人口信息), 999);//数字越大越优先
 			pk::bind(171, pk::trigger171_t(onUnitRemove));
+<<<<<<< HEAD
 			pk::set_func(64, pk::func64_t(callback));
 
 		}
 
 		int callback(pk::city@ city)
+=======
+			pk::set_func(64, pk::func64_t(City_Level));
+
+		}
+
+		int City_Level(pk::city@ city)//
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		{
 			int city_id = city.get_id();
 			int population = base_ex[city_id].population;
 			//pk::trace("城市" + pk::get_new_base_name(city_id) + "人口" + population);
 			if (population > 600000) return 2;
+<<<<<<< HEAD
 			else if (population > 200000) return 1;
+=======
+			else if (population > 300000) return 1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			else return 0;
 		}
 
 		//开局时设定基础人口数据
 		void onGameStart()
 		{
+<<<<<<< HEAD
 			if (pk::get_scenario().loaded or !开启人口系统) return;
 			for (int city_id = 0; city_id < 城市_末; ++city_id)
 			{
@@ -58,6 +81,48 @@ namespace 人口系统
 			}
 		} //onGameStart()
 
+=======
+			if (!开启人口系统) return;
+			if (pk::get_scenario().loaded)
+			{
+				set_interior_land();
+			}
+			else
+			{
+				for (int city_id = 0; city_id < 城市_末; ++city_id)
+				{
+					BaseInfo@ city_t = @base_ex[city_id];
+					city_t.population = 三顾城市人口[city_id][0];
+					city_t.mil_pop_all = 三顾城市人口[city_id][1];
+					city_t.mil_pop_av = 三顾城市人口[city_id][2];
+					//if (city_id == 城市_襄阳) pk::trace(pk::format("onGameStart,襄阳人口：{}", city_t.population));
+				}
+				for (int base_id = 城市_末; base_id < 据点_末; ++base_id)
+				{
+					BaseInfo@ base_t = @base_ex[base_id];
+					base_t.population = 15000;
+					base_t.mil_pop_all = 5000;
+					base_t.mil_pop_av = 1000;
+
+				}
+			}
+
+
+		} //onGameStart()
+
+		void onLoad(int file_id)
+		{
+			for (int i = 0; i < 城市_末; ++i)
+			{
+				pk::city@city = pk::get_city(i);
+				for (int j = 14; j < 22; ++j)
+				{
+					city.dev[j].pos = pk::point(-1,-1);
+				}
+			}
+		}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		void onNewDay()
 		{
 			if (!开启人口系统) return;
@@ -65,6 +130,7 @@ namespace 人口系统
 			for (int base_id = 0; base_id < 据点_末; ++base_id)
 			{
 				BaseInfo@ base_t = @base_ex[base_id];
+<<<<<<< HEAD
 				//if (base_id == 城市_襄阳) pk::trace(pk::format("onNewDay 1,襄阳人口：{}", base_t.population));
 				int public_order = 0;
 				if (base_id < 城市_末) public_order = pk::get_city(base_id).public_order;
@@ -87,6 +153,9 @@ namespace 人口系统
 				else if ((population_t /population_max) < 1.f) final_rate = ((人口基础增长率 + buf) / 10.f) * porder_effect;
 				else final_rate = (人口基础增长率 / 20.f) * public_order / 100;
 
+=======
+				float final_rate = ch::get_pop_inc_rate(base_id, 人口基础增长率);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				//城市专属
 				if (base_id < 城市_末)
 				{
@@ -100,7 +169,11 @@ namespace 人口系统
 				}
 
 				int temp = int(base_t.population * (1 + final_rate));
+<<<<<<< HEAD
 				int temp2 = int((temp - base_t.population) * 0.2f + population_t/600.f);//总兵役人口算增量,额外加上每600人多一个兵役人口
+=======
+				int temp2 = int((temp - base_t.population) * 0.2f + base_t.population/600.f);//总兵役人口算增量,额外加上每600人多一个兵役人口
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				//if (pk::is_first_month_of_quarter()) pk::trace(pk::format("{},temp:{},人口：{},增长率：{},base_t.population / population_max:{}", pk::decode(pk::get_name(city0)), temp, base_t.population,final_rate, population_t /population_max));
 				//base_t.population = uint32(temp);
 				ch::add_population(base_id, int(base_t.population* final_rate));
@@ -272,6 +345,11 @@ namespace 人口系统
 
 
 			}
+<<<<<<< HEAD
+=======
+
+			set_interior_land();
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 		void func_信息显示_人口信息()
@@ -288,7 +366,11 @@ namespace 人口系统
 			//if (!building.is_player()) return;
 			//if (!pk::is_player_controlled(building)) return;
 			//if (building.get_force_id() != pk::get_current_turn_force_id()) return;
+<<<<<<< HEAD
 
+=======
+			//pk::trace("人口");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			string building_name = pk::decode(pk::get_name(building));
 
@@ -325,14 +407,20 @@ namespace 人口系统
 			{
 				//BaseInfo@ base_t = @base_ex[base_id];
 				string info_治安 = pk::format("治安: \x1b[1x{}\x1b[0x", base_t.public_order);
+<<<<<<< HEAD
 				pk::draw_text(pk::encode(info_治安), pk::point(left + 10, top + 40 + 军餉维护费::信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 				军餉维护费::信息行数 += 1;
+=======
+				pk::draw_text(pk::encode(info_治安), pk::point(left + 10, top + 40 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				据点信息行数 += 1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 
 			if (base_id < 据点_末)
 			{
 				//if (base_id == 城市_襄阳) pk::trace(pk::format("func_信息显示_人口信息,襄阳人口：{}", base_t.population));
 				//BaseInfo@ base_t = @base_ex[base_id];
+<<<<<<< HEAD
 				string info_人口 = pk::format("人口: \x1b[1x{}\x1b[0x", base_t.population);
 				string info_可用兵役 = pk::format("可用兵役: \x1b[1x{}\x1b[0x", base_t.mil_pop_av);
 				string info_总兵役 = pk::format("总兵役: \x1b[1x{}\x1b[0x", base_t.mil_pop_all);
@@ -342,6 +430,25 @@ namespace 人口系统
 				pk::draw_text(pk::encode(info_可用兵役), pk::point(left + 10, top + 40 + (军餉维护费::信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 				pk::draw_text(pk::encode(info_伤兵), pk::point(middle + 10, top + 40 + (军餉维护费::信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 				军餉维护费::信息行数 += 2;
+=======
+				//pk::point leftdown = pk::point(middle + 140, top + 40 + (据点信息行数 + 3) * 20 +5);
+
+				//pk::draw_filled_rect(pk::rectangle(pk::point(left, top), leftdown), ((0xff / 2) << 24) | 0x010101);//((0xff / 2) << 24) | 0x777777
+
+				string info_人口 = pk::format("人口: \x1b[1x{}\x1b[0x", base_t.population);
+				int level = ch::get_city_level(base_id);
+				string level_name = ch::get_level_string(level);
+				string info_规模 = pk::format("城市规模: \x1b[1x{}\x1b[0x", level_name);
+				string info_可用兵役 = pk::format("可用兵役: \x1b[1x{}\x1b[0x", base_t.mil_pop_av);
+				string info_总兵役 = pk::format("总兵役: \x1b[1x{}\x1b[0x", base_t.mil_pop_all);
+				string info_伤兵 = pk::format("伤兵: \x1b[16x{}\x1b[0x", base_t.wounded);
+				pk::draw_text(pk::encode(info_人口), pk::point(left + 10, top + 40 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				pk::draw_text(pk::encode(info_规模), pk::point(middle + 10, top + 40 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				pk::draw_text(pk::encode(info_总兵役), pk::point(left + 10, top + 40 + (据点信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				pk::draw_text(pk::encode(info_可用兵役), pk::point(middle + 10, top + 40 + (据点信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				pk::draw_text(pk::encode(info_伤兵), pk::point(left + 10, top + 40 + (据点信息行数 + 2) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+				据点信息行数 += 3;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 
 		}
@@ -518,9 +625,27 @@ namespace 人口系统
 		{
 			return cast<pk::func151_t>(pk::get_func(151))(pk::get_city(city_id));
 		}
+<<<<<<< HEAD
 	} // class Main
 
 	Main main;
+=======
+
+		void set_interior_land()
+		{
+			//根据人口规模调整内政用地
+			for (int city_id = 0; city_id < 城市_末; ++city_id)
+			{
+				ch::set_interior_land(city_id);
+			}
+		}
+
+
+	} // class Main
+
+	Main main;
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const array<array<int>> 三顾城市人口 = {
 		/*襄平*/{/*人口*/78490,/*可用兵役*/23547,/*兵役*/5000},
 		/*北平*/{/*人口*/85220,/*可用兵役*/25566,/*兵役*/6000},
@@ -530,8 +655,13 @@ namespace 人口系统
 		/*晋阳*/{/*人口*/135290,/*可用兵役*/40587,/*兵役*/7000},
 		/*邺*/{/*人口*/261660,/*可用兵役*/78498,/*兵役*/14000},
 		/*北海*/{/*人口*/189410,/*可用兵役*/56823,/*兵役*/12000},
+<<<<<<< HEAD
 		/*下邳*/{/*人口*/131100,/*可用兵役*/39330,/*兵役*/16000},
 		/*小沛*/{/*人口*/77800,/*可用兵役*/23340,/*兵役*/10000},
+=======
+		/*下邳*/{/*人口*/231100,/*可用兵役*/39330,/*兵役*/16000},
+		/*小沛*/{/*人口*/207800,/*可用兵役*/33340,/*兵役*/10000},
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		/*寿春*/{/*人口*/216130,/*可用兵役*/64839,/*兵役*/12000},
 		/*濮阳*/{/*人口*/157810,/*可用兵役*/47343,/*兵役*/16000},
 		/*陈留*/{/*人口*/217300,/*可用兵役*/65190,/*兵役*/14000},
@@ -565,4 +695,9 @@ namespace 人口系统
 		/*建宁*/{/*人口*/174110,/*可用兵役*/52233,/*兵役*/11000},
 		/*云南*/{/*人口*/93200,/*可用兵役*/27960,/*兵役*/9000}
 	};
+<<<<<<< HEAD
+=======
+
+	
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 }

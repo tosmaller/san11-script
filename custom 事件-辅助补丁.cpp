@@ -171,7 +171,11 @@ namespace 辅助补丁
 				}
 				if (person.mibun == 身份_死亡)
 				{
+<<<<<<< HEAD
 					pk::trace(pk::format("重置贼将 id:{}", person_id));
+=======
+					//pk::trace(pk::format("重置贼将 id:{}", person_id));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					pk::reset(person);
 				}
 				

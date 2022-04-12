@@ -167,10 +167,21 @@ namespace 自动_组队
                         {
                             unit_info_list.insertLast(pk::encode(pk::format("{}，{}，{}，{}，优先级：{}", get_weapon_name(target_unit_arr[i][3]), pk::decode(pk::get_name(pk::get_person(target_unit_arr[i][0]))), pk::decode(pk::get_name(pk::get_person(target_unit_arr[i][1]))), pk::decode(pk::get_name(pk::get_person(target_unit_arr[i][2]))), target_unit_arr[i][7])));
                         }
+<<<<<<< HEAD
                         for (int i = 0; i < int(unit_info_list.length); ++i)
                         {
                             pk::trace(pk::format("listpos:{},{}", i,pk::decode(unit_info_list[i])));
                         }
+=======
+                        if (调试模式)
+                        {
+                            for (int i = 0; i < int(unit_info_list.length); ++i)
+                            {
+                                pk::trace(pk::format("listpos:{},{}", i, pk::decode(unit_info_list[i])));
+                            }
+                        }
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         
                         unit_choose_0(unit_info_list, target_unit_arr, target_weapon_unit_arr);
 
@@ -183,10 +194,21 @@ namespace 自动_组队
                             if (i == 5) unit_info_list.insertLast(pk::encode("NEXT"));
                             if (i == int(target_unit_arr.length - 1)) unit_info_list.insertLast(pk::encode("BACK"));
                         }
+<<<<<<< HEAD
                         for (int i = 0; i < int(unit_info_list.length); ++i)
                         {
                             pk::trace(pk::format("listpos:{},{}", i, pk::decode(unit_info_list[i])));
                         }
+=======
+                        if (调试模式)
+                        {
+                            for (int i = 0; i < int(unit_info_list.length); ++i)
+                            {
+                                pk::trace(pk::format("listpos:{},{}", i, pk::decode(unit_info_list[i])));
+                            }
+                        }
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         unit_choose_0(unit_info_list, target_unit_arr, target_weapon_unit_arr);
 
                     }
@@ -281,13 +303,21 @@ namespace 自动_组队
             {
                 if (arr[i][3] == weapon)
                 {
+<<<<<<< HEAD
                     pk::trace(pk::format("arraypos:{},{}", i, arr[i][3]));
+=======
+                    if (调试模式) pk::trace(pk::format("arraypos:{},{}", i, arr[i][3]));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     array<int> temp = arr[i];
                     temp.insertLast(i+1);//插入数组原来的序号，方便后面排序
                     temp_arr.insertLast(temp);
                 }
             }
+<<<<<<< HEAD
             pk::trace(pk::format("end arr", 1));
+=======
+            if (调试模式) pk::trace(pk::format("end arr", 1));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             return temp_arr;
         }
 
@@ -304,13 +334,21 @@ namespace 自动_组队
             {
                 if (arr[i][0] == leader_id)
                 {
+<<<<<<< HEAD
                     pk::trace(pk::format("array2pos:{},{}", i, arr[i][3]));
+=======
+                    if (调试模式) pk::trace(pk::format("array2pos:{},{}", i, arr[i][3]));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     array<int> temp = arr[i];
                     temp.insertLast(i);//插入在选择好武器数组的位置序号，方便后面寻找
                     temp_arr.insertLast(temp);
                 }
             }
+<<<<<<< HEAD
             pk::trace(pk::format("end arr2", 1));
+=======
+            if (调试模式) pk::trace(pk::format("end arr2", 1));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             return temp_arr;
         }
 
@@ -319,6 +357,7 @@ namespace 自动_组队
             string weapon_name;
             switch (weapon_id)
             {
+<<<<<<< HEAD
             case 병기_검: weapon_name = "剑兵"; break;
             case 병기_창: weapon_name = "枪兵"; break;
             case 병기_극: weapon_name = "戟兵"; break;
@@ -328,6 +367,17 @@ namespace 自动_组队
             case 병기_정란: weapon_name = "井阑"; break;
             case 병기_투석: weapon_name = "投石"; break;
             case 병기_목수: weapon_name = "木兽"; break;
+=======
+            case 兵器_剑: weapon_name = "剑兵"; break;
+            case 兵器_枪: weapon_name = "枪兵"; break;
+            case 兵器_戟: weapon_name = "戟兵"; break;
+            case 兵器_弩: weapon_name = "弩兵"; break;
+            case 兵器_战马: weapon_name = "骑兵"; break;
+            case 兵器_冲车: weapon_name = "冲车"; break;
+            case 兵器_井阑: weapon_name = "井阑"; break;
+            case 兵器_投石: weapon_name = "投石"; break;
+            case 兵器_木兽: weapon_name = "木兽"; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             case 兵器_走舸: weapon_name = "水军"; break;
             case 兵器_楼船: weapon_name = "水军"; break;
             case 兵器_斗舰: weapon_name = "水军"; break;
@@ -355,7 +405,11 @@ namespace 自动_组队
                     unit_choose_1(unit_info_arr, arr, arr2);
                 }
             }
+<<<<<<< HEAD
             pk::trace(pk::format("choose0-2", 2));
+=======
+            if (调试模式) pk::trace(pk::format("choose0-2", 2));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         }
 
         void unit_choose_1(array<string> unit_info_arr, array<array<int>> arr, array<array<int>> arr2)
@@ -371,7 +425,11 @@ namespace 自动_组队
                 //最后一项的处理
                 unit_choose_0(unit_info_arr,arr, arr2);
             }
+<<<<<<< HEAD
             pk::trace(pk::format("choose1-2", 2));
+=======
+            if (调试模式) pk::trace(pk::format("choose1-2", 2));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         }
 
         void reset_priority(int pos, array<array<int>> arr2)
@@ -479,7 +537,11 @@ namespace 自动_组队
         {
             if (info.member[0] == -1) return;
             if (info.base is null) return;
+<<<<<<< HEAD
             pk::trace(pk::format("pos1,info.member[0]:{},info.member[1]:{}", info.member[0], info.member[1]));
+=======
+            //pk::trace(pk::format("pos1,info.member[0]:{},info.member[1]:{}", info.member[0], info.member[1]));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             pk::building@base = @info.base;
 
             pk::list<pk::person@> idle_person_list = pk::get_idle_person_list(base);//pk::get_person_list(base, pk::mibun_flags(身份_君主, 身份_都督, 身份_太守, 身份_一般));

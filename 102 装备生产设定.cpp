@@ -30,18 +30,30 @@ namespace PRODUCE
 		{
 			if (!pk::is_valid_equipment_id(weapon_id))
 				return 0;
+<<<<<<< HEAD
 			if (weapon_id >= 병기_충차)
+=======
+			if (weapon_id >= 兵器_冲车)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				return 1;
 
 			int n = 0, sum = 0, max = 0, skill_id = -1;
 			int mul = 100, pro = 100;
 
+<<<<<<< HEAD
 			if (weapon_id <= 병기_노)
+=======
+			if (weapon_id <= 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				skill_id = int(pk::core["weapon_produce.smith_skill"]);
 				pro = 制造数量倍率;
 			}
+<<<<<<< HEAD
 			else if (weapon_id == 병기_군마)
+=======
+			else if (weapon_id == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				skill_id = int(pk::core["weapon_produce.stable_skill"]);
 				pro = 军马数量倍率;
@@ -53,11 +65,20 @@ namespace PRODUCE
 				if (pk::is_alive(actor))
 				{
 					int s = actor.stat[int(pk::core["weapon_produce.stat"])];
+<<<<<<< HEAD
 					sum = sum + s;
 					max = pk::max(max, s);
 					if (ch::has_skill(actor, skill_id) and weapon_id <= 병기_노)
 						mul += 能吏生产加成;
 					else if (ch::has_skill(actor, skill_id) and weapon_id == 병기_군마)
+=======
+					//pk::trace("produce stat:" + s);
+					sum = sum + s;
+					max = pk::max(max, s);
+					if (ch::has_skill(actor, skill_id) and weapon_id <= 兵器_弩)
+						mul += 能吏生产加成;
+					else if (ch::has_skill(actor, skill_id) and weapon_id == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						mul += 繁殖生产加成;
 				}
 			}
@@ -87,7 +108,11 @@ namespace PRODUCE
 		float func_5c7040(pk::city@ city, int weapon_id)
 		{
 			int level1 = 0, level2 = 0;
+<<<<<<< HEAD
 			if (weapon_id == 병기_창 or weapon_id == 병기_극 or weapon_id == 병기_노)
+=======
+			if (weapon_id == 兵器_枪 or weapon_id == 兵器_戟 or weapon_id == 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				for (int i = 0; i < city.max_devs; i++)
 				{
@@ -107,7 +132,11 @@ namespace PRODUCE
 				if (int(city.blacksmith_counter) > level1)
 					return 1.2f;
 			}
+<<<<<<< HEAD
 			else if (weapon_id == 병기_군마)
+=======
+			else if (weapon_id == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				for (int i = 0; i < int(city.max_devs); i++)
 				{

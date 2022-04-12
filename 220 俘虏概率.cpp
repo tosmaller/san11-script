@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 ﻿// ## 2021/10/28 # 江东新风 # 单港关存活设定变更 ##
+=======
+﻿// ## 2022/03/28 # 江东新风 # 俘虏概率调整 ##
+// ## 2022/03/17 # 江东新风 # 府兵空指针bug ##
+// ## 2022/02/15 # 江东新风 # 府兵无法俘虏 ##
+// ## 2021/10/28 # 江东新风 # 单港关存活设定变更 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
 // ## 2021/09/15 # 江东新风 # 更改pk::core[]函数为英文##
 // ## 2021/03/12 # 江东新风 # 用retfunc解决单港关俘虏释放后在野问题 ##
@@ -146,24 +153,47 @@ namespace CAPTURE_CHANCE
 				if (terrain_id == 地形_湿地 or terrain_id == 地形_毒泉)
 					n = int(n * 1.5f);
 				n /= 100;
+<<<<<<< HEAD
 				n /= penalty ? 2 : 1;
 				n += has_hobaku_skill ? hobaku_chance : 0;
 				if (tactics_bonus)
 					n += 30;
+=======
+				if (tactics_bonus)
+					n += 10;
+				n /= penalty ? 2 : 1;
+				n += has_hobaku_skill ? hobaku_chance : 0;
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 				//君主捕缚率为十分之一
 				if (pk::is_kunshu(person))
 					n /= 10;
+<<<<<<< HEAD
 				else n /= 3;
 				//临时武将(农民兵，突袭者)不可捕缚
+=======
+				//临时武将(农民兵，突袭者，府兵)不可捕缚
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (is_临时武将(person))
 					n = 0;
 
 				n = int(pk::max(0, pk::min(n, 100)));
 				//pk::trace(pk::format("person id:{};capture chance:{}",person.get_id(),n));
+<<<<<<< HEAD
 				if (pk::get_person(attacker_unit.leader).name_read == "府兵") escaped.push_back(person);
 				else
 				{
+=======
+				if (pk::is_alive(attacker_unit) and pk::get_person(attacker_unit.leader).name_read == pk::encode("府兵"))//限制府兵捕获武将
+				{
+					//pk::trace("是府兵，无法俘虏");
+					escaped.push_back(person);
+				}
+				else
+				{
+					//pk::trace("是府兵，俘虏概率计算");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::rand_bool(n))
 						captured.push_back(person);
 					else
@@ -214,6 +244,11 @@ namespace CAPTURE_CHANCE
 					return true;
 				if (person.name_read == pk::encode("突袭者"))
 					return true;
+<<<<<<< HEAD
+=======
+				if (person.name_read == pk::encode("府兵"))
+					return true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 			return false;
 		}

@@ -130,7 +130,11 @@ namespace 세력재배치2
 							pk::set_troops(building, city.troops / 10);
 							pk::set_energy(building, city.energy);
 							pk::reset_weapon_amount(building);
+<<<<<<< HEAD
 							pk::set_weapon_amount(building, pk::rand(병기_군마) + 1, city.troops / 10);
+=======
+							pk::set_weapon_amount(building, pk::rand(兵器_战马) + 1, city.troops / 10);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						}
 					}
 				}

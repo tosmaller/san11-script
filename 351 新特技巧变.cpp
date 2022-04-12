@@ -21,4 +21,8 @@ namespace 战法_无视地形
 	}
 
 	Main main;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321

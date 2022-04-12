@@ -50,9 +50,15 @@ namespace 수송부대_수송량_손실
 	const array<bool> 손실적용_일반병기 = {/*플레이어 1군단*/true, /*플레이어 위임군단*/true, /*컴퓨터*/false };
 
 	/// 항목별 손실확률 설정
+<<<<<<< HEAD
 	const array<int> 손실확률_금 = {/*플레이어 1군단*/40, /*플레이어 위임군단*/40, /*컴퓨터*/10 };
 	const array<int> 손실확률_병량 = {/*플레이어 1군단*/40, /*플레이어 위임군단*/40, /*컴퓨터*/10 };
 	const array<int> 손실확률_일반병기 = {/*플레이어 1군단*/40, /*플레이어 위임군단*/40, /*컴퓨터*/10 };
+=======
+	const array<int> 손실확률_금 = {/*플레이어 1군단*/80, /*플레이어 위임군단*/80, /*컴퓨터*/10 };
+	const array<int> 손실확률_병량 = {/*플레이어 1군단*/80, /*플레이어 위임군단*/80, /*컴퓨터*/10 };
+	const array<int> 손실확률_일반병기 = {/*플레이어 1군단*/80, /*플레이어 위임군단*/80, /*컴퓨터*/10 };
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	/// 손실비율 기본 설정
 	const array<float> 손실비율_기본값 = {/*플레이어 1군단*/6.0f, /*플레이어 위임군단*/6.0f, /*컴퓨터*/3.0f };
@@ -241,7 +247,11 @@ namespace 수송부대_수송량_손실
 			{
 				pk::unit@ unit = pk::get_unit(unit_id);
 				if (!pk::is_alive(unit)) continue;
+<<<<<<< HEAD
 				if (unit.type != 부대종류_수송) continue;
+=======
+				if (unit.type != 部队类型_运输) continue;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (ch::has_skill(unit, 特技_严整)) continue;
 
 				pk::force@ force = pk::get_force(unit.get_force_id());
@@ -341,7 +351,11 @@ namespace 수송부대_수송량_손실
 		{
 			if (!손실적용_일반병기[controller_index]) return;
 
+<<<<<<< HEAD
 			for (int weapon_id = 병기_창; weapon_id <= 병기_군마; weapon_id++)
+=======
+			for (int weapon_id = 兵器_枪; weapon_id <= 兵器_战马; weapon_id++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				if (!pk::rand_bool(손실확률_일반병기[controller_index])) continue;
 				lost_supplies = true;
@@ -353,7 +367,11 @@ namespace 수송부대_수송량_손실
 		{
 			if (!손실적용_공성병기[controller_index]) return;
 
+<<<<<<< HEAD
 			for (int weapon_id = 병기_충차; weapon_id <= 병기_목수; weapon_id++)
+=======
+			for (int weapon_id = 兵器_冲车; weapon_id <= 兵器_木兽; weapon_id++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				if (!pk::rand_bool(int(loss_chance))) continue;
 				lost_supplies = true;

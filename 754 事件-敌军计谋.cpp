@@ -122,9 +122,15 @@ namespace 적군_계략
 					if (n == 5)
 					{
 						pk::message_box(pk::encode(pk::format("主公, 有人烧毁了\x1b[1x{}\x1b[0x的军械库!", pk::decode(city_.name))), reporter_);
+<<<<<<< HEAD
 						pk::add_weapon_amount(city_, 병기_창, -city_.weapon_amount[1] / 3, true);
 						pk::add_weapon_amount(city_, 병기_극, -city_.weapon_amount[2] / 3, true);
 						pk::add_weapon_amount(city_, 병기_노, -city_.weapon_amount[3] / 3, true);
+=======
+						pk::add_weapon_amount(city_, 兵器_枪, -city_.weapon_amount[1] / 3, true);
+						pk::add_weapon_amount(city_, 兵器_戟, -city_.weapon_amount[2] / 3, true);
+						pk::add_weapon_amount(city_, 兵器_弩, -city_.weapon_amount[3] / 3, true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::message_box(pk::encode("城市的兵装减少了."));
 					}
 
@@ -132,7 +138,11 @@ namespace 적군_계략
 					if (n == 6)
 					{
 						pk::message_box(pk::encode(pk::format("主公, 有人在\x1b[1x{}\x1b[0x带着一群战马逃了!", pk::decode(city_.name))), reporter_);
+<<<<<<< HEAD
 						pk::add_weapon_amount(city_, 병기_군마, -city_.weapon_amount[4] / 3, true);
+=======
+						pk::add_weapon_amount(city_, 兵器_战马, -city_.weapon_amount[4] / 3, true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::message_box(pk::encode("城市的战马减少了."));
 					}
 

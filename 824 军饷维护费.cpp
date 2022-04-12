@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// ## 2022/03/17 # 江东新风 # 文字往下掉问题 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/11/08 # 江东新风 # 更改trigger来确保金变化正确显示 ##
 // ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
 // ## 2021/10/28 # 江东新风 # 将小城治安显示 ##
@@ -23,13 +27,22 @@ namespace 军餉维护费
     const bool 兵器减少设置 = true;       // 병기차감설정
     const int 兵器减少时期 = 1;        // 0: 매턴,  1: 매월 1일
     //特级难度兵装2，兵器3，军队城内10.城外13是比较合理的范围
+<<<<<<< HEAD
     const int 兵装基础维护费 = 10;  //10000件兵装一月的基础维护费，军马维护费2倍
     const int 兵器基础维护费 = 1;  //冲車井栏一月的维护费
+=======
+    const int 兵装基础维护费 = 20;  //10000件兵装一月的基础维护费，军马维护费2倍
+    const int 兵器基础维护费 = 5;  //冲車井栏一月的维护费
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
     const int 金收入倍率 = 100;
     const bool 军队维护费设置 = true;
     const int 军队基础维护费_城内 = 40;  //10000人一月的基础维护费
+<<<<<<< HEAD
     const int 军队基础维护费_出征 = 52;
+=======
+    const int 军队基础维护费_出征 = 60;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
     //---------------------------------------------------------------------------------------
     int 信息行数 = 0;
@@ -42,7 +55,11 @@ namespace 军餉维护费
         Main()
         {
             // 当鼠标放在据点上时会在上方显示金錢消耗的相关信息
+<<<<<<< HEAD
             pk::bind(120, 1,pk::trigger120_t(信息显示_据点信息));
+=======
+            pk::bind2(120,pk::trigger120_t(信息显示_据点信息), 999);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::bind(107, pk::trigger107_t(func_每旬兵器損坏));
             pk::bind(107, pk::trigger107_t(func_每月减除军费));
@@ -69,7 +86,12 @@ namespace 军餉维护费
             if (!building.is_player()) return;
             if (!pk::is_player_controlled(building)) return;
             if (building.get_force_id() != pk::get_current_turn_force_id()) return;
+<<<<<<< HEAD
             int 信息行数 = 0;
+=======
+            据点信息行数 = 0;
+            //pk::trace("军饷维护费");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             // 显示信息
             func_信息显示_据点信息(building);
         }
@@ -102,7 +124,13 @@ namespace 军餉维护费
             int right = middle + 200;
             int top = 5;
             int bottom = top + 80;
+<<<<<<< HEAD
 
+=======
+            pk::point leftdown = pk::point(middle + 140, top + 40 + (/*据点信息行数*/4) * 20 + 5);
+
+            pk::draw_filled_rect(pk::rectangle(pk::point(left, top), leftdown), ((0xff / 2) << 24) | 0x010101);//((0xff / 2) << 24) | 0x777777
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             // pk::draw_rect(pk::rectangle(left, top, right, bottom), 0xff00ccff);
 
             pk::draw_text(pk::encode(title), pk::point(left + 5, top + 5), 0xffffffff, FONT_BIG, 0xff000000);
@@ -118,7 +146,11 @@ namespace 军餉维护费
 
             pk::draw_text(pk::encode(info_军餉), pk::point(left + 10, top + 40 + 信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
             pk::draw_text(pk::encode(info_维护费), pk::point(middle + 10, top + 40 + 信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+<<<<<<< HEAD
             信息行数 += 1;
+=======
+            据点信息行数 += 1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         }
 
 
@@ -178,6 +210,7 @@ namespace 军餉维护费
             int gold_estimate = pk::get_gold(building);
             if (gold_estimate < weapon_pay)
             {
+<<<<<<< HEAD
                 int weapon_qty1 = pk::get_weapon_amount(building, 병기_창);
                 int weapon_qty2 = pk::get_weapon_amount(building, 병기_극);
                 int weapon_qty3 = pk::get_weapon_amount(building, 병기_노);
@@ -189,6 +222,19 @@ namespace 军餉维护费
                 pk::add_weapon_amount(building, 병기_극, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty2 / weapon_sum * type), true);
                 pk::add_weapon_amount(building, 병기_노, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty3 / weapon_sum * type), true);
                 pk::add_weapon_amount(building, 병기_군마, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty4 / weapon_sum * type), true);
+=======
+                int weapon_qty1 = pk::get_weapon_amount(building, 兵器_枪);
+                int weapon_qty2 = pk::get_weapon_amount(building, 兵器_戟);
+                int weapon_qty3 = pk::get_weapon_amount(building, 兵器_弩);
+                int weapon_qty4 = pk::get_weapon_amount(building, 兵器_战马);
+                int weapon_sum = weapon_qty1 + weapon_qty2 + weapon_qty3 + weapon_qty4;
+                if (weapon_sum == 0) return;
+
+                pk::add_weapon_amount(building, 兵器_枪, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty1 / weapon_sum * type), true);
+                pk::add_weapon_amount(building, 兵器_戟, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty2 / weapon_sum * type), true);
+                pk::add_weapon_amount(building, 兵器_弩, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty3 / weapon_sum * type), true);
+                pk::add_weapon_amount(building, 兵器_战马, int((gold_estimate - weapon_pay) * 1.0f * weapon_qty4 / weapon_sum * type), true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
                 if (building.is_player())
                 {
@@ -257,18 +303,32 @@ namespace 军餉维护费
                 float rich_rate = pk::is_valid_person_id(building.who_has_skill(特技_富豪)) ? 1.5f : 1.0f;  // 일반=1.0  특기부호=1.5 반환
 
                 // 일반병기 유지비 차감, 병기 부족 시 수입 대신 병기 보유량 감소
+<<<<<<< HEAD
                 int weapon_qty1 = pk::get_weapon_amount(building, 병기_창);
                 int weapon_qty2 = pk::get_weapon_amount(building, 병기_극);
                 int weapon_qty3 = pk::get_weapon_amount(building, 병기_노);
                 int weapon_qty4 = pk::get_weapon_amount(building, 병기_군마);
+=======
+                int weapon_qty1 = pk::get_weapon_amount(building, 兵器_枪);
+                int weapon_qty2 = pk::get_weapon_amount(building, 兵器_戟);
+                int weapon_qty3 = pk::get_weapon_amount(building, 兵器_弩);
+                int weapon_qty4 = pk::get_weapon_amount(building, 兵器_战马);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 int weapon_sum = pk::max(1, weapon_qty1 + weapon_qty2 + weapon_qty3 + weapon_qty4 * 2);
                 n += int(兵装基础维护费 / 10000.f * weapon_sum / rich_rate);
 
                 // 공성병기 및 전함은 유지비 차감만 적용 
+<<<<<<< HEAD
                 n += int(兵器基础维护费 * (pk::get_weapon_amount(building, 병기_충차)) / rich_rate);
                 n += int(兵器基础维护费 * (pk::get_weapon_amount(building, 병기_정란)) / rich_rate);
                 n += int(兵器基础维护费 * 1.5f * (pk::get_weapon_amount(building, 병기_목수)) / rich_rate);
                 n += int(兵器基础维护费 * 2.0f * (pk::get_weapon_amount(building, 병기_투석)) / rich_rate);
+=======
+                n += int(兵器基础维护费 * (pk::get_weapon_amount(building, 兵器_冲车)) / rich_rate);
+                n += int(兵器基础维护费 * (pk::get_weapon_amount(building, 兵器_井阑)) / rich_rate);
+                n += int(兵器基础维护费 * 1.5f * (pk::get_weapon_amount(building, 兵器_木兽)) / rich_rate);
+                n += int(兵器基础维护费 * 2.0f * (pk::get_weapon_amount(building, 兵器_投石)) / rich_rate);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 n += int(兵器基础维护费 * 4.0f * (pk::get_weapon_amount(building, 兵器_楼船)) / rich_rate);
                 n += int(兵器基础维护费 * 6.0f * (pk::get_weapon_amount(building, 兵器_斗舰)) / rich_rate);
 

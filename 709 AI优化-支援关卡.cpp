@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/17 # 江东新风 # 数组越界bug修复 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/02/13 # 江东新风 # 为ai特定城市添加关卡支援 ##
 
 namespace AI优化_关卡支援
@@ -99,7 +104,11 @@ namespace AI优化_关卡支援
 			if (building_sel[0] is null) return false;
 			if (person_sel[0] is null) return false;
 
+<<<<<<< HEAD
 			for (int i = 0; i < 2; ++i)
+=======
+			for (int i = 0; i < building_sel.count; ++i)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				pk::building@ target = @building_sel[i];
 				pk::person@ actor = @person_sel[i];

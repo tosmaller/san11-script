@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
+=======
+﻿// ## 2022/02/17 # 江东新风 # 人口设定调整 ##
+// ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/02/17 # 江东新风 # 城市数惩罚设置上限，调整系数 ##
 // ## 2021/02/12 # 氕氘氚 # 解决港关非所属时收入的问题##
 // ## 2020/12/12 # 江东新风 # 修复trace参数报错 ##
@@ -14,7 +19,11 @@
 namespace GATE_REVENUE
 {
 	const bool  玩家_城市数_惩罚 = true;     // 유저세력에 대해서 도시수에 비례하여 수입 디버프 (도시당 5% 감소)	
+<<<<<<< HEAD
 
+=======
+	const bool  调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	class Main
 	{
 		Main()
@@ -56,14 +65,23 @@ namespace GATE_REVENUE
 			else
 			{
 				n = int(city_revenue * 0.2f * 港关金收入倍率 / 100.f);
+<<<<<<< HEAD
 				//pk::trace("对应城市收入："+ city_revenue + "n:" + n);
+=======
+				if (调试模式) pk::trace("对应城市收入："+ city_revenue + "n:" + n);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				float population_multi = 1.f;
 				if (开启人口系统)
 				{
 					float population = 0;
 					BaseInfo@ base_t = @base_ex[base_id];
+<<<<<<< HEAD
 					population = float(pk::clamp(base_t.population, 5000, 50000));//防止意外情况溢出
 					population_multi = population / 20000.f;
+=======
+					population = float(pk::clamp(base_t.population, 5000, 100000));//防止意外情况溢出
+					population_multi = population / 80000.f;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					//pk::trace(pk::format("{},population", pk::decode(pk::get_name(city)), population));
 				}
 				n = int(n* population_multi);
@@ -81,7 +99,11 @@ namespace GATE_REVENUE
 			else
 				n = int(n * 电脑金收入倍率 / 100.f);
 			/**/
+<<<<<<< HEAD
 
+=======
+			n += base_ex[building.get_id()].revenue_bonus;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 玩家_城市数_惩罚 ('20.8.29)
 			if (玩家_城市数_惩罚 and building.is_player() and !pk::is_campaign())
 			{
@@ -89,7 +111,11 @@ namespace GATE_REVENUE
 				float force_city_count = float(pk::get_city_list(force).count);
 				n = int(n * (1.f - pk::min(0.3f, (force_city_count - 3) * 0.015f)));
 			}
+<<<<<<< HEAD
 			//pk::trace("对应城市收入2：" + city_revenue + "n:" + n);
+=======
+			if (调试模式) pk::trace("对应城市收入2：" + city_revenue + "n:" + n);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			n = pk::clamp(n, int(0.1f * city_revenue), int(0.5f * city_revenue));//港关最高收入为对应城市收入的一半
 			//pk::trace("资金"+n);
 			//ch::debug(2, pk::format("n t ={}", n));

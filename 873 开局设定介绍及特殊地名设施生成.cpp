@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/23 # 江东新风 # 战争迷雾开局时可选开关 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/01/06 # 江东新风 # 根据新的头像设定重设美女头像 ##
 // ## 2021/10/28 # 江东新风 # 单港关存活设定变更,增加对袁家之战,刘备之活跃的支持 ##
 // ## 2021/10/26 # 江东新风 # 打开游戏次数记录##
@@ -63,7 +68,11 @@ namespace 特殊地名设施生成
 			{
 				pk::person@ 貂蝉 = pk::get_person(武将_貂蝉);
 				pk::play_bgm_file(pk::core_dir + "data/media/voice/diaochan/Diaochan6.ogg", false, 60);
+<<<<<<< HEAD
 				pk::message_box(pk::encode(pk::format("这是您\x1b[27x第{}次\x1b[0x打开\x1b[28xbuild 2.4.220201\x1b[0x版本。\n关于此版本，需要占用您一点时间简单介绍下。", pk::get_pk2_2_play_times())), 貂蝉);
+=======
+				pk::message_box(pk::encode(pk::format("这是您\x1b[27x第{}次\x1b[0x打开\x1b[28x{}\x1b[0x版本。\n关于此版本，需要占用您一点时间简单介绍下。", pk::get_pk2_2_play_times(),pk::get_mod_version())), 貂蝉);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				pk::message_box(pk::encode("目前因\x1b[18x决战制霸\x1b[0x及\x1b[18x教学模式\x1b[0x和\x1b[1x新地图不兼容\x1b[0x，按钮已被禁用，另外\x1b[18x情报履历\x1b[0x如选择\x1b[18x简单\x1b[0x将\x1b[1x错过重要游戏提示\x1b[0x，也已被禁用。\n \x1b[22x请勿费神\x1b[0x寻找打开方式。"), 貂蝉);
 				pk::message_box(pk::encode("如遇到开局军师介绍完闪退，系显卡问题，请更换游戏根目录下补丁。"), 貂蝉);
 				pk::message_box(pk::encode("默认情况下\x1b[18x不开启迷雾\x1b[0x。\n如需开启迷雾，请将pk2.2文件夹下的对应core2文件重命名替换原文件。"), 貂蝉);
@@ -71,7 +80,11 @@ namespace 特殊地名设施生成
 			if (pk::get_pk2_2_play_times() == 1000)
 			{
 				pk::person@ 小乔 = pk::get_person(武将_小乔);
+<<<<<<< HEAD
 				pk::message_box(pk::encode("这是您\x1b[27x1000次\x1b[0x打开\x1b[28xbuild 2.4.220214\x1b[0x版本。\n感谢阁下对韩版的厚爱，祝阁下武运昌隆。"), 小乔);
+=======
+				pk::message_box(pk::encode(pk::format("这是您\x1b[27x1000次\x1b[0x打开\x1b[28x{}\x1b[0x版本。\n感谢阁下对韩版的厚爱，祝阁下武运昌隆。",pk::get_mod_version())), 小乔);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			}
 
@@ -84,6 +97,11 @@ namespace 特殊地名设施生成
 				//***************因为为一个武将改剧本麻烦，临时设定*************//
 				pk::person@ person_1 = pk::get_person(武将_太史慈);//太史慈
 				if (pk::decode(pk::get_name(person_1)) == "太史慈") person_1.skill = 239; //
+<<<<<<< HEAD
+=======
+				pk::person@ person_2 = pk::get_person(武将_乐毅);//乐毅
+				if (pk::decode(pk::get_name(person_2)) == "乐毅") person_2.skill = 238; //
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				//如果剧本未载入，就是开局时，将三顾茅庐剧本的单港关存活开启，防止还没选择刘备就灭亡
 				if (check_scenario())
 				{
@@ -144,12 +162,23 @@ namespace 特殊地名设施生成
 				}
 			}
 			
+<<<<<<< HEAD
+=======
+			bool fog_open = (pk::choose({ pk::encode("  是  "), pk::encode("  否  ") }, pk::encode("是否需要挑战\x1b[27x战争迷雾\x1b[0x下游玩?\n(战争迷雾下，敌方部队在视野范围外不可见，难度较高，请谨慎选择。)"), 貂蝉) == 0);
+			pk::set_fog_state(fog_open,false);
+
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			if (自动分配开启) person_list = get_145_person();  //开启此自动分配功能时，获取存活145将的列表
 			if (person_list.count > 0) //如果有145将登场
 			{
 				if (pk::choose({ pk::encode("  是  "), pk::encode("  否  ") }, pk::encode("是否按史实归属自动配置 \x1b[1x「145将」\x1b[0x?\n自动配置武将到史实所属君主旗下,\n已手动配置过归属的,则不会影响."), 貂蝉) == 0)
 				{
+<<<<<<< HEAD
 					pk::trace(pk::format("编号：{}，是否假想：{}", pk::get_scenario().no, pk::get_scenario().virtual));
+=======
+					//pk::trace(pk::format("编号：{}，是否假想：{}", pk::get_scenario().no, pk::get_scenario().virtual));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::get_scenario().debut == 登场_史实)  //武将是史实登场
 					{
 						if (!pk::get_scenario().virtual)
@@ -313,9 +342,15 @@ namespace 特殊地名设施生成
 		void onNewYear()
 		{
 			//加入对三顾剧本单港关存活的开关，超过一年自动关闭
+<<<<<<< HEAD
 			if (pk::get_elapsed_days() >= 360)//36旬为1年---这个函数返回值是一旬返回10天
 			{
 				pk::trace(pk::format("时间大于1年，关闭单港关存活，目前经过天数：{}", pk::get_elapsed_days()));
+=======
+			if (pk::get_elapsed_days() >= 720)//36旬为1年---这个函数返回值是一旬返回10天
+			{
+				//pk::trace(pk::format("时间大于1年，关闭单港关存活，目前经过天数：{}", pk::get_elapsed_days()));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				pk::set_onebase_survive(false);
 				settinginfo@ set0 = @setting_ex;
 				set0.set_port_gate_survive = false;
@@ -459,11 +494,19 @@ namespace 特殊地名设施生成
 				
 				if (!dead_appear && pk::get_scenario().start_year > person_i.death)
 				{
+<<<<<<< HEAD
 					pk::trace(pk::format("被杀死id：{}，名字：{}，身份：{}", person_id, pk::decode(pk::get_name(person_i)), person_i.mibun));
 					pk::kill(person_i,null,null,null,1);  //直接杀死符合条件的人
 					continue;
 				}
 				pk::trace(pk::format("id：{}，名字：{}，身份：{}", person_id, pk::decode(pk::get_name(person_i)), person_i.mibun));
+=======
+					//pk::trace(pk::format("被杀死id：{}，名字：{}，身份：{}", person_id, pk::decode(pk::get_name(person_i)), person_i.mibun));
+					pk::kill(person_i,null,null,null,1);  //直接杀死符合条件的人
+					continue;
+				}
+				//pk::trace(pk::format("id：{}，名字：{}，身份：{}", person_id, pk::decode(pk::get_name(person_i)), person_i.mibun));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				int kunshu_id = -1;  //归属的君主id初始化
 				switch (person_id)
 				{
@@ -737,7 +780,11 @@ namespace 特殊地名设施生成
 
 			/* random_seed += 1;
 			random_seed = random_seed % 7;  //循环加1 */
+<<<<<<< HEAD
 			int random_seed = pk::rand(15, int(pk::get_tick_count()), int(pk::get_tick_count()));
+=======
+			int random_seed = pk::rand(16, int(pk::get_tick_count()), int(pk::get_tick_count()));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			switch (random_seed)
 			{
 				case 0 : pk::message_box(pk::encode("现在\x1b[27x带有地名的设施\x1b[0x将不会被破坏，耐久降为0后将\x1b[1x自动变更归属\x1b[0x。"), 美女); break;
@@ -755,6 +802,10 @@ namespace 特殊地名设施生成
 				case 12: pk::message_box(pk::encode("当\x1b[27x初次接触\x1b[0x敌方部队时（尤其在一些视野受限的地形）需留个心眼，人家或许潜伏着大量部队，只等你上钩呢。让冷静且智商在线的武将打前锋或许是个好主意。"), 美女); break;
 				case 13: pk::message_box(pk::encode("现在敌军进攻时根据情况可能会同时请求一些\x1b[27x异族\x1b[0x势力帮忙，留守兵力太少的话，或许会被异族捡漏哦~"), 美女); break;
 				case 14: pk::message_box(pk::encode("不要以为包围敌军城市就万事大吉了，固守的敌军也可能会使出各种\x1b[27x城市计略\x1b[0x与你周旋的，十则围之，可别阴沟里翻船哦~"), 美女); break;
+<<<<<<< HEAD
+=======
+				case 15: pk::message_box(pk::encode("随人口增加(20万,30万,40万,60万)，城市规模会变大，内政用地数量也会增加~所以一定要善待领地内子民呀!~"), 美女); break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 			
 			//给美女头像和姓名重置

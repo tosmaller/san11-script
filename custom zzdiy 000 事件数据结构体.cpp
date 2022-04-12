@@ -25,18 +25,32 @@ namespace 事件数据结构体 {
       for (int i = 0; i < 武将_末; i++)
       {
         person_event[i].update(i);
+<<<<<<< HEAD
         for (int j = 0; j < (事件武将结构体_uint32数 - 1); j++)
           pk::store(KEY, (KEY_索引_追加_武将起始 + (i * 事件武将结构体_uint32数 + j)), event_person_info_temp[j][i]);
+=======
+        for (int j = 0; j < (武将结构体_uint32数 - 1); j++)
+          pk::store(KEY, (KEY_索引_追加_武将起始 + (i * 武将结构体_uint32数 + j)), event_person_info_temp[j][i]);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
       }
       for (int i = 0; i < 部队_末; i++)
       {
         unit_event[i].update(i);
+<<<<<<< HEAD
         for (int j = 0; j < (事件部队结构体_uint32数 - 1); j++)
           pk::store(KEY, (KEY_索引_追加_部队起始 + (i * 事件部队结构体_uint32数 + j)), event_unit_info_temp[j][i]);
       }
 
       setting_ex.update();
       for (int j = 0; j < (事件设定结构体_uint32数 - 1); j++)
+=======
+        for (int j = 0; j < (部队结构体_uint32数 - 1); j++)
+          pk::store(KEY, (KEY_索引_追加_部队起始 + (i * 部队结构体_uint32数 + j)), event_unit_info_temp[j][i]);
+      }
+
+      setting_ex.update();
+      for (int j = 0; j < (设定结构体_uint32数 - 1); j++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
       {
         pk::store(KEY, (KEY_索引_追加_设定起始 + (j)), event_setting_info_temp[j]);
       }
@@ -68,17 +82,27 @@ namespace 事件数据结构体 {
       {
         for (int i = 0; i < 武将_末; i++)
         {
+<<<<<<< HEAD
           for (int j = 0; j < (事件武将结构体_uint32数 - 1); j++)
             event_person_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_武将起始 + (i * 事件武将结构体_uint32数 + j)), 0));
 
+=======
+          for (int j = 0; j < (武将结构体_uint32数 - 1); j++)
+            event_person_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_武将起始 + (i * 武将结构体_uint32数 + j)), 0));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
           event_personinfo person_t(i);
           person_event[i] = person_t;
         }
         for (int i = 0; i < 部队_末; i++)
         {
+<<<<<<< HEAD
           for (int j = 0; j < (事件部队结构体_uint32数 - 1); j++)
             event_unit_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_部队起始 + (i * 事件部队结构体_uint32数 + j)), 0));
 
+=======
+          for (int j = 0; j < (部队结构体_uint32数 - 1); j++)
+            event_unit_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_部队起始 + (i * 部队结构体_uint32数 + j)), 0));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
           event_unitinfo unit_t(i);
           unit_event[i] = unit_t;
         }

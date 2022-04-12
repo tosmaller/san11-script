@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/27 # 江东新风 # 默认关闭功能 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/24 # 江东新风 # 将pk::add_troops换成ch::add_troops以修正显示错误 ##
 // ## 2021/01/13 #江东新风# 改良算法，修复错误 ##
 // ## 2020/12/12 #江东新风# 修复trace参数类型错误 ##
@@ -27,7 +32,11 @@ namespace 太守_政治效果
 {
 
 	// ================ CUSTOMIZE ================
+<<<<<<< HEAD
 
+=======
+	const bool 开启太守政治效果 = false;//默认关闭，和军师之战部分冲突
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const int 发动时期 = 2;               					// 1: 매월 1일,  2: 매분기 첫달1일,  3: 매년 1월1일
 	const int 发动时期_概率 = 15;           					// 발동 확률 설정 (100은 100% 확률로 발생한다는 의미) 
 
@@ -72,7 +81,11 @@ namespace 太守_政治效果
 	{
 		Main()
 		{
+<<<<<<< HEAD
 			pk::bind(107, pk::trigger107_t(callback));
+=======
+			if(开启太守政治效果) pk::bind(107, pk::trigger107_t(callback));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 		pk::random random(pk::rand());
@@ -125,10 +138,17 @@ namespace 太守_政治效果
 					if (((taishu.stat[武将能力_政治] >= 政治_条件) and (taishu.stat[武将能力_智力] >= 智力_条件)))
 					{
 						ch::add_troops(building, 兵力_上升[pk::rand(3)], true);
+<<<<<<< HEAD
 						pk::add_weapon_amount(building, 병기_창, 兵器_上升[pk::rand(3)], true);
 						pk::add_weapon_amount(building, 병기_극, 兵器_上升[pk::rand(3)], true);
 						pk::add_weapon_amount(building, 병기_노, 兵器_上升[pk::rand(3)], true);
 						pk::add_weapon_amount(building, 병기_군마, 兵器_上升[pk::rand(3)], true);
+=======
+						pk::add_weapon_amount(building, 兵器_枪, 兵器_上升[pk::rand(3)], true);
+						pk::add_weapon_amount(building, 兵器_戟, 兵器_上升[pk::rand(3)], true);
+						pk::add_weapon_amount(building, 兵器_弩, 兵器_上升[pk::rand(3)], true);
+						pk::add_weapon_amount(building, 兵器_战马, 兵器_上升[pk::rand(3)], true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						pk::add_energy(building, 气力_上升[pk::rand(3)], true);
 
 						flag_정치지력 = true;

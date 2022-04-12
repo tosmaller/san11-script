@@ -31,7 +31,11 @@ namespace PRODUCE_TIME_COST
 		{
 			if (!pk::is_valid_equipment_id(weapon_id))
 				return 0;
+<<<<<<< HEAD
 			if (weapon_id < 병기_충차)
+=======
+			if (weapon_id < 兵器_冲车)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				return 0;
 
 			int n = 0, sum = 0, max = 0, skill_id = -1;

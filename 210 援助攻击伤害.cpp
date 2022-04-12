@@ -91,28 +91,44 @@ namespace ASSIST_DAMAGE
 
 				switch (weapon_id)
 				{
+<<<<<<< HEAD
 				case 병기_창:
+=======
+				case 兵器_枪:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예창병))
 						troops_damage *= 정예기교_공격력;
 					else if (pk::has_tech(force, 기교_창병단련))
 						troops_damage *= 단련기교_공격력;
 					break;
 
+<<<<<<< HEAD
 				case 병기_극:
+=======
+				case 兵器_戟:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예극병))
 						troops_damage *= 정예기교_공격력;
 					else if (pk::has_tech(force, 기교_극병단련))
 						troops_damage *= 단련기교_공격력;
 					break;
 
+<<<<<<< HEAD
 				case 병기_노:
+=======
+				case 兵器_弩:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예노병))
 						troops_damage *= 정예기교_공격력;
 					else if (pk::has_tech(force, 기교_노병단련))
 						troops_damage *= 단련기교_공격력;
 					break;
 
+<<<<<<< HEAD
 				case 병기_군마:
+=======
+				case 兵器_战马:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예기병))
 						troops_damage *= 정예기교_공격력;
 					else if (pk::has_tech(force, 기교_기병단련))

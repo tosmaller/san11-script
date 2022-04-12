@@ -32,18 +32,34 @@ namespace SIRE新特技
 
 		void unit_exp(pk::unit@ unit, int type)
 		{
+<<<<<<< HEAD
 			if (unit.type != 부대종류_전투 or unit.stock[11].amount != 0)
+=======
+			if (unit.type != 部队类型_战斗 or unit.stock[11].amount != 0)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				return;
 
 			if (is_strategy_hit(type) and ch::has_skill(unit, 特技_运筹) and pk::rand_bool(运筹触发几率))
 				unit.stock[11].amount = 1;
+<<<<<<< HEAD
 			else if (is_tactics_hit(type) and ch::has_skill(unit, 特技_激励) and pk::rand_bool(100))//激励触发几率))
+=======
+			else if (is_tactics_hit(type) and ch::has_skill(unit, 特技_激励) and pk::rand_bool(激励触发几率))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				unit.stock[11].amount = 1;
 		}
 
 		void unit_action_done(pk::unit@ unit,int type)//type 2是电脑行动结束，0,1是玩家
 		{
+<<<<<<< HEAD
 			if (unit.type != 부대종류_전투 or unit.stock[11].amount != 1)
+=======
+			if (type != 2)
+			{
+				_被袭部队.clear();
+			}
+			if (unit.type != 部队类型_战斗 or unit.stock[11].amount != 1)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				return;
 
 			unit.stock[11].amount = 2;
@@ -54,7 +70,11 @@ namespace SIRE新特技
 			}
 			else
 			{
+<<<<<<< HEAD
 				pk::trace("is_p:"+ unit.is_player()+ ",p_c:"+ pk::is_player_controlled(unit));
+=======
+				//pk::trace("is_p:"+ unit.is_player()+ ",p_c:"+ pk::is_player_controlled(unit));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				pk::set_action_done(unit, false);
 				pk::run_order(unit);
 			}
@@ -66,7 +86,11 @@ namespace SIRE新特技
 			for (int i = 0; i < int(list.length); i++)
 			{
 				pk::unit@ unit = list[i];
+<<<<<<< HEAD
 				if (unit.type == 부대종류_전투)
+=======
+				if (unit.type == 部队类型_战斗)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					unit.stock[11].amount = 0;
 			}
 		}
@@ -332,7 +356,11 @@ namespace SIRE新特技
 
 		void LoopPath(pk::unit@ unit, pk::point pos) {
 
+<<<<<<< HEAD
 			_被袭部队.clear();
+=======
+			if(pk::get_remain_movement(unit) < 4) _被袭部队.clear();
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			auto paths = pk::get_path(unit, unit.pos, pos);
 			for (int i = 0; i < int(paths.length); i++) {
@@ -355,7 +383,10 @@ namespace SIRE新特技
 				pk::unit@ dst = pk::get_unit(arr[j]);
 				if (dst is null)continue;
 				if (_被袭部队.contains(dst))continue;
+<<<<<<< HEAD
 
+=======
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (pk::is_enemy(unit0, dst)) {
 
 					_被袭部队.add(dst);

@@ -64,8 +64,13 @@ const int 耐久防御倍率_陷 = 160;
 const int 耐久防御倍率_内政 = 110;
 const int 耐久防御倍率_提防 = 70;
 
+<<<<<<< HEAD
 const int 耐久防御倍率_强化设施 = 90;
 const int 耐久防御倍率_强化城墙 = 80;
+=======
+const int 耐久防御倍率_强化设施 = 85;
+const int 耐久防御倍率_强化城墙 = 70;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 // 建筑攻击力 ----------------------------------------------------------------
 const int 建筑基础伤害倍率 = 80;   // 전체적인 대미지량을 비율로 조절
@@ -75,11 +80,19 @@ const int 基础攻击力_自动攻击 = 150;
 const int 基础攻击力_城市 = 200;
 const int 基础攻击力_关 = 400;
 const int 基础攻击力_港口 = 200;
+<<<<<<< HEAD
 const int 基础攻击力_阵 = 100;
 const int 基础攻击力_砦 = 200;
 const int 基础攻击力_城塞 = 300;
 const int 基础攻击力_箭楼 = 400;
 const int 基础攻击力_连弩楼 = 600;
+=======
+const int 基础攻击力_阵 = 400;
+const int 基础攻击力_砦 = 600;
+const int 基础攻击力_城塞 = 800;
+const int 基础攻击力_箭楼 = 300;
+const int 基础攻击力_连弩楼 = 500;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 const int 基础攻击力_投石台 = 900;
 
 
@@ -226,28 +239,44 @@ namespace batt
         int kunshu_id = pk::get_kunshu_id(attacker);
         switch (weapon_id)
         {
+<<<<<<< HEAD
         case 병기_창:
+=======
+        case 兵器_枪:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_복양)))
                 return true;
             else if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_완)))
                 return true;
             break;
 
+<<<<<<< HEAD
         case 병기_극:
+=======
+        case 兵器_戟:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_운남)))
                 return true;
             else if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_장사)))
                 return true;
             break;
 
+<<<<<<< HEAD
         case 병기_노:
+=======
+        case 兵器_弩:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_강릉)))
                 return true;
             else if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_회계)))
                 return true;
             break;
 
+<<<<<<< HEAD
         case 병기_군마:
+=======
+        case 兵器_战马:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_양평)))
                 return true;
             else if (kunshu_id == pk::get_kunshu_id(pk::get_building(도시_무위)))
@@ -346,6 +375,7 @@ namespace batt
         switch (unit_hex.terrain)                           // 좌표의 지형
         {
         case 지형_초원:
+<<<<<<< HEAD
             if (weapon_id == 병기_창)   terrain_buf = 0.05f;
             else if (weapon_id == 병기_군마)  terrain_buf = 0.10f;
             break;
@@ -391,6 +421,53 @@ namespace batt
             else if (weapon_id == 병기_극)   terrain_buf = 0.15f;
             else if (weapon_id == 병기_노)   terrain_buf = 0.15f;
             else if (weapon_id == 병기_군마)  terrain_buf = 0.10f;
+=======
+            if (weapon_id == 兵器_枪)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = 0.10f;
+            break;
+        case 지형_땅:
+            if (weapon_id == 兵器_枪)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_弩)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = 0.05f;
+            break;
+        case 지형_모래:
+            if (weapon_id == 兵器_枪)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = 0.05f;
+            break;
+        case 지형_습지:
+            if (weapon_id == 兵器_枪)   terrain_buf = -0.05f;
+            else if (weapon_id == 兵器_戟)   terrain_buf = 0.10f;
+            else if (weapon_id == 兵器_弩)   terrain_buf = -0.05f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = -0.10f;
+            break;
+        case 지형_독천:
+            if (weapon_id == 兵器_枪)   terrain_buf = -0.10f;
+            else if (weapon_id == 兵器_戟)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_弩)   terrain_buf = -0.10f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = -0.15f;
+            break;
+        case 지형_숲:
+            if (weapon_id == 兵器_枪)   terrain_buf = 0.10f;
+            else if (weapon_id == 兵器_戟)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_弩)   terrain_buf = 0.15f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = -0.10f;
+            break;
+        case 지형_황무지:
+            if (weapon_id == 兵器_枪)   terrain_buf = -0.05f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = 0.05f;
+            break;
+        case 지형_대로:
+            if (weapon_id == 兵器_枪)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_戟)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_弩)   terrain_buf = 0.05f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = 0.05f;
+            break;
+        case 지형_산:
+            if (weapon_id == 兵器_枪)   terrain_buf = 0.15f;
+            else if (weapon_id == 兵器_戟)   terrain_buf = 0.15f;
+            else if (weapon_id == 兵器_弩)   terrain_buf = 0.15f;
+            else if (weapon_id == 兵器_战马)  terrain_buf = 0.10f;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             break;
         }
 
@@ -454,7 +531,11 @@ namespace batt
             pk::point attacker_pos = attacker.get_pos();
             pk::point target_pos = target.get_pos();
 
+<<<<<<< HEAD
             if (target.weapon == 병기_극)
+=======
+            if (target.weapon == 兵器_戟)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 if (target.has_tech(기교_화살방패))
                 {
@@ -569,7 +650,11 @@ namespace batt
         int a = 0;
         if (pk::is_alive(attacker) and pk::is_alive(target))
         {
+<<<<<<< HEAD
             if (attacker.weapon == 병기_창 and attacker.has_tech(기교_병량습격))
+=======
+            if (attacker.weapon == 兵器_枪 and attacker.has_tech(기교_병량습격))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 a += int(ch::randfloat(1, 2) * attacker.attr.stat[部队能力_攻击]);
             if (ch::has_skill(attacker, 特技_截粮))
                 a += int(截粮系数 * target.food / 100.f);
@@ -686,7 +771,11 @@ namespace batt
     // 核心：耐久伤害量计算函数 （合?  func_5aeff0 非兵器 & func_5af050 兵器）
     float get_hp_damage(int weapon, int src_atk, int src_troops, int tactics_atk, int buffed)
     {
+<<<<<<< HEAD
         if (weapon == 병기_충차 or weapon == 병기_목수)
+=======
+        if (weapon == 兵器_冲车 or weapon == 兵器_木兽)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         {
             src_troops = pk::max(src_troops, 1);
             float a = sqrt(src_atk * src_atk / 15.f);
@@ -1019,7 +1108,11 @@ namespace batt
         if (attacker.is_player())
             troops_damage *= float(pk::core["damage_penalty"][pk::get_scenario().difficulty]);
         // 技巧防御强化修正
+<<<<<<< HEAD
         if (attacker.has_tech(기교_방어강화) and attacker.facility >= 시설_도시 and attacker.facility <= 시설_성채)
+=======
+        if (attacker.has_tech(기교_방어강화) and attacker.facility >= 设施_都市 and attacker.facility <= 设施_港口)//直接限制为据点
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             troops_damage *= 防御强化建筑伤害倍率 / 100.f;
         // 伤害倍率
         troops_damage *= 建筑基础伤害倍率 / 100.f;

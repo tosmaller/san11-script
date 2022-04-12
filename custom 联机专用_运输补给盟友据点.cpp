@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// ## 2022/03/17 # 江东新风 # 限制对空白据点的补给 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 /***CUSTOM
 @name 联机专用_运输补给盟友据点
 @class 联机；运输
@@ -8,6 +12,12 @@
 @desc 运输队可以将全部兵力资源补给到盟友据点。
 @notice 
 ***/
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 namespace 联机专用_运输补给盟友据点
 {
     // 常量 --------------------------------------------------
@@ -57,6 +67,10 @@ namespace 联机专用_运输补给盟友据点
                 @building_ = pk::get_building(points[i]);
                 if (building_ is null || building_.facility > 2)
                     continue;
+<<<<<<< HEAD
+=======
+                if (building_.get_force_id() == -1) continue;//加入空白据点限制
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 if (!pk::is_enemy(unit_, building_) && unit_.get_force_id() != building_.get_force_id()){
                     return true;
                 }

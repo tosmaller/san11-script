@@ -21,8 +21,13 @@ namespace 募兵
 	// ================ CUSTOMIZE ================
 
 	const int TP_COST = 100; 	 // 기교P 필요량
+<<<<<<< HEAD
 	const int ACTION_COST = 50;  // 행동력 필요량
 	const int GOLD_COST = 600;
+=======
+	const int ACTION_COST = 20;  // 행동력 필요량
+	const int GOLD_COST = 200;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const int energy_ = 10; 	 // 기력 상승 수치
 	const int 募兵倍率 = 100;
 
@@ -212,8 +217,13 @@ namespace 募兵
 			// 기교 감소 및 병력, 기력 상승.
 
 			ch::add_tp(pk::get_force(building0.get_force_id()), -TP_COST, building0.get_pos());
+<<<<<<< HEAD
 			if (开启人口系统) ch::add_troops(building0, troops_, true,105);//募兵消耗总兵役人口
 			else  ch::add_troops(building0, troops_, true);
+=======
+			if (开启人口系统) troops_ = ch::add_troops(building0, troops_, true,105);//募兵消耗总兵役人口
+			else  troops_ = ch::add_troops(building0, troops_, true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::add_energy(building0, energy_, true);
 			if (pk::is_player_controlled(building0))
 			{
@@ -224,9 +234,15 @@ namespace 募兵
 			// 행동력 감소.
 			auto district = pk::get_district(building0.get_district_id());
 			pk::add_ap(district, -ACTION_COST);
+<<<<<<< HEAD
 
 			base_ex[building0.get_id()].enlist_done = true;
 			person_sel[0].action_done == true;
+=======
+			pk::add_gold(building0, -GOLD_COST,true);
+			base_ex[building0.get_id()].enlist_done = true;
+			person_sel[0].action_done = true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			return true;
 

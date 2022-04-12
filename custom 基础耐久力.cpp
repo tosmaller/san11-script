@@ -106,9 +106,15 @@ namespace 거점내구
 			//관문
 			if (gate_hp_mode == 2 or gate_hp_mode == 3)
 			{
+<<<<<<< HEAD
 				for (int j = 건물_관문시작; j < 건물_관문끝; j++)
 				{
 					int gate_num = j - 건물_관문시작;
+=======
+				for (int j = 建筑_关卡开始; j < 건물_관문끝; j++)
+				{
+					int gate_num = j - 建筑_关卡开始;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					@gate_ = pk::get_gate(gate_num);
 					@building_ = pk::get_building(j);
 					if (gate_hp_mode == 2)
@@ -129,7 +135,11 @@ namespace 거점내구
 			//항구
 			if (port_hp_mode == 2 or port_hp_mode == 3)
 			{
+<<<<<<< HEAD
 				for (int k = 건물_항구시작; k < 건물_항구끝; k++)
+=======
+				for (int k = 건물_항구시작; k < 建筑_港口末; k++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					int port_num = k - 건물_항구시작;
 					@port_ = pk::get_port(port_num);
@@ -176,9 +186,15 @@ namespace 거점내구
 					}
 
 					//관문
+<<<<<<< HEAD
 					if (building_num >= 건물_관문시작 and building_num < 건물_관문끝 and gate_hp_mode == 1)
 					{
 						int gate_num = building_num - 건물_관문시작;
+=======
+					if (building_num >= 建筑_关卡开始 and building_num < 건물_관문끝 and gate_hp_mode == 1)
+					{
+						int gate_num = building_num - 建筑_关卡开始;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						@gate_ = pk::get_gate(gate_num);
 						@building_ = pk::get_building(building_num);
 						gate_.max_hp = building_hp;
@@ -188,7 +204,11 @@ namespace 거점내구
 					}
 
 					//항구
+<<<<<<< HEAD
 					if (building_num >= 건물_항구시작 and building_num < 건물_항구끝 and port_hp_mode == 1)
+=======
+					if (building_num >= 건물_항구시작 and building_num < 建筑_港口末 and port_hp_mode == 1)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						int port_num = building_num - 건물_항구시작;
 						@port_ = pk::get_port(port_num);

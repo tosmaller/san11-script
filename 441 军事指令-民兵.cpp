@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// ## 2022/03/28 # 江东新风 # 尝试修复run_order空指针 ##			
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/12/06 # 江东新风 # 写法改进，ai用法改进 ##			
 // ## 2021/04/11 # 白马叔叔 # AI民兵 ##											 
 // ## 2021/03/06 # 江东新风 # 民兵削弱 ##
@@ -184,7 +188,11 @@ namespace 民兵_召唤
 		{
 			if (cmd == 据点AI_民兵)
 			{
+<<<<<<< HEAD
 				if (run_order_before(building)) run_order(building, false);
+=======
+				if (run_order_before(building)) { pk::trace("ai执行民兵召唤"); run_order(building, false); }
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				else if (调试模式) pk::trace("据点AI_民兵 不满足");
 			}
 		}
@@ -197,6 +205,10 @@ namespace 民兵_召唤
 
 		bool run_order(pk::building@building, bool is_player = true)
 		{
+<<<<<<< HEAD
+=======
+			if (!pk::is_alive(building)) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::person@ farmer = getEmptyPerson_农民();//前面判断过了
 
 			auto emptyPos = getEmptyPos(building);
@@ -390,6 +402,11 @@ namespace 民兵_召唤
 				
 				if (building_t.is_player())
 					continue;  //跳过玩家地盘
+<<<<<<< HEAD
+=======
+				if (pk::is_player_controlled(building_t))
+					continue;  //跳过玩家地盘
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (!pk::enemies_around(building_t))
 					continue;  //跳过非交战
 				if (building_t.get_force_id() == -1)
@@ -404,7 +421,11 @@ namespace 民兵_召唤
 
 				if (pk::get_gold(building_t) < GOLD_COST)
 					continue;  //跳过资金不足
+<<<<<<< HEAD
 
+=======
+				pk::trace("事件时，ai执行民兵召唤");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				run_order(building_, false);
 
 			}

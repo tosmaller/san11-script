@@ -51,6 +51,20 @@ namespace 事件_三让徐州
 		
 		void func_信息显示_事件()
 		{
+<<<<<<< HEAD
+=======
+			/*
+			int widget_id = pk::get_focused_widget_id();
+			//pk::trace("widget_id" + widget_id);
+			if (widget_id == 6293)
+			{
+				pk::trace("widget_id" + widget_id);
+				pk::point rightup = pk::point(int(pk::get_resolution().width) - 330, 75 + (11) * 20);
+				pk::point leftdown = pk::point(int(pk::get_resolution().width) - 330 + 32, 75 + (11) * 20 + 40);
+				auto rect = pk::rectangle(rightup, leftdown);
+				pk::draw_face(FACE_SMALL, 武将_诸葛亮, rect, FACE_R);
+			}*/
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			if (!show_info) return;
 
 
@@ -131,7 +145,11 @@ namespace 事件_三让徐州
 				{
 					info_事件信息 = 获取任务条件_相同势力(); 
 					show_info = true;
+<<<<<<< HEAD
 					if (true)//check_all_同势力())
+=======
+					if (check_all_同势力())
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						start_event = pk::yes_no(pk::encode("满足事件条件，是否执行\x1b[2x三让徐州\x1b[0x?"));
 						if (start_event)

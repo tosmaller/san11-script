@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/11/18 # 江东新风 # 为ai添加对应计谋执行 ##
+=======
+﻿// ## 2022/03/26 # 江东新风 # run_order相关bug修复 ##
+// ## 2021/11/18 # 江东新风 # 为ai添加对应计谋执行 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/11/15 # 江东新风 # 使用计略成功率计算方法来计算据点计略成功率，加入失败动画,调整范围,每只部队分别计算成功率 ##
 // ## 2020/12/12 # 江东新风 # 修复trace参数报错 ##
 // ## 2020/09/30 # 江东新风 # 港关计略city指针错误修复 ##
@@ -178,9 +183,17 @@ namespace 据点计略_镇静
 			int count = 0;
 			for (int j = 0; j < int(arr.length); j++)
 			{
+<<<<<<< HEAD
 				pk::unit@ dst_unit = pk::get_unit(arr[j]);
 
 				if (dst_unit is null or dst_unit.status == 部队状态_通常 or pk::is_enemy(building_, dst_unit)) continue;
+=======
+				auto hex = pk::get_hex(arr[j]);
+				if (!hex.has_unit) continue;
+				pk::unit@ dst_unit = pk::get_unit(arr[j]);
+
+				if (dst_unit is null or dst_unit.status == 部队状态_通常 or pk::is_enemy(building0, dst_unit)) continue;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 				//成功率里已经有对应特技效果了
 				//if (dst_unit.has_skill(특기_침착) or dst_unit.has_skill(특기_명경) or dst_unit.has_skill(특기_통찰) or dst_unit.has_skill(특기_신산)) continue;

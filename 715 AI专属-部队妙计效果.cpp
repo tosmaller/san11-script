@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// ## 2021/03/03 # 江东新风 # 兵力条件 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/02/16 # 江东新风 # 调整默认发动几率为10% ##
 // ## 2021/02/12 # 氕氘氚 # 适配kre参数自定义 ##
 // ## 2020/12/12 # 江东新风 # 修复trace参数报错 ##
@@ -90,7 +94,11 @@ namespace 부대묘책효과_AI
 				pk::point pos = src_unit.get_pos();
 				//pk::trace(pk::format("{}的部队妙计判断",pk::decode(pk::get_name(src_unit))));
 
+<<<<<<< HEAD
 				if (only_AI_unit(src_unit) && src_unit.status == 部队状态_通常 && src_unit.energy > 气力条件)
+=======
+				if (only_AI_unit(src_unit) && src_unit.status == 部队状态_通常 && src_unit.energy >= 气力条件 && src_unit.troops >= 部队妙计_兵力条件)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					//pk::trace(pk::format("{}的部队可以执行部队妙计",pk::decode(pk::get_name(src_unit))));
 

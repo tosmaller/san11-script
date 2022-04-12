@@ -39,7 +39,11 @@ namespace 휴양
 		pk::person@ merchant;
 		pk::person@ boy;
 		pk::person@ farmer;
+<<<<<<< HEAD
 		uint16 building_gold;
+=======
+		int building_gold;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		pk::random random(pk::rand());
 
 		Main()

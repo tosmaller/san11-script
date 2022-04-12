@@ -5,7 +5,11 @@ namespace AI优化_流言
     // ================ CUSTOMIZE ================
     const int 报复范围 = 2;//城市距离多少的ai会来报复
     // ===========================================
+<<<<<<< HEAD
 
+=======
+    const bool 调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
     class Main
     {
         Main()
@@ -84,7 +88,11 @@ namespace AI优化_流言
                                         {
                                             
                                             setting_ex.rumor_timer -= 1;
+<<<<<<< HEAD
                                             pk::trace(pk::format("满足条件，执行报复,报复武将id：{},报复计数：{}", person_list[k].get_id(), setting_ex.rumor_timer));
+=======
+                                            if (调试模式) pk::trace(pk::format("满足条件，执行报复,报复武将id：{},报复计数：{}", person_list[k].get_id(), setting_ex.rumor_timer));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                                             pk::rumor_cmd_info cmd_draft;
                                             @cmd_draft.base = building;
                                             @cmd_draft.actor = person_list[k];

@@ -35,7 +35,11 @@ namespace 도시시세흥정
 		pk::person@ taishu;
 		pk::person@ actor;
 		pk::person@ merchant;
+<<<<<<< HEAD
         uint16 building_gold;
+=======
+        int building_gold;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         uint8 currency;
         int debate_result;
         array<int> arr_stat = {65, 70, 70, 75, 75, 75, 80, 80, 85, 90};

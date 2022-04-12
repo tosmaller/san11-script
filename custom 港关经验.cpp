@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2020/12/24 # 江东新风 # 修复trace参数报错 ##
+=======
+﻿// ## 2022/03/27 # 江东新风 # 降低经验获得频率 ##
+// ## 2020/12/24 # 江东新风 # 修复trace参数报错 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2020/11/10 # messi # 搬运naver武将在港关及其范围内防守会获得经验 ##
 namespace 수비경험치
 {
@@ -22,20 +27,35 @@ namespace 수비경험치
     {
         Main()
         {
+<<<<<<< HEAD
             pk::bind(107, pk::trigger107_t(onNewDay));
         }
 
         void onNewDay()     // 턴별
+=======
+            pk::bind(108, pk::trigger108_t(onNewMonth));
+        }
+
+        void onNewMonth()     // 턴별
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         {
             // 게임시작시에는 발동안함
             if (pk::get_elapsed_days() <= 0) return;
 
             // 거점_관문
+<<<<<<< HEAD
             for (int i = 건물_관문시작; i < 건물_관문끝; i++)
                 func_building_effect(pk::get_building(i), 효과_관문설정);
 
             // 거점_항구
             for (int i = 건물_항구시작; i < 건물_항구끝; i++)
+=======
+            for (int i = 建筑_关卡开始; i < 건물_관문끝; i++)
+                func_building_effect(pk::get_building(i), 효과_관문설정);
+
+            // 거점_항구
+            for (int i = 건물_항구시작; i < 建筑_港口末; i++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 func_building_effect(pk::get_building(i), 효과_항구설정);
 
         }
@@ -65,6 +85,7 @@ namespace 수비경험치
                         pk::person@ person = list[i];
                         if (!pk::is_unitize(person) and !pk::is_absent(person))
                         {
+<<<<<<< HEAD
                             person.stat_exp[0] = person.stat_exp[0] + exp_0;
                             person.stat_exp[1] = person.stat_exp[1] + exp_1;
 
@@ -72,6 +93,15 @@ namespace 수비경험치
                             {
                                 person.stat_exp[0] = person.stat_exp[0] + 2;
                                 person.stat_exp[1] = person.stat_exp[1] + 2;
+=======
+                            pk::add_stat_exp(person, 武将能力_统率, exp_0);
+                            pk::add_stat_exp(person, 武将能力_武力, exp_1);
+
+                            if (pk::enemies_around(building))
+                            {
+                                pk::add_stat_exp(person, 武将能力_统率, 2);
+                                pk::add_stat_exp(person, 武将能力_武力, 2);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                             }
                         }
                     }

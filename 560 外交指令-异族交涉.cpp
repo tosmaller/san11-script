@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+// ## 2022/03/22 # 江东新风 # 修正异族请求发生率及保护期 ##
+// ## 2022/03/21 # 江东新风 # 异族身份异常bug ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
 // ## 2022/02/07 # 江东新风 # 在野贼兵修复，部分贼兵被异常清除bug ##
 // ## 2022/01/29 # 江东新风 # 反复请求bug,势力被灭时清空相关请求 ##
@@ -39,9 +44,15 @@ namespace 外交指令_异族交涉
 	const int 异族请求单挑率 = 30; //只有达到接近预期价格时才会判断概率
 	//const int ai请求异族发生率 = 8;
 	//const int ai请求贼军发生率 = 5;
+<<<<<<< HEAD
 	const int ai请求发生率 = 3;//原来为3，为配合协同进攻，适当降低基础概率至2
 	const int 不耐烦次数 = 4;  //多次错误异族不耐烦的限制，防止反复循环
 	const int 异族请求保护期 = 8;//游戏开始前n个月不发生ai请求，默认4
+=======
+	const int ai请求发生率 = 1;//原来为3，为配合协同进攻，适当降低基础概率至2
+	const int 不耐烦次数 = 4;  //多次错误异族不耐烦的限制，防止反复循环
+	const int 异族请求保护期 = 10;//6;//游戏开始前n个月不发生ai请求，默认4
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const array<int> 协同请求发生率 = { /*初级难度*/15, /*上级难度*/35,/*超级难度*/70 };	// 数字表示发生概率
 
 
@@ -461,7 +472,11 @@ namespace 外交指令_异族交涉
 				{
 					pk::building@ target_building = pk::get_building(unit.target);
 					//确认目标是玩家
+<<<<<<< HEAD
 					if (target_building.is_player() and pk::rand_bool(100))//协同请求发生率[pk::get_scenario().difficulty]))
+=======
+					if (target_building.is_player() and pk::rand_bool(协同请求发生率[pk::get_scenario().difficulty]))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					{
 						//储存相关信息，以便ai和异族交涉
 						//需储存目标据点，ai势力id，预计到达时间
@@ -648,7 +663,11 @@ namespace 外交指令_异族交涉
 						if (city_city.first != -1)
 						{
 							AI_异族入侵_执行(city_city.first, city_city.second, 46);
+<<<<<<< HEAD
 							pk::trace(pk::format("ai提出请求城市id：{}, 目标城市id：{}, 异族势力id:46", city_city.first, city_city.second));
+=======
+							if (调试模式) pk::trace(pk::format("ai提出请求城市id：{}, 目标城市id：{}, 异族势力id:46", city_city.first, city_city.second));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						}
 					}
 					if (pk::rand_bool(ai请求异族发生率))
@@ -657,7 +676,11 @@ namespace 外交指令_异族交涉
 						if (city_city_force.first != -1)
 						{
 							AI_异族入侵_执行(city_city_force.first, city_city_force.second, city_city_force.third);
+<<<<<<< HEAD
 							pk::trace(pk::format("ai提出请求城市id：{}, 目标城市id：{}, 异族势力id:{}", city_city_force.first, city_city_force.second, city_city_force.third));
+=======
+							if (调试模式) pk::trace(pk::format("ai提出请求城市id：{}, 目标城市id：{}, 异族势力id:{}", city_city_force.first, city_city_force.second, city_city_force.third));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						}
 					}*/
 				}
@@ -1691,7 +1714,12 @@ namespace 外交指令_异族交涉
 		{
 			int person_id = 敌部队_武将[bandit_person_index][bandit_force_index];
 			pk::person@ bandit_person = pk::create_bandit(pk::get_person(person_id));
+<<<<<<< HEAD
 			if (person_id == 武将_盗贼) pk::set_mibun(bandit_person,身份_一般); //防止出现在野贼兵
+=======
+			if (bandit_person.mibun == 身份_在野) pk::set_mibun(bandit_person,身份_一般); //防止出现在野贼兵
+			//原版正常出贼都是有所属有所在的，所属为根据地(生成时，实际上打破根据地不会让贼将队消失)，所在为部队
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			pk::set_district(bandit_person, bandit_force_id);
 			bandit_person.base_stat[武将能力_统率] = func_数组_范围_随机值(敌将统率[bandit_person_index][bandit_force_index]);
@@ -2076,7 +2104,11 @@ namespace 外交指令_异族交涉
 					else if (src_building_id < 建筑_港口末)
 					{
 						pk::port @ src_port = pk::get_port(src_building_id - 建筑_关卡末);
+<<<<<<< HEAD
 						pk::trace("bandit_force_index" + bandit_force_index + "current_period" + current_period + "src_building_id" + src_building_id);
+=======
+						if (调试模式) pk::trace("bandit_force_index" + bandit_force_index + "current_period" + current_period + "src_building_id" + src_building_id);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						if (src_port.gold > 异族军费_AI[bandit_force_index][current_period])
 							src_port.gold -= 异族军费_AI[bandit_force_index][current_period];
 						else src_port.gold = 100;

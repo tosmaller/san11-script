@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿// ## 2021/11/30 # 江东新风 # 基本完工 ##
+=======
+﻿// ## 2022/03/28 # 江东新风 # 数组越界修复2，尝试修复复制人 ##
+// ## 2022/03/23 # 江东新风 # 数组越界修复 ##
+// ## 2021/11/30 # 江东新风 # 基本完工 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/11/25 # 江东新风 # 重新新写的外交战争 ##
 /*
 包含内容
@@ -351,7 +357,11 @@ namespace 新外交战争
 			if (pk::is_valid_base_id(target_base_t)) return true;
 			return false;
 		}
+<<<<<<< HEAD
 
+=======
+		//此处出征应考虑是否出现复制武将（影武者）bug
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		void run_order(pk::ai_context@ context, pk::building@ building, int target_base_t)
 		{
 			//对目标城市进行攻击，出征部队数最多10？，出征部队自动优化？(先获取统武总和最高的武将作为主将，然后优化)
@@ -362,9 +372,15 @@ namespace 新外交战争
 			district.ap = 255;
 			context.ap = 255;
 			pk::ai_context_base@ base = context.base[building_id];
+<<<<<<< HEAD
 			pk::list<pk::person@> person_list = pk::get_idle_person_list(building);
 			if (person_list.count == 0) return;
 			person_list.sort(function(a, b)
+=======
+			
+			if (context.idle_person.count == 0) return;
+			context.idle_person.sort(function(a, b)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				return ((a.stat[武将能力_统率] + a.stat[武将能力_武力]) > (b.stat[武将能力_统率] + b.stat[武将能力_武力])); // 무장 정렬 (지력순)
 			});
@@ -373,33 +389,73 @@ namespace 新外交战争
 			int marched_unit_count = 0;
 			array<int> route_type = ai出征优化::get_target_base_route_type(building_id, target_base_t);
 			if (调试模式) pk::trace("据点" + pk::get_new_base_name(building_id) + "执行出征");
+<<<<<<< HEAD
 			while (building.get_troops() > 15000 and person_count > 3 and marched_unit_count < 10 and i < person_list.count)
+=======
+			while (building.get_troops() > 15000 and person_count > 3 and marched_unit_count < 10 and i < context.idle_person.count)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				
 				pk::com_march_cmd_info cmd_draft;
 				@cmd_draft.base = @building;
 				cmd_draft.type = 部队类型_战斗;
+<<<<<<< HEAD
 				cmd_draft.member[0] = person_list[i].get_id();
 				if (pk::get_gold(building) > 3000) cmd_draft.gold = 1000;
 				else cmd_draft.gold = 0;
 				if (person_list[i].stat[武将能力_统率] > 79 or person_list[i].stat[武将能力_武力] > 79) cmd_draft.troops = pk::get_command(person_list[i]);
+=======
+				cmd_draft.member[0] = context.idle_person[i].get_id();
+				if (pk::get_gold(building) > 3000) cmd_draft.gold = 1000;
+				else cmd_draft.gold = 0;
+				if (context.idle_person[i].stat[武将能力_统率] > 79 or context.idle_person[i].stat[武将能力_武力] > 79) cmd_draft.troops = pk::get_command(context.idle_person[i]);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				else cmd_draft.troops = 5000;
 				cmd_draft.food = 2 * cmd_draft.troops;
 				cmd_draft.order = 部队任务_征服;
 				cmd_draft.target_pos = pk::get_building(target_base_t).pos;
 				ai出征优化::modify_food(cmd_draft, building_id, target_base_t);
 				pk::list<pk::person@> list;
+<<<<<<< HEAD
 				list.add(person_list[i]);
+=======
+				list.add(context.idle_person[i]);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				cmd_draft.weapon_id[0] = ai出征优化::get_best_weapon(list, 兵器_剑, building, 1/*攻击*/);
 				cmd_draft.weapon_amount[0] = get_best_weapon_amount(building, cmd_draft.weapon_id[0], cmd_draft.troops);
 				//水军设定还得改---根据连接匹配副将，连接点带海洋需要高级舰船
 				ai出征优化::modify_normal_deputy(cmd_draft, list, target_base_t);//需要更新list
+<<<<<<< HEAD
 				if (cmd_draft.member[1] != -1) 
 				{ person_list.remove_at(person_list.index_of(pk::get_person(cmd_draft.member[1]))); 
 				list.add(pk::get_person(cmd_draft.member[1])); }
 				if (cmd_draft.member[2] != -1) 
 				{ person_list.remove_at(person_list.index_of(pk::get_person(cmd_draft.member[2]))); 
 				list.add(pk::get_person(cmd_draft.member[2])); }
+=======
+				if (pk::is_valid_person_id(cmd_draft.member[1])) 
+				{
+					auto t_person = pk::get_person(cmd_draft.member[1]);
+					int index = context.idle_person.index_of(t_person);
+					if (index > -1 and index < context.idle_person.count)
+					{
+						context.idle_person.remove_at(index); //此处报错(399): __core__(3991): pos >= 0 && pos < self->size
+						list.add(t_person);
+					}
+
+				}
+				if (pk::is_valid_person_id(cmd_draft.member[2]))
+				{
+					auto t_person = pk::get_person(cmd_draft.member[2]);
+					int index = context.idle_person.index_of(t_person);
+					if (index > -1 and index < context.idle_person.count)
+					{
+						context.idle_person.remove_at(index); //此处报错(399): __core__(3991): pos >= 0 && pos < self->size
+						list.add(t_person);
+					}
+
+				}
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				int sea_weapon = 兵器_楼船;
 				if (pk::has_tech(context.force, 技巧_投石开发)) sea_weapon = 兵器_斗舰;
 				if (get_best_heishu(list, 兵器_楼船) > 适性_B) { cmd_draft.weapon_id[1] = sea_weapon; cmd_draft.weapon_amount[1] = 1; }
@@ -629,8 +685,13 @@ namespace 新外交战争
 			{
 				if (force_ex[i].alliance_id == alliance_id)
 				{
+<<<<<<< HEAD
 					force_ex[member_arr[i]].alliance_id = 255;
 					force_ex[member_arr[i]].attack_delay = 255;
+=======
+					force_ex[i].alliance_id = 255;
+					force_ex[i].attack_delay = 255;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 			}
 			setting_ex.alliance_leader_id[alliance_id] = 255;

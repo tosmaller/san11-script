@@ -69,11 +69,6 @@
         <li class="level1"><a href="#page_event_details">说明</a></li>
         <li class="level1"><a href="#page_event_list">目录</a>
           <ul>
-            <li class="level2"><a href="#page_event_50">50 武将列传</a></li>
-            <li class="level2"><a href="#page_event_51">51 部队战法无视地形（巧变）</a></li>
-            <li class="level2"><a href="#page_event_52">52 建筑破坏不损失资源（清野）</a></li>
-            <li class="level2"><a href="#page_event_53">53 战法消耗气力（百战）</a></li>
-            <li class="level2"><a href="#page_event_54">54 部队攻击范围（神臂）</a></li>
             <li class="level2"><a href="#page_event_100">100 首页标题画面</a></li>
             <li class="level2"><a href="#page_event_101">101 游戏结束</a></li>
             <li class="level2"><a href="#page_event_102">102 剧本初始化</a></li>
@@ -110,111 +105,6 @@
       </ul>
       <h1><a class="anchor" id="page_event_list"></a>
         目录</h1>
-      <h2><a class="anchor" id="page_event_50"></a>
-        50 武将列传</h2>
-      <p>void trigger50_t(int person_id, string& str);
-        <br />
-        <br />
-        用于设置武将列传
-      </p>
-      <dl class="params"><dt>参数</dt>
-        <dd>
-          <table class="params">
-            <tr>
-              <td class="paramname">person_id</td>
-              <td>武将Id, 可通过<a href="../300%20S11KR常量.cpp" target="_blank">300 S11KR常量.cpp</a>查看</td>
-            </tr>
-            <tr>
-              <td class="paramname">str</td>
-              <td>列传文本</td>
-            </tr>
-          </table>
-        </dd>
-      </dl>
-      <h2><a class="anchor" id="page_event_51"></a>
-        51 部队战法无视地形（巧变）</h2>
-      <p>bool trigger51_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a> unit);
-        <br />
-        <br />
-        可设置部队战法无视地形的条件，用于实现巧变效果。
-        <br />
-        返回是否战法无视地形。
-      </p>
-      <dl class="params"><dt>参数</dt>
-        <dd>
-          <table class="params">
-            <tr>
-              <td class="paramname">unit</td>
-              <td>部队</td>
-            </tr>
-          </table>
-        </dd>
-      </dl>
-      <h2><a class="anchor" id="page_event_52"></a>
-        52 建筑破坏不损失资源（清野）</h2>
-      <p>bool trigger52_t(<a class="el" href="structpk_1_1city.html" title="城市 ">pk::city@</a> city);
-        <br />
-        <br />
-        可设置建筑破坏后不损失资源的条件，用于实现清野效果。
-        <br />
-        返回是否建筑破坏后不损失资源。
-      </p>
-      <dl class="params"><dt>参数</dt>
-        <dd>
-          <table class="params">
-            <tr>
-              <td class="paramname">city</td>
-              <td>城市</td>
-            </tr>
-          </table>
-        </dd>
-      </dl>
-      <h2><a class="anchor" id="page_event_53"></a>
-        53 战法消耗气力（百战）</h2>
-      <p>bool trigger53_t(<a class="el" href="structpk_1_1unit.html" title="部队">pk::unit@</a> unit, <a class="el" href="structpk_1_1tactics.html" title="战法">pk::tactics@</a> tactics, int type);
-        <br />
-        <br />
-        可设置战法实际消耗气力，用于实现清野效果。
-        <br />
-        返回战法最终消耗气力。
-      </p>
-      <dl class="params"><dt>参数</dt>
-        <dd>
-          <table class="params">
-            <tr>
-              <td class="paramname">unit</td>
-              <td>部队</td>
-            </tr>
-            <tr>
-              <td class="paramname">tactics</td>
-              <td>战法</td>
-            </tr>
-            <tr>
-              <td class="paramname">type</td>
-              <td>
-                <table class="doxtable">
-                  <tr>
-                    <th>值</th>
-                    <th>说明 </th>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>显示</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>需要</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>实际</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </dd>
-      </dl>
       <h2><a class="anchor" id="page_event_100"></a>
         100 首页标题画面</h2>
       <p>void trigger100_t(); </p>

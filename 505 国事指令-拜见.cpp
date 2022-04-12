@@ -53,15 +53,26 @@ namespace 알현
 
 	const int energy_1 = 50; // 후한황제에게서 작위 대신에 얻는 이익 (기력 상승)
 	const int safety_1 = 50; // 후한황제에게서 작위 대신에 얻는 이익 (치안 상승)
+<<<<<<< HEAD
 	const int weapon_10 = 10000; // 후한황제에게서 작위 대신에 얻는 이익 (병기_창)
 	const int weapon_11 = 10000; // 후한황제에게서 작위 대신에 얻는 이익 (병기_극)
 	const int weapon_12 = 10000; // 후한황제에게서 작위 대신에 얻는 이익 (병기_노)
+=======
+	const int weapon_10 = 10000; // 후한황제에게서 작위 대신에 얻는 이익 (兵器_枪)
+	const int weapon_11 = 10000; // 후한황제에게서 작위 대신에 얻는 이익 (兵器_戟)
+	const int weapon_12 = 10000; // 후한황제에게서 작위 대신에 얻는 이익 (兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const int gold_2 = 10000; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (금)
 	const int food_2 = 20000; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (병량)
 	const int troops_2 = 10000; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (병력)
+<<<<<<< HEAD
 	const int weapon_2 = 10000; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (병기_군마)
 	const int energy_2 = 50; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (병기_군마)
+=======
+	const int weapon_2 = 10000; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (兵器_战马)
+	const int energy_2 = 50; // 동탁, 이각, 곽사가 <군주>인 경우, 알현으로 얻는 이익 설정 (兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const int city_1 = 3; // 동탁, 이각, 곽사가 <군주>인 경우, 작위가 '공' 미만 이벤트 조건 (도시 보유)
 	const int city_2 = 5; // 동탁, 이각, 곽사가 <군주>인 경우, 작위가 '공' 이상 이벤트 조건 (도시 보유)
 
@@ -227,7 +238,11 @@ namespace 알현
 				pk::message_box(pk::encode(pk::format("士兵增加了\x1b[1x{}\x1b[0x.", troops_2)));
 				ch::add_troops(city_, troops_2, true);
 				pk::message_box(pk::encode(pk::format("武器军备增加了\x1b[1x{}\x1b[0x.", weapon_2)));
+<<<<<<< HEAD
 				pk::add_weapon_amount(city_, 병기_군마, weapon_2, true);
+=======
+				pk::add_weapon_amount(city_, 兵器_战马, weapon_2, true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				pk::message_box(pk::encode(pk::format("治安减少了\x1b[1x{}\x1b[0x.", safety_)));
 				ch::add_public_order(city_, -safety_, true);
 
@@ -317,7 +332,11 @@ namespace 알현
 				pk::message_box(pk::encode(pk::format("气力增加了\x1b[1x{}\x1b[0x.", energy_2)));
 				pk::add_energy(city_, energy_2, true);
 				pk::message_box(pk::encode(pk::format("武器军备增加了\x1b[1x{}\x1b[0x.", weapon_2)));
+<<<<<<< HEAD
 				pk::add_weapon_amount(city_, 병기_군마, weapon_2, true);
+=======
+				pk::add_weapon_amount(city_, 兵器_战马, weapon_2, true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 				// 행동력 감소.
 				//pk::add_ap(district, -ACTION_COST);
@@ -593,11 +612,19 @@ namespace 알현
 					pk::message_box(pk::encode(pk::format("士气增加了\x1b[1x{}\x1b[0x.", energy_1)));
 					pk::add_energy(city_, energy_1, true);
 					pk::message_box(pk::encode(pk::format("枪的库存增加了\x1b[1x{}\x1b[0x.", weapon_10)));
+<<<<<<< HEAD
 					pk::add_weapon_amount(city_, 병기_창, weapon_10, true);
 					pk::message_box(pk::encode(pk::format("戟的库存增加了\x1b[1x{}\x1b[0x.", weapon_11)));
 					pk::add_weapon_amount(city_, 병기_극, weapon_11, true);
 					pk::message_box(pk::encode(pk::format("弩的库存增加了\x1b[1x{}\x1b[0x.", weapon_12)));
 					pk::add_weapon_amount(city_, 병기_노, weapon_12, true);
+=======
+					pk::add_weapon_amount(city_, 兵器_枪, weapon_10, true);
+					pk::message_box(pk::encode(pk::format("戟的库存增加了\x1b[1x{}\x1b[0x.", weapon_11)));
+					pk::add_weapon_amount(city_, 兵器_戟, weapon_11, true);
+					pk::message_box(pk::encode(pk::format("弩的库存增加了\x1b[1x{}\x1b[0x.", weapon_12)));
+					pk::add_weapon_amount(city_, 兵器_弩, weapon_12, true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 
 				pk::message_box(pk::encode(pk::format("技巧点减少了\x1b[1x{}\x1b[0x.", TP_COST)));

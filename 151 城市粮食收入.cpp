@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/27 # 江东新风 # 军屯农倍率线性变化 ##
+// ## 2022/02/17 # 江东新风 # 探索涨基础粮收入 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
 // ## 2021/10/10 # 江东新风 # 人口相关设定 ##
 // ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
@@ -104,7 +110,11 @@ namespace CITY_HARVEST
 					// 军屯农收入计算
 					if (facility_id == 设施_军屯农)
 					{
+<<<<<<< HEAD
 						y = pk::max(city.troops / 军屯农单倍收入人数, 1) * y;
+=======
+						y = int(pk::max(float(city.troops) / 军屯农单倍收入人数, 1.f) * y);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 					// 谷仓加成
 					if (facility_id == 设施_农场1级 or facility_id == 设施_农场2级 or facility_id == 设施_农场3级
@@ -148,6 +158,11 @@ namespace CITY_HARVEST
 			// 군주가 [장로]인 경우에 1.45배
 			if (pk::get_kunshu_id(city) == 武将_张鲁)
 				n = int(n * 1.25f);
+<<<<<<< HEAD
+=======
+
+			n += base_ex[city.get_id()].harvest_bonus;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 玩家_城市数_惩罚 ('20.8.29)
 			if (玩家_城市数_惩罚 and city.is_player() and !pk::is_campaign())
 			{

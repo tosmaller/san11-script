@@ -206,6 +206,7 @@ namespace KANRAKU
 			pk::force@ attacker_force = pk::get_force(attacker.get_force_id());
 			pk::force@ base_force = pk::get_force(base.get_force_id());
 
+<<<<<<< HEAD
 			if (pk::get_onebase_survive())
 			{
 				//测试最后据点灭亡势力,只有一座城市时也要灭亡
@@ -251,6 +252,8 @@ namespace KANRAKU
 					}
 				}
 			}
+=======
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			int charisma = (pk::is_alive(attacker_leader)) ? attacker_leader.stat[武将能力_魅力] : 20;
 			
@@ -266,7 +269,11 @@ namespace KANRAKU
 				else if (charisma < 90) leader_eff = 0.1f;
 				else if (charisma < 100) leader_eff = 0.2f;
 				else leader_eff = 0.3f;
+<<<<<<< HEAD
 
+=======
+				if (ch::has_skill(attacker, 特技_安民)) leader_eff += 0.1f;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (base_id > -1 and base_id < 据点_城市末)
 				{
 					BaseInfo@ base_t = @base_ex[base_id];
@@ -312,6 +319,7 @@ namespace KANRAKU
 			for (int building_id = 0; building_id < 건물_끝; building_id++)
 			{
 				pk::building@ building = pk::get_building(building_id);
+<<<<<<< HEAD
 				if (!pk::is_alive(building)) continue;
 				if (!is_target_facility(city, attacker, building)) continue;
 
@@ -319,6 +327,19 @@ namespace KANRAKU
 				{
 					if (pk::get_facility_type(building) == 设施类型_内政设施)
 					{
+=======
+				//pk::trace("building_id" + building_id);
+				if (!pk::is_alive(building)) continue;
+				//pk::trace("building id pos0" + building.get_id());
+				if (!is_target_facility(city, attacker, building)) continue;
+				//pk::trace("building id pos1" + building.get_id());
+				if (pk::is_normal_force(attacker.get_force_id()))
+				{
+					//pk::trace("building id" + building.get_id());
+					if (pk::get_facility_type(building) == 设施类型_内政设施)
+					{
+						//pk::trace("设施类型_内政设施 building id " + building.get_id());
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						内政设施_待处理_列表.add(building);
 					}
 					else if (pk::get_facility_type(building) == 设施类型_军事设施)
@@ -390,6 +411,56 @@ namespace KANRAKU
 			func_占领城市后处理_内政设施(city, attacker, charisma, 内政设施_待处理_列表);
 			func_占领城市后处理_军事设施(city, attacker, charisma, 城市势力_军事设施_待处理_列表, /*城市势力*/0);
 			func_占领城市后处理_军事设施(city, attacker, charisma, 第三方势力_军事设施_待处理_列表, /*第三方势力*/1);
+<<<<<<< HEAD
+=======
+
+			if (false)//pk::get_onebase_survive())
+			{
+				//测试最后据点灭亡势力,只有一座城市时也要灭亡
+				//攻占后设定的触发在俘虏之后
+				//因为势力灭亡的设定被抹去了，所以当城市数只有一个时被攻占也意味着势力灭亡，需要处理
+				if (base.facility == 0 and base.get_force_id() != -1)
+				{
+					if (pk::get_city_list(base_force).count < 2)
+					{
+						//bool has_base = false;
+						int base_num = 0;
+						for (int building_id = 城市_末; building_id < 据点_末; building_id++)
+						{
+							pk::building@ building0 = pk::get_building(building_id);
+							if (building0.get_force_id() == base_force.get_id())
+							{
+								base_num += 1;
+
+							}
+							//pk::trace(pk::format("据点攻占后，城市，剩余据点数{},据点id{}",base_num, building_id));
+						}
+						if (base_num < 1) pk::kill(base_force, false, attacker_force);
+
+					}
+				}
+				if ((base.facility == 1 or base.facility == 2) and base.get_force_id() != -1)
+				{
+					if (pk::get_city_list(base_force).count < 1)
+					{
+						//bool has_base = false;
+						int base_num = 0;
+						for (int building_id = 城市_末; building_id < 据点_末; building_id++)
+						{
+							pk::building@ building0 = pk::get_building(building_id);
+							if (building0.get_force_id() == base_force.get_id())
+							{
+								base_num += 1;
+
+							}
+							//pk::trace(pk::format("据点攻占后，城市，剩余据点数{},据点id{}", base_num, building_id));
+						}
+						if (base_num < 1) pk::kill(base_force, false, attacker_force);
+					}
+				}
+			}
+
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 		///	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -432,6 +503,7 @@ namespace KANRAKU
 		void func_占领城市后处理_内政设施(pk::city@ city, pk::unit@ attacker, int charisma, pk::list<pk::building@> facility_list)
 		{
 			if (!pk::is_normal_force(attacker.get_force_id())) return;
+<<<<<<< HEAD
 
 			int destroy_count = int(facility_list.count);
 			if (destroy_count == 0) return;
@@ -440,6 +512,16 @@ namespace KANRAKU
 			if (ch::has_skill(attacker, 136)) return;
 
 
+=======
+			//pk::trace("func_占领城市后处理_内政设施");
+			int destroy_count = int(facility_list.count);
+			if (destroy_count == 0) return;
+			//pk::trace("func_占领城市后处理_内政设施--安民判断");
+			//安民
+			if (ch::has_skill(attacker, 特技_安民)) return;
+
+			//pk::trace("func_占领城市后处理_内政设施--有安民");
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			if (内政设施_处理模式[get_index(attacker)] == /*吸收个数 魅力反应*/1)
 			{
 				int min_count = 内政设施_吸收个数_최소[get_index(attacker)];

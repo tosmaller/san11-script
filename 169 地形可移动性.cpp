@@ -67,7 +67,11 @@ namespace TERRAIN_ENABLED
                         else
                             return false;
 
+<<<<<<< HEAD
                     else if ((unit.type == 부대종류_수송) and pk::has_tech(pk::get_force(unit.get_force_id()), 기교_목우유마))
+=======
+                    else if ((unit.type == 部队类型_运输) and pk::has_tech(pk::get_force(unit.get_force_id()), 기교_목우유마))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         return true;
 
                     else if (ch::has_skill(unit, 특기_답파))

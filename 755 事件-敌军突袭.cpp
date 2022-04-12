@@ -30,9 +30,15 @@ namespace 事件_敌军突袭
 
 	const int 敌军奇袭_发动时期 = 1;        // 0: 매턴,  1: 매월 1일,  2: 매분기 첫달1일,  3: 매년 1월1일 默认 1
 	const int 敌军奇袭_发动概率_基本 = 10;  // 基本的发动概率 默认20
+<<<<<<< HEAD
 	const int 敌军奇袭_发动概率_都市 = 30;    // 在发动的基础上，每座城市被袭击的概率30
 
 	const int 敌军奇袭_保护月数 = 12;        // 게임 start 후 몇 개월 간 적군기습 발동 방지 默认12
+=======
+	const int 敌军奇袭_发动概率_都市 = 20;    // 在发动的基础上，每座城市被袭击的概率30
+
+	const int 敌军奇袭_保护月数 = 6;        // 게임 start 후 몇 개월 간 적군기습 발동 방지 默认12
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	const int 敌军奇袭_最少城市 = 3;       // 설정 도시수 3개 이하 세력에게는 발동 안함 (도시 4개 ~ 6개 사이일 때 발생) 默认3
 	const int 敌军奇袭_最多城市 = 7;       // 설정 도시수 7개 이상 세력에게는 발동 안함 (강제 종료 ERROR 방지를 위한 설정)
 
@@ -235,7 +241,11 @@ namespace 事件_敌军突袭
 					pk::int_int dst_src = fun_获取AI_进攻及请求_城市_突袭(force0);
 					if (!pk::is_valid_city_id(src_city_id))
 					{
+<<<<<<< HEAD
 						pk::trace("异常城市id" + src_city_id);
+=======
+						//pk::trace("异常城市id" + src_city_id);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						return;
 					}
 					if (dst_src.first != -1 and dst_src.second != -1)//尝试修复48714e,据说以前闪退发生在ai对ai突袭
@@ -285,7 +295,11 @@ namespace 事件_敌军突袭
 				int man_id = man.get_id();
 				setTempPerson(man_id, 성별_남);
 
+<<<<<<< HEAD
 				int ground_weapon = 1 + pk::rand(병기_군마 - 1);
+=======
+				int ground_weapon = 1 + pk::rand(兵器_战马 - 1);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				man.tekisei[ground_weapon] = pk::rand(적성_S);
 
 				// 능력치 반영.
@@ -325,7 +339,11 @@ namespace 事件_敌军突袭
 				int woman_id = woman.get_id();
 				setTempPerson(woman_id, 성별_여);
 
+<<<<<<< HEAD
 				int ground_weapon = 1 + pk::rand(병기_군마 - 1);
+=======
+				int ground_weapon = 1 + pk::rand(兵器_战马 - 1);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				woman.tekisei[ground_weapon] = pk::rand(적성_S);
 
 				// 능력치 반영.

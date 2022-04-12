@@ -449,7 +449,11 @@ namespace 部队指令_部队计略
 
         string getDesc_계략_기습()
         {
+<<<<<<< HEAD
             if (src_unit.weapon > 병기_군마 and !pk::is_in_water(src_unit))
+=======
+            if (src_unit.weapon > 兵器_战马 and !pk::is_in_water(src_unit))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 return pk::encode("该兵种无法实行");
             else if (src_unit.weapon == 兵器_走舸 and pk::is_in_water(src_unit))
                 return pk::encode("走舸无法实行");
@@ -464,14 +468,22 @@ namespace 部队指令_部队计略
         bool isVisible_계략_기습()
         {
             if (pk::is_campaign()) return false;
+<<<<<<< HEAD
             //if (src_unit.weapon > 병기_군마 and !pk::is_in_water(src_unit)) return false;
+=======
+            //if (src_unit.weapon > 兵器_战马 and !pk::is_in_water(src_unit)) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             //else if (src_unit.weapon == 兵器_走舸 and pk::is_in_water(src_unit)) return false;
             return true;
         }
 
         bool isEnabled_계략_기습()
         {
+<<<<<<< HEAD
             if (src_unit.weapon > 병기_군마 and !pk::is_in_water(src_unit)) return false;
+=======
+            if (src_unit.weapon > 兵器_战马 and !pk::is_in_water(src_unit)) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             else if (src_unit.weapon == 兵器_走舸 and pk::is_in_water(src_unit)) return false;
             else if (src_unit.energy < ENERGY_COST_기습) return false;
             return getTargets_계략_기습().length > 0;
@@ -1122,7 +1134,11 @@ namespace 部队指令_部队计略
                     int rate = get_provoke_rate(src_unit, gunshi);
 
                     if (src_unit.has_skill(特技_论客)) rate *= 2;
+<<<<<<< HEAD
                     pk::list<pk::person@> list = pk::get_person_list(target_building, pk::mibun_flags(身份_君主, 身份_都督, 身份_太守, 身份_一般));
+=======
+                    pk::list<pk::person@> list = pk::get_idle_person_list(target_building);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (list.count == 1) rate /= 10;
                     else if (list.count == 2) rate /= 5;
                     //每一点cd降低15成功率上限
@@ -1136,7 +1152,11 @@ namespace 部队指令_部队计略
                         pk::point NearEmptyPos = func_EmptyPos(target_building);
                         if (pk::is_valid_pos(NearEmptyPos))
                         {
+<<<<<<< HEAD
                             int weapon_id = 병기_검;
+=======
+                            int weapon_id = 兵器_剑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                             int default_troops = pk::min(5000, int(pk::get_troops(target_building) / 5));    // 기본 출진 병력수 설정
                             int target_troops = default_troops;
 
@@ -1149,7 +1169,11 @@ namespace 部队指令_部队计略
                             ch::add_troops(target_building, -target_troops, false);
                             pk::add_food(target_building, -target_food, false);
 
+<<<<<<< HEAD
                             if (weapon_id != 병기_검)
+=======
+                            if (weapon_id != 兵器_剑)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                                 pk::add_weapon_amount(target_building, weapon_id, -target_troops, false);
 
                             // 도발된 부대 생성
@@ -1312,7 +1336,11 @@ namespace 部队指令_部队计略
             {
                 if (pk::get_distance(target.pos, attacker.pos) == 1)
                     pk::attack(target, attacker);
+<<<<<<< HEAD
                 else if (pk::get_distance(target.pos, attacker.pos) == 2 and target.weapon == 병기_노)
+=======
+                else if (pk::get_distance(target.pos, attacker.pos) == 2 and target.weapon == 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     pk::attack(target, attacker);
             }
         }
@@ -1343,7 +1371,11 @@ namespace 部队指令_部队计略
             weapon_sel = 0;
             troops_sel = 0;
 
+<<<<<<< HEAD
             for (int i = 병기_창; i <= 병기_군마; i++)
+=======
+            for (int i = 兵器_枪; i <= 兵器_战马; i++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 int weapon_t = pk::get_weapon_amount(building, i);
                 if (2000 <= weapon_t and weapon_max <= weapon_t)

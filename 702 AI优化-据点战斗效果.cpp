@@ -64,11 +64,19 @@ namespace 거점전투효과
                 func_building_effect(pk::get_building(i), 城市据点_适用);
 
             // 거점_관문
+<<<<<<< HEAD
             for (int i = 건물_관문시작; i < 건물_관문끝; i++)
                 func_building_effect(pk::get_building(i), 关卡据点_适用);
 
             // 거점_항구
             for (int i = 건물_항구시작; i < 건물_항구끝; i++)
+=======
+            for (int i = 建筑_关卡开始; i < 건물_관문끝; i++)
+                func_building_effect(pk::get_building(i), 关卡据点_适用);
+
+            // 거점_항구
+            for (int i = 건물_항구시작; i < 建筑_港口末; i++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 func_building_effect(pk::get_building(i), 港口据点_适用);
 
         }

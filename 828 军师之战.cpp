@@ -186,7 +186,11 @@ namespace 책략전_정략전
 
 				pk::message_box(pk::encode("呼，能识破我的策略嘛?"), enemy_gunshi);
 
+<<<<<<< HEAD
 				debate_result = pk::debate(person_0, enemy_gunshi, true, false, false, true).first;
+=======
+				debate_result = pk::debate(person_0, enemy_gunshi, true, false, false, true,武将能力_智力).first;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 				if (debate_result == 0)
 				{
@@ -214,6 +218,7 @@ namespace 책략전_정략전
 			{
 				result_정치술 = true;
 
+<<<<<<< HEAD
 				int 원본지력_enemy_gunshi = enemy_gunshi.stat[武将能力_智力];
 				enemy_gunshi.stat[武将能力_智力] = enemy_gunshi.stat[武将能力_政治];
 
@@ -223,6 +228,17 @@ namespace 책략전_정략전
 				pk::message_box(pk::encode("呼，能识破我的政略吗?"), enemy_gunshi);
 
 				debate_result = pk::debate(person_0, enemy_gunshi, true, false, false, true).first;
+=======
+				//int 원본지력_enemy_gunshi = enemy_gunshi.stat[武将能力_智力];
+				//enemy_gunshi.stat[武将能力_智力] = enemy_gunshi.stat[武将能力_政治];
+
+				//int 원본지력_person_0 = person_0.stat[武将能力_智力];
+				//person_0.stat[武将能力_智力] = person_0.stat[武将能力_政治];
+
+				pk::message_box(pk::encode("呼，能识破我的政略吗?"), enemy_gunshi);
+
+				debate_result = pk::debate(person_0, enemy_gunshi, true, false, false, true, 武将能力_政治).first;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 				if (debate_result == 0)
 				{
@@ -243,8 +259,13 @@ namespace 책략전_정략전
 					pk::history_log(person_0.get_pos(), player_force.color, pk::encode(pk::format("\x1b[1x{}\x1b[0x未能识破敌人政略，金 兵粮 治安遭受损失", pk::decode(pk::get_name(person_0)))));
 				}
 
+<<<<<<< HEAD
 				enemy_gunshi.stat[武将能力_智力] = 원본지력_enemy_gunshi;
 				person_0.stat[武将能力_智力] = 원본지력_person_0;
+=======
+				//enemy_gunshi.stat[武将能力_智力] = 원본지력_enemy_gunshi;
+				//person_0.stat[武将能力_智力] = 원본지력_person_0;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			}
 		}
@@ -264,10 +285,17 @@ namespace 책략전_정략전
 						if (result_책략)
 						{
 							ch::add_troops(city, -병력_감소[pk::rand(2)], true, 102);
+<<<<<<< HEAD
 							pk::add_weapon_amount(city, 병기_창, -병장기_감소[pk::rand(2)], true);
 							pk::add_weapon_amount(city, 병기_극, -병장기_감소[pk::rand(2)], true);
 							pk::add_weapon_amount(city, 병기_노, -병장기_감소[pk::rand(2)], true);
 							pk::add_weapon_amount(city, 병기_군마, -병장기_감소[pk::rand(2)], true);
+=======
+							pk::add_weapon_amount(city, 兵器_枪, -병장기_감소[pk::rand(2)], true);
+							pk::add_weapon_amount(city, 兵器_戟, -병장기_감소[pk::rand(2)], true);
+							pk::add_weapon_amount(city, 兵器_弩, -병장기_감소[pk::rand(2)], true);
+							pk::add_weapon_amount(city, 兵器_战马, -병장기_감소[pk::rand(2)], true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							pk::add_energy(city, -기력_감소[pk::rand(2)], true);
 
 							result_책략 = false;
@@ -298,10 +326,17 @@ namespace 책략전_정략전
 						if (result_책략)
 						{
 							ch::add_troops(city, -병력_감소[pk::rand(3)], true, 102);
+<<<<<<< HEAD
 							pk::add_weapon_amount(city, 병기_창, -병장기_감소[pk::rand(3)], true);
 							pk::add_weapon_amount(city, 병기_극, -병장기_감소[pk::rand(3)], true);
 							pk::add_weapon_amount(city, 병기_노, -병장기_감소[pk::rand(3)], true);
 							pk::add_weapon_amount(city, 병기_군마, -병장기_감소[pk::rand(3)], true);
+=======
+							pk::add_weapon_amount(city, 兵器_枪, -병장기_감소[pk::rand(3)], true);
+							pk::add_weapon_amount(city, 兵器_戟, -병장기_감소[pk::rand(3)], true);
+							pk::add_weapon_amount(city, 兵器_弩, -병장기_감소[pk::rand(3)], true);
+							pk::add_weapon_amount(city, 兵器_战马, -병장기_감소[pk::rand(3)], true);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							pk::add_energy(city, -기력_감소[pk::rand(3)], true);
 
 							result_책략 = false;

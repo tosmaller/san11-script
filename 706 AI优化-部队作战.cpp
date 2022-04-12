@@ -358,15 +358,24 @@ namespace 野战部队交战优化
             int weapon_type = get_weapon_type(weapon_id);   // 0:검, 1:전투, 2:충차, 3:공성기타, 4:수군
 
             // 충차는 검색대상에서 제외
+<<<<<<< HEAD
             if (weapon_id == 병기_충차) return;
+=======
+            if (weapon_id == 兵器_冲车) return;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             // 목수/정란/투석 검색대상에서 제외여부
             if (!攻城兵器_部队战斗_参与设定 and weapon_type == 3) return;
             if (攻城兵器_部队战斗_参与设定 and weapon_type == 3 and (unit.energy < 攻城兵器_部队战斗_标准气力)) return;
 
             // 공격 사거리 설정 --- 함수 변경 ('20.9.13)
             pk::int_int atk_range = get_atk_range(unit);
+<<<<<<< HEAD
             int min = (weapon_id == 병기_충차) ? 0 : atk_range.first;
             int max = (weapon_id == 병기_충차) ? 0 : atk_range.second;
+=======
+            int min = (weapon_id == 兵器_冲车) ? 0 : atk_range.first;
+            int max = (weapon_id == 兵器_冲车) ? 0 : atk_range.second;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::array<pk::point> range = pk::get_movable_pos(unit);  // 이동가능좌표
             for (int i = 0; i < int(range.length); i++)
@@ -391,8 +400,13 @@ namespace 野战部队交战优化
         {
             if (!pk::is_alive(unit)) return;
             if (list_candidate_unit.count > 0) return;
+<<<<<<< HEAD
             if (unit.type != 부대종류_전투) return;
             if (unit.weapon > 병기_군마) return;
+=======
+            if (unit.type != 部队类型_战斗) return;
+            if (unit.weapon > 兵器_战马) return;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::building@ service_base = pk::get_building(pk::get_service(unit));
             if (!pk::is_alive(service_base)) return;
@@ -536,7 +550,11 @@ namespace 野战部队交战优化
         bool atk_enemy_base_nearby(pk::unit@ unit)
         {
             if (!pk::is_alive(unit)) return false;
+<<<<<<< HEAD
             if (unit.type != 부대종류_전투) return false;
+=======
+            if (unit.type != 部队类型_战斗) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             int candidate_count = list_candidate_unit.count;
             if (candidate_count > 4) return false;
@@ -589,7 +607,11 @@ namespace 野战部队交战优化
         bool def_force_base_nearby(pk::unit@ unit)
         {
             if (!pk::is_alive(unit)) return false;
+<<<<<<< HEAD
             if (unit.type != 부대종류_전투) return false;    // 전투 병과 아니면 제외
+=======
+            if (unit.type != 部队类型_战斗) return false;    // 전투 병과 아니면 제외
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             pk::building@ service = pk::get_building(pk::get_service(unit));
             if (!pk::is_alive(service)) return false;
@@ -612,7 +634,11 @@ namespace 野战部队交战优化
                     int base_id = base.get_id();
                     bool is_force_base = (unit.get_force_id() == base.get_force_id());
                     bool is_force_city = (城市据点_守城支援 and is_force_base and (건물_도시시작 <= base_id and base_id < 城市_末));
+<<<<<<< HEAD
                     bool is_force_gate = (港关据点_守城支援 and is_force_base and (건물_관문시작 <= base_id and base_id < 건물_항구끝));
+=======
+                    bool is_force_gate = (港关据点_守城支援 and is_force_base and (建筑_关卡开始 <= base_id and base_id < 建筑_港口末));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (is_force_base and pk::enemies_around(base))
                     {
                         if (is_force_gate and is_weak_base(base)) list_target_base.add(base);
@@ -687,7 +713,11 @@ namespace 野战部队交战优化
             for (int i = 0; i < int(arr.length); i++)
             {
                 pk::unit@ unit_t = pk::get_unit(arr[i]);
+<<<<<<< HEAD
                 if (pk::is_alive(unit_t) and unit_t.type == 부대종류_전투)
+=======
+                if (pk::is_alive(unit_t) and unit_t.type == 部队类型_战斗)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     if (unit.get_id() != unit_t.get_id() and unit.get_force_id() == unit_t.get_force_id())
                     {
                         if (get_atk_range(unit_t).second > 1)
@@ -884,7 +914,11 @@ namespace 野战部队交战优化
 
             bool is_exceed_troops = false;
             bool is_exceed_weapon = false;
+<<<<<<< HEAD
             if (unit.type == 부대종류_전투)
+=======
+            if (unit.type == 部队类型_战斗)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 if (进入部队_兵力超过返回)
                 {
@@ -905,7 +939,11 @@ namespace 野战部队交战优化
                     is_exceed_weapon = (exceed_gnd_wpn_amt > 0 or exceed_sea_wpn_amt > 0);
                 }
             }
+<<<<<<< HEAD
             else if (unit.type == 부대종류_수송)
+=======
+            else if (unit.type == 部队类型_运输)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 if (进入部队_兵力超过返回)
                 {
@@ -953,7 +991,11 @@ namespace 野战部队交战优化
             return false;
         }
 
+<<<<<<< HEAD
         bool is_siege_weapon(int weapon_id) { return (병기_충차 <= weapon_id and weapon_id <= 병기_목수); }
+=======
+        bool is_siege_weapon(int weapon_id) { return (兵器_冲车 <= weapon_id and weapon_id <= 兵器_木兽); }
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         bool is_ship_weapon(int weapon_id) { return (兵器_楼船 == weapon_id or weapon_id == 兵器_斗舰); }
 
 
@@ -964,7 +1006,11 @@ namespace 野战部队交战优化
         bool check_valid_unit(pk::unit@ unit_t)
         {
             if (!pk::is_alive(unit_t))      return false;
+<<<<<<< HEAD
             if (unit_t.type != 부대종류_전투)	return false;	// 수송 부대 제외
+=======
+            if (unit_t.type != 部队类型_战斗)	return false;	// 수송 부대 제외
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             int force_id = unit_t.get_force_id();
             pk::force@ force = pk::get_force(force_id);
@@ -1006,7 +1052,11 @@ namespace 野战部队交战优化
 
             if (unit.has_skill(特技_筑城) and unit.gold >= 建设编制_标准持有金) return true;  // 축성 특기
 
+<<<<<<< HEAD
             if (unit.type == 부대종류_전투 and pk::get_member_count(unit) <= 1)   // 1인대
+=======
+            if (unit.type == 部队类型_战斗 and pk::get_member_count(unit) <= 1)   // 1인대
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 if (unit.gold >= 建设编制_标准持有金 and unit.troops <= 建设编制_标准兵力)
                     return true;
@@ -1074,7 +1124,11 @@ namespace 野战部队交战优化
         pk::int_int get_atk_range(pk::unit@ unit)
         {
             pk::int_int atk_range = pk::int_int(1, 1);
+<<<<<<< HEAD
             if (!pk::is_alive(unit) or unit.weapon == 병기_검) return atk_range;
+=======
+            if (!pk::is_alive(unit) or unit.weapon == 兵器_剑) return atk_range;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             int weapon_id = unit.weapon;
             pk::equipment@ epq = pk::get_equipment(unit.weapon);
@@ -1095,9 +1149,15 @@ namespace 野战部队交战优化
                     max_range = pk::max(max_range, tts.max_range);
                 }
             }
+<<<<<<< HEAD
             if (weapon_id == 병기_노 and unit.has_tech(기교_강노)) max_range += 1;
             if (weapon_id == 병기_군마 and (unit.has_tech(기교_기사) or unit.has_skill(특기_백마))) max_range = pk::max(2, max_range);
             if ((weapon_id == 병기_정란 or weapon_id == 병기_투석) and unit.has_skill(特技_射程)) max_range += 1;
+=======
+            if (weapon_id == 兵器_弩 and unit.has_tech(기교_강노)) max_range += 1;
+            if (weapon_id == 兵器_战马 and (unit.has_tech(기교_기사) or unit.has_skill(특기_백마))) max_range = pk::max(2, max_range);
+            if ((weapon_id == 兵器_井阑 or weapon_id == 兵器_投石) and unit.has_skill(特技_射程)) max_range += 1;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             atk_range = pk::int_int(min_range, max_range);
             info += pk::format(": 最小({}),最大({})", min_range, max_range);
@@ -1115,10 +1175,17 @@ namespace 野战部队交战优化
             int weapon_id = unit.weapon;
             int max_range = 0;
 
+<<<<<<< HEAD
             if (weapon_id == 병기_노)     max_range = (unit.has_tech(기교_강노)) ? 3 : 2;
             else if (weapon_id == 병기_군마)   max_range = (unit.has_tech(기교_기사) or unit.has_skill(특기_백마)) ? 2 : 1;
             else if (weapon_id == 병기_정란)   max_range = ((unit.has_skill(特技_射程)) ? 1 : 0) + (pk::get_tactics(전법_공성화시).max_range);
             else if (weapon_id == 병기_투석)   max_range = ((unit.has_skill(特技_射程)) ? 1 : 0) + (pk::get_tactics(전법_공성투석).max_range);
+=======
+            if (weapon_id == 兵器_弩)     max_range = (unit.has_tech(기교_강노)) ? 3 : 2;
+            else if (weapon_id == 兵器_战马)   max_range = (unit.has_tech(기교_기사) or unit.has_skill(특기_백마)) ? 2 : 1;
+            else if (weapon_id == 兵器_井阑)   max_range = ((unit.has_skill(特技_射程)) ? 1 : 0) + (pk::get_tactics(전법_공성화시).max_range);
+            else if (weapon_id == 兵器_投石)   max_range = ((unit.has_skill(特技_射程)) ? 1 : 0) + (pk::get_tactics(전법_공성투석).max_range);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             else if (weapon_id >= 兵器_走舸)   max_range = 2;
             else                             max_range = 1;     // 검, 창, 극, 목수 등
 
@@ -1252,10 +1319,17 @@ namespace 野战部队交战优化
         int get_weapon_type(int weapon_id)
         {
             int weapon_type = -1;
+<<<<<<< HEAD
             if (weapon_id == 병기_검)                          weapon_type = 0;
             else if (weapon_id >= 병기_창 and weapon_id <= 병기_군마)  weapon_type = 1;
             else if (weapon_id == 병기_충차)                         weapon_type = 2;
             else if (weapon_id >= 병기_정란 and weapon_id <= 병기_목수) weapon_type = 3;
+=======
+            if (weapon_id == 兵器_剑)                          weapon_type = 0;
+            else if (weapon_id >= 兵器_枪 and weapon_id <= 兵器_战马)  weapon_type = 1;
+            else if (weapon_id == 兵器_冲车)                         weapon_type = 2;
+            else if (weapon_id >= 兵器_井阑 and weapon_id <= 兵器_木兽) weapon_type = 3;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             else if (weapon_id == 兵器_走舸)                         weapon_type = 4;
             else if (weapon_id > 兵器_走舸)                         weapon_type = 5;
 
@@ -1267,6 +1341,7 @@ namespace 野战部队交战优化
             string weapon_name;
             switch (weapon_id)
             {
+<<<<<<< HEAD
             case 병기_검: weapon_name = "剑兵"; break;
             case 병기_창: weapon_name = "枪兵"; break;
             case 병기_극: weapon_name = "戟兵"; break;
@@ -1276,6 +1351,17 @@ namespace 野战部队交战优化
             case 병기_정란: weapon_name = "井栏"; break;
             case 병기_투석: weapon_name = "投石"; break;
             case 병기_목수: weapon_name = "木兽"; break;
+=======
+            case 兵器_剑: weapon_name = "剑兵"; break;
+            case 兵器_枪: weapon_name = "枪兵"; break;
+            case 兵器_戟: weapon_name = "戟兵"; break;
+            case 兵器_弩: weapon_name = "弓兵"; break;
+            case 兵器_战马: weapon_name = "骑兵"; break;
+            case 兵器_冲车: weapon_name = "冲车"; break;
+            case 兵器_井阑: weapon_name = "井栏"; break;
+            case 兵器_投石: weapon_name = "投石"; break;
+            case 兵器_木兽: weapon_name = "木兽"; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             case 兵器_走舸: weapon_name = "走舸"; break;
             case 兵器_楼船: weapon_name = "楼船"; break;
             case 兵器_斗舰: weapon_name = "斗舰"; break;
@@ -1305,7 +1391,11 @@ namespace 野战部队交战优化
             string text_color;
             float weight = main.heishu_weight[pk::equipment_id_to_heishu(weapon_id)];
 
+<<<<<<< HEAD
             if (weapon_id == 병기_검)      text_color = "\x1b[2x"; // 녹색
+=======
+            if (weapon_id == 兵器_剑)      text_color = "\x1b[2x"; // 녹색
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             else if (weight == heishu_null) text_color = "\x1b[29x"; // 빨강
             else if (weight == heishu_weak) text_color = "\x1b[16x"; // 주황
             else if (weight == heishu_normal) text_color = "\x1b[17x"; // 노랑

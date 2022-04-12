@@ -59,7 +59,11 @@ namespace ATTACK_CRITICAL_CHANCE
 				{
 					if (attacker.attr.stat[部队能力_攻击] > target_unit.attr.stat[部队能力_防御])
 					{
+<<<<<<< HEAD
 						pk::trace(pk::format("战将判断，攻击：{}，防御：{}", attacker.attr.stat[部队能力_攻击], target_unit.attr.stat[部队能力_防御]));
+=======
+						//pk::trace(pk::format("战将判断，攻击：{}，防御：{}", attacker.attr.stat[部队能力_攻击], target_unit.attr.stat[部队能力_防御]));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						return true;
 					}
 						
@@ -75,7 +79,11 @@ namespace ATTACK_CRITICAL_CHANCE
 
 				switch (pk::get_weapon_id(attacker))
 				{
+<<<<<<< HEAD
 				case 병기_창:
+=======
+				case 兵器_枪:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (ch::has_skill(attacker, 특기_투신)) return true;
 					if (ch::has_skill(attacker, 특기_창신)) return true;
 					if (ch::get_best_member_stat(attacker, 特技_枪将, 武将能力_武力) > target_strength) return true;
@@ -89,7 +97,11 @@ namespace ATTACK_CRITICAL_CHANCE
 
 					break;
 
+<<<<<<< HEAD
 				case 병기_극:
+=======
+				case 兵器_戟:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (ch::has_skill(attacker, 특기_투신)) return true;
 					if (ch::has_skill(attacker, 특기_극신)) return true;
 					if (ch::get_best_member_stat(attacker, 특기_극장, 武将能力_武力) > target_strength) return true;
@@ -102,7 +114,11 @@ namespace ATTACK_CRITICAL_CHANCE
 					if (ch::get_best_member_stat(attacker, 151, 部队能力_武力) > target_strength) return true;
 					break;
 
+<<<<<<< HEAD
 				case 병기_노:
+=======
+				case 兵器_弩:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (ch::has_skill(attacker, 특기_궁신)) return true;
 					if (ch::get_best_member_stat(attacker, 특기_궁장, 武将能力_武力) > target_strength) return true;
 					if (ch::get_best_member_stat(attacker, 특기_궁장, 武将能力_统率) > target_lead) return true;
@@ -114,7 +130,11 @@ namespace ATTACK_CRITICAL_CHANCE
 					if (ch::get_best_member_stat(attacker, 152, 部队能力_武力) > target_strength) return true;
 					break;
 
+<<<<<<< HEAD
 				case 병기_군마:
+=======
+				case 兵器_战马:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (ch::has_skill(attacker, 특기_기신)) return true;
 					if (ch::get_best_member_stat(attacker, 특기_기장, 武将能力_武力) > target_strength) return true;
 					if (ch::get_best_member_stat(attacker, 특기_기장, 武将能力_统率) > target_lead) return true;
@@ -126,10 +146,17 @@ namespace ATTACK_CRITICAL_CHANCE
 					if (ch::get_best_member_stat(attacker, 152, 部队能力_武力) > target_strength) return true;
 					break;
 
+<<<<<<< HEAD
 				case 병기_충차:
 				case 병기_정란:
 				case 병기_투석:
 				case 병기_목수:
+=======
+				case 兵器_冲车:
+				case 兵器_井阑:
+				case 兵器_投石:
+				case 兵器_木兽:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (ch::has_skill(attacker, 特技_攻城)) return true;
 					break;
 
@@ -150,7 +177,11 @@ namespace ATTACK_CRITICAL_CHANCE
 				if (ch::get_best_member_stat(attacker, 특기_구축, 武将能力_武力) > target_strength) return true;
 				if (ch::get_best_member_stat(attacker, 특기_구축, 武将能力_统率) > target_lead) return true;
 
+<<<<<<< HEAD
 				if (pk::get_weapon_id(attacker) == 병기_군마)
+=======
+				if (pk::get_weapon_id(attacker) == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					if (ranged and ch::has_skill(attacker, 특기_백마)) return true;
 				}

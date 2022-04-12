@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/03/17 # 江东新风 # 筑城补助耐久修复仅限于军事设施 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/07/15 # 白马叔叔 # 修复筑城建设中bug ##
 // ## 2020/12/12 # 江东新风 # 修复trace参数报错 ##
 // ## 2020/10/31 # 江东新风 # 同步honeybee大神的更新##
@@ -357,7 +362,11 @@ namespace 보조_부대효과
 									and ((src_leader.stat[武将能力_政治] >= min_政治_0) and (src_leader.stat[武将能力_政治] < min_政治_1)))
 								{
 									flag_내구회복 = true;
+<<<<<<< HEAD
 									if (!pk::is_enemy(src, dst_building))
+=======
+									if (dst_building.facility == 设施类型_军事设施 and !pk::is_enemy(src, dst_building))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 									{
 										pk::add_hp(dst_building, 耐久恢复_0[pk::rand(3)], true); // 내구회복
 										if (int(dst_building.hp) >= pk::get_max_hp(dst_building) && !dst_building.completed) pk::complete(dst_building);  //如果耐久足够 就完成了

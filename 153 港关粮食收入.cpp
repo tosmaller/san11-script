@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/11/23 # 江东新风 # 港关收入人口影响， ##
+=======
+﻿// ## 2022/02/17 # 江东新风 # 人口设定调整 ##
+// ## 2021/11/23 # 江东新风 # 港关收入人口影响， ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
 // ## 2021/02/17 # 江东新风 # 城市数惩罚设置上限，调整系数 ##
 // ## 2021/02/12 # 氕氘氚 # 解决港关非所属时收入的问题##
@@ -40,8 +45,13 @@ namespace GATE_HARVEST
 				{
 					float population = 0;
 					BaseInfo@ base_t = @base_ex[base_id];
+<<<<<<< HEAD
 					population = float(pk::clamp(base_t.population, 5000, 50000));//防止意外情况溢出
 					population_multi = population / 50000.f;
+=======
+					population = float(pk::clamp(base_t.population, 5000, 100000));//防止意外情况溢出
+					population_multi = population / 80000.f;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					//pk::trace(pk::format("{},population", pk::decode(pk::get_name(city)), population));
 				}
 				n = int(n * population_multi);
@@ -57,8 +67,13 @@ namespace GATE_HARVEST
 				{
 					float population = 0;
 					BaseInfo@ base_t = @base_ex[base_id];
+<<<<<<< HEAD
 					population = float(pk::clamp(base_t.population, 5000, 50000));//防止意外情况溢出
 					population_multi = population / 20000.f;
+=======
+					population = float(pk::clamp(base_t.population, 5000, 10000));//防止意外情况溢出
+					population_multi = population / 80000.f;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					//pk::trace(pk::format("{},population", pk::decode(pk::get_name(city)), population));
 				}
 				n = int(n * population_multi);
@@ -75,6 +90,10 @@ namespace GATE_HARVEST
 				n = int(n * 玩家粮收入倍率 / 100.f);
 			else
 				n = int(n * 电脑粮收入倍率 / 100.f);
+<<<<<<< HEAD
+=======
+			n += base_ex[building.get_id()].harvest_bonus;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 玩家_城市数_惩罚 ('20.8.29)
 			if (玩家_城市数_惩罚 and building.is_player() and !pk::is_campaign())
 			{

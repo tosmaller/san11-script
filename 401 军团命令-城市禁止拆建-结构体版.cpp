@@ -307,7 +307,11 @@ namespace 철거금지
 						int min_troops;
 						if (base_id < 城市_末)
 							min_troops = pk::max(0, AI据点_低兵力防御_兵力标准_城市);
+<<<<<<< HEAD
 						else if (건물_관문시작 <= base_id and base_id < 건물_항구끝)
+=======
+						else if (建筑_关卡开始 <= base_id and base_id < 建筑_港口末)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							min_troops = pk::max(0, AI据点_低兵力防御_兵力标准_港关);
 
 						if (pk::get_troops(building) < min_troops)
@@ -322,7 +326,11 @@ namespace 철거금지
 						int min_troops;
 						if (base_id < 城市_末)
 							min_troops = pk::max(0, AI据点_低兵力攻略_兵力标准_城市);
+<<<<<<< HEAD
 						else if (건물_관문시작 <= base_id and base_id < 건물_항구끝)
+=======
+						else if (建筑_关卡开始 <= base_id and base_id < 建筑_港口末)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 							min_troops = pk::max(0, AI据点_低兵力攻略_兵力标准_港关);
 
 						if (pk::get_troops(building) < min_troops)

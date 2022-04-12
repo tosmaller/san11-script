@@ -543,7 +543,11 @@ namespace AI_Unit_StrategyPerform
 			if (int(src_unit.energy) < energy_cost) return false;
 
 			// 설정조건 : 실행부대의 부대종류가 수송부대인 경우 적용여부 확인
+<<<<<<< HEAD
 			if (!执行部队_运输部队_适用[controller_index] and src_unit.type == 부대종류_수송) return false;
+=======
+			if (!执行部队_运输部队_适用[controller_index] and src_unit.type == 部队类型_运输) return false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 			// 설정조건 : 실행부대의 부대기력이 기준기력 미만인 경우 제외
 			if (执行部队_气力条件_适用[controller_index])
@@ -561,7 +565,11 @@ namespace AI_Unit_StrategyPerform
 			int weapon_id = src_unit.weapon;
 			if (执行部队_适性条件_适用[controller_index])
 			{
+<<<<<<< HEAD
 				int src_tekisei = (weapon_id == 병기_검) ? 0 : pk::get_tekisei(src_unit, weapon_id);
+=======
+				int src_tekisei = (weapon_id == 兵器_剑) ? 0 : pk::get_tekisei(src_unit, weapon_id);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (src_tekisei >= 执行部队_适性标准[controller_index]) return false;
 			}
 
@@ -571,7 +579,11 @@ namespace AI_Unit_StrategyPerform
 				if (src_unit.has_skill(特技_鬼门) and 执行部队_鬼门特技_适用) return false;
 				if (src_unit.has_skill(特技_妖术) and 执行部队_妖术特技_适用) return false;
 
+<<<<<<< HEAD
 				if (weapon_id != 병기_검)
+=======
+				if (weapon_id != 兵器_剑)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					if (src_unit.has_skill(特技_霸王) and 执行部队_霸王特技_适用) return false;
 					if (src_unit.has_skill(特技_勇将) and 执行部队_勇将特技_适用) return false;
@@ -699,8 +711,13 @@ namespace AI_Unit_StrategyPerform
 				if (a_distance != b_distance) return a_distance < b_distance;
 
 				// 대상부대의 부대적성 : 높을수록 우선
+<<<<<<< HEAD
 				int a_tekisei = (a.weapon != 병기_검) ? pk::get_tekisei(a, a.weapon) : 0;
 				int b_tekisei = (b.weapon != 병기_검) ? pk::get_tekisei(b, b.weapon) : 0;
+=======
+				int a_tekisei = (a.weapon != 兵器_剑) ? pk::get_tekisei(a, a.weapon) : 0;
+				int b_tekisei = (b.weapon != 兵器_剑) ? pk::get_tekisei(b, b.weapon) : 0;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (a_tekisei != b_tekisei) return a_tekisei > b_tekisei;
 
 				// 대상부대의 부대기력 : 클수록 우선
@@ -832,7 +849,11 @@ namespace AI_Unit_StrategyPerform
 			if (对象部队_适性条件_适用[controller_index])
 			{
 				int weapon_id = dst_unit.weapon;
+<<<<<<< HEAD
 				int dst_tekisei = (weapon_id == 병기_검) ? 0 : pk::get_tekisei(dst_unit, weapon_id);
+=======
+				int dst_tekisei = (weapon_id == 兵器_剑) ? 0 : pk::get_tekisei(dst_unit, weapon_id);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (dst_tekisei <= 对象部队_适性标准[controller_index]) return false;
 			}
 

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/04/11 # 白马叔叔 # 调整行动结束判定规则、农民兵削弱##
+=======
+﻿// ## 2022/03/27 # 江东新风 # 开启无限行动力后，部队行动不结束##
+// ## 2021/04/11 # 白马叔叔 # 调整行动结束判定规则、农民兵削弱##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/03/22 # 白马叔叔 # 修正不补给和取消补给时不判定是否行动结束、新增补给损失设定##
 // ## 2020/11/27 # messi # 搬运NAVER论坛masterpiecek的支援物资功能##
 /*
@@ -193,7 +198,11 @@ namespace 부대_물자지원
 			else if (menu_index == 지원항목_병량) { pk::add_food(src_unit, -support_amount, true); pk::add_food(dst_unit, get_amout, true); }
 
 			if (물자지원_실행부대_행동완료) src_unit.action_done = true;
+<<<<<<< HEAD
 
+=======
+			if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0) src_unit.action_done = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			return true;
 		}
 		

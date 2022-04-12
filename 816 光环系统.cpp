@@ -26,6 +26,11 @@ namespace halo
 
 	int func_光环范围(pk::unit@unit, int 光环类型)//获取部队光环范围
 	{
+<<<<<<< HEAD
+=======
+		return pk::get_halo_range(unit,光环类型);//直接调用内部函数，以实现函数效果统一
+		/*
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		int 光环基础范围 = int(pk::core["光环.基础光环基本范围"]);
 		int 基础光环相关属性 = int(pk::core["光环.基础光环关联属性"]);
 		int 战法暴击率光环相关属性 = int(pk::core["光环.暴击率光环关联属性"]);
@@ -85,7 +90,11 @@ namespace halo
 			else return -1;
 		}
 		return n;
+<<<<<<< HEAD
 
+=======
+*/
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	}
 

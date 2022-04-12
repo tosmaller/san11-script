@@ -70,7 +70,11 @@ namespace 据点防御
         void func_base_defence(pk::force@ force)
         {
             int force_id = force.get_id();
+<<<<<<< HEAD
             for (int i = 건물_관문시작; i < 건물_항구끝; i++)
+=======
+            for (int i = 建筑_关卡开始; i < 建筑_港口末; i++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 arr_base_defence[i] = false;
 
@@ -212,17 +216,28 @@ namespace 据点防御
             pk::person@ leader = pk::get_person(person_list[0].get_id());
 
             // 원거리 무기 보유 여부 확인
+<<<<<<< HEAD
             int siege_rng_id = (pk::has_tech(src_base, 기교_투석개발)) ? 병기_투석 : 병기_정란;
             main.amt_siege_wpn = pk::get_weapon_amount(src_base, siege_rng_id);
             main.amt_range_wpn = pk::get_weapon_amount(src_base, 병기_노);
             main.amt_dragn_wpn = (pk::has_tech(src_base, 기교_기사) or ch::has_skill(leader, 특기_백마)) ? pk::get_weapon_amount(src_base, 병기_군마) : 0;
+=======
+            int siege_rng_id = (pk::has_tech(src_base, 기교_투석개발)) ? 兵器_投石 : 兵器_井阑;
+            main.amt_siege_wpn = pk::get_weapon_amount(src_base, siege_rng_id);
+            main.amt_range_wpn = pk::get_weapon_amount(src_base, 兵器_弩);
+            main.amt_dragn_wpn = (pk::has_tech(src_base, 기교_기사) or ch::has_skill(leader, 특기_백마)) ? pk::get_weapon_amount(src_base, 兵器_战马) : 0;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             if ((main.amt_range_wpn + main.amt_siege_wpn + main.amt_dragn_wpn) == 0) return -1;
 
             // 방어군 병력 산정 : 기준 병력 초과분, 지휘가능병력 확인
             int def_troops = pk::min(거점방어_출진최대병력, pk::get_command(leader), pk::max(1, src_troops - ref_troops));
 
             // 최적 무기 선택
+<<<<<<< HEAD
             int ground_weapon_id = 병기_검;    // 육상병과 임시지정
+=======
+            int ground_weapon_id = 兵器_剑;    // 육상병과 임시지정
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             int water_weapon_id = 兵器_走舸;
             if (!is_water_pos or leader.tekisei[兵种_水军] == 适性_C)
                 water_weapon_id = 兵器_走舸;
@@ -254,7 +269,11 @@ namespace 据点防御
                 // 출진 명령 정보 생성.
                 pk::com_deploy_cmd_info cmd;
                 @cmd.base = @src_base;
+<<<<<<< HEAD
                 cmd.type = 부대종류_전투;
+=======
+                cmd.type = 部队类型_战斗;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 cmd.member[0] = leader.get_id();
                 cmd.gold = (pk::get_gold(src_base) >= 1000) ? int(pk::min(1000.f, pk::get_gold(src_base) * 0.1f)) : 0;
                 cmd.troops = pk::max(1, unit_troops);
@@ -358,20 +377,33 @@ namespace 据点防御
             int weapon_max = 0;
             int best_tekisei = 适性_C;
 
+<<<<<<< HEAD
             weapon_sel = 병기_검;
             troops_sel = 0;
 
             // 노병 출진
             if (main.amt_range_wpn > 0 and weapon_sel == 병기_검)
+=======
+            weapon_sel = 兵器_剑;
+            troops_sel = 0;
+
+            // 노병 출진
+            if (main.amt_range_wpn > 0 and weapon_sel == 兵器_剑)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 int tekisei = leader.tekisei[pk::equipment_id_to_heishu(병종_노병)];
                 if (troops_min <= amt_range_wpn and 적성_B <= tekisei)
                 {
+<<<<<<< HEAD
                     weapon_sel = 병기_노;
+=======
+                    weapon_sel = 兵器_弩;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     troops_sel = pk::min(amt_range_wpn, troops_max);
                 }
             }
             // 간접공성병기 출진
+<<<<<<< HEAD
             else if (main.amt_siege_wpn > 0 and weapon_sel == 병기_검)
             {
                 weapon_sel = 병기_노;
@@ -383,19 +415,41 @@ namespace 据点防御
                 if (troops_min <= amt_dragn_wpn)
                 {
                     weapon_sel = 병기_군마;
+=======
+            else if (main.amt_siege_wpn > 0 and weapon_sel == 兵器_剑)
+            {
+                weapon_sel = 兵器_弩;
+                troops_sel = pk::min(4000, troops_max);
+            }
+            // 기사군마 출진
+            else if (main.amt_dragn_wpn > 0 and weapon_sel == 兵器_剑)
+            {
+                if (troops_min <= amt_dragn_wpn)
+                {
+                    weapon_sel = 兵器_战马;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     troops_sel = pk::min(amt_dragn_wpn, troops_max);
                 }
             }
 
+<<<<<<< HEAD
             if (weapon_sel == 병기_검)
+=======
+            if (weapon_sel == 兵器_剑)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             {
                 troops_sel = troops_min;
             }
         }
 
         // 병과 속성 확인
+<<<<<<< HEAD
         bool is_dir_weapon(int weapon_id) { return ((병기_검 <= weapon_id and weapon_id <= 병기_군마) and weapon_id != 병기_노); }
         bool is_siege_weapon(int weapon_id) { return (병기_충차 <= weapon_id and weapon_id <= 병기_목수); }
+=======
+        bool is_dir_weapon(int weapon_id) { return ((兵器_剑 <= weapon_id and weapon_id <= 兵器_战马) and weapon_id != 兵器_弩); }
+        bool is_siege_weapon(int weapon_id) { return (兵器_冲车 <= weapon_id and weapon_id <= 兵器_木兽); }
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         bool is_ship_weapon(int weapon_id) { return (weapon_id == 兵器_楼船 or weapon_id == 兵器_斗舰); }
 
 
@@ -409,6 +463,7 @@ namespace 据点防御
             string weapon_name;
             switch (weapon_id)
             {
+<<<<<<< HEAD
             case 병기_검: weapon_name = "剑兵"; break;
             case 병기_창: weapon_name = "枪兵"; break;
             case 병기_극: weapon_name = "戟兵"; break;
@@ -418,6 +473,17 @@ namespace 据点防御
             case 병기_정란: weapon_name = "井阑"; break;
             case 병기_투석: weapon_name = "投石"; break;
             case 병기_목수: weapon_name = "木兽"; break;
+=======
+            case 兵器_剑: weapon_name = "剑兵"; break;
+            case 兵器_枪: weapon_name = "枪兵"; break;
+            case 兵器_戟: weapon_name = "戟兵"; break;
+            case 兵器_弩: weapon_name = "弩兵"; break;
+            case 兵器_战马: weapon_name = "骑兵"; break;
+            case 兵器_冲车: weapon_name = "冲车"; break;
+            case 兵器_井阑: weapon_name = "井阑"; break;
+            case 兵器_投石: weapon_name = "投石"; break;
+            case 兵器_木兽: weapon_name = "木兽"; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             case 兵器_走舸: weapon_name = "水军"; break;
             case 兵器_楼船: weapon_name = "水军"; break;
             case 兵器_斗舰: weapon_name = "水军"; break;

@@ -92,7 +92,11 @@ namespace 이민족_용병
 		pk::force@ force;
 		pk::person@ taishu;
 		pk::city@ city;
+<<<<<<< HEAD
 		uint16 building_gold;
+=======
+		int building_gold;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		// 건물 메뉴 도시
 		int menu_city_id_;
@@ -381,7 +385,11 @@ namespace 이민족_용병
 				setTempPerson(iminzoku_id, 성별_남, 681, 0, 71);
 				iminzoku.tekisei[병종_기병] = 적성_S;
 
+<<<<<<< HEAD
 				bool success = createUnit(iminzoku_id, 병기_군마);
+=======
+				bool success = createUnit(iminzoku_id, 兵器_战马);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (success)
 					success_event(iminzoku_id, 0);	//	对話以及資源减除
 				else
@@ -418,7 +426,11 @@ namespace 이민족_용병
 				iminzoku.tekisei[병종_기병] = 적성_S;
 				iminzoku.update();
 
+<<<<<<< HEAD
 				bool success = createUnit(iminzoku_id, 병기_군마);
+=======
+				bool success = createUnit(iminzoku_id, 兵器_战马);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (success)
 					success_event(iminzoku_id, 1);	//	对話以及資源减除
 				else
@@ -455,7 +467,11 @@ namespace 이민족_용병
 				iminzoku.tekisei[병종_극병] = 적성_S;
 				iminzoku.update();
 
+<<<<<<< HEAD
 				bool success = createUnit(iminzoku_id, 병기_극);
+=======
+				bool success = createUnit(iminzoku_id, 兵器_戟);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (success)
 					success_event(iminzoku_id, 2);	//	对話以及資源减除
 				else
@@ -491,7 +507,11 @@ namespace 이민족_용병
 
 				iminzoku.tekisei[병종_극병] = 적성_S;
 
+<<<<<<< HEAD
 				bool success = createUnit(iminzoku_id, 병기_극);
+=======
+				bool success = createUnit(iminzoku_id, 兵器_戟);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				if (success)
 					success_event(iminzoku_id, 3);	//	对話以及資源减除
 				else

@@ -101,6 +101,7 @@ namespace 야전부대전법확장
             {
                 // 정예창병 : 횡치 사용가능
                 if (pk::has_tech(force, 기교_정예창병))
+<<<<<<< HEAD
                     pk::get_equipment(병기_창).tactics[전법_횡치] = true;
 
                 // 정예극병 : 나선첨 사용가능
@@ -114,12 +115,28 @@ namespace 야전부대전법확장
                 // 정예기병 : 화시 사용가능
                 if (pk::has_tech(force, 기교_정예기병))
                     pk::get_equipment(병기_군마).tactics[전법_화시] = true;
+=======
+                    pk::get_equipment(兵器_枪).tactics[전법_횡치] = true;
+
+                // 정예극병 : 나선첨 사용가능
+                if (pk::has_tech(force, 기교_정예극병))
+                    pk::get_equipment(兵器_戟).tactics[전법_나선첨] = true;
+
+                // 정예노병 : 공성화시 사용가능
+                if (pk::has_tech(force, 기교_정예노병))
+                    pk::get_equipment(兵器_弩).tactics[전법_공성화시] = true;
+
+                // 정예기병 : 화시 사용가능
+                if (pk::has_tech(force, 기교_정예기병))
+                    pk::get_equipment(兵器_战马).tactics[전법_화시] = true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             }
 
             // 기교_운제 & 정예기교 : 공성파쇄 사용가능
             if (야전부대전법_정예공성 and pk::has_tech(force, 기교_운제))
             {
                 if (pk::has_tech(force, 기교_정예창병))
+<<<<<<< HEAD
                     pk::get_equipment(병기_창).tactics[전법_공성파쇄] = true;
 
                 if (pk::has_tech(force, 기교_정예극병))
@@ -130,6 +147,18 @@ namespace 야전부대전법확장
 
                 if (pk::has_tech(force, 기교_정예기병))
                     pk::get_equipment(병기_군마).tactics[전법_공성파쇄] = true;
+=======
+                    pk::get_equipment(兵器_枪).tactics[전법_공성파쇄] = true;
+
+                if (pk::has_tech(force, 기교_정예극병))
+                    pk::get_equipment(兵器_戟).tactics[전법_공성파쇄] = true;
+
+                if (pk::has_tech(force, 기교_정예노병))
+                    pk::get_equipment(兵器_弩).tactics[전법_공성파쇄] = true;
+
+                if (pk::has_tech(force, 기교_정예기병))
+                    pk::get_equipment(兵器_战马).tactics[전법_공성파쇄] = true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             }
 
         }
@@ -142,6 +171,7 @@ namespace 야전부대전법확장
         {
             for (int i = 0; i < 전법_끝; i++)
             {
+<<<<<<< HEAD
                 창병전법[i] = pk::get_equipment(병기_창).tactics[i];
                 극병전법[i] = pk::get_equipment(병기_극).tactics[i];
                 노병전법[i] = pk::get_equipment(병기_노).tactics[i];
@@ -150,6 +180,16 @@ namespace 야전부대전법확장
                 목수전법[i] = pk::get_equipment(병기_목수).tactics[i];
                 정란전법[i] = pk::get_equipment(병기_정란).tactics[i];
                 투석전법[i] = pk::get_equipment(병기_투석).tactics[i];
+=======
+                창병전법[i] = pk::get_equipment(兵器_枪).tactics[i];
+                극병전법[i] = pk::get_equipment(兵器_戟).tactics[i];
+                노병전법[i] = pk::get_equipment(兵器_弩).tactics[i];
+                기병전법[i] = pk::get_equipment(兵器_战马).tactics[i];
+                충차전법[i] = pk::get_equipment(兵器_冲车).tactics[i];
+                목수전법[i] = pk::get_equipment(兵器_木兽).tactics[i];
+                정란전법[i] = pk::get_equipment(兵器_井阑).tactics[i];
+                투석전법[i] = pk::get_equipment(兵器_投石).tactics[i];
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 주가전법[i] = pk::get_equipment(兵器_走舸).tactics[i];
                 누선전법[i] = pk::get_equipment(兵器_楼船).tactics[i];
                 투함전법[i] = pk::get_equipment(兵器_斗舰).tactics[i];
@@ -161,6 +201,7 @@ namespace 야전부대전법확장
         {
             for (int i = 0; i < 전법_끝; i++)
             {
+<<<<<<< HEAD
                 pk::get_equipment(병기_창).tactics[i] = 창병전법[i];
                 pk::get_equipment(병기_극).tactics[i] = 극병전법[i];
                 pk::get_equipment(병기_노).tactics[i] = 노병전법[i];
@@ -169,6 +210,16 @@ namespace 야전부대전법확장
                 pk::get_equipment(병기_목수).tactics[i] = 목수전법[i];
                 pk::get_equipment(병기_정란).tactics[i] = 정란전법[i];
                 pk::get_equipment(병기_투석).tactics[i] = 투석전법[i];
+=======
+                pk::get_equipment(兵器_枪).tactics[i] = 창병전법[i];
+                pk::get_equipment(兵器_戟).tactics[i] = 극병전법[i];
+                pk::get_equipment(兵器_弩).tactics[i] = 노병전법[i];
+                pk::get_equipment(兵器_战马).tactics[i] = 기병전법[i];
+                pk::get_equipment(兵器_冲车).tactics[i] = 충차전법[i];
+                pk::get_equipment(兵器_木兽).tactics[i] = 목수전법[i];
+                pk::get_equipment(兵器_井阑).tactics[i] = 정란전법[i];
+                pk::get_equipment(兵器_投石).tactics[i] = 투석전법[i];
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 pk::get_equipment(兵器_走舸).tactics[i] = 주가전법[i];
                 pk::get_equipment(兵器_楼船).tactics[i] = 누선전법[i];
                 pk::get_equipment(兵器_斗舰).tactics[i] = 투함전법[i];

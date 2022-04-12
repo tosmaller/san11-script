@@ -185,8 +185,13 @@ namespace 부대지휘메뉴
 			pk::add_energy(src_unit, -ENERGY_MIN_부대지휘, true);
 
 			// 부대 주장의 통솔 경험치 상승
+<<<<<<< HEAD
 			src_leader.stat_exp[0] = src_leader.stat_exp[0] + exp_0; // 통솔
 
+=======
+			//src_leader.stat_exp[0] = src_leader.stat_exp[0] + exp_0; // 통솔
+			pk::add_stat_exp(src_leader, 武将能力_统率, exp_0);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 행동완료
 			src_unit.action_done = true;
 			if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)

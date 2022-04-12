@@ -56,10 +56,17 @@ namespace UNIT_ATTR
 	const int 木牛流马加移 = 4;
 	const int 运输队加移 = 5;
 
+<<<<<<< HEAD
 	const int 仲介修正比率 = 15;
 	const int 血缘修正比率 = 15;
 	const int 亲爱修正比率 = 10;
 	const int 正常修正比率 = 5;
+=======
+	const int 仲介修正比率 = 30;
+	const int 血缘修正比率 = 30;
+	const int 亲爱修正比率 = 20;
+	const int 正常修正比率 = 10;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	//---------------------------------------------------------------------------------------
 
@@ -199,18 +206,27 @@ namespace UNIT_ATTR
 			// int defskill_금강 = 특기_금강;  //金刚
 			// int defskill_철벽 = 특기_철벽;  //铁壁
 
+<<<<<<< HEAD
 			if (weapon_id == 병기_검 or (weapon_id == 兵器_走舸 and type == 부대종류_수송))	//剑，走?，运输
+=======
+			if (weapon_id == 兵器_剑 or (weapon_id == 兵器_走舸 and type == 部队类型_运输))	//剑，走?，运输
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				apt = 剑兵攻防倍率 / 100.f;
 
 			if (status == 部队状态_混乱)//混乱
 				sts = 混乱攻防倍率 / 100.f;
 
+<<<<<<< HEAD
 			if (type == 부대종류_수송)//运输
+=======
+			if (type == 部队类型_运输)//运输
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				str = 运输队攻倍率 / 100.f;
 				ldr = 运输队防倍率 / 100.f;
 			}
 
+<<<<<<< HEAD
 			if (weapon_id <= 병기_군마)
 			{
 				int tech_id = -1;
@@ -228,6 +244,25 @@ namespace UNIT_ATTR
 					tech_id = 기교_정예노병;//精锐弩兵
 				}
 				if (weapon_id == 병기_군마)//战马
+=======
+			if (weapon_id <= 兵器_战马)
+			{
+				int tech_id = -1;
+
+				if (weapon_id == 兵器_枪)//枪
+				{
+					tech_id = 기교_정예창병;//精锐枪兵
+				}
+				if (weapon_id == 兵器_戟)//戟
+				{
+					tech_id = 기교_정예극병;//精锐戟兵
+				}
+				if (weapon_id == 兵器_弩)//弩
+				{
+					tech_id = 기교_정예노병;//精锐弩兵
+				}
+				if (weapon_id == 兵器_战马)//战马
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					tech_id = 기교_정예기병;//精锐骑兵
 				}
@@ -286,7 +321,11 @@ namespace UNIT_ATTR
 			// 병력수에 따른 이동력 보정 : 기본 이동력 +1, 3000명 증가 시마다 이동력 감소 ('18.10.9)
 			if (移动力_兵力影响)
 			{
+<<<<<<< HEAD
 				if (type == 부대종류_수송)
+=======
+				if (type == 部队类型_运输)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					mov_var = mov_var + 1 - pk::min(5, (troops / 6000));    // 수송부대 이동력 감소 리미터 ('18.11.24)
 				else
 					mov_var = mov_var + 1 - pk::min(10, (troops / 3000));    // 전투부대 이동력 감소 리미터
@@ -295,7 +334,11 @@ namespace UNIT_ATTR
 			// 병과 적성에 따른 이동력 보정 S급=+10%, C급=-20%('18.10.8)
 			if (移动力_适性影响)
 			{
+<<<<<<< HEAD
 				if (type == 부대종류_전투)    // 전투부대에 한하여 적성 고려 추가 ('18.11.26)
+=======
+				if (type == 部队类型_战斗)    // 전투부대에 한하여 적성 고려 추가 ('18.11.26)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					mov_var = mov_var * (1.f + 0.05f * pk::min(2, (attr.tekisei[pk::equipment_id_to_heishu(weapon_id)] - 적성_A)));
 			}
 
@@ -337,57 +380,97 @@ namespace UNIT_ATTR
 			//--------------------------------------------------------------------------------
 			// 기존 스크립트 수정 : 기교 및 세력/장수별 특징 반영
 
+<<<<<<< HEAD
 			if (type == 부대종류_전투)
 			{
 				switch (weapon_id)
 				{
 				case 병기_창:
+=======
+			if (type == 部队类型_战斗)
+			{
+				switch (weapon_id)
+				{
+				case 兵器_枪:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예창병))
 						mov = mov + 精锐步兵加移;
 					break;
 
+<<<<<<< HEAD
 				case 병기_극:
+=======
+				case 兵器_戟:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예극병))
 						mov = mov + 精锐步兵加移;
 					if (ch::has_skill(unit, 特技_重甲))
 						mov = mov - 重甲移动力减少;
 					break;
 
+<<<<<<< HEAD
 				case 병기_노:
+=======
+				case 兵器_弩:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_정예노병))
 						mov = mov + 精锐步兵加移;
 					break;
 
+<<<<<<< HEAD
 				case 병기_군마:
+=======
+				case 兵器_战马:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_양마산출))
 						mov = mov + 良马产出加移;
 					if (pk::has_tech(force, 기교_정예기병))   // 정예기병 이동력 하향 ('18.10.5)
 						mov = mov + 精锐骑兵加移;
 					break;
 
+<<<<<<< HEAD
 				case 병기_충차:
+=======
+				case 兵器_冲车:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_차축강화))   // 차축강화 이동력 상향 ('18.10.5)
 						mov = mov + 車轴强化加移;
 					break;
 
+<<<<<<< HEAD
 				case 병기_정란:
+=======
+				case 兵器_井阑:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_차축강화))    // 차축강화 이동력 상향 ('18.10.5)
 						mov = mov + 車轴强化加移;
 					break;
 
+<<<<<<< HEAD
 				case 병기_투석:
+=======
+				case 兵器_投石:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_차축강화))    // 차축강화 이동력 상향 ('18.10.5)
 						mov = mov + 車轴强化加移;
 					break;
 
+<<<<<<< HEAD
 				case 병기_목수:
+=======
+				case 兵器_木兽:
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					if (pk::has_tech(force, 기교_차축강화))
 						mov = mov + 車轴强化加移;
 					break;
 				}
 
 
+<<<<<<< HEAD
 				if (weapon_id <= 병기_노)
+=======
+				if (weapon_id <= 兵器_弩)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					/* 宝物的强行用has_skill无法判断，得用pk::core::skill_constant才行
 					有强行时返回5， 没有强行时返回0
@@ -396,7 +479,11 @@ namespace UNIT_ATTR
 					mov = mov + (ch::has_skill(member, 特技_强行) ? int(pk::core::skill_constant(member, 特技_强行)):0); // 5
 
 				}
+<<<<<<< HEAD
 				else if (weapon_id == 병기_군마)
+=======
+				else if (weapon_id == 兵器_战马)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				{
 					int a_强行 = ch::has_skill(member, 特技_强行) ? int(pk::core::skill_constant(member, 特技_强行)):0; // 5
 					int a_长驱 = ch::has_skill(member, 特技_长驱) ? int(pk::core::skill_constant(member, 特技_长驱)):0; // 3
@@ -404,7 +491,11 @@ namespace UNIT_ATTR
 				}
 
 			}
+<<<<<<< HEAD
 			else if (type == 부대종류_수송)   // 수송부대 输送部队
+=======
+			else if (type == 部队类型_运输)   // 수송부대 输送部队
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				if (pk::has_tech(force, 기교_목우유마))
 					mov = mov + 木牛流马加移;
@@ -637,18 +728,27 @@ namespace UNIT_ATTR
 		// int defskill_금강 = 특기_금강;  //金刚
 		// int defskill_철벽 = 특기_철벽;  //铁壁
 
+<<<<<<< HEAD
 		if (weapon_id == 병기_검 or (weapon_id == 兵器_走舸 and type == 부대종류_수송))	//剑，走?，运输
+=======
+		if (weapon_id == 兵器_剑 or (weapon_id == 兵器_走舸 and type == 部队类型_运输))	//剑，走?，运输
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			apt = 剑兵攻防倍率 / 100.f;
 
 		if (status == 部队状态_混乱)//混乱
 			sts = 混乱攻防倍率 / 100.f;
 
+<<<<<<< HEAD
 		if (type == 부대종류_수송)//运输
+=======
+		if (type == 部队类型_运输)//运输
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		{
 			str = 运输队攻倍率 / 100.f;
 			ldr = 运输队防倍率 / 100.f;
 		}
 
+<<<<<<< HEAD
 		if (weapon_id <= 병기_군마)
 		{
 			int tech_id = -1;
@@ -666,6 +766,25 @@ namespace UNIT_ATTR
 				tech_id = 기교_정예노병;//精锐弩兵
 			}
 			if (weapon_id == 병기_군마)//战马
+=======
+		if (weapon_id <= 兵器_战马)
+		{
+			int tech_id = -1;
+
+			if (weapon_id == 兵器_枪)//枪
+			{
+				tech_id = 기교_정예창병;//精锐枪兵
+			}
+			if (weapon_id == 兵器_戟)//戟
+			{
+				tech_id = 기교_정예극병;//精锐戟兵
+			}
+			if (weapon_id == 兵器_弩)//弩
+			{
+				tech_id = 기교_정예노병;//精锐弩兵
+			}
+			if (weapon_id == 兵器_战马)//战马
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			{
 				tech_id = 기교_정예기병;//精锐骑兵
 			}

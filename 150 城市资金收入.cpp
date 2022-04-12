@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+=======
+﻿// ## 2022/02/17 # 江东新风 # 探索涨基础金收入 ##
+// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/10/29 # 江东新风 # 结构体存储调用方式改进 ##
 // ## 2021/10/10 # 江东新风 # 人口相关设定 ##
 // ## 2021/10/01 # 江东新风 # namespace的韩文改成英文 ##
@@ -18,7 +23,11 @@
 namespace CITY_REVENUE
 {
 	const bool  玩家_城市数_惩罚 = true;
+<<<<<<< HEAD
 
+=======
+	const bool  调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 	class Main
 	{
 		Main()
@@ -124,10 +133,18 @@ namespace CITY_REVENUE
 			if (开启人口系统)
 			{
 				//每30的市场基础收入需要1万人维持，人数每低于要求1%，产量下降1%,最低倍率0.4，最高1.2
+<<<<<<< HEAD
 				//pk::trace(pk::format("{},population:{},basic_yield:{}", pk::decode(pk::get_name(city)), population, basic_yield));
 				float 人口影响倍率 = basic_yield > 0 ? pk::min(1.1f,pk::max(0.4f,((population / 10000.f) / (basic_yield / 30.f)))):1.0f;
 				//pk::trace(pk::format("人口：{}，基础收入：{}，人口影响倍率：{}",population,basic_yield,人口影响倍率));
 				market_yield = int(market_yield * 人口影响倍率);
+=======
+				if (调试模式) pk::trace(pk::format("{},population:{},basic_yield:{},market_yield:{}", pk::decode(pk::get_name(city)), population, basic_yield, market_yield));
+				float 人口影响倍率 = basic_yield > 0 ? pk::min(1.1f,pk::max(0.4f,((population / 10000.f) / (basic_yield / 30.f)))):1.0f;
+				
+				market_yield = int(market_yield * 人口影响倍率);
+				if (调试模式) pk::trace(pk::format("人口：{}，market_yield:{},基础收入：{}，人口影响倍率：{}", population, market_yield, basic_yield, 人口影响倍率));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 			n = population_yield + market_yield;
 
@@ -142,6 +159,10 @@ namespace CITY_REVENUE
 			else
 				n = int(n * 电脑金收入倍率 / 100.f);
 
+<<<<<<< HEAD
+=======
+			n += base_ex[city.get_id()].revenue_bonus;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			// 玩家_城市数_惩罚 ('20.8.29)
 			if (玩家_城市数_惩罚 and city.is_player() and !pk::is_campaign())
 			{
@@ -149,7 +170,11 @@ namespace CITY_REVENUE
 				float force_city_count = float(pk::get_city_list(force).count);
 				n = int(n * (1.f - pk::min(0.3f, (force_city_count - 3) * 0.015f)));
 			}
+<<<<<<< HEAD
 
+=======
+			if (调试模式) pk::trace(pk::format("{},population:{},n:{}", pk::decode(pk::get_name(city)), population, n));
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			return n;
 		}
 

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2021/10/24 # 江东新风 # 将pk::add_troops换成ch::add_troops以修正显示错误 ##
+=======
+﻿// ## 2022/03/28 # 江东新风 # 修复因部队死亡导致的空指针bug ##
+// ## 2021/10/24 # 江东新风 # 将pk::add_troops换成ch::add_troops以修正显示错误 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/01/17 # 江东新风 # 触发后在情报履历提示,发动几率降低 ##
 // ## 2020/12/24 # 江东新风 # 修复trace参数报错 ##
 // ## 2020/10/31 # 江东新风 # 同步honeybee大神的更新##
@@ -621,10 +626,14 @@ namespace 부대_잠재효과
 
 						if (troops_제약조건 < src.troops)
 						{
+<<<<<<< HEAD
 							ch::add_troops(src, -troops_피해[pk::rand(5)], true, 100);
 
 							// 병력 0 이 되면 부대 궤멸
 							if (src.troops == 0) { pk::kill(src); }
+=======
+							ch::add_troops(src, -troops_피해[pk::rand(5)], true, 100);	
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 						}
 
 						if (pk::is_in_screen(pos))
@@ -639,7 +648,17 @@ namespace 부대_잠재효과
 							case 1: pk::say(pk::encode("犯了一个不可饶恕的错误呀.."), pk::get_person(src.leader)); break;
 							}
 						}
+<<<<<<< HEAD
 						pk::history_log(src.pos, pk::get_force(src.get_force_id()).color, pk::encode(pk::format("因为\x1b[1x{}\x1b[0x的失误，周围友军军力损失\x1b[1x少量兵力\x1b[0x！", pk::decode(pk::get_name(src)))));
+=======
+						//因为部队可能提前被杀，所以提前获取信息
+						pk::point src_pos = src.pos;
+						string src_name = pk::decode(pk::get_name(src));
+						int force_color = pk::get_force(src.get_force_id()).color;
+						pk::history_log(src_pos, force_color, pk::encode(pk::format("因为\x1b[1x{}\x1b[0x的失误，周围友军军力损失\x1b[1x少量兵力\x1b[0x！", src_name)));
+						// 병력 0 이 되면 부대 궤멸
+						if (src.troops == 0) { pk::kill(src); }
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
 
 				}

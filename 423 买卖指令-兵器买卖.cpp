@@ -922,6 +922,7 @@ namespace 병기_매매
 			int weapon_cost;
 			switch (weapon_id)
 			{
+<<<<<<< HEAD
 			case 병기_검: weapon_cost = 0; break;
 			case 병기_창: weapon_cost = 700; break;
 			case 병기_극: weapon_cost = 700; break;
@@ -931,6 +932,17 @@ namespace 병기_매매
 			case 병기_정란: weapon_cost = 1600; break;
 			case 병기_투석: weapon_cost = 1800; break;
 			case 병기_목수: weapon_cost = 1700; break;
+=======
+			case 兵器_剑: weapon_cost = 0; break;
+			case 兵器_枪: weapon_cost = 700; break;
+			case 兵器_戟: weapon_cost = 700; break;
+			case 兵器_弩: weapon_cost = 700; break;
+			case 兵器_战马: weapon_cost = 700; break;
+			case 兵器_冲车: weapon_cost = 1500; break;
+			case 兵器_井阑: weapon_cost = 1600; break;
+			case 兵器_投石: weapon_cost = 1800; break;
+			case 兵器_木兽: weapon_cost = 1700; break;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			case 兵器_走舸: weapon_cost = 0; break;
 			case 兵器_楼船: weapon_cost = 800; break;
 			case 兵器_斗舰: weapon_cost = 800; break;

@@ -43,7 +43,11 @@ namespace ai出征优化
     const int min_distance = 1;      // 城市默认在此范围加1，从而和港口区分
     const int max_distance = 3;      // 城市默认在此范围加1，从而和港口区分
     //**************************************************************//
+<<<<<<< HEAD
     const bool 调试模式 = true;
+=======
+    const bool 调试模式 = false;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
     // ===========================================
     class Main
     {
@@ -1172,7 +1176,11 @@ namespace ai出征优化
 
             }
         }
+<<<<<<< HEAD
         if (false and pk::get_building_distance(temp_id, dst) >= pk::get_building_distance(src, dst))
+=======
+        if (调试模式 and pk::get_building_distance(temp_id, dst) >= pk::get_building_distance(src, dst))
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         {
             string t = "temp_id:" + pk::get_new_base_name(temp_id) + pk::get_building_distance(temp_id, dst) + ",src:" + pk::get_new_base_name(src) + pk::get_building_distance(src, dst) + ",dst:" + pk::get_new_base_name(dst);
             pk::trace(t);

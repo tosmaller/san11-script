@@ -266,10 +266,17 @@ namespace stratage_investigate
 				pk::say(pk::encode("哈哈哈! 计谋成功了."), actor, building_);
 				int base_hp = target.hp;
 				int base_troop = pk::get_troops(target);
+<<<<<<< HEAD
 				int weapon_qty1 = pk::get_weapon_amount(target, 병기_창);
 				int weapon_qty2 = pk::get_weapon_amount(target, 병기_극);
 				int weapon_qty3 = pk::get_weapon_amount(target, 병기_노);
 				int weapon_qty4 = pk::get_weapon_amount(target, 병기_군마);
+=======
+				int weapon_qty1 = pk::get_weapon_amount(target, 兵器_枪);
+				int weapon_qty2 = pk::get_weapon_amount(target, 兵器_戟);
+				int weapon_qty3 = pk::get_weapon_amount(target, 兵器_弩);
+				int weapon_qty4 = pk::get_weapon_amount(target, 兵器_战马);
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				string city_name = pk::decode(pk::get_name(target));
 				pk::message_box(pk::encode(pk::format("据细作来报:\x1b[2x{}\x1b[0x耐久是\x1b[1x{}\x1b[0x,士兵数量是\x1b[1x{}\x1b[0x,\n           枪的数量是\x1b[1x{}\x1b[0x,戟的数量是\x1b[1x{}\x1b[0x,\n           弓的数量是\x1b[1x{}\x1b[0x,马的数量是\x1b[1x{}\x1b[0x.", city_name, base_hp, base_troop, weapon_qty1, weapon_qty2, weapon_qty3, weapon_qty4)));
 			}

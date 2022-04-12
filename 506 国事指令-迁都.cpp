@@ -53,7 +53,11 @@ namespace 후한황제천도
         pk::person@ new_kunshu;
         pk::building@ new_building;
         pk::city@ new_city;
+<<<<<<< HEAD
         uint16 building_gold;
+=======
+        int building_gold;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
         bool kunshu_building_check;
         bool emperor_city_check;
         int debate_result;

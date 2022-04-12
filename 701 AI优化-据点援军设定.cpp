@@ -363,11 +363,19 @@ namespace AI优化_据点援军
                         int weapon_amount = 0;
                         int siege_amount = 0;
 
+<<<<<<< HEAD
                         for (int j = 병기_창; j <= 병기_군마; j++)     // 창극노마 병기수량 합하기
                         {
                             weapon_amount += pk::get_weapon_amount(src, j);
                         }
                         for (int j = 병기_충차; j <= 병기_목수; j++)     // 공성병기 수량 합하기
+=======
+                        for (int j = 兵器_枪; j <= 兵器_战马; j++)     // 창극노마 병기수량 합하기
+                        {
+                            weapon_amount += pk::get_weapon_amount(src, j);
+                        }
+                        for (int j = 兵器_冲车; j <= 兵器_木兽; j++)     // 공성병기 수량 합하기
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                         {
                             siege_amount += pk::get_weapon_amount(src, j);
                         }
@@ -559,8 +567,13 @@ namespace AI优化_据点援军
         {
             int type = -1;
             if (건물_도시시작 <= building_id and building_id < 城市_末) type = 0;
+<<<<<<< HEAD
             if (건물_관문시작 <= building_id and building_id < 건물_관문끝) type = 1;
             if (건물_항구시작 <= building_id and building_id < 건물_항구끝) type = 2;
+=======
+            if (建筑_关卡开始 <= building_id and building_id < 건물_관문끝) type = 1;
+            if (건물_항구시작 <= building_id and building_id < 建筑_港口末) type = 2;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             return type;
         }
 
@@ -620,17 +633,28 @@ namespace AI优化_据点援军
 
                 // 창극노마 병기수량 합하기
                 int weapon_sum = 0;
+<<<<<<< HEAD
                 for (int j = 병기_창; j <= 병기_군마; j++)
+=======
+                for (int j = 兵器_枪; j <= 兵器_战马; j++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     weapon_sum += pk::get_weapon_amount(src_base, j);
                 }
 
                 // 병기 전체 수량은 병력만큼, 병기별 비율대로 배분
                 int i = 0;
+<<<<<<< HEAD
                 for (int weapon_id = 병기_창; weapon_id <= 병기_군마; weapon_id++)
                 {
                     int weapon_amount = int(pk::get_weapon_amount(src_base, weapon_id) * 0.9f);
                     if (weapon_id <= 병기_군마 and weapon_amount > 0)
+=======
+                for (int weapon_id = 兵器_枪; weapon_id <= 兵器_战马; weapon_id++)
+                {
+                    int weapon_amount = int(pk::get_weapon_amount(src_base, weapon_id) * 0.9f);
+                    if (weapon_id <= 兵器_战马 and weapon_amount > 0)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     {
                         cmd.weapon_id[i] = weapon_id;
                         cmd.weapon_amount[i] = pk::min(100000, weapon_amount, reinforce_troops * weapon_amount / weapon_sum);
@@ -716,7 +740,11 @@ namespace AI优化_据点援军
             int reinforce_troops = pk::min(据点援军_最大战斗兵力, pk::get_command(leader), pk::max(1, pk::get_troops(src_base) - ref_troops));
 
             // 최적 무기 선택
+<<<<<<< HEAD
             int ground_weapon_id = 병기_검;
+=======
+            int ground_weapon_id = 兵器_剑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             int water_weapon_id = 兵器_走舸;
             int unit_troops = reinforce_troops;
 
@@ -808,8 +836,13 @@ namespace AI优化_据点援军
             if (person_list.count == 0) return -1;   // 무장 부족
 
             // 거점 공성병기 재고 확인
+<<<<<<< HEAD
             int siege_dir_id = (pk::has_tech(src_base, 기교_목수개발)) ? 병기_목수 : 병기_충차;
             int siege_rng_id = (pk::has_tech(src_base, 기교_투석개발)) ? 병기_투석 : 병기_정란;
+=======
+            int siege_dir_id = (pk::has_tech(src_base, 기교_목수개발)) ? 兵器_木兽 : 兵器_冲车;
+            int siege_rng_id = (pk::has_tech(src_base, 기교_투석개발)) ? 兵器_投石 : 兵器_井阑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             int amt_siege_dir = pk::get_weapon_amount(src_base, siege_dir_id);  // 직접 공성병기 수량
             int amt_siege_rng = pk::get_weapon_amount(src_base, siege_rng_id);  // 간접 공성병기 수량
             if ((amt_siege_rng + amt_siege_dir) == 0) return -1;     // 공성병기 없음
@@ -838,7 +871,11 @@ namespace AI优化_据点援军
             int reinforce_troops = pk::min(据点援军_最大战斗兵力, pk::get_command(leader), pk::max(1, pk::get_troops(src_base) - ref_troops));
 
             // 최적 무기 선택
+<<<<<<< HEAD
             int ground_weapon_id = 병기_검;
+=======
+            int ground_weapon_id = 兵器_剑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             int water_weapon_id = 兵器_走舸;
             int unit_troops = reinforce_troops;
 
@@ -907,17 +944,28 @@ namespace AI优化_据点援军
             int weapon_max = 0;
             int best_tekisei = 适性_C;
 
+<<<<<<< HEAD
             weapon_sel = 병기_검;
+=======
+            weapon_sel = 兵器_剑;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             troops_sel = 0;
 
             // 노병 우대 출진
             if (cmd_archer)
             {
                 int tekisei = leader.tekisei[pk::equipment_id_to_heishu(병종_노병)];
+<<<<<<< HEAD
                 int weapon = pk::get_weapon_amount(base, 병기_노);
                 if (troops_min <= weapon and 적성_B <= tekisei)
                 {
                     weapon_sel = 병기_노;
+=======
+                int weapon = pk::get_weapon_amount(base, 兵器_弩);
+                if (troops_min <= weapon and 적성_B <= tekisei)
+                {
+                    weapon_sel = 兵器_弩;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     troops_sel = pk::min(weapon, troops_max);
                 }
             }
@@ -925,7 +973,11 @@ namespace AI优化_据点援军
             else
             {
                 // 출병병력 이상 보유한 무기 중 최고 적성 확인
+<<<<<<< HEAD
                 for (int id = 병기_창; id <= 병기_군마; id++)
+=======
+                for (int id = 兵器_枪; id <= 兵器_战马; id++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     int tekisei = leader.tekisei[pk::equipment_id_to_heishu(id)];
                     int weapon_t = pk::get_weapon_amount(base, id);
@@ -934,7 +986,11 @@ namespace AI优化_据点援军
                 }
 
                 // 최고 적성 이상의 병과 중 무기 가장 많은 병과 선택
+<<<<<<< HEAD
                 for (int id = 병기_창; id <= 병기_군마; id++)
+=======
+                for (int id = 兵器_枪; id <= 兵器_战马; id++)
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                 {
                     int tekisei = leader.tekisei[pk::equipment_id_to_heishu(id)];
                     int weapon_t = pk::get_weapon_amount(base, id);
@@ -956,7 +1012,11 @@ namespace AI优化_据点援军
 
         bool is_siege_weapon(int weapon_id)
         {
+<<<<<<< HEAD
             if (병기_충차 <= weapon_id and weapon_id <= 병기_목수) return true;
+=======
+            if (兵器_冲车 <= weapon_id and weapon_id <= 兵器_木兽) return true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
             return false;
         }
 
@@ -964,7 +1024,11 @@ namespace AI优化_据点援军
         {
             bool has_port = false;
             int base_id = base.get_id();
+<<<<<<< HEAD
             if (건물_항구시작 <= base_id and base_id < 건물_항구끝) return true;
+=======
+            if (건물_항구시작 <= base_id and base_id < 建筑_港口末) return true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
             if (건물_도시시작 <= base_id and base_id < 城市_末)
             {
@@ -975,7 +1039,11 @@ namespace AI优化_据点援军
                     if (sub_id != -1)
                     {
                         pk::building@ sub_t = pk::get_building(sub_id);
+<<<<<<< HEAD
                         if (pk::is_alive(sub_t) and (건물_항구시작 <= sub_id and sub_id < 건물_항구끝)) return true;
+=======
+                        if (pk::is_alive(sub_t) and (건물_항구시작 <= sub_id and sub_id < 建筑_港口末)) return true;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
                     }
                 }
             }

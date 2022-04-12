@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿// ## 2022/01/06 # 江东新风 # 头像数据重设 ##
+=======
+﻿// ## 2022/02/15 # 江东新风 # 童子状态头像重设 ##
+// ## 2022/01/06 # 江东新风 # 头像数据重设 ##
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/09/18 # 江东新风 # 更改background路径 ##
 // ## 2021/04/08 # 白马叔叔 # 修复拜师经验异常、子女拜师闪退  ##
 // ## 2021/03/14 # 白马叔叔 # 新增生子头像无重复功能，修正外出无选项等bug、称谓bug、武将排序  ##
@@ -4764,7 +4769,11 @@ namespace 방문
 						if (pk::get_year() <= birthday_child.birth + 1)
 							birthday_child.face = 799;
 						else
+<<<<<<< HEAD
 							birthday_child.face = birthday_child.sex == 0 ? 757 : 758;
+=======
+							birthday_child.face = birthday_child.sex == 0 ? 753 : 754;//已根据新头像编号更改
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 						birthday_child.update();
 						pk::play_bgm(19);
@@ -4847,7 +4856,11 @@ namespace 방문
 					if (pk::get_year() <= child_baishi.birth + 1)
 						child_baishi.face = 799;
 					else
+<<<<<<< HEAD
 						child_baishi.face = child_baishi.sex == 0 ? 757 : 758;
+=======
+						child_baishi.face = child_baishi.sex == 0 ? 753 : 754;
+>>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					child_baishi.update();
 					string call_kunshu = kunshu_.sex == 0 ? "父亲大人" : "母亲大人";
 					pk::message_box(pk::encode(pk::format("哎呀,\x1b[1x{}\x1b[0x已经到了这个年纪了呀!\n得给孩子找个老师了.", child_baishi_name)), kunshu_);
