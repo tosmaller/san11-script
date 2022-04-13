@@ -124,11 +124,12 @@
             <li class="level2"><a href="#page_func_171">171 都督选择</a></li>
             <li class="level2"><a href="#page_func_172">172 太守选择</a></li>
             <li class="level2"><a href="#page_func_173">173 举兵概率</a></li>
+            <li class="level2"><a href="#page_func_174">174 资金支出</a></li>
             <li class="level2"><a href="#page_func_200">200 援助攻击概率</a></li>
             <li class="level2"><a href="#page_func_201">201 攻击暴击概率</a></li>
             <li class="level2"><a href="#page_func_202">202 战法成功率</a></li>
             <li class="level2"><a href="#page_func_203">203 骑兵战法突死率</a></li>
-            <li class="level2"><a href="#page_func_204">204 螺旋突混乱概率</a></li>
+            <li class="level2"><a href="#page_func_204">204 螺旋突混乱概率（已弃用，使用221）</a></li>
             <li class="level2"><a href="#page_func_205">205 计略气力消耗</a></li>
             <li class="level2"><a href="#page_func_206">206 计略成功率</a></li>
             <li class="level2"><a href="#page_func_207">207 计略暴击率</a></li>
@@ -143,6 +144,10 @@
             <li class="level2"><a href="#page_func_216">216 燃烧伤害</a></li>
             <li class="level2"><a href="#page_func_217">217 毒泉伤害</a></li>
             <li class="level2"><a href="#page_func_218">218 栈道伤害</a></li>
+            <li class="level2"><a href="#page_func_220">220 俘虏武将</a></li>
+            <li class="level2"><a href="#page_func_221">221 螺旋突混乱概率</a></li>
+            <li class="level2"><a href="#page_func_222">222 疾驰混乱概率</a></li>
+            <li class="level2"><a href="#page_func_223">223 犄角混乱概率</a></li>
             <li class="level2"><a href="#page_func_250">250(legacy)</a></li>
             <li class="level2"><a href="#page_func_251">251(legacy)</a></li>
             <li class="level2"><a href="#page_func_252">252(legacy)</a></li>
@@ -328,7 +333,7 @@
       </p>
       <h2><a class="anchor" id="page_event_56"></a>
         56 出征命令信息</h2>
-      <p>void func56_t(<a class="el" href="structpk_1_1march__cmd__info" title="出征命令信息">pk::march_cmd_info&</a> in info);
+      <p>void func56_t(<a class="el" href="structpk_1_1march__cmd__info.html" title="出征命令信息">pk::march_cmd_info&</a> in info);
         <br />
         <br />
         显示出征命令信息
@@ -707,7 +712,7 @@
 
       <h2><a class="anchor" id="page_func_100"></a>
         100 征兵数量设定</h2>
-      <p>int func100_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, const <a class="el" href="classpk_1_1detail_1_1arrayptr.html">pk::detail::arrayptr</a>&lt;<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>&gt; &amp;in actors); </p>
+      <p>int func100_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, const <a class="el" href="classpk_1_1detail_1_1arrayptr.html">pk::detail::arrayptr</a>&lt;<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>&gt; &amp;in actors, int type); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
@@ -718,6 +723,25 @@
             <tr>
               <td class="paramname">actors</td>
               <td>执行武将 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>执行 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>仅计算，不影响兵役</td>
+                  </tr>
+                </table>
+              </td>
             </tr>
           </table>
         </dd>
@@ -927,7 +951,7 @@
       </dl>
       <h2><a class="anchor" id="page_func_111"></a>
         111 登用概率</h2>
-      <p>bool func111_t(<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ target, <a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ actor, int type, int seed); </p>
+      <p>bool func111_t(<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ target, <a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ actor, int type, int seed, int rettype); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
@@ -966,6 +990,12 @@
               <td class="paramname">seed</td>
               <td>随机生成种子值 </td>
             </tr>
+            <tr>
+              <td class="paramname">rettype</td>
+              <td>
+                未知
+              </td>
+            </tr>
           </table>
         </dd>
       </dl>
@@ -974,7 +1004,7 @@
       </dl>
       <h2><a class="anchor" id="page_func_112"></a>
         112 同盟概率</h2>
-      <p><a class="el" href="structpk_1_1int__bool.html" title="튜플 ">pk::int_bool</a> func112_t(const pk::alliance_cmd_info &amp;in info); </p>
+      <p><a class="el" href="structpk_1_1int__bool.html" title="튜플 ">pk::int_bool</a> func112_t(const <a class="el" href="file:///D:/game/san11%20pk2.2%20mod%20build2.4.220214/pk2.2/script/html/structpk_1_1alliance__cmd__info.html">pk::alliance_cmd_info</a> &amp;in info); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
@@ -1012,7 +1042,7 @@
       </dl>
       <h2><a class="anchor" id="page_func_113"></a>
         113 劝降概率</h2>
-      <p><a class="el" href="structpk_1_1int__bool.html" title="튜플 ">pk::int_bool</a> func113_t(const pk::solicit_cmd_info &amp;in info); </p>
+      <p><a class="el" href="structpk_1_1int__bool.html" title="튜플 ">pk::int_bool</a> func113_t(const <a class="el" href="structpk_1_1solicit__surrender__cmd__info.html">pk::solicit_cmd_info</a> &amp;in info); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
@@ -1482,6 +1512,22 @@
       <dl class="section return"><dt>返回值</dt>
         <dd>是否发生举兵事件 </dd>
       </dl>
+      <h2><a class="anchor" id="page_func_174"></a>
+        174 资金支出</h2>
+      <p>int func174_t(<a class="el" href="structpk_1_1building.html">pk::building</a>@ building); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">building</td>
+              <td>建筑 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section return"><dt>返回值</dt>
+        <dd>建筑资金支出 </dd>
+      </dl>
       <h2><a class="anchor" id="page_func_200"></a>
         200 援助攻击概率</h2>
       <p>int func200_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ assister, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ target); </p>
@@ -1591,7 +1637,7 @@
         <dd>概率 </dd>
       </dl>
       <h2><a class="anchor" id="page_func_204"></a>
-        204 螺旋突混乱概率</h2>
+        204 螺旋突混乱概率（已弃用，使用<a href="#page_func_221">221</a>）</h2>
       <p>int func204_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ target, bool critical); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
@@ -1711,7 +1757,7 @@
       </dl>
       <h2><a class="anchor" id="page_func_209"></a>
         209 部队攻击伤害</h2>
-      <p>void func209_t(<a class="el" href="structpk_1_1damage__info.html" title="伤害情报 ">pk::damage_info</a>&amp; info, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, int tactics_id, const <a class="el" href="structpk_1_1point.html">pk::point</a> &amp;in target_pos, int type, int critical, bool ambush); </p>
+      <p>void func209_t(<a class="el" href="structpk_1_1damage__info.html" title="伤害情报 ">pk::damage_info</a>&amp; info, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, int tactics_id, const <a class="el" href="structpk_1_1point.html">pk::point</a> &amp;in target_pos, int type, int critical, bool ambush, int rettype); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
@@ -1786,8 +1832,70 @@
             <tr>
               <td class="paramdir"></td>
               <td class="paramname">ambush</td>
-              <td>복병 여부 </td>
+              <td>伏击 </td>
             </tr>
+            <td class="paramdir"></td>
+              <td class="paramname">rettype</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>玩家普攻 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>玩家齐攻 </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>玩家战法对部队</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>玩家战法对建筑</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>受到反击</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>触发连击</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>横扫波及</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>旋风波及</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>贯射波及</td>
+                  </tr>
+                  <tr>
+                    <td>12</td>
+                    <td>乱射波及</td>
+                  </tr>
+                  <tr>
+                    <td>14</td>
+                    <td>投石波及</td>
+                  </tr>
+                  <tr>
+                    <td>15</td>
+                    <td>委任计算</td>
+                  </tr>
+                  <tr>
+                    <td>16</td>
+                    <td>委任执行</td>
+                  </tr>
+                </table>
+              </td>
           </table>
         </dd>
       </dl>
@@ -2015,6 +2123,94 @@
       <dl class="section return"><dt>返回值</dt>
         <dd>兵力伤害量 </dd>
       </dl>
+
+       <h2><a class="anchor" id="page_func_220"></a>
+        220 俘虏武将</h2>
+      <p>void func220_t(const <a href="structpk_1_1destroy__info" class="el">pk::destroy_info</a>& in info, <a class="el" href="structpk_1_1list.html" title="리스트 ">pk::list</a><<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@>& captured, <a class="el" href="structpk_1_1list.html" title="리스트 ">pk::list</a><<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@>& escaped, bool tactics_bonus); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">pos</td>
+              <td>坐标 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section return"><dt>返回值</dt>
+        <dd>兵力伤害量 </dd>
+      </dl>
+      <h2><a class="anchor" id="page_func_221"></a>
+        221 螺旋突混乱概率</h2>
+      <p>int func221_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ target, bool critical); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">attacker</td>
+              <td>战法执行部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">target</td>
+              <td>目标部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">critical</td>
+              <td>暴击 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section return"><dt>返回值</dt>
+        <dd>概率 </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_func_222"></a>
+        222 疾驰混乱概率</h2>
+      <p>int func222_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ target); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">attacker</td>
+              <td>战法执行部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">target</td>
+              <td>目标部队 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section return"><dt>返回值</dt>
+        <dd>概率 </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_func_223"></a>
+        223 犄角混乱概率</h2>
+      <p>int func223_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ target); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">attacker</td>
+              <td>战法执行部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">target</td>
+              <td>目标部队 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="section return"><dt>返回值</dt>
+        <dd>概率 </dd>
+      </dl>
+
       <h2><a class="anchor" id="page_func_250"></a>
         250(legacy)</h2>
       <p>void func250_t(<a class="el" href="structpk_1_1ai__context__base.html">pk::ai_context_base</a>@ base_info, int src, const <a class="el" href="structpk_1_1list.html" title="리스트 ">pk::list</a>&lt;<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>&gt; &amp;in dst_list); </p>
@@ -2145,7 +2341,7 @@
           <table class="params">
             <tr>
               <td class="paramname">context</td>
-              <td>컨텍스트 </td>
+              <td>AI判断当前处境 </td>
             </tr>
             <tr>
               <td class="paramname">building</td>
@@ -2162,7 +2358,7 @@
           <table class="params">
             <tr>
               <td class="paramname">context</td>
-              <td>컨텍스트 </td>
+              <td>AI判断当前处境 </td>
             </tr>
             <tr>
               <td class="paramname">building</td>
@@ -2183,7 +2379,7 @@
           <table class="params">
             <tr>
               <td class="paramname">context</td>
-              <td>컨텍스트 </td>
+              <td>AI判断当前处境 </td>
             </tr>
             <tr>
               <td class="paramname">building</td>

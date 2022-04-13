@@ -83,16 +83,28 @@
             <li class="level2"><a href="#page_event_111">111 回合开始</a></li>
             <li class="level2"><a href="#page_event_112">112 回合结束</a></li>
             <li class="level2"><a href="#page_event_120">120 游戏画面绘制</a></li>
+            <li class="level2"><a href="#page_event_131">131 势力破灭</a></li>
             <li class="level2"><a href="#page_event_130">132 主导权委任</a></li>
             <li class="level2"><a href="#page_event_140">140 军团生成</a></li>
+            <li class="level2"><a href="#page_event_151">151 武将死亡</a></li>
             <li class="level2"><a href="#page_event_152">152 武将势力变更</a></li>
             <li class="level2"><a href="#page_event_160">160 建筑生成</a></li>
             <li class="level2"><a href="#page_event_161">161 建筑清除</a></li>
             <li class="level2"><a href="#page_event_162">162 建筑完成</a></li>
+            <li class="level2"><a href="#page_event_164">164 建筑破坏</a></li>
+            <li class="level2"><a href="#page_event_165">165 流言据点</a></li>
             <li class="level2"><a href="#page_event_170">170 部队生成</a></li>
             <li class="level2"><a href="#page_event_171">171 部队清除</a></li>
             <li class="level2"><a href="#page_event_172">172 部队坐标变更</a></li>
             <li class="level2"><a href="#page_event_173">173 部队经验值获得</a></li>
+            <li class="level2"><a href="#page_event_174">174 部队行动结束</a></li>
+            <li class="level2"><a href="#page_event_175">175 部队溃灭</a></li>
+            <li class="level2"><a href="#page_event_176">176 部队被攻击</a></li>
+            <li class="level2"><a href="#page_event_177">177 部队命令完成</a></li>
+            <li class="level2"><a href="#page_event_179">179 部队战法攻击结束</a></li>
+            <li class="level2"><a href="#page_event_201">201 AI部队出征</a></li>
+            <li class="level2"><a href="#page_event_202">202 AI执行指令</a></li>
+            <li class="level2"><a href="#page_event_203">203 武将容貌变更</a></li>
           </ul>
         </li>
       </ul>
@@ -191,6 +203,19 @@
       <h2><a class="anchor" id="page_event_120"></a>
         120 游戏画面绘制</h2>
       <p>void trigger120_t(); </p>
+      <h2><a class="anchor" id="page_event_131"></a>
+        131 势力破灭</h2>
+      <p>void trigger131_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">force</td>
+              <td>势力 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
       <h2><a class="anchor" id="page_event_130"></a>
         132 主导权委任</h2>
       <p>void trigger132_t(<a class="el" href="structpk_1_1force.html" title="势力 ">pk::force</a>@ force); </p>
@@ -217,6 +242,62 @@
             <tr>
               <td class="paramname">type</td>
               <td>未使用 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <h2><a class="anchor" id="page_event_151"></a>
+        151 武将死亡</h2>
+      <p>void trigger151_t(<a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ dead, <a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ by, int type, int rettype); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">dead</td>
+              <td>死亡武将 </td>
+            </tr>
+            <tr>
+              <td class="paramname">by</td>
+              <td>执行武将 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <!-- <td>死亡类型 </td> -->
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>战场死亡 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>处决 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="paramname">rettype</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>script设置死亡 </td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>骑兵突死 </td>
+                  </tr>
+                </table>
+              </td>
             </tr>
           </table>
         </dd>
@@ -305,6 +386,88 @@
           </table>
         </dd>
       </dl>
+      <h2><a class="anchor" id="page_event_164"></a>
+        164 建筑破坏</h2>
+      <p>void trigger164_t(int force_id, int facility_id, const <a class="el" href="structpk_1_1point.html">pk::point</a>& in pos); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">force_id</td>
+              <td>势力Id </td>
+            </tr>
+            <tr>
+              <td class="paramname">facility_id</td>
+              <td>设施Id </td>
+            </tr>
+            <tr>
+              <td class="paramname">pos</td>
+              <td>建筑位置 </td>
+            </tr>
+            <tr>
+              <td class="paramname">force_id</td>
+              <td>势力id </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_165"></a>
+        165 流言据点</h2>
+      <p>int trigger165_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ target_base, <a class="el" href="structpk_1_1person.html" title="武将 ">pk::person</a>@ actor); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">target_base</td>
+              <td>目标建筑 </td>
+            </tr>
+            <tr>
+              <td class="paramname">actor</td>
+              <td>执行武将 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+      <dl class="params">
+        <dt>返回值</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">target_base</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>成功未被发现 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>成功但被发现 </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>失败 </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>失败且被捕 </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>按原概率计算 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
       <h2><a class="anchor" id="page_event_170"></a>
         170 部队生成</h2>
       <p>void trigger170_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p>
@@ -339,7 +502,7 @@
       </dl>
       <h2><a class="anchor" id="page_event_171"></a>
         171 部队清除</h2>
-      <p>void trigger171_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p>
+      <p>void trigger171_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, <a class="el" href="structpk_1_1hex__object.html" title="部队 ">pk::hex_object</a>@ dst, int type); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
@@ -409,6 +572,173 @@
           </table>
         </dd>
       </dl>
+
+      <h2><a class="anchor" id="page_event_174"></a>
+        174 部队行动结束</h2>
+      <p>void trigger174_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>玩家 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>玩家 </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>电脑 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_176"></a>
+        176 被部队攻击</h2>
+      <p>void trigger176_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>攻击部队 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_177"></a>
+        177 部队命令完成</h2>
+      <p>void trigger177_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">unit</td>
+              <td>攻击部队 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_179"></a>
+        179 部队战法攻击结束</h2>
+      <p>void trigger179_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ target, <a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ attacker, int troops_damage, int critical, int tactics); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">target</td>
+              <td>目标部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">attacker</td>
+              <td>攻击部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">troops_damage</td>
+              <td>伤害值 </td>
+            </tr>
+            <tr>
+              <td class="paramname">critical</td>
+              <td>暴击 </td>
+            </tr>
+            <tr>
+              <td class="paramname">critical</td>
+              <td>战法类型 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_201"></a>
+        201 AI部队出征</h2>
+      <p>void trigger201_t(<a class="el" href="structpk_1_1ai__context.html">pk::ai_context</a>@ context, <a class="el" href="structpk_1_1com__march__cmd__info.html">pk::com_march_cmd_info</a>& info, int type); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">context</td>
+              <td>AI信息 </td>
+            </tr>
+            <tr>
+              <td class="paramname">info</td>
+              <td>AI出征命令信息 </td>
+            </tr>
+            <tr>
+              <td class="paramname">type</td>
+              <td>
+                <table class="doxtable">
+                  <tr>
+                    <th>值</th>
+                    <th>说明 </th>
+                  </tr>
+                  <tr>
+                    <td>0</td>
+                    <td>防御 </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>攻击 </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>建设 </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>运输 </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_202"></a>
+        202 AI执行指令</h2>
+      <p>void trigger202_t(<a class="el" href="structpk_1_1ai__context.html">pk::ai_context</a>@ context, <a class="el" href="structpk_1_1building.html">pk::building</a>@ building, int cmd); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">context</td>
+              <td>AI信息 </td>
+            </tr>
+            <tr>
+              <td class="paramname">building</td>
+              <td>据点 </td>
+            </tr>
+            <tr>
+              <td class="paramname">cmd</td>
+              <td>据点AI执行指令，指令可通过<a href="../300%20S11KR常量.cpp" target="_blank">300 S11KR常量.cpp</a>查看</td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+
+      <h2><a class="anchor" id="page_event_203"></a>
+        203 武将容貌变更</h2>
+      <p>void trigger203_t(); </p>
+
     </div>
   </div><!-- contents -->
   <!-- start footer part -->
