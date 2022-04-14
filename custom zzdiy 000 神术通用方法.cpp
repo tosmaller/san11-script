@@ -220,21 +220,6 @@ namespace 神术数据结构体 {
     building.update();
   }
 
-  bool unit_has_person(pk::unit@ unit, pk::person@ person)
-  {
-    for (int m = 0; m < 3; m++)
-    {
-      if (pk::is_valid_person_id(unit.member[m]))
-      {
-        pk::person@ member = pk::get_person(unit.member[m]);
-        if (member.get_id() == person.get_id()) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   void 减少武将寿命(pk::person@ person, int 减少值)
   {
     person.death -= 减少值;
@@ -248,10 +233,42 @@ namespace 神术数据结构体 {
 
   class Main
   {
+    pk::func209_t@ prev_callback_209;
+    pk::func212_t@ prev_callback_212;
+    pk::func213_t@ prev_callback_213;
+    pk::func214_t@ prev_callback_214;
+    pk::func215_t@ prev_callback_215;
+
     Main()
     {
       pk::bind(102, 0, pk::trigger102_t(剧本初始化_结构体_信息读取));
       pk::bind(105, pk::trigger105_t(儲存_结构体_信息储存));
+
+      pk::bind(171, pk::trigger171_t(部队清除));
+      pk::bind(175, pk::trigger175_t(部队溃灭));
+
+      pk::bind(120, pk::trigger120_t(部队特殊信息显示));
+
+      @prev_callback_209 = cast<pk::func209_t@>(pk::get_func(209));
+      pk::reset_func(209);
+      pk::set_func(209, pk::func209_t(func209));
+
+      @prev_callback_212 = cast<pk::func212_t@>(pk::get_func(212));
+      pk::reset_func(212);
+      pk::set_func(212, pk::func212_t(func212));
+
+      @prev_callback_213 = cast<pk::func213_t@>(pk::get_func(213));
+      pk::reset_func(213);
+      pk::set_func(213, pk::func213_t(func213));
+
+      @prev_callback_214 = cast<pk::func214_t@>(pk::get_func(214));
+      pk::reset_func(214);
+      pk::set_func(214, pk::func214_t(func214));
+
+      @prev_callback_215 = cast<pk::func215_t@>(pk::get_func(215));
+      pk::reset_func(215);
+      pk::set_func(215, pk::func215_t(func215));
+
 
       添加神术菜单();
     }
@@ -295,6 +312,9 @@ namespace 神术数据结构体 {
           person_sc[i].特技_激励 = false;
           person_sc[i].神鬼八阵_使用 = false;
           person_sc[i].火凤连环_使用 = false;
+          person_sc[i].kill_unit = 0;
+          person_sc[i].troops_damage = 0;
+          person_sc[i].kill_destroyed = 0;
         }
 
         for (int i = 0; i < 部队_末; i++)
@@ -303,7 +323,7 @@ namespace 神术数据结构体 {
           unit_sc[i].火凤连环影响 = false;
           unit_sc[i].乱武完杀部队 = false;
           unit_sc[i].奇谋诡策影响 = false;
-          unit_sc[i].帷幄奇策_禁法回合 = 最大时间;
+          unit_sc[i].帷幄奇策_禁法回合 = 126720;
         }
       }
       if (pk::get_scenario().loaded)
@@ -341,16 +361,201 @@ namespace 神术数据结构体 {
       }
     }
 
+    void 部队清除(pk::unit@ unit, pk::hex_object@ dst, int type)
+    {
+      if (type == 0)
+      {
+        for (int i = 0; i < 3; i++)
+        {
+          if (pk::is_valid_person_id(unit.member[i]))
+          {
+            sc_personinfo@ sc_person = @person_sc[unit.member[i]];
+            sc_person.kill_destroyed += 1;
+          }
+        }
+      }
+    }
+
+    void 部队溃灭(pk::unit@ attacker, pk::unit@ target)
+    {
+      for (int i = 0; i < 3; i++)
+      {
+        if (pk::is_valid_person_id(attacker.member[i]))
+        {
+          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+          sc_person.kill_unit += 1;
+        }
+      }
+    }
+
+    void 部队特殊信息显示()
+    {
+      pk::point cursor_pos = pk::get_cursor_hex_pos();
+      if (!pk::is_valid_pos(cursor_pos)) return;
+
+      // 光标上指示的部队
+      pk::unit@ unit = pk::get_unit(cursor_pos);
+      if (unit is null) return;
+
+      bool is_player = unit.is_player();
+
+      int current = pk::get_elapsed_days();
+
+      sc_unitinfo@ sc_unit = @unit_sc[unit.get_id()];
+
+      string unit_name = pk::decode(pk::get_name(unit));
+
+      string title = pk::format("部队特殊信息(\x1b[1x{}\x1b[0x)", unit_name);
+
+      string title2 = "武将特殊信息";
+
+      string 神鬼八阵效果 = pk::format("(带神鬼八阵效果: \x1b[1x{}\x1b[0x)", sc_unit.神鬼八阵效果 ? '一击必杀' : '否');
+
+      string 火凤连环影响 = pk::format("(被火凤连环部队: \x1b[1x{}\x1b[0x)", pk::encode(sc_unit.火凤连环影响 ? '是' : '否'));
+
+      string 奇谋诡策影响 = pk::format("(受奇谋诡策影响: \x1b[1x{}\x1b[0x)", pk::encode(sc_unit.奇谋诡策影响 ? '是' : '否'));
+
+      pk::trace('禁法：' + sc_unit.帷幄奇策_禁法回合);
+      bool times = int(sc_unit.帷幄奇策_禁法回合) > 0 and current > int(sc_unit.帷幄奇策_禁法回合 - 10) and current - int(sc_unit.帷幄奇策_禁法回合 - 10) <= 30;
+
+      string 帷幄奇策影响 = pk::format("(受帷幄奇策影响: \x1b[1x{}\x1b[0x)", pk::encode(times ? '是' : '否'));
+
+      array<bool> 效果影响列表 = { sc_unit.神鬼八阵效果, sc_unit.火凤连环影响, sc_unit.奇谋诡策影响, times };
+
+      array<string> 效果内容列表 = { 神鬼八阵效果, 火凤连环影响, 奇谋诡策影响, 帷幄奇策影响 };
+
+      array<string> 展示文案;
+
+      for (int i = 0; i < int(效果影响列表.length); i++)
+      {
+        if (效果影响列表[i]) 展示文案.insertLast(效果内容列表[i]);
+      }
+      int len1 = int(展示文案.length);
+
+      pk::list<pk::person@> member = ch::get_member_list(unit);
+      sc_personinfo@ sc_person_leader = @person_sc[unit.leader];
+
+      int width = int(pk::get_resolution().width) - 280;
+      pk::point left_down = pk::point(int(pk::get_resolution().width) - 10, 75 + 3 * 20 + 40 + 5 + int(member.count) * 80) + 20;
+      pk::draw_filled_rect(pk::rectangle(pk::point(width - 5, 15), left_down), ((0xff / 2) << 24) | 0x010101);
+      pk::draw_text(pk::encode(title), pk::point(width, 20), 0xffffffff, FONT_BIG, 0xff000000);
+
+      for (int i = 0; i < len1; i++)
+      {
+        pk::draw_text(pk::encode(展示文案[i]), pk::point(width, 75 + i * 20), 0xffffffff, FONT_SMALL, 0xff000000);
+      }
+
+      if (len1 == 0) pk::draw_text(pk::encode('(无)'), pk::point(width, 75), 0xffffffff, FONT_SMALL, 0xff000000);
+
+      int person_offset_top =  95 + (len1 > 0 ? len1 : 1) * 20;
+      pk::draw_text(pk::encode(title2), pk::point(width, person_offset_top), 0xffffffff, FONT_BIG, 0xff000000);
+
+      for (int i = 0; i < int(member.count); i++)
+      {
+        int offset_top = person_offset_top + i * 60 + 10;
+        pk::person@ person = member[i];
+        int person_id = person.get_id();
+        sc_personinfo@ sc_person = @person_sc[person_id];
+
+        pk::point rightup = pk::point(width + 10, offset_top + (i + 1) * 40);
+        pk::point leftdown = pk::point(width + 42, offset_top + 40 + (i + 1) * 40);
+        auto rect = pk::rectangle(rightup, leftdown);
+
+        pk::draw_face(FACE_SMALL, person_id, rect, FACE_L);
+
+        string 武将姓名 = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(person)));
+        string 武将杀敌数 = pk::format("击杀部队数：\x1b[1x{}\x1b[0x", sc_person.kill_unit);
+        string 武将杀兵数 = pk::format("击杀士兵数：\x1b[1x{}\x1b[0x", sc_person.troops_damage);
+        string 武将被杀数 = pk::format("被击杀次数：\x1b[1x{}\x1b[0x", sc_person.kill_destroyed);
+
+        int face_top = offset_top + (i + 1) * 20 + (i * 20);
+
+        pk::draw_text(pk::encode(武将姓名), pk::point(width + 70, face_top + 0), 0xffffffff, FONT_SMALL, 0xff000000);
+        pk::draw_text(pk::encode(武将杀敌数), pk::point(width + 70, face_top + 20), 0xffffffff, FONT_SMALL, 0xff000000);
+        pk::draw_text(pk::encode(武将杀兵数), pk::point(width + 70, face_top + 40), 0xffffffff, FONT_SMALL, 0xff000000);
+        pk::draw_text(pk::encode(武将被杀数), pk::point(width + 70, face_top + 60), 0xffffffff, FONT_SMALL, 0xff000000);
+      }
+
+    }
+
+    void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
+    {
+      prev_callback_209(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
+      if (rettype != 15)
+      {
+        for (int i = 0; i < 3; i++)
+        {
+          if (pk::is_valid_person_id(attacker.member[i]))
+          {
+            sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+            sc_person.troops_damage += info.troops_damage;
+          }
+        }
+      }
+    }
+
+    void func212(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ sub_target)
+    {
+      prev_callback_212(info, attacker, sub_target);
+      for (int i = 0; i < 3; i++)
+      {
+        if (pk::is_valid_person_id(attacker.member[i]))
+        {
+          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+          sc_person.troops_damage += info.troops_damage;
+        }
+      }
+    }
+
+    void func213(pk::damage_info& info, int trap, pk::unit@ attacker, pk::hex_object@ target, bool critical)
+    {
+      prev_callback_213(info, trap, attacker, target, critical);
+      for (int i = 0; i < 3; i++)
+      {
+        if (pk::is_valid_person_id(attacker.member[i]))
+        {
+          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+          sc_person.troops_damage += info.troops_damage;
+        }
+      }
+    }
+
+    void func214(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ target, bool critical)
+    {
+      prev_callback_214(info, attacker, target, critical);
+      for (int i = 0; i < 3; i++)
+      {
+        if (pk::is_valid_person_id(attacker.member[i]))
+        {
+          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+          sc_person.troops_damage += info.troops_damage;
+        }
+      }
+    }
+
+    void func215(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ target, bool critical)
+    {
+      prev_callback_215(info, attacker, target, critical);
+      for (int i = 0; i < 3; i++)
+      {
+        if (pk::is_valid_person_id(attacker.member[i]))
+        {
+          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+          sc_person.troops_damage += info.troops_damage;
+        }
+      }
+    }
+
   }
   Main main;
 }
 
 
 
-const int 神术武将结构体_uint32数 = 6;
+const int 神术武将结构体_uint32数 = 9;
 const int 神术部队结构体_uint32数 = 5;
 
-const int 最大时间 = 352 * 12 * 3 * 10;
+const int 最大时间 = 126720; // 352 * 12 * 3 * 10;
 
 array<array<uint32>> sc_unit_info_temp(神术部队结构体_uint32数, array<uint32>(部队_末, uint32(0)));
 array<array<uint32>> sc_person_info_temp(神术武将结构体_uint32数, array<uint32>(武将_末, uint32(0)));
@@ -369,7 +574,7 @@ class sc_unitinfo {
   bool 火凤连环影响;
   bool 乱武完杀部队;
   bool 奇谋诡策影响;
-  int32 帷幄奇策_禁法回合 = 最大时间;
+  uint32 帷幄奇策_禁法回合 = 最大时间;
 
   //初始化
   sc_unitinfo(int id)
@@ -428,8 +633,7 @@ class sc_unitinfo {
   uint32 toInt32_4(void)
   {
     uint32 帷幄奇策_禁法回合_值 = 帷幄奇策_禁法回合;
-    uint32 x = 0;
-    x = 帷幄奇策_禁法回合_值;
+    uint32 x = 帷幄奇策_禁法回合_值;
     return x;
   }
 
@@ -469,15 +673,23 @@ class sc_personinfo {
   int 神鬼八阵效果序号 = 4;
   int 火凤连环效果序号 = 5;
 
-  int32 狼顾权变_失去技能回合 = 最大时间;
+  int 击破部队效果序号 = 6;
+  int 士兵伤害效果序号 = 7;
+  int 部队溃灭效果序号 = 8;
+
+  uint32 狼顾权变_失去技能回合 = 最大时间;
   int16 狼顾权变_技能失效编号 = -1;
-  int32 帷幄奇策_技能获得回合 = 最大时间;
+  uint32 帷幄奇策_技能获得回合 = 最大时间;
   bool 特技_霸王;
   bool 特技_百战;
   bool 特技_巧变;
   bool 特技_激励;
   bool 神鬼八阵_使用 = false;
   bool 火凤连环_使用 = false;
+
+  uint32 kill_unit = 0; // 击破部队数
+  uint32 troops_damage = 0; // 士兵伤害数
+  uint32 kill_destroyed = 0; // 被溃灭次数
 
   //初始化
   sc_personinfo(int person_id)
@@ -497,6 +709,9 @@ class sc_personinfo {
     fromInt32_3(sc_person_info_temp[帷幄奇策技能序号][person_id]);
     fromInt32_4(sc_person_info_temp[神鬼八阵效果序号][person_id]);
     fromInt32_5(sc_person_info_temp[火凤连环效果序号][person_id]);
+    fromInt32_6(sc_person_info_temp[击破部队效果序号][person_id]);
+    fromInt32_7(sc_person_info_temp[士兵伤害效果序号][person_id]);
+    fromInt32_8(sc_person_info_temp[部队溃灭效果序号][person_id]);
   }
 
   void update(int person_id)
@@ -507,13 +722,15 @@ class sc_personinfo {
     sc_person_info_temp[帷幄奇策技能序号][person_id] = toInt32_3();
     sc_person_info_temp[神鬼八阵效果序号][person_id] = toInt32_4();
     sc_person_info_temp[火凤连环效果序号][person_id] = toInt32_5();
+    sc_person_info_temp[击破部队效果序号][person_id] = toInt32_6();
+    sc_person_info_temp[士兵伤害效果序号][person_id] = toInt32_7();
+    sc_person_info_temp[部队溃灭效果序号][person_id] = toInt32_8();
   }
 
   uint32 toInt32_0(void)
   {
     uint32 狼顾权变_失去技能回合_值 = 狼顾权变_失去技能回合;
-    uint32 x = 0;
-    x = 狼顾权变_失去技能回合_值;
+    uint32 x = 狼顾权变_失去技能回合_值;
     return x;
   }
 
@@ -528,8 +745,7 @@ class sc_personinfo {
   uint32 toInt32_2(void)
   {
     uint32 帷幄奇策_技能获得回合_值 = 帷幄奇策_技能获得回合;
-    uint32 x = 0;
-    x = 帷幄奇策_技能获得回合_值;
+    uint32 x = 帷幄奇策_技能获得回合_值;
     return x;
   }
 
@@ -554,6 +770,26 @@ class sc_personinfo {
   {
     uint8 火凤连环使用_值 = 火凤连环_使用 ? 1 : 0;
     uint32 x = 火凤连环使用_值;
+    return x;
+  }
+
+  uint32 toInt32_6(void)
+  {
+    uint32 kill_unit_值 = kill_unit;
+    uint32 x = kill_unit_值;
+    return x;
+  }
+
+  uint32 toInt32_7(void)
+  {
+    uint32 troops_damage_值 = troops_damage;
+    uint32 x = troops_damage_值;
+    return x;
+  }
+  uint32 toInt32_8(void)
+  {
+    uint32 kill_destroyed_值 = kill_destroyed;
+    uint32 x = kill_destroyed_值;
     return x;
   }
 
@@ -588,5 +824,20 @@ class sc_personinfo {
   void fromInt32_5(uint32 x)
   {
     火凤连环_使用 = (((x << 31) >> 31) == 1);
+  }
+
+  void fromInt32_6(uint32 x)
+  {
+    kill_unit = x;
+  }
+
+  void fromInt32_7(uint32 x)
+  {
+    troops_damage = x;
+  }
+
+  void fromInt32_8(uint32 x)
+  {
+    kill_destroyed = x;
   }
 }
