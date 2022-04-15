@@ -244,6 +244,7 @@ namespace 神术数据结构体 {
       pk::bind(102, 0, pk::trigger102_t(剧本初始化_结构体_信息读取));
       pk::bind(105, pk::trigger105_t(儲存_结构体_信息储存));
 
+      pk::bind(151, pk::trigger151_t(武将死亡));
       pk::bind(171, pk::trigger171_t(部队清除));
       pk::bind(175, pk::trigger175_t(部队溃灭));
 
@@ -361,15 +362,49 @@ namespace 神术数据结构体 {
       }
     }
 
+    void 武将死亡(pk::person@ dead, pk::person@ by, int type, int rettype)
+    {
+      sc_personinfo@ sc_person = @person_sc[dead.get_id()];
+      sc_person.狼顾权变_失去技能回合 = 最大时间;
+      sc_person.狼顾权变_技能失效编号 = -1;
+      sc_person.帷幄奇策_技能获得回合 = 最大时间;
+      sc_person.特技_霸王 = false;
+      sc_person.特技_百战 = false;
+      sc_person.特技_巧变 = false;
+      sc_person.特技_激励 = false;
+      sc_person.神鬼八阵_使用 = false;
+      sc_person.火凤连环_使用 = false;
+      sc_person.kill_unit = 0;
+      sc_person.troops_damage = 0;
+      sc_person.kill_destroyed = 0;
+    }
+
     void 部队清除(pk::unit@ unit, pk::hex_object@ dst, int type)
     {
-      if (type == 0)
+      array<string> 临时武将 = { pk::encode("农民兵"), pk::encode("突袭者"), pk::encode("府兵"), pk::encode("雇佣兵"), pk::encode("贾诩小队") };
+      for (int i = 0; i < 3; i++)
       {
-        for (int i = 0; i < 3; i++)
+        if (pk::is_valid_person_id(unit.member[i]))
         {
-          if (pk::is_valid_person_id(unit.member[i]))
+          pk::person@ member = pk::get_person(unit.member[i]);
+          sc_personinfo@ sc_person = @person_sc[unit.member[i]];
+          if (临时武将.find(member.name_read) >= 0)
           {
-            sc_personinfo@ sc_person = @person_sc[unit.member[i]];
+            sc_person.狼顾权变_失去技能回合 = 最大时间;
+            sc_person.狼顾权变_技能失效编号 = -1;
+            sc_person.帷幄奇策_技能获得回合 = 最大时间;
+            sc_person.特技_霸王 = false;
+            sc_person.特技_百战 = false;
+            sc_person.特技_巧变 = false;
+            sc_person.特技_激励 = false;
+            sc_person.神鬼八阵_使用 = false;
+            sc_person.火凤连环_使用 = false;
+            sc_person.kill_unit = 0;
+            sc_person.troops_damage = 0;
+            sc_person.kill_destroyed = 0;
+          }
+          else if (type == 0)
+          {
             sc_person.kill_destroyed += 1;
           }
         }
@@ -415,7 +450,6 @@ namespace 神术数据结构体 {
 
       string 奇谋诡策影响 = pk::format("(受奇谋诡策影响: \x1b[1x{}\x1b[0x)", pk::encode(sc_unit.奇谋诡策影响 ? '是' : '否'));
 
-      pk::trace('禁法：' + sc_unit.帷幄奇策_禁法回合);
       bool times = int(sc_unit.帷幄奇策_禁法回合) > 0 and current > int(sc_unit.帷幄奇策_禁法回合 - 10) and current - int(sc_unit.帷幄奇策_禁法回合 - 10) <= 30;
 
       string 帷幄奇策影响 = pk::format("(受帷幄奇策影响: \x1b[1x{}\x1b[0x)", pk::encode(times ? '是' : '否'));
