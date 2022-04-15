@@ -316,6 +316,7 @@ namespace 神术数据结构体 {
           person_sc[i].kill_unit = 0;
           person_sc[i].troops_damage = 0;
           person_sc[i].kill_destroyed = 0;
+          person_sc[i].kill_unit_destroyed = 0;
         }
 
         for (int i = 0; i < 部队_末; i++)
@@ -377,6 +378,7 @@ namespace 神术数据结构体 {
       sc_person.kill_unit = 0;
       sc_person.troops_damage = 0;
       sc_person.kill_destroyed = 0;
+      sc_person.kill_unit_destroyed = 0;
     }
 
     void 部队清除(pk::unit@ unit, pk::hex_object@ dst, int type)
@@ -402,6 +404,7 @@ namespace 神术数据结构体 {
             sc_person.kill_unit = 0;
             sc_person.troops_damage = 0;
             sc_person.kill_destroyed = 0;
+            sc_person.kill_unit_destroyed = 0;
           }
           else if (type == 0)
           {
@@ -419,6 +422,14 @@ namespace 神术数据结构体 {
         {
           sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
           sc_person.kill_unit += 1;
+        }
+      }
+      for (int i = 0; i < 3; i++)
+      {
+        if (pk::is_valid_person_id(target.member[i]))
+        {
+          sc_personinfo@ sc_person = @person_sc[target.member[i]];
+          sc_person.kill_unit_destroyed += 1;
         }
       }
     }
@@ -497,10 +508,12 @@ namespace 神术数据结构体 {
 
         pk::draw_face(FACE_SMALL, person_id, rect, FACE_L);
 
+        pk::trace('杀敌数：' + sc_person.kill_destroyed);
         string 武将姓名 = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(person)));
         string 武将杀敌数 = pk::format("击杀部队数：\x1b[1x{}\x1b[0x", sc_person.kill_unit);
         string 武将杀兵数 = pk::format("击杀士兵数：\x1b[1x{}\x1b[0x", sc_person.troops_damage);
-        string 武将被杀数 = pk::format("被击杀次数：\x1b[1x{}\x1b[0x", sc_person.kill_destroyed);
+        string 武将被杀数 = pk::format("被击杀次数：\x1b[1x{}\x1b[0x(部队:\x1b[19x{}\x1b[0x)", sc_person.kill_destroyed, sc_person.kill_unit_destroyed);
+
 
         int face_top = offset_top + (i + 1) * 20 + (i * 20);
 
@@ -586,7 +599,7 @@ namespace 神术数据结构体 {
 
 
 
-const int 神术武将结构体_uint32数 = 9;
+const int 神术武将结构体_uint32数 = 10;
 const int 神术部队结构体_uint32数 = 5;
 
 const int 最大时间 = 126720; // 352 * 12 * 3 * 10;
@@ -709,7 +722,8 @@ class sc_personinfo {
 
   int 击破部队效果序号 = 6;
   int 士兵伤害效果序号 = 7;
-  int 部队溃灭效果序号 = 8;
+  int 部队溃灭效果序号 = 8; // 部队被其他部队击破数
+  int 部队被破效果序号 = 9; // 部队总被击破数
 
   uint32 狼顾权变_失去技能回合 = 最大时间;
   int16 狼顾权变_技能失效编号 = -1;
@@ -723,7 +737,8 @@ class sc_personinfo {
 
   uint32 kill_unit = 0; // 击破部队数
   uint32 troops_damage = 0; // 士兵伤害数
-  uint32 kill_destroyed = 0; // 被溃灭次数
+  uint32 kill_destroyed = 0; // 被击溃总次数
+  uint32 kill_unit_destroyed = 0; // 被部队溃灭次数
 
   //初始化
   sc_personinfo(int person_id)
@@ -746,6 +761,7 @@ class sc_personinfo {
     fromInt32_6(sc_person_info_temp[击破部队效果序号][person_id]);
     fromInt32_7(sc_person_info_temp[士兵伤害效果序号][person_id]);
     fromInt32_8(sc_person_info_temp[部队溃灭效果序号][person_id]);
+    fromInt32_9(sc_person_info_temp[部队被破效果序号][person_id]);
   }
 
   void update(int person_id)
@@ -759,6 +775,7 @@ class sc_personinfo {
     sc_person_info_temp[击破部队效果序号][person_id] = toInt32_6();
     sc_person_info_temp[士兵伤害效果序号][person_id] = toInt32_7();
     sc_person_info_temp[部队溃灭效果序号][person_id] = toInt32_8();
+    sc_person_info_temp[部队被破效果序号][person_id] = toInt32_9();
   }
 
   uint32 toInt32_0(void)
@@ -826,6 +843,12 @@ class sc_personinfo {
     uint32 x = kill_destroyed_值;
     return x;
   }
+  uint32 toInt32_9(void)
+  {
+    uint32 kill_unit_destroyed_值 = kill_unit_destroyed;
+    uint32 x = kill_unit_destroyed_值;
+    return x;
+  }
 
   void fromInt32_0(uint32 x)
   {
@@ -872,6 +895,11 @@ class sc_personinfo {
 
   void fromInt32_8(uint32 x)
   {
-    kill_destroyed = x;
+    kill_destroyed = (x >> 0);
+  }
+
+  void fromInt32_9(uint32 x)
+  {
+    kill_unit_destroyed = (x >> 0);
   }
 }
