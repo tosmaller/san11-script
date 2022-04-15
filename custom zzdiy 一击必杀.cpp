@@ -10,17 +10,13 @@ namespace 人物一击必杀 {
   class Main
   {
     pk::random random(pk::rand());
-    array<int> 一击必杀能力部队 = { 武将_刘禅 };
+    array<int> 一击必杀能力部队 = { 武将_刘禅, 武将_刘备 };
     Main() {
       @prev_callback_209 = cast<pk::func209_t@>(pk::get_func(209));
       pk::reset_func(209);
       pk::set_func(209, pk::func209_t(func209));
 
-      // pk::bind(111, pk::trigger111_t(onTurnStart));
-      // pk::bind(108, pk::trigger108_t(onMonthBegin));
       pk::bind(170, pk::trigger170_t(onUnitCreate));
-      pk::bind(171, pk::trigger171_t(onUnitRemove));
-      // pk::bind(174, pk::trigger174_t(onUnitActionDone));
     }
 
     pk::unit@ src_unit;
@@ -70,50 +66,6 @@ namespace 人物一击必杀 {
       pk::history_log(building.pos, color, pk::encode(str));
     }
 
-    void onTurnStart(pk::force@ force)
-    {
-      for (int i = 0; i < 可用武将_末; i++)
-      {
-        if (一击必杀能力部队.find(i) >= 0)
-        {
-          pk::person@ person = pk::get_person(i);
-          if (person !is null and pk::is_alive(person) and person.get_force_id() == force.get_id())
-          {
-            int unit_id = pk::hex_object_id_to_unit_id(person.location);
-            pk::unit@ unit = pk::get_unit(unit_id);
-            if (unit !is null and pk::is_alive(unit))
-            {
-              sc_unitinfo@ unit_t = @unit_sc[unit_id];
-              unit_t.神鬼八阵效果 = true;
-              历史日志(unit, '开挂', pk::format("获得\x1b[27x{}\x1b[0x能力！", '一击必杀'));
-            }
-          }
-        }
-      }
-    }
-
-    // void onMonthBegin()
-    // {
-    //   for (int i = 0; i < 可用武将_末; i++)
-    //   {
-    //     if (一击必杀能力部队.find(i) >= 0)
-    //     {
-    //       pk::person@ person = pk::get_person(i);
-    //       if (person !is null and pk::is_alive(person))
-    //       {
-    //         int unit_id = pk::hex_object_id_to_unit_id(person.location);
-    //         pk::unit@ unit = pk::get_unit(unit_id);
-    //         if (unit !is null and pk::is_alive(unit))
-    //         {
-    //           sc_unitinfo@ unit_t = @unit_sc[unit_id];
-    //           unit_t.神鬼八阵效果 = true;
-    //           历史日志(unit, '开挂', pk::format("获得\x1b[27x{}\x1b[0x能力！", '一击必杀'));
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-
     void onUnitCreate(pk::unit@ unit, int type)
     {
       if (type == 0)
@@ -126,8 +78,6 @@ namespace 人物一击必杀 {
             if (member_t is null or !pk::is_alive(member_t)) continue;
             if (一击必杀能力部队.find(member_t.get_id()) >= 0)
             {
-              sc_unitinfo@ unit_t = @unit_sc[unit.get_id()];
-              unit_t.神鬼八阵效果 = true;
               历史日志(unit, '开挂', pk::format("获得\x1b[27x{}\x1b[0x能力！", '一击必杀'));
             }
           }
@@ -141,30 +91,21 @@ namespace 人物一击必杀 {
       一击必杀_伤害处理(info, attacker, target_pos);
     }
 
-    // void onUnitActionDone(pk::unit@ unit,int type)
-    // {
-    //   sc_unitinfo@ sc_unit = @unit_sc[unit.get_id()];
-    //   if (sc_unit.神鬼八阵效果) sc_unit.神鬼八阵效果 = false;
-    // }
-
-    void onUnitRemove(pk::unit@ unit, pk::hex_object@ dst, int type)
-    {
-      一击必杀部队溃灭处理(unit);
-    }
-
-    void 一击必杀部队溃灭处理(pk::unit@ unit)
-    {
-      sc_unitinfo@ sc_unit = @unit_sc[unit.get_id()];
-      if (sc_unit.神鬼八阵效果)
-      {
-        sc_unit.神鬼八阵效果 = false;
-      }
-    }
-
     void 一击必杀_伤害处理(pk::damage_info& info, pk::unit@ attacker, const pk::point& in target_pos)
     {
-      sc_unitinfo@ sc_unit = @unit_sc[attacker.get_id()];
-      if (sc_unit.神鬼八阵效果)
+      bool 一击必杀效果 = false;
+      for (int m = 0; m < 3; m++)
+      {
+        if (pk::is_valid_person_id(attacker.member[m]))
+        {
+          if (一击必杀能力部队.find(attacker.member[m]) >= 0)
+          {
+            一击必杀效果 = true;
+            break;
+          }
+        }
+      }
+      if (一击必杀效果)
       {
         pk::building@ building = pk::get_building(target_pos);
         pk::unit@ unit = pk::get_unit(target_pos);
