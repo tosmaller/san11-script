@@ -1,13 +1,4 @@
-<<<<<<< HEAD
 ﻿// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
-=======
-﻿// ## 2022/03/26 # 江东新风 # 府兵部队生成失败bug ##
-// ## 2022/03/21 # 江东新风 # 府兵部队身份异常bug,封地耐久稍提升 ##
-// ## 2022/03/20 # 江东新风 # 修复武将所属变更后无法再分封bug ##
-// ## 2022/03/18 # 江东新风 # 分封选武将取消闪退bug ##
-// ## 2022/03/16 # 江东新风 # 分封及解除分封取消闪退bug ##
-// ## 2022/02/14 # 江东新风 # 部分常量中文化 ##
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 // ## 2021/02/06 # 江东新风 # 府兵带兵数调整为被封武将官职低一级的带兵数##
 // ## 2021/01/29 # 江东新风 # 府兵不进攻问题，武将所属变更封地未同步问题，稍微削弱府兵属性##
 // ## 2021/01/11 # 江东新风 # 重复分封问题 ##
@@ -29,13 +20,9 @@ namespace 府兵系统
 	const int GOLD_COST = 3000;       // 金消耗
 	const int FOOD_COST = 6000;       // 金消耗
 	const int TROOP_COST = 3000;       // 金消耗
-<<<<<<< HEAD
-=======
-	const int SPEC_HP_BONUS = 500;
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 	const int 封地巡防范围 = 6;//默认6，范围3-10
-	
+
 	int 地名_id = -1;
 
 	const bool 调试模式 = false;
@@ -80,33 +67,6 @@ namespace 府兵系统
 			item.get_desc = pk::menu_item_get_desc_t(getDesc);
 			item.handler = pk::menu_item_handler_t(handler);
 			pk::add_menu_item(item);
-<<<<<<< HEAD
-=======
-
-			pk::menu_item menu_item_领地_分封;
-			menu_item_领地_分封.menu = 0;
-			menu_item_领地_分封.pos = 0;
-			//menu_item_领地_分封.shortcut = shortcut_领地_分封;
-			menu_item_领地_分封.init = pk::building_menu_item_init_t(init_领地_分封);
-			menu_item_领地_分封.is_visible = pk::menu_item_is_visible_t(isVisible_领地_分封);
-			menu_item_领地_分封.is_enabled = pk::menu_item_is_enabled_t(isEnabled_领地_分封);
-			menu_item_领地_分封.get_text = pk::menu_item_get_text_t(getText_领地_分封);
-			menu_item_领地_分封.get_desc = pk::menu_item_get_desc_t(getDesc_领地_分封);
-			menu_item_领地_分封.handler = pk::menu_item_handler_t(handler_领地_分封);
-			pk::add_menu_item(menu_item_领地_分封);
-
-			pk::menu_item menu_item_领地_解除分封;
-			menu_item_领地_解除分封.menu = 0;
-			menu_item_领地_解除分封.pos = 0;
-			//menu_item_领地_解除分封.shortcut = shortcut_领地_解除分封;
-			menu_item_领地_解除分封.init = pk::building_menu_item_init_t(init_领地_解除分封);
-			menu_item_领地_解除分封.is_visible = pk::menu_item_is_visible_t(isVisible_领地_解除分封);
-			menu_item_领地_解除分封.is_enabled = pk::menu_item_is_enabled_t(isEnabled_领地_解除分封);
-			menu_item_领地_解除分封.get_text = pk::menu_item_get_text_t(getText_领地_解除分封);
-			menu_item_领地_解除分封.get_desc = pk::menu_item_get_desc_t(getDesc_领地_解除分封);
-			menu_item_领地_解除分封.handler = pk::menu_item_handler_t(handler_领地_解除分封);
-			pk::add_menu_item(menu_item_领地_解除分封);
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		}
 
 		void add_unit_menu()
@@ -136,19 +96,12 @@ namespace 府兵系统
 				int spec_id = get_spec_id(building);
 				if (spec_id != -1)
 				{
-<<<<<<< HEAD
 					max_hp += 300;
 					if (pk::is_valid_person_id(special_ex[spec_id].person))
 					{
 						max_hp += 300;
-=======
-					max_hp += SPEC_HP_BONUS;
-					if (pk::is_valid_person_id(special_ex[spec_id].person))
-					{
-						max_hp += SPEC_HP_BONUS;
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 					}
-					
+
 				}
 			}
 			return max_hp;
@@ -196,18 +149,13 @@ namespace 府兵系统
 
 			string info_将军 = pk::format("将军: \x1b[1x{}\x1b[0x", person_name);
 
-<<<<<<< HEAD
 			pk::draw_text(pk::encode(info_将军), pk::point(left + 10, top + 40 + 军餉维护费::信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
-=======
-			pk::draw_text(pk::encode(info_将军), pk::point(left + 10, top + 40 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			if (person_id != -1)
 			{
 				string info_兵力 = pk::format("府兵: \x1b[1x{}\x1b[0x", spec_t.troops);
 				string info_资金 = pk::format("资金: \x1b[1x{}\x1b[0x", spec_t.gold);
 				string info_兵粮 = pk::format("兵粮: \x1b[1x{}\x1b[0x", spec_t.food);
 				string info_统领 = pk::format("统领: \x1b[1x{}\x1b[0x", 3);//以后再考虑变化
-<<<<<<< HEAD
 				pk::draw_text(pk::encode(info_兵力), pk::point(middle + 10, top + 40 + 军餉维护费::信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 				pk::draw_text(pk::encode(info_资金), pk::point(left + 10, top + 40 + (军餉维护费::信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
 				pk::draw_text(pk::encode(info_兵粮), pk::point(middle + 10, top + 40 + (军餉维护费::信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
@@ -215,15 +163,6 @@ namespace 府兵系统
 				军餉维护费::信息行数 += 2;
 			}
 			else 军餉维护费::信息行数 += 1;
-=======
-				pk::draw_text(pk::encode(info_兵力), pk::point(middle + 10, top + 40 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
-				pk::draw_text(pk::encode(info_资金), pk::point(left + 10, top + 40 + (据点信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
-				pk::draw_text(pk::encode(info_兵粮), pk::point(middle + 10, top + 40 + (据点信息行数 + 1) * 20), 0xffffffff, FONT_SMALL, 0xff000000);
-				pk::draw_text(pk::encode(info_统领), pk::point(middle + 10, top + 20 + 据点信息行数 * 20), 0xffffffff, FONT_SMALL, 0xff000000);
-				据点信息行数 += 2;
-			}
-			else 据点信息行数 += 1;
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 		}
 
@@ -236,7 +175,7 @@ namespace 府兵系统
 			{
 				pk::point pos = pk::point(特殊地名设施[i][1], 特殊地名设施[i][2]);
 				pk::building@ building0 = pk::get_building(pos);
-				
+
 				if (!pk::is_alive(building0)) continue;
 				if (调试模式) pk::trace("府兵 building id:" + building0.get_id());
 				if (building0.get_force_id() != force.get_id()) continue;
@@ -268,18 +207,10 @@ namespace 府兵系统
 			for (int i = 0; i < 地名_末; ++i)
 			{
 				specialinfo@ spec_t = @special_ex[i];
-<<<<<<< HEAD
 				if (spec_t.person == person_id)
 				{
 					ch::reset_spec(i);
 					person_ex[spec_t.person].spec_id = -1;
-=======
-				if (spec_t.person == person_id and pk::is_valid_person_id(person_id))
-				{
-					//pk::trace(pk::format("地名：{},武将：{},武将封地:{}",ch::get_spec_name(i),person_id, person_ex[spec_t.person].spec_id));
-					ch::reset_spec(i);
-					person_ex[person_id].spec_id = -1;
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				}
 			}
 		}
@@ -292,7 +223,7 @@ namespace 府兵系统
 				else if (pk::get_food(building) <= 2 * FOOD_COST) return;
 				else if (pk::get_gold(building) <= 2 * GOLD_COST) return;
 
-				
+
 				pk::list<pk::person@> able_person = get_able_person(pk::get_force(building.get_force_id()));
 				pk::list<pk::building@> able_spec = get_city_able_spec_building(building);
 
@@ -321,7 +252,7 @@ namespace 府兵系统
 			pk::building@ building_spec = able_spec[0];
 			able_spec.clear();
 			able_spec.add(building_spec);
-			
+
 			return true;
 		}
 
@@ -340,8 +271,8 @@ namespace 府兵系统
 			}
 			spec_t.person = person_id;
 			spec_t.gold = is_player ? GOLD_COST : GOLD_COST * 2;
-			spec_t.food = is_player ? FOOD_COST : FOOD_COST * 2; 
-			spec_t.troops = is_player ? TROOP_COST : TROOP_COST * 2; 
+			spec_t.food = is_player ? FOOD_COST : FOOD_COST * 2;
+			spec_t.troops = is_player ? TROOP_COST : TROOP_COST * 2;
 			person_ex[person_id].spec_id = spec_id;
 			// 计算行动力消耗
 			auto district = pk::get_district(building0.get_district_id());
@@ -356,7 +287,7 @@ namespace 府兵系统
 			pk::add_loyalty(actor, 10);
 			spec_name = 特殊地名设施名称[spec_id];
 
-			
+
 			if (!is_player)
 			{
 				string t = pk::format("\x1b[2x{}\x1b[0x获得了封地\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(pk::get_person(person_id))),spec_name); //"\x1b[2x" +  + pk::encode("\x1b[0x获得了封地\x1b[1x" + spec_name + "\x1b[0x");
@@ -383,7 +314,6 @@ namespace 府兵系统
 				spec_t.food = 0;
 				spec_t.troops = 0;
 				pk::building@spec_building = pk::get_building(spec_id + 100);
-<<<<<<< HEAD
 				spec_building.hp = pk::max(spec_building.hp-300,0);
 				pk::add_gold(building0, gold, false);
 				pk::add_food(building0, food, false);
@@ -391,26 +321,6 @@ namespace 府兵系统
 				spec_name = 特殊地名设施名称[spec_id];
 				string t = pk::format("\x1b[2x{}\x1b[0x被解除了封地\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(pk::get_person(person_id))), spec_name); //"\x1b[2x" +  + pk::encode("\x1b[0x获得了封地\x1b[1x" + spec_name + "\x1b[0x");
 				pk::history_log(building0.pos, pk::get_force(building0.get_force_id()).color, pk::encode(t));
-=======
-				spec_building.hp = pk::max(spec_building.hp- SPEC_HP_BONUS,0);
-
-				pk::add_gold(building0, gold, false);
-				pk::add_food(building0, food, false);
-				pk::add_troops(building0, troops, false);
-
-				spec_name = 特殊地名设施名称[spec_id];
-				if (!is_player)
-				{
-					string t = pk::format("\x1b[2x{}\x1b[0x被解除了封地\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(pk::get_person(person_id))), spec_name); //"\x1b[2x" +  + pk::encode("\x1b[0x获得了封地\x1b[1x" + spec_name + "\x1b[0x");
-					pk::history_log(building0.pos, pk::get_force(building0.get_force_id()).color, pk::encode(t));
-				}
-				else
-				{
-					pk::message_box(pk::encode("说好的世袭罔替，没想到转头就....."), spec_person[0]);
-					pk::add_loyalty(spec_person[0], -int(spec_person[0].loyalty * 0.5f));
-				}
-;
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			}
 			return true;
 		}
@@ -447,14 +357,10 @@ namespace 府兵系统
 			case 1: return pk::encode("没有可分封的武将. ");
 			case 2: return pk::encode("没有可分封的封地.");
 			case 3: return pk::encode(pk::format("行动力不足 (必须 {} 行动力)", ACTION_COST));
-<<<<<<< HEAD
 			case 4: return pk::encode(pk::format("兵力不足.(必须{} 气力)", TROOP_COST));
-=======
-			case 4: return pk::encode(pk::format("兵力不足.(必须{} 兵力)", TROOP_COST));
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			case 5: return pk::encode(pk::format("食物不足.(必须{} 兵粮)", FOOD_COST));
 			case 6: return pk::encode(pk::format("资金不足 (必须 {} 资金)", GOLD_COST));
-			
+
 			case 0: return pk::encode(pk::format("执行分封. (行动力 {}, 金 {}, 粮 {}, 兵 {})", ACTION_COST, GOLD_COST, FOOD_COST, TROOP_COST));
 			default:
 				return pk::encode("");
@@ -464,7 +370,7 @@ namespace 府兵系统
 
 		int check_avaliable(pk::building@ building, pk::list<pk::person@> able_person, pk::list<pk::building@> able_spec)//之所以加入list是为了ai调用时不用重复计算，玩家菜单稍微多点操作问题不大
 		{
-			
+
 			if (able_person.count == 0) return 1;
 			else if (able_spec.count == 0) return 2;
 			else if (pk::get_district(building.get_district_id()).ap < ACTION_COST) return 3;
@@ -472,7 +378,7 @@ namespace 府兵系统
 			else if (pk::get_food(building) <= FOOD_COST) return 5;
 			else if (pk::get_gold(building) <= GOLD_COST) return 6;
 
-			//pk::list<pk::person@> able_person = get_able_person(force_);			
+			//pk::list<pk::person@> able_person = get_able_person(force_);
 			else return 0;
 		}
 
@@ -526,165 +432,6 @@ namespace 府兵系统
 			spec_name = "";
 		}
 
-<<<<<<< HEAD
-=======
-		// ===================================封地分封开始==============================================
-		pk::building@ kunshu_building_;
-		void init_领地_分封(pk::building@ building)
-		{
-			@building_ = @building;
-			@force_ = pk::get_force(building.get_force_id());
-			if (pk::is_valid_person_id(force_.kunshu))
-			{
-				@kunshu_ = pk::get_person(force_.kunshu);
-				@kunshu_building_ = pk::get_building(kunshu_.service);
-			}
-			check_result_ = check_avaliable_领地_分封(kunshu_building_);
-		}
-
-		bool isVisible_领地_分封()
-		{
-			if (pk::is_campaign()) return false;
-			int spec_id = ch::to_spec_id(building_.get_id());
-			if (!ch::is_valid_spec_id(spec_id)) return false;
-			int force_id = building_.get_force_id();
-			if (!pk::is_valid_force_id(force_id) or pk::get_current_turn_force_id()!= force_id) return false;
-			int spec_person = special_ex[spec_id].person;
-			if (pk::is_valid_person_id(spec_person)) return false;
-			return true;
-		}
-
-		string getText_领地_分封()
-		{
-			return pk::encode("分封");
-		}
-
-		int check_avaliable_领地_分封(pk::building@ building)
-		{
-			if (building is null or !pk::is_alive(building)) return 5;
-			if (pk::get_district(building.get_district_id()).ap < ACTION_COST) return 1;
-			else if (pk::get_troops(building) <= TROOP_COST) return 2;
-			else if (pk::get_food(building) <= FOOD_COST) return 3;
-			else if (pk::get_gold(building) <= GOLD_COST) return 4;
-			else return 0;
-			//pk::list<pk::person@> able_person = get_able_person(force_);			
-			
-		}
-
-		bool isEnabled_领地_分封()
-		{
-			if (check_result_ == 0) return true;
-			return false;
-		}
-
-		string getDesc_领地_分封()
-		{
-			switch (check_result_)
-			{
-			case 1: return pk::encode(pk::format("行动力不足 (必须 {} 行动力)", ACTION_COST));
-			case 2: return pk::encode(pk::format("兵力不足.(君主所在据点必须满{} 兵力)", TROOP_COST));
-			case 3: return pk::encode(pk::format("食物不足.(君主所在据点必须满{} 兵粮)", FOOD_COST));
-			case 4: return pk::encode(pk::format("资金不足 (君主所在据点必须满 {} 资金)", GOLD_COST));
-			case 5: return pk::encode(pk::format("君主所在据点异常{}", kunshu_building_.get_id()));
-			case 0: return pk::encode(pk::format("将领地分封给武将. (行动力 {}, 金 {}, 粮 {}, 兵 {})", ACTION_COST, GOLD_COST, FOOD_COST, TROOP_COST));
-			default:
-				return pk::encode("");
-			}
-			return pk::encode("");
-		}
-
-		bool handler_领地_分封()
-		{
-			if (pk::choose({ pk::encode(" 是 "), pk::encode(" 否 ") }, pk::encode(pk::format("是否分封该领地给麾下武将。\n(仅可将领地封给\x1b[18x统率80以上\x1b[0x武将)\n(消耗行动力\x1b[1x{}\x1b[0x,金\x1b[1x{}\x1b[0x,粮\x1b[1x{}\x1b[0x,兵\x1b[1x{}\x1b[0x)", ACTION_COST, GOLD_COST, FOOD_COST, TROOP_COST)), pk::get_person(武将_文官)) == 1)
-				return true;//一级菜单必须选true，false意味着返回上一级菜单，而然一级菜单没有上一级
-			able_person_ = get_able_person(force_);
-			pk::list<pk::person@> pre_sel_person;
-			pre_sel_person.add(able_person_[0]);
-			//分封武将选擇
-			pk::list<pk::person@> person_sel = pk::person_selector(pk::encode("分封武将选择"), pk::encode("选择要分封的武将."), able_person_, 1, 1, pre_sel_person, 42);
-			if (person_sel.count == 0) return true; // 未选擇时取消结束
-			@actor = person_sel[0];
-			int person_id = person_sel[0].get_id();
-			int spec_id = ch::to_spec_id(building_.get_id());
-			//分封代价默认由君主所在城市支付，不满足代价无法分封
-
-
-			return run_order(kunshu_building_, actor, spec_id, true);
-		}
-		// =======================================封地分封结束==========================================
-
-		// ===================================封地解除分封开始==============================================
-		int check_result_解除分封_;
-		void init_领地_解除分封(pk::building@ building)
-		{
-			@building_ = @building;
-			@force_ = pk::get_force(building.get_force_id());
-			if (pk::is_valid_person_id(force_.kunshu))
-			{
-				@kunshu_ = pk::get_person(force_.kunshu);
-				@kunshu_building_ = pk::get_building(kunshu_.service);
-			}
-			check_result_解除分封_ = check_avaliable_领地_解除分封(kunshu_building_);
-		}
-
-		bool isVisible_领地_解除分封()
-		{
-			if (pk::is_campaign()) return false;
-			int spec_id = ch::to_spec_id(building_.get_id());
-			if (!ch::is_valid_spec_id(spec_id)) return false;
-			int force_id = building_.get_force_id();
-			if (!pk::is_valid_force_id(force_id) or pk::get_current_turn_force_id() != force_id) return false;
-			int spec_person = special_ex[spec_id].person;
-			if (!pk::is_valid_person_id(spec_person)) return false;
-			return true;
-		}
-
-		string getText_领地_解除分封()
-		{
-			return pk::encode("解除分封");
-		}
-
-		int check_avaliable_领地_解除分封(pk::building@ building)
-		{
-			if (building is null or !pk::is_alive(building)) return 2;
-			if (pk::get_district(building.get_district_id()).ap < ACTION_COST) return 1;
-			else return 0;
-			//pk::list<pk::person@> able_person = get_able_person(force_);			
-
-		}
-
-		bool isEnabled_领地_解除分封()
-		{
-			if (check_result_解除分封_ == 0) return true;
-			return false;
-		}
-
-		string getDesc_领地_解除分封()
-		{
-			switch (check_result_解除分封_)
-			{
-			case 1: return pk::encode(pk::format("行动力不足 (必须 {} 行动力)", ACTION_COST));
-			case 0: return pk::encode(pk::format("解除该领地的分封状态，回收资源. (行动力 {})", ACTION_COST));
-			default:
-				return pk::encode("");
-			}
-			return pk::encode("");
-		}
-
-		bool handler_领地_解除分封()
-		{
-			if (pk::choose({ pk::encode(" 是 "), pk::encode(" 否 ") }, pk::encode(pk::format("是否解除该领地的分封状态。\n(消耗行动力\x1b[1x{}\x1b[0x)", ACTION_COST)), pk::get_person(武将_文官)) == 1)
-				return true;//一级菜单必须选true，false意味着返回上一级菜单，而然一级菜单没有上一级
-
-			pk::list<pk::person@> person_sel;
-			int spec_id = ch::to_spec_id(building_.get_id());
-			person_sel.add(pk::get_person(special_ex[spec_id].person));
-
-
-			return run_order_解除分封(kunshu_building_, person_sel, true);
-		}
-		// =======================================封地解除分封结束==========================================
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 		//========================================玩家支援封地=================================================================//
 		array<pk::point_int> get_targets(int max)
 		{
@@ -700,7 +447,7 @@ namespace 府兵系统
 					int spec_id = ch::to_spec_id(building.get_id());
 					if (ch::is_valid_spec_id(spec_id))
 						targets.insertLast(pk::point_int(range[i], 0));
-				}			
+				}
 			}
 			return targets;
 		}
@@ -828,7 +575,7 @@ namespace 府兵系统
 				if (n == 5) return choose_spec_mid(spec_arr, page + 1);
 
 				int t = n + (page - 1) * 4 + 5;
-				
+
 				return spec_arr[t];
 			}
 
@@ -1049,11 +796,7 @@ namespace 府兵系统
 		//基本事件_府兵部队_生成
 		void func_府兵部队_生成(pk::building@ building, pk::person@ src_person, pk::point dst_pos, int spec_id, int troops, int gold, int food, int num)
 		{
-<<<<<<< HEAD
 			pk::point unit_pos = get_empty_pos(building.pos, 1, 1);
-=======
-			pk::point unit_pos = get_empty_pos(building.pos, 1, 2);
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			if (!pk::is_valid_pos(unit_pos)) return;
 			if (!pk::is_in_screen(dst_pos))
 			{
@@ -1081,10 +824,6 @@ namespace 府兵系统
 				int src_troops = get_best_troops(troops, num - count);
 				if (src_troops < 3000) { pk::reset(f_person); break; }//小于3000不再出兵
 				troops -= src_troops;//已出征过一次的兵需要休息，不再再次出征
-<<<<<<< HEAD
-=======
-				if (!pk::is_valid_pos(unit_pos)) unit_pos = get_empty_pos(building.pos, 1, 2);//生成部队前再次核实坐标有效
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 				pk::unit@ src_unit = func_create_unit(building, f_person, unit_pos, spec_id, num/*统领数*/, src_troops, gold, food);
 				//pk::trace("src_unit force" + src_unit.get_force_id() + ",f_person: force:" + f_person.get_id() + f_person.get_force_id());
 				if (!pk::is_alive(src_unit)) { pk::kill(src_unit); pk::reset(f_person); continue; }
@@ -1093,7 +832,6 @@ namespace 府兵系统
 				pk::set_order(src_unit, 部队任务_攻击, dst_pos);
 				pk::run_order(src_unit);
 				//if (!pk::run_order(src_unit)) { kill(src_unit, spec_id); pk::reset(f_person); continue; }
-<<<<<<< HEAD
 				src_unit.action_done = false;
 				if ((pk::get_max_hp(building) - building.hp) > 0)
 				{
@@ -1118,39 +856,6 @@ namespace 府兵系统
 				}
 
 				kill(src_unit, spec_id);
-=======
-				if (pk::is_alive(src_unit))//每一步需检测部队是否还活着
-				{
-					src_unit.action_done = false;
-					if ((pk::get_max_hp(building) - building.hp) > 0)
-					{
-						pk::set_order(src_unit, 部队任务_修复, building.pos, building.get_id());
-					}
-					else
-					{
-						//无需修复的情况
-						pk::point next_pos = get_empty_pos(building.pos, 1, 1);
-						pk::set_order(src_unit, 部队任务_移动, next_pos);
-					}
-					pk::run_order(src_unit);
-					if (pk::is_alive(src_unit))//每一步需检测部队是否还活着
-					{
-						if (pk::is_in_screen(src_unit.get_pos()))
-						{
-							switch (pk::rand(3))
-							{
-							case 0: pk::say(pk::encode("任务完成, 返回封地吧!"), pk::get_person(src_unit.leader)); break;
-							case 1: pk::say(pk::encode("兄弟们, 回家吧!"), pk::get_person(src_unit.leader)); break;
-							case 2: pk::say(pk::encode("干的不错，回去大人必有赏赐!"), pk::get_person(src_unit.leader)); break;
-							}
-						}
-
-						kill(src_unit, spec_id);
-
-					}
-					
-				}
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 
 				pk::reset(f_person);
 			}
@@ -1182,10 +887,6 @@ namespace 府兵系统
 		{
 			pk::person@ f_person = pk::create_bandit(pk::get_person(武将_卫士));
 			f_person.name_read = pk::encode("府兵");
-<<<<<<< HEAD
-=======
-			//if (f_person.mibun == 身份_在野) pk::set_mibun(f_person, 身份_一般);
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::set_district(f_person, person.get_district_id());
 
 			f_person.base_stat[武将能力_统率] = pk::max(70, pk::min(90, int(person.base_stat[武将能力_统率] * 0.85f + ch::randint(5, 10))));
@@ -1213,10 +914,6 @@ namespace 府兵系统
 			spec_t.troops -= src_troops;
 			spec_t.gold -= src_gold;
 			spec_t.food -= src_food;
-<<<<<<< HEAD
-=======
-			
->>>>>>> d4adedd2760ce1490eb9ba35d7c5e25622e8f321
 			pk::unit@ src_unit = pk::create_unit(src_base, f_person, null, null, src_troops, ground_wpn, sea_wpn, src_gold, src_food, unit_pos);
 
 			src_unit.energy = 100;

@@ -12,6 +12,7 @@ namespace 神术数据结构体 {
   pk::point src_pos_;
 
   array<string> 已影响城市; // 存储处理过的城市
+  array<string> 临时武将 = { pk::encode("农民兵"), pk::encode("突袭者"), pk::encode("府兵"), pk::encode("雇佣兵"), pk::encode("贾诩小队") };
 
   array<int> 神术技能武将= {
     武将_周瑜,
@@ -304,9 +305,9 @@ namespace 神术数据结构体 {
       {
         for (int i = 0; i < 武将_末; ++i)
         {
-          person_sc[i].狼顾权变_失去技能回合 = 最大时间;
+          person_sc[i].狼顾权变_失去技能回合 = 游戏最大时间;
           person_sc[i].狼顾权变_技能失效编号 = -1;
-          person_sc[i].帷幄奇策_技能获得回合 = 最大时间;
+          person_sc[i].帷幄奇策_技能获得回合 = 游戏最大时间;
           person_sc[i].特技_霸王 = false;
           person_sc[i].特技_百战 = false;
           person_sc[i].特技_巧变 = false;
@@ -332,14 +333,14 @@ namespace 神术数据结构体 {
       {
         for (int i = 0; i < 武将_末; i++)
         {
-          for (int j = 0; j < (神术武将结构体_uint32数 - 1); j++)
+          for (int j = 0; j <= (神术武将结构体_uint32数 - 1); j++)
             sc_person_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_武将起始 + (i * 神术武将结构体_uint32数 + j)), 0));
           sc_personinfo person_t(i);
           person_sc[i] = person_t;
         }
         for (int i = 0; i < 部队_末; i++)
         {
-          for (int j = 0; j < (神术部队结构体_uint32数 - 1); j++)
+          for (int j = 0; j <= (神术部队结构体_uint32数 - 1); j++)
             sc_unit_info_temp[j][i] = uint32(pk::load(KEY, (KEY_索引_追加_部队起始 + (i * 神术部队结构体_uint32数 + j)), 0));
           sc_unitinfo unit_t(i);
           unit_sc[i] = unit_t;
@@ -352,13 +353,13 @@ namespace 神术数据结构体 {
       for (int i = 0; i < 武将_末; i++)
       {
         person_sc[i].update(i);
-        for (int j = 0; j < (神术武将结构体_uint32数 - 1); j++)
+        for (int j = 0; j <= (神术武将结构体_uint32数 - 1); j++)
           pk::store(KEY, (KEY_索引_追加_武将起始 + (i * 神术武将结构体_uint32数 + j)), sc_person_info_temp[j][i]);
       }
       for (int i = 0; i < 部队_末; i++)
       {
         unit_sc[i].update(i);
-        for (int j = 0; j < (神术部队结构体_uint32数 - 1); j++)
+        for (int j = 0; j <= (神术部队结构体_uint32数 - 1); j++)
           pk::store(KEY, (KEY_索引_追加_部队起始 + (i * 神术部队结构体_uint32数 + j)), sc_unit_info_temp[j][i]);
       }
     }
@@ -366,9 +367,9 @@ namespace 神术数据结构体 {
     void 武将死亡(pk::person@ dead, pk::person@ by, int type, int rettype)
     {
       sc_personinfo@ sc_person = @person_sc[dead.get_id()];
-      sc_person.狼顾权变_失去技能回合 = 最大时间;
+      sc_person.狼顾权变_失去技能回合 = 游戏最大时间;
       sc_person.狼顾权变_技能失效编号 = -1;
-      sc_person.帷幄奇策_技能获得回合 = 最大时间;
+      sc_person.帷幄奇策_技能获得回合 = 游戏最大时间;
       sc_person.特技_霸王 = false;
       sc_person.特技_百战 = false;
       sc_person.特技_巧变 = false;
@@ -383,7 +384,7 @@ namespace 神术数据结构体 {
 
     void 部队清除(pk::unit@ unit, pk::hex_object@ dst, int type)
     {
-      array<string> 临时武将 = { pk::encode("农民兵"), pk::encode("突袭者"), pk::encode("府兵"), pk::encode("雇佣兵"), pk::encode("贾诩小队") };
+      pk::unit@ dst_unit = (dst !is null and dst.get_type_id() == pk::unit::type_id) ? dst : null;
       for (int i = 0; i < 3; i++)
       {
         if (pk::is_valid_person_id(unit.member[i]))
@@ -392,9 +393,9 @@ namespace 神术数据结构体 {
           sc_personinfo@ sc_person = @person_sc[unit.member[i]];
           if (临时武将.find(member.name_read) >= 0)
           {
-            sc_person.狼顾权变_失去技能回合 = 最大时间;
+            sc_person.狼顾权变_失去技能回合 = 游戏最大时间;
             sc_person.狼顾权变_技能失效编号 = -1;
-            sc_person.帷幄奇策_技能获得回合 = 最大时间;
+            sc_person.帷幄奇策_技能获得回合 = 游戏最大时间;
             sc_person.特技_霸王 = false;
             sc_person.特技_百战 = false;
             sc_person.特技_巧变 = false;
@@ -409,6 +410,7 @@ namespace 神术数据结构体 {
           else if (type == 0)
           {
             sc_person.kill_destroyed += 1;
+            if (dst_unit !is null) sc_person.kill_unit_destroyed += 1;
           }
         }
       }
@@ -422,14 +424,6 @@ namespace 神术数据结构体 {
         {
           sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
           sc_person.kill_unit += 1;
-        }
-      }
-      for (int i = 0; i < 3; i++)
-      {
-        if (pk::is_valid_person_id(target.member[i]))
-        {
-          sc_personinfo@ sc_person = @person_sc[target.member[i]];
-          sc_person.kill_unit_destroyed += 1;
         }
       }
     }
@@ -508,12 +502,10 @@ namespace 神术数据结构体 {
 
         pk::draw_face(FACE_SMALL, person_id, rect, FACE_L);
 
-        pk::trace('杀敌数：' + sc_person.kill_destroyed);
         string 武将姓名 = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(person)));
         string 武将杀敌数 = pk::format("击杀部队数：\x1b[1x{}\x1b[0x", sc_person.kill_unit);
         string 武将杀兵数 = pk::format("击杀士兵数：\x1b[1x{}\x1b[0x", sc_person.troops_damage);
         string 武将被杀数 = pk::format("被击杀次数：\x1b[1x{}\x1b[0x(部队:\x1b[19x{}\x1b[0x)", sc_person.kill_destroyed, sc_person.kill_unit_destroyed);
-
 
         int face_top = offset_top + (i + 1) * 20 + (i * 20);
 
@@ -570,12 +562,17 @@ namespace 神术数据结构体 {
     void func214(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ target, bool critical)
     {
       prev_callback_214(info, attacker, target, critical);
+
       for (int i = 0; i < 3; i++)
       {
         if (pk::is_valid_person_id(attacker.member[i]))
         {
-          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
-          sc_person.troops_damage += info.troops_damage;
+          pk::person@ member = pk::get_person(attacker.member[i]);
+          if (临时武将.find(member.name_read) < 0)
+          {
+            sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+            sc_person.troops_damage += info.troops_damage;
+          }
         }
       }
     }
@@ -599,10 +596,10 @@ namespace 神术数据结构体 {
 
 
 
-const int 神术武将结构体_uint32数 = 10;
-const int 神术部队结构体_uint32数 = 5;
+const int 神术武将结构体_uint32数 = 20;
+const int 神术部队结构体_uint32数 = 10;
 
-const int 最大时间 = 126720; // 352 * 12 * 3 * 10;
+const int 游戏最大时间 = 352 * 12 * 3 * 10;
 
 array<array<uint32>> sc_unit_info_temp(神术部队结构体_uint32数, array<uint32>(部队_末, uint32(0)));
 array<array<uint32>> sc_person_info_temp(神术武将结构体_uint32数, array<uint32>(武将_末, uint32(0)));
@@ -621,7 +618,7 @@ class sc_unitinfo {
   bool 火凤连环影响;
   bool 乱武完杀部队;
   bool 奇谋诡策影响;
-  uint32 帷幄奇策_禁法回合 = 最大时间;
+  uint32 帷幄奇策_禁法回合 = 游戏最大时间;
 
   //初始化
   sc_unitinfo(int id)
@@ -706,7 +703,7 @@ class sc_unitinfo {
 
   void fromInt32_4(uint32 x)
   {
-    帷幄奇策_禁法回合 = x;
+    帷幄奇策_禁法回合 = ((x << 0) >> 0);
   }
 }
 
@@ -725,9 +722,9 @@ class sc_personinfo {
   int 部队溃灭效果序号 = 8; // 部队被其他部队击破数
   int 部队被破效果序号 = 9; // 部队总被击破数
 
-  uint32 狼顾权变_失去技能回合 = 最大时间;
+  int32 狼顾权变_失去技能回合 = 游戏最大时间;
   int16 狼顾权变_技能失效编号 = -1;
-  uint32 帷幄奇策_技能获得回合 = 最大时间;
+  int32 帷幄奇策_技能获得回合 = 游戏最大时间;
   bool 特技_霸王;
   bool 特技_百战;
   bool 特技_巧变;
@@ -735,10 +732,10 @@ class sc_personinfo {
   bool 神鬼八阵_使用 = false;
   bool 火凤连环_使用 = false;
 
-  uint32 kill_unit = 0; // 击破部队数
-  uint32 troops_damage = 0; // 士兵伤害数
-  uint32 kill_destroyed = 0; // 被击溃总次数
-  uint32 kill_unit_destroyed = 0; // 被部队溃灭次数
+  int32 kill_unit = 0; // 击破部队数
+  int32 troops_damage = 0; // 士兵伤害数
+  int32 kill_destroyed = 0; // 被击溃总次数
+  int32 kill_unit_destroyed = 0; // 被部队溃灭次数
 
   //初始化
   sc_personinfo(int person_id)
@@ -852,25 +849,26 @@ class sc_personinfo {
 
   void fromInt32_0(uint32 x)
   {
-    狼顾权变_失去技能回合 = x;
+    狼顾权变_失去技能回合 = ((x << 0) >> 0);
   }
 
   void fromInt32_1(uint32 x)
   {
-    狼顾权变_技能失效编号 = x;
+    狼顾权变_技能失效编号 = ((x << 16) >> 16);
   }
 
   void fromInt32_2(uint32 x)
   {
-    帷幄奇策_技能获得回合 = x;
+    帷幄奇策_技能获得回合 = ((x << 0) >> 0);
   }
 
   void fromInt32_3(uint32 x)
   {
-    特技_霸王 = x == 1;
-    特技_百战 = (x >> 8) == 1;
-    特技_巧变 = (x >> 16) == 1;
-    特技_激励 = (x >> 24) == 1;
+    // 特技_霸王_值 + (特技_百战_值 << 8) + (特技_巧变_值 << 16) + (特技_激励_值 << 24);
+    特技_霸王 = ((x << 24) >> 24) == 1;
+    特技_百战 = ((x << 16) >> 24) == 1;
+    特技_巧变 = ((x << 8) >> 24) == 1;
+    特技_激励 = ((x << 0) >> 24) == 1;
   }
 
   void fromInt32_4(uint32 x)
@@ -885,21 +883,21 @@ class sc_personinfo {
 
   void fromInt32_6(uint32 x)
   {
-    kill_unit = x;
+    kill_unit = ((x << 0) >> 0);
   }
 
   void fromInt32_7(uint32 x)
   {
-    troops_damage = x;
+    troops_damage = ((x << 0) >> 0);
   }
 
   void fromInt32_8(uint32 x)
   {
-    kill_destroyed = (x >> 0);
+    kill_destroyed = ((x << 0) >> 0);
   }
 
   void fromInt32_9(uint32 x)
   {
-    kill_unit_destroyed = (x >> 0);
+    kill_unit_destroyed = ((x << 0) >> 0);
   }
 }
