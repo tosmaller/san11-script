@@ -49,19 +49,22 @@ namespace 事件_水土不服 {
 
     void onTurnEnd(pk::force@ force)
     {
-      pk::list<pk::person@> person_list = pk::get_person_list(force, pk::mibun_flags(身份_君主, 身份_都督, 身份_太守, 身份_一般, 身份_俘虏));
-      for (int i = 0; i < person_list.count; ++i )
+      if (force.get_id() < 非贼势力_末)
       {
-        pk::person@ person_s = person_list[i];
-        event_personinfo@ person_t = @person_event[i];
-        int province_id = pk::get_province_id(person_s.get_pos());
-        person_t.set_地区时长(province_id, person_t.get_地区时长(province_id) + 1);
+        pk::list<pk::person@> person_list = pk::get_person_list(force, pk::mibun_flags(身份_君主, 身份_都督, 身份_太守, 身份_一般, 身份_俘虏));
+        for (int i = 0; i < person_list.count; ++i )
+        {
+          pk::person@ person_s = person_list[i];
+          event_personinfo@ person_t = @person_event[i];
+          int province_id = pk::get_province_id(person_s.get_pos());
+          person_t.set_地区时长(province_id, person_t.get_地区时长(province_id) + 1);
+        }
       }
     }
 
     void onMonthBegin()
     {
-      for (int i = 0; i < 武将_末; i++)
+      for (int i = 0; i < 非贼武将_末; i++)
       {
         pk::person@ person_s = pk::get_person(i);
         event_personinfo@ person_t = @person_event[i];
@@ -69,6 +72,7 @@ namespace 事件_水土不服 {
         if (person_s is null
           or !pk::is_alive(person_s)
           or (mibun_list.find(person_s.mibun) >= 0))
+          or pk::is_valid_pos(person_s.get_pos())
             continue;
         int province_id = pk::get_province_id(person_s.get_pos());
         if (person_t.get_地区时长(province_id) >= 3) continue;

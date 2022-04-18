@@ -30,18 +30,6 @@ v1.0 2022/02/12 新增周瑜神术【业火焚天】
  */
 
 namespace 人物加强 {
-  const int 临时武将起始 = 780;
-  const int 临时武将终止 = 799;
-
-  const int KEY = pk::hash("神术");
-
-  const int KEY_索引_追加_武将起始 = 5000;   // 同 000 文件
-  const int KEY_索引_追加_部队起始 = 30000;  // 同 000 文件
-
-  dictionary 无间业火_影响部队 = {};
-  // dictionary 握筹天下_影响部队 = {};
-  array<array<int>> 握筹天下_影响部队;
-  array<int> 握筹天下_效果部队;
 
   const int 计略气力消耗_通用 = 60;
   const int 兵力条件_通用 = 5000;
@@ -108,6 +96,13 @@ namespace 人物加强 {
   class Main
   {
     pk::random random(pk::rand());
+
+    int 临时武将起始 = 780;
+    int 临时武将终止 = 799;
+    dictionary 无间业火_影响部队 = {};
+    array<array<int>> 握筹天下_影响部队;
+    array<int> 握筹天下_效果部队;
+
     Main() {
       add_menu_unit_order();
 
@@ -457,7 +452,6 @@ namespace 人物加强 {
     void onUnitAfterAttack(pk::unit@ dst_unit, pk::unit@ unit, int troops_damage, int critical, int tactics)
     {
       if (开启_奇谋诡策) 神术_奇谋诡策_伤害处理(dst_unit, unit);
-      // if (开启_帷幄奇策) 神术_帷幄奇策_伤害处理(dst_unit, unit, troops_damage);
     }
 
     void onUnitDestroy(pk::unit@ unit, pk::unit@ dst_unit)
@@ -567,7 +561,9 @@ namespace 人物加强 {
           神术数据结构体::历史日志(dst, '神术_业火焚天', '陷入伪报');
           pk::create_fire(arr[l], pk::rand(2) + 3, src_unit, true); //火计
           pk::add_energy(dst, -30, true); //减气
-          ch::add_troops(dst, -random(500, 1500), true); // 随机减兵500~1500
+          int 最终伤害值 = random(500, 1500);
+          ch::add_troops(dst, -最终伤害值, true); // 随机减兵500~1500
+          神术数据结构体::设置部队伤害值(src_unit, 最终伤害值);
           神术数据结构体::历史日志(dst, '神术_业火焚天', '受到了巨大伤害');
           if (dst.troops <= 0) {
             pk::kill(dst, src_unit);
@@ -602,13 +598,8 @@ namespace 人物加强 {
 
     bool handler_神术_业火焚天(pk::point dst_pos)
     {
-      // pk::special_cutin(121,1000); // 单火焰遮罩
       pk::play_se(120);
       pk::special_cutin(122,1000); // 全火遮罩
-      // pk::special_cutin(123,1000); // 焚烧遮罩
-      // pk::special_cutin(124,1000); // 山遮罩
-      // pk::special_cutin(125,1000); // 水遮罩
-      // pk::special_cutin(126,1000); // 雷电遮罩
 
       for (int l = 0; l < 业火焚天_效果范围; l++) {
         func_业火焚天(dst_pos, l);
@@ -629,9 +620,7 @@ namespace 人物加强 {
 
       神术数据结构体::已影响城市.removeRange(0, 神术数据结构体::已影响城市.length() - 1); // 清除处理过的
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
 
       return true;
     }
@@ -682,9 +671,12 @@ namespace 人物加强 {
             pk::create_fire(arr[l], pk::rand(2), src_unit, true); //火计
           }
           pk::add_energy(dst, -30, true); //减气
-          ch::add_troops(dst, -(部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(1000)), true); // 在雷电伤害基础上随机加2000
+          int 最终落雷伤害 = 部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(1000);
+          ch::add_troops(dst, -最终落雷伤害, true); // 在雷电伤害基础上随机加2000
+          神术数据结构体::设置部队伤害值(src_unit, 最终落雷伤害);
           神术数据结构体::历史日志(dst, '神术_神雷灭世', '受到了巨大伤害');
-          if (dst.troops <= 0) {
+          if (dst.troops <= 0)
+          {
             pk::kill(dst, src_unit);
           }
           if (pk::is_in_screen(hex_obj.pos))
@@ -741,9 +733,7 @@ namespace 人物加强 {
       神术数据结构体::减少武将寿命(src_leader, random(3, 10));
       src_leader.update();
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
 
       return true;
     }
@@ -775,7 +765,8 @@ namespace 人物加强 {
 
         pk::unit@ dst = pk::get_unit(arr[l]);
         if (dst !is null) {
-          if (!pk::is_enemy(src_unit, dst)) continue;
+          // if (!pk::is_enemy(src_unit, dst)) continue;
+          if (src_unit.get_force_id() == dst.get_force_id()) continue;
           if (dst.has_skill(特技_仁政)) {
             pk::create_effect(0x55, arr[l]);
             pk::say(pk::encode("夫仁政，必自经界始"), pk::get_person(dst.who_has_skill(特技_仁政)));
@@ -790,13 +781,15 @@ namespace 人物加强 {
               if (member_t.mibun == 身份_君主)
               {
                 // 君主，万分之一的概率直接收编
-                if (ch::rand_bool_10000(1))
+                if (ch::rand_bool_10000(10000))
                 {
                   pk::say(pk::encode("黄天有道，吾愿降。。。"), member_t);
                   pk::force@ king_force = pk::get_force(member_t.get_force_id());
                   pk::force@ attack_force = pk::get_force(src_leader.get_force_id());
                   pk::wait(1000);
                   pk::kill(king_force, true, attack_force);
+                  king_force.update();
+                  attack_force.update();
                 }
                 continue;
               }
@@ -882,14 +875,14 @@ namespace 人物加强 {
               }
               if (pk::rand_bool(5))
               { // 5%概率武将直接叛变
-                神术数据结构体::历史日志(member_t, '神术_黄天泰平', '的蛊惑，投靠别的势力了');
+                神术数据结构体::历史日志(member_t, '神术_黄天泰平', '投靠别的势力了');
                 pk::set_district(member_t, src_leader.get_district_id());
                 member_t.mibun = 身份_一般;
               }
               else if (pk::rand_bool(20))
               {
                 // 20% 概率下野
-                神术数据结构体::历史日志(member_t, '神术_黄天泰平', '的蛊惑，下野了');
+                神术数据结构体::历史日志(member_t, '神术_黄天泰平', '下野了');
                 switch (pk::rand(4))
                 {
                   case 0: pk::say(pk::encode("良禽折木而栖"), member_t); break;
@@ -939,9 +932,7 @@ namespace 人物加强 {
       神术数据结构体::减少武将寿命(src_leader, random(5, 10));
       src_leader.update();
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
 
       return true;
     }
@@ -973,7 +964,8 @@ namespace 人物加强 {
 
         pk::unit@ dst = pk::get_unit(arr[l]);
         if (dst !is null) {
-          if (!pk::is_enemy(src_unit, dst)) continue;
+          // if (!pk::is_enemy(src_unit, dst)) continue;
+          if (src_unit.get_force_id() == dst.get_force_id()) continue;
           if (dst.has_skill(特技_内助)) {
             pk::create_effect(0x55, arr[l]);
             pk::say(pk::encode("内助，非细事也"), pk::get_person(dst.who_has_skill(特技_内助)));
@@ -1061,9 +1053,7 @@ namespace 人物加强 {
       神术数据结构体::减少武将寿命(src_leader, random(5, 10));
       src_leader.update();
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
 
       return true;
     }
@@ -1118,8 +1108,10 @@ namespace 人物加强 {
           pk::unit@ dst = pk::get_unit(dst_pos);
           pk::set_status(dst, src_unit, 部队状态_混乱, 2 + pk::rand(3), true); // 混乱2~5回合
           神术数据结构体::历史日志(dst, '神术_神鬼奇谋', '陷入混乱');
-          if (int(dst.troops) > int(0.5 * pk::get_max_troops(dst))) { // 兵力超过最大兵力一半
-            ch::add_troops(dst, -int(0.5 * pk::get_max_troops(dst)), true);
+          int 最终伤害值 = int(0.5 * pk::get_max_troops(dst));
+          if (int(dst.troops) > 最终伤害值) { // 兵力超过最大兵力一半
+            ch::add_troops(dst, -最终伤害值, true);
+            神术数据结构体::设置部队伤害值(src_unit, 最终伤害值);
             神术数据结构体::历史日志(dst, '神术_神鬼奇谋', '受到了巨大伤害');
           }
           pk::say(pk::encode("这，这是发生什么"), pk::get_person(dst.leader));
@@ -1187,9 +1179,7 @@ namespace 人物加强 {
       神术数据结构体::减少武将寿命(src_leader, random(0, 1));
       src_leader.update();
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
 
       return true;
     }
@@ -1290,7 +1280,6 @@ namespace 人物加强 {
     {
       sc_personinfo@ person_t = @person_sc[src_leader.get_id()];
       person_t.神鬼八阵_使用 = true;
-      // pk::store(KEY_神鬼八阵_回合数, 0, true);
       pk::play_se(120);
       pk::special_cutin(126,1000); // 妖术遮罩
 
@@ -1317,9 +1306,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("奇正相生，循环无端!"), src_leader);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
 
       return true;
 
@@ -1684,6 +1671,7 @@ namespace 人物加强 {
             if (value < 0 and rettype == 14)
             {
               ch::add_troops(dst, value, true);
+              神术数据结构体::设置部队伤害值(src_unit, value);
               神术数据结构体::历史日志(dst, '神术_火凤连环', '受到了巨大伤害');
               pk::say(pk::encode("该死的，这是怎么回事"), pk::get_person(dst.leader));
               if (dst.troops <= 0) {
@@ -1727,9 +1715,7 @@ namespace 人物加强 {
 
       pk::add_stat_exp(src_unit, 武将能力_智力, 20);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+     神术数据结构体::部队行动(src_unit);
       return true;
     }
 
@@ -1942,7 +1928,9 @@ namespace 人物加强 {
                 bool ally_effect = 乱武完杀_盟军影响 || !贾诩势力.ally[dst.get_force_id()];
                 if (ally_effect)
                 {
-                  ch::add_troops(dst, int(random(1, 2) * value), true);
+                  int 最终伤害值 = int(random(1, 2) * value);
+                  ch::add_troops(dst, 最终伤害值, true);
+                  神术数据结构体::设置部队伤害值(src_unit, -最终伤害值);
                   神术数据结构体::历史日志(dst, '神术_乱武完杀', '受到了反伤');
                   pk::say(pk::encode("这是反伤吗？"), pk::get_person(dst.leader));
                   if (dst.troops <= 0) {
@@ -1974,7 +1962,9 @@ namespace 人物加强 {
               bool ally_effect = 乱武完杀_盟军影响 || !贾诩势力.ally[dst.get_force_id()];
               if (ally_effect)
               {
-                ch::add_troops(dst, -int(random(10, 100) * 100), true);
+                int 最终伤害值 = int(random(10, 100) * 100);
+                ch::add_troops(dst, -最终伤害值, true);
+                神术数据结构体::设置部队伤害值(src_unit, 最终伤害值);
                 神术数据结构体::历史日志(dst, '神术_乱武完杀', '受到了巨大伤害');
                 pk::say(pk::encode("不好，中计了！"), pk::get_person(dst.leader));
                 if (dst.troops <= 0) {
@@ -2003,9 +1993,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("吾之所好，杀人诛心。"), src_leader);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
       return true;
     }
 
@@ -2139,9 +2127,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("虚实不定，避重就轻，以眩远近。"), src_leader);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
       return true;
     }
 
@@ -2254,13 +2240,13 @@ namespace 人物加强 {
       }
     }
 
-    void 神术_帷幄奇策_伤害处理(pk::unit@ dst_unit, pk::unit@ unit, int troops_damage)
-    {
+    // void 神术_帷幄奇策_伤害处理(pk::unit@ dst_unit, pk::unit@ unit, int troops_damage)
+    // {
 
-      sc_personinfo@ sc_person = @person_sc[unit.leader];
-      const bool 部队受帷幄奇策影响 = (pk::get_elapsed_days() >= (sc_person.帷幄奇策_技能获得回合 - 10)) and (pk::get_elapsed_days() - (sc_person.帷幄奇策_技能获得回合 - 10) <= 30);
-      if (部队受帷幄奇策影响) ch::add_troops(unit, int(troops_damage * 2), true);
-    }
+    //   sc_personinfo@ sc_person = @person_sc[unit.leader];
+    //   const bool 部队受帷幄奇策影响 = (pk::get_elapsed_days() >= (sc_person.帷幄奇策_技能获得回合 - 10)) and (pk::get_elapsed_days() - (sc_person.帷幄奇策_技能获得回合 - 10) <= 30);
+    //   if (部队受帷幄奇策影响) ch::add_troops(unit, int(troops_damage * 2), true);
+    // }
 
     int 帷幄奇谋_战法成功率(pk::unit@ unit, int success_chance)
     {
@@ -2379,9 +2365,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("虚实不定，避重就轻，以眩远近。"), src_leader);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
       return true;
     }
 
@@ -2486,9 +2470,7 @@ namespace 人物加强 {
 
       pk::say(pk::encode("生生不息，源源不绝!"), src_leader);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
       return true;
     }
 
@@ -2697,9 +2679,7 @@ namespace 人物加强 {
       pk::say(pk::encode("看我，二桃杀三士。!"), src_leader);
       握筹天下_效果部队.removeRange(0, 握筹天下_效果部队.length() - 1);
 
-      src_unit.action_done = true;
-      if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
-        src_unit.action_done = false;
+      神术数据结构体::部队行动(src_unit);
       return true;
     }
 

@@ -232,6 +232,37 @@ namespace 神术数据结构体 {
     }
   }
 
+  void 部队行动(pk::unit@ unit)
+  {
+    unit.action_done = true;
+    if (int(pk::option["San11Option.EnableInfiniteAction"]) != 0)
+      unit.action_done = false;
+  }
+
+  void 设置部队伤害值(pk::unit@ attacker, int troops_damage)
+  {
+    for (int i = 0; i < 3; i++)
+    {
+      if (pk::is_valid_person_id(attacker.member[i]))
+      {
+        sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+        sc_person.troops_damage += troops_damage;
+      }
+    }
+  }
+
+  void 设置部队杀敌值(pk::unit@ attacker)
+  {
+    for (int i = 0; i < 3; i++)
+    {
+      if (pk::is_valid_person_id(attacker.member[i]))
+      {
+        sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+        sc_person.kill_unit += 1;
+      }
+    }
+  }
+
   class Main
   {
     pk::func209_t@ prev_callback_209;
@@ -520,7 +551,7 @@ namespace 神术数据结构体 {
     void func209(pk::damage_info& info, pk::unit@ attacker, int tactics_id, const pk::point& in target_pos, int type, int critical, bool ambush, int rettype)
     {
       prev_callback_209(info, attacker, tactics_id, target_pos, type, critical, ambush, rettype);
-      if (rettype != 15)
+      if (rettype != 15 and attacker !is null)
       {
         for (int i = 0; i < 3; i++)
         {
@@ -536,12 +567,19 @@ namespace 神术数据结构体 {
     void func212(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ sub_target)
     {
       prev_callback_212(info, attacker, sub_target);
-      for (int i = 0; i < 3; i++)
+      if (attacker !is null)
       {
-        if (pk::is_valid_person_id(attacker.member[i]))
+        for (int i = 0; i < 3; i++)
         {
-          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
-          sc_person.troops_damage += info.troops_damage;
+          if (pk::is_valid_person_id(attacker.member[i]))
+          {
+            pk::person@ member = pk::get_person(attacker.member[i]);
+            if (临时武将.find(member.name_read) < 0)
+            {
+              sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+              sc_person.troops_damage += info.troops_damage;
+            }
+          }
         }
       }
     }
@@ -549,12 +587,19 @@ namespace 神术数据结构体 {
     void func213(pk::damage_info& info, int trap, pk::unit@ attacker, pk::hex_object@ target, bool critical)
     {
       prev_callback_213(info, trap, attacker, target, critical);
-      for (int i = 0; i < 3; i++)
+      if (attacker !is null)
       {
-        if (pk::is_valid_person_id(attacker.member[i]))
+        for (int i = 0; i < 3; i++)
         {
-          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
-          sc_person.troops_damage += info.troops_damage;
+          if (pk::is_valid_person_id(attacker.member[i]))
+          {
+            pk::person@ member = pk::get_person(attacker.member[i]);
+            if (临时武将.find(member.name_read) < 0)
+            {
+              sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+              sc_person.troops_damage += info.troops_damage;
+            }
+          }
         }
       }
     }
@@ -562,16 +607,18 @@ namespace 神术数据结构体 {
     void func214(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ target, bool critical)
     {
       prev_callback_214(info, attacker, target, critical);
-
-      for (int i = 0; i < 3; i++)
+      if (attacker !is null)
       {
-        if (pk::is_valid_person_id(attacker.member[i]))
+        for (int i = 0; i < 3; i++)
         {
-          pk::person@ member = pk::get_person(attacker.member[i]);
-          if (临时武将.find(member.name_read) < 0)
+          if (pk::is_valid_person_id(attacker.member[i]))
           {
-            sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
-            sc_person.troops_damage += info.troops_damage;
+            pk::person@ member = pk::get_person(attacker.member[i]);
+            if (临时武将.find(member.name_read) < 0)
+            {
+              sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+              sc_person.troops_damage += info.troops_damage;
+            }
           }
         }
       }
@@ -580,12 +627,19 @@ namespace 神术数据结构体 {
     void func215(pk::damage_info& info, pk::unit@ attacker, pk::hex_object@ target, bool critical)
     {
       prev_callback_215(info, attacker, target, critical);
-      for (int i = 0; i < 3; i++)
+      if (attacker !is null)
       {
-        if (pk::is_valid_person_id(attacker.member[i]))
+        for (int i = 0; i < 3; i++)
         {
-          sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
-          sc_person.troops_damage += info.troops_damage;
+          if (pk::is_valid_person_id(attacker.member[i]))
+          {
+            pk::person@ member = pk::get_person(attacker.member[i]);
+            if (临时武将.find(member.name_read) < 0)
+            {
+              sc_personinfo@ sc_person = @person_sc[attacker.member[i]];
+              sc_person.troops_damage += info.troops_damage;
+            }
+          }
         }
       }
     }
@@ -864,7 +918,6 @@ class sc_personinfo {
 
   void fromInt32_3(uint32 x)
   {
-    // 特技_霸王_值 + (特技_百战_值 << 8) + (特技_巧变_值 << 16) + (特技_激励_值 << 24);
     特技_霸王 = ((x << 24) >> 24) == 1;
     特技_百战 = ((x << 16) >> 24) == 1;
     特技_巧变 = ((x << 8) >> 24) == 1;
