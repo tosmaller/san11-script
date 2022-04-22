@@ -71,13 +71,14 @@ namespace 事件_水土不服 {
         array<int> mibun_list = { 身分_无, 身分_未登场, 身分_未发现, 身分_死亡, 身分_末 };
         if (person_s is null
           or !pk::is_alive(person_s)
-          or (mibun_list.find(person_s.mibun) >= 0))
-          or pk::is_valid_pos(person_s.get_pos())
+          or mibun_list.find(person_s.mibun) >= 0
+          or !pk::is_valid_pos(person_s.get_pos())
+          )
             continue;
         int province_id = pk::get_province_id(person_s.get_pos());
         if (person_t.get_地区时长(province_id) >= 3) continue;
         if (person_s.base_stat[武将能力_武力] < 70
-          and pk::rand_bool(5)
+          and pk::rand_bool(1)
           and person_s.shoubyou < 伤病_重症
           and pk::get_province_id(person_s.get_pos()) != person_s.birthplace)
         {

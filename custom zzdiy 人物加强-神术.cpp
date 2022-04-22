@@ -781,7 +781,7 @@ namespace 人物加强 {
               if (member_t.mibun == 身份_君主)
               {
                 // 君主，万分之一的概率直接收编
-                if (ch::rand_bool_10000(10000))
+                if (ch::rand_bool_10000(1))
                 {
                   pk::say(pk::encode("黄天有道，吾愿降。。。"), member_t);
                   pk::force@ king_force = pk::get_force(member_t.get_force_id());
@@ -2530,7 +2530,9 @@ namespace 人物加强 {
             if (member_t is null or !pk::is_alive(member_t)) continue;
             if (member_t.mibun == 身份_君主) continue;
             int chance = int((person_荀彧.base_stat[武将能力_智力] - member_t.base_stat[武将能力_智力]) * 2);
-            if (pk::rand_bool(100))
+            int diff = int(person_荀彧.base_stat[武将能力_智力] - member_t.base_stat[武将能力_智力]) * 2;
+            int change = pk::min(diff, 0);
+            if (pk::rand_bool(change))
             {
               if (m == 0) pk::kill(attack);
               pk::say(pk::encode(pk::format("我怎能对\x1b[1x{}\x1b[0x大人下如此狠手，无脸再见啊", pk::get_name(pk::get_person(unit.leader)))), member_t);
