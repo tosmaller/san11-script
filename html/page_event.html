@@ -91,6 +91,7 @@
             <li class="level2"><a href="#page_event_160">160 建筑生成</a></li>
             <li class="level2"><a href="#page_event_161">161 建筑清除</a></li>
             <li class="level2"><a href="#page_event_162">162 建筑完成</a></li>
+            <li class="level2"><a href="#page_event_163">163 建筑破坏前</a></li>
             <li class="level2"><a href="#page_event_164">164 建筑破坏</a></li>
             <li class="level2"><a href="#page_event_165">165 流言据点</a></li>
             <li class="level2"><a href="#page_event_170">170 部队生成</a></li>
@@ -386,6 +387,23 @@
           </table>
         </dd>
       </dl>
+      <h2><a class="anchor" id="page_event_163"></a>
+        163 建筑破坏前</h2>
+      <p>void trigger163_t(<a class="el" href="structpk_1_1building.html" title="建筑 ">pk::building</a>@ building, bool voices); </p>
+      <dl class="params"><dt>参数</dt>
+        <dd>
+          <table class="params">
+            <tr>
+              <td class="paramname">building</td>
+              <td>建筑 </td>
+            </tr>
+            <tr>
+              <td class="paramname">voices</td>
+              <td>音效 </td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
       <h2><a class="anchor" id="page_event_164"></a>
         164 建筑破坏</h2>
       <p>void trigger164_t(int force_id, int facility_id, const <a class="el" href="structpk_1_1point.html">pk::point</a>& in pos); </p>
@@ -502,13 +520,17 @@
       </dl>
       <h2><a class="anchor" id="page_event_171"></a>
         171 部队清除</h2>
-      <p>void trigger171_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, <a class="el" href="structpk_1_1hex__object.html" title="部队 ">pk::hex_object</a>@ dst, int type); </p>
+      <p>void trigger171_t(<a class="el" href="structpk_1_1unit.html" title="部队 ">pk::unit</a>@ unit, <a class="el" href="structpk_1_1hex__object.html" title="部队 ">pk::hex_object</a>@ hex_obj, int type); </p>
       <dl class="params"><dt>参数</dt>
         <dd>
           <table class="params">
             <tr>
               <td class="paramname">unit</td>
               <td>部队 </td>
+            </tr>
+            <tr>
+              <td class="paramname">hex_obj</td>
+              <td>清除来源 </td>
             </tr>
             <tr>
               <td class="paramname">type</td>
