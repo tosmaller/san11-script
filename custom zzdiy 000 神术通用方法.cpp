@@ -357,7 +357,7 @@ namespace 神术数据结构体 {
           unit_sc[i].火凤连环影响 = false;
           unit_sc[i].乱武完杀部队 = false;
           unit_sc[i].奇谋诡策影响 = false;
-          unit_sc[i].帷幄奇策_禁法回合 = 126720;
+          unit_sc[i].帷幄奇策_禁法回合 = 游戏最大时间;
         }
       }
       if (pk::get_scenario().loaded)
@@ -653,7 +653,7 @@ namespace 神术数据结构体 {
 const int 神术武将结构体_uint32数 = 20;
 const int 神术部队结构体_uint32数 = 10;
 
-const int 游戏最大时间 = 352 * 12 * 3 * 10;
+const int 游戏最大时间 = 1000 * 12 * 3 * 10;
 
 array<array<uint32>> sc_unit_info_temp(神术部队结构体_uint32数, array<uint32>(部队_末, uint32(0)));
 array<array<uint32>> sc_person_info_temp(神术武将结构体_uint32数, array<uint32>(武将_末, uint32(0)));

@@ -2,7 +2,7 @@
 描述：封地强化，围绕封地扩展3个功能
 1 封地传送：部队可通过封地相互传送到其他封地旁边
 2 封地补兵：可直接在城市内为封地补充兵力
-3 封地散兵：封地被敌军攻破后，出现一只兵力为封地士兵数的部队
+3 封地散兵：封地被敌军攻破后，出现一只兵力为封地士兵数的部队(待实现)
 
 */
 
@@ -24,7 +24,7 @@ namespace 封地强化 {
 
       // pk::bind(164, -1, pk::trigger164_t(afterkillbuilding));
       // pk::bind2(163, pk::trigger163_t(beforeKillbuilding), 1);
-      pk::bind2(164, pk::trigger164_t(afterkillbuilding), 1);
+      // pk::bind2(164, pk::trigger164_t(afterkillbuilding), 1);
     }
 
     pk::unit@ src_unit;

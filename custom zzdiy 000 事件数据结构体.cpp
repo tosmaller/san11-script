@@ -19,6 +19,7 @@ namespace 事件数据结构体 {
     Main() {
       pk::bind(102, -1, pk::trigger102_t(剧本初始化_结构体_信息读取));
       pk::bind(105, pk::trigger105_t(儲存_结构体_信息储存));
+      pk::bind(112, pk::trigger112_t(onTurnEnd));
     }
     void 儲存_结构体_信息储存(int file_id) //儲存
     {
@@ -36,13 +37,13 @@ namespace 事件数据结构体 {
           pk::store(KEY, (KEY_索引_追加_部队起始 + (i * 事件部队结构体_uint32数 + j)), event_unit_info_temp[j][i]);
       }
 
-      setting_ex.update();
+      setting_event.update();
       for (int j = 0; j <= (事件设定结构体_uint32数 - 1); j++)
       {
         pk::store(KEY, (KEY_索引_追加_设定起始 + (j)), event_setting_info_temp[j]);
       }
     }
-      void 剧本初始化_结构体_信息读取()
+    void 剧本初始化_结构体_信息读取()
     {
       //重新开始游戏时，初始化数据
       if (!pk::get_scenario().loaded)
@@ -62,8 +63,14 @@ namespace 事件数据结构体 {
           person_event[i].荆南时长 = 0;
           person_event[i].益州时长 = 0;
           person_event[i].南中时长 = 0;
+          person_event[i].天雷试炼时长序号 = 0;
+          person_event[i].武将坐标_X = 0;
+          person_event[i].武将坐标_Y = 0;
         }
 
+        setting_event.天雷试炼标记 = false;
+        setting_event.试炼坐标_X = 0;
+        setting_event.试炼坐标_Y = 0;
       }
       if (pk::get_scenario().loaded)
       {
@@ -83,10 +90,35 @@ namespace 事件数据结构体 {
           event_unitinfo unit_t(i);
           unit_event[i] = unit_t;
         }
+        for (int j = 0; j < (设定结构体_uint32数 - 1); j++)
+        {
+          event_setting_info_temp[j] = uint32(pk::load(KEY, (KEY_索引_追加_设定起始 + (j)), 0));
+        }
+        event_settinginfo setting_t();
+        setting_event = setting_t;
       }
 
-      settinginfo setting_t();
-      setting_event = setting_t;
+    }
+
+    void onTurnEnd(pk::force@ force)
+    {
+      pk::list<pk::unit@> unit_list = pk::get_unit_list(force);
+      for (int i = 0; i < unit_list.count; i++)
+      {
+        pk::unit@ unit0 = unit_list[i];
+        if (!pk::is_alive(unit0)) continue;
+        for (int l = 0; l < 3; l++)
+        {
+          if (pk::is_valid_person_id(unit0.member[l]))
+          {
+            pk::person@ person0 = pk::get_person(unit0.member[i]);
+            if (!pk::is_alive(person0)) continue;
+            event_personinfo@ person_t = @person_event[person0.get_id()];
+            person_t.武将坐标_X = unit0.get_pos().x;
+            person_t.武将坐标_Y = unit0.get_pos().x;
+          }
+        }
+      }
     }
   }
 
@@ -95,9 +127,9 @@ namespace 事件数据结构体 {
 
 const int 事件武将结构体_uint32数 = 10;
 const int 事件部队结构体_uint32数 = 10;
-const int 事件设定结构体_uint32数 = 0;
+const int 事件设定结构体_uint32数 = 2;
 
-const int 事件最大时间 = 352 * 12 * 3 * 10;
+const int 事件最大时间 = 1000 * 12 * 3 * 10;
 
 array<array<uint32>> event_unit_info_temp(事件部队结构体_uint32数, array<uint32>(部队_末, uint32(0)));
 array<array<uint32>> event_person_info_temp(事件武将结构体_uint32数, array<uint32>(武将_末, uint32(0)));
@@ -105,7 +137,7 @@ array<uint32> event_setting_info_temp(设定结构体_uint32数, uint32(0));
 
 array<event_personinfo> person_event(武将_末);
 array<event_unitinfo> unit_event(部队_末);
-settinginfo setting_event;
+event_settinginfo setting_event;
 
 class event_unitinfo {
   int 影响序号0 = 0;
@@ -216,6 +248,8 @@ class event_personinfo {
   int 凉州扬州时长序号 = 3;
   int 荆北荆南时长序号 = 4;
   int 益州南中时长序号 = 5;
+  int 天雷试炼时长序号 = 6;
+  int 回合武将坐标序号 = 7;
 
   uint16 幽州时长 = 0;
   uint16 冀州时长 = 0;
@@ -234,6 +268,11 @@ class event_personinfo {
 
   uint16 益州时长 = 0;
   uint16 南中时长 = 0;
+
+  uint16 天雷试炼时长 = 0;
+
+  uint16 武将坐标_X = 0;
+  uint16 武将坐标_Y = 0;
 
 
   //初始化
@@ -254,6 +293,8 @@ class event_personinfo {
     fromInt32_3(event_person_info_temp[凉州扬州时长序号][person_id]);
     fromInt32_4(event_person_info_temp[荆北荆南时长序号][person_id]);
     fromInt32_5(event_person_info_temp[益州南中时长序号][person_id]);
+    fromInt32_6(event_person_info_temp[天雷试炼时长序号][person_id]);
+    fromInt32_7(event_person_info_temp[回合武将坐标序号][person_id]);
   }
 
   void update(int person_id)
@@ -264,6 +305,8 @@ class event_personinfo {
     event_person_info_temp[凉州扬州时长序号][person_id] = toInt32_3();
     event_person_info_temp[荆北荆南时长序号][person_id] = toInt32_4();
     event_person_info_temp[益州南中时长序号][person_id] = toInt32_5();
+    event_person_info_temp[天雷试炼时长序号][person_id] = toInt32_6();
+    event_person_info_temp[回合武将坐标序号][person_id] = toInt32_7();
   }
 
   int get_地区时长(int province_id)
@@ -378,6 +421,21 @@ class event_personinfo {
     return x;
   }
 
+  uint32 toInt32_6(void)
+  {
+    uint16 天雷试炼时长_值 = 天雷试炼时长;
+    uint32 x = 天雷试炼时长_值;
+    return x;
+  }
+
+  uint32 toInt32_7(void)
+  {
+    uint16 武将坐标_X_值 = 武将坐标_X;
+    uint16 武将坐标_Y_值 = 武将坐标_Y;
+    uint32 x = 武将坐标_Y + (武将坐标_Y_值 << 16);
+    return x;
+  }
+
   void fromInt32_0(uint32 x)
   {
     幽州时长 = ((x << 16) >> 16);
@@ -413,10 +471,30 @@ class event_personinfo {
     益州时长 = ((x << 16) >> 16);
     南中时长 = (x >> 16);
   }
+
+  void fromInt32_6(uint32 x)
+  {
+    天雷试炼时长 = x;
+  }
+
+  void fromInt32_7(uint32 x)
+  {
+    武将坐标_X = ((x << 16) >> 16);
+    武将坐标_Y = (x >> 16);
+  }
 }
 
 class event_settinginfo
 {
+
+  int 天雷试炼坐标序号 = 0;
+  int 天雷试炼标记序号 = 1;
+
+  uint16 试炼坐标_X = 0;
+  uint16 试炼坐标_Y = 0;
+
+  bool 天雷试炼标记 = false;
+
   //初始化
   event_settinginfo()
   {
@@ -425,10 +503,39 @@ class event_settinginfo
 
   void get_info()
   {
-    //pk::trace(pk::format("get_info,temp:{}", setting_ex_info_temp[0]));
+    fromInt32_0(event_setting_info_temp[天雷试炼坐标序号]);
+    fromInt32_1(event_setting_info_temp[天雷试炼标记序号]);
   }
 
   void update()
   {
+    event_setting_info_temp[天雷试炼坐标序号] = toInt32_0();
+    event_setting_info_temp[天雷试炼标记序号] = toInt32_1();
+  }
+
+  void fromInt32_0(uint32 x)
+  {
+    试炼坐标_X = ((x << 16) >> 16);
+    试炼坐标_Y = (x >> 16);
+  }
+
+  void fromInt32_1(uint32 x)
+  {
+    天雷试炼标记 = (((x << 31) >> 31) == 1);
+  }
+
+  uint32 toInt32_0(void)
+  {
+    uint16 试炼坐标_X_值 = 试炼坐标_X;
+    uint16 试炼坐标_Y_值 = 试炼坐标_Y;
+    uint32 x = 试炼坐标_X_值 + (试炼坐标_Y_值 << 16);
+    return x;
+  }
+
+  uint32 toInt32_1(void)
+  {
+    uint8 天雷试炼标记_值 = 天雷试炼标记 ? 1 : 0;
+    uint32 x = 天雷试炼标记_值;
+    return x;
   }
 }

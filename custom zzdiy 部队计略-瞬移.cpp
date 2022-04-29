@@ -160,7 +160,7 @@ namespace 部队计略_瞬移
 			// pk::add_stat_exp(src_unit, 무장능력_지력, 部队妙计_增加经验);
       pk::create_effect(0x40, dst_pos);
       pk::wait(1000);
-			pk::set_pos(src_unit, dst_pos);
+	  pk::set_pos(src_unit, dst_pos);
       // src_unit.update(); // 过时方法，使用update_unit
       pk::update_unit(src_unit);
       pk::say(pk::encode("这才是仙人的力量"), pk::get_person(src_unit.leader));

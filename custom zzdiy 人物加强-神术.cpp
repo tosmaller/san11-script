@@ -671,7 +671,7 @@ namespace 人物加强 {
             pk::create_fire(arr[l], pk::rand(2), src_unit, true); //火计
           }
           pk::add_energy(dst, -30, true); //减气
-          int 最终落雷伤害 = 部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(1000);
+          int 最终落雷伤害 = 部队落雷伤害 + pk::rand(部队落雷伤害_1) + pk::rand(2000);
           ch::add_troops(dst, -最终落雷伤害, true); // 在雷电伤害基础上随机加2000
           神术数据结构体::设置部队伤害值(src_unit, 最终落雷伤害);
           神术数据结构体::历史日志(dst, '神术_神雷灭世', '受到了巨大伤害');
