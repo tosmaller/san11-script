@@ -111,11 +111,11 @@ namespace 事件数据结构体 {
         {
           if (pk::is_valid_person_id(unit0.member[l]))
           {
-            pk::person@ person0 = pk::get_person(unit0.member[i]);
+            pk::person@ person0 = pk::get_person(unit0.member[l]);
             if (!pk::is_alive(person0)) continue;
             event_personinfo@ person_t = @person_event[person0.get_id()];
             person_t.武将坐标_X = unit0.get_pos().x;
-            person_t.武将坐标_Y = unit0.get_pos().x;
+            person_t.武将坐标_Y = unit0.get_pos().y;
           }
         }
       }
