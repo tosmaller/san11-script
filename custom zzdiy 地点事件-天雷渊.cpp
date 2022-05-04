@@ -27,7 +27,7 @@ namespace 地点事件_天雷渊 {
       pk::bind2(108, pk::trigger108_t(onMonthStart), 10);
       pk::bind2(107, pk::trigger107_t(onNewDay), 9);
       pk::bind(104, pk::trigger104_t(onScenarioEnd));
-      // pk::bind2(107, pk::trigger107_t(onNewDay), 9);
+      pk::bind(120, pk::trigger120_t(地格信息显示));
     }
 
     void 历史日志(pk::person@ person, string name, string result)
@@ -77,7 +77,8 @@ namespace 地点事件_天雷渊 {
     {
       for (int i = 0; i < int(effects.length); i++)
       {
-        pk::remove(effects[i]);
+        pk::trace('i:' + effects[i].valid);
+       //  pk::remove(effects[i]);
       }
     }
 
@@ -87,14 +88,15 @@ namespace 地点事件_天雷渊 {
       if (in_event_time)
       {
         event_pos = pk::point(setting_event.试炼坐标_X, setting_event.试炼坐标_Y);
-        pk::trace(setting_event.试炼坐标_X + ':' + setting_event.试炼坐标_Y);
+        pk::trace(setting_event.试炼坐标_X + ':' + setting_event.试炼坐标_Y + ';' + pk::hex_pos_to_screen_pos(event_pos, 2, 2.0f));
+        pk::draw_text(pk::encode("天雷渊"), pk::hex_pos_to_screen_pos(event_pos, 2, 2.0f), 0xff000000, 0, 0xffffffff);
         array<pk::point> ranges = pk::range(event_pos, 0, 3);
         for (int l = 0; l < int(ranges.length); l++)
         {
           if (pk::is_valid_pos(ranges[l]))
           {
             pk::point pos = ranges[l];
-            pk::effect_handle effect = pk::create_effect(0x45, pos);
+            auto effect = pk::create_effect(0x45, pos);
             effects.insertLast(effect);
           }
         }
@@ -170,6 +172,8 @@ namespace 地点事件_天雷渊 {
           in_event_time = true;
           pk::scene(cast<pk::scene_t@>(function() { pk::move_screen(main.event_pos, 500); }));
           pk::message_box(pk::encode('据说，今年的\x1b[1x天雷渊\x1b[0x试炼之地开启了'));
+          pk::point pos = pk::point(event_pos.x, event_pos.y);
+          pk::draw_text(pk::encode("天雷渊"), pk::hex_pos_to_screen_pos(pos, 2, 5.0f), 0xff000000, 0, 0xffffffff);
           setting_event.天雷试炼标记 = true;
           setting_event.试炼坐标_X = event_pos.x;
           setting_event.试炼坐标_Y = event_pos.y;
@@ -253,6 +257,26 @@ namespace 地点事件_天雷渊 {
             }
           }
         }
+      }
+    }
+
+    void 地格信息显示()
+    {
+      pk::point cursor_pos = pk::get_cursor_hex_pos();
+      if (!pk::is_valid_pos(cursor_pos)) return;
+      if (is_person_in_thunder(cursor_pos))
+      {
+        string address_name = "天雷渊";
+        string title = pk::format("特殊地点：(\x1b[1x{}\x1b[0x)", address_name);
+        string desc = pk::format("天雷之地，\n待在此处部队每回合会遭受天雷轰击。\n但若是能连续承受2个月轰击而不灭，\n则可习得特技【\x1b[1x{}\x1b[0x】!
+        ", pk::decode(pk::get_skill(特技_鬼门).name));
+
+        int width = int(pk::get_resolution().width) - 280;
+        pk::point left_down = pk::point(int(pk::get_resolution().width) - 10, 75 + 3 * 20 + 40 + 5 + 1 * 80) + 20;
+        pk::draw_filled_rect(pk::rectangle(pk::point(width - 5, 15), left_down), ((0xff / 2) << 24) | 0x010101);
+        pk::draw_text(pk::encode(title), pk::point(width, 20), 0xffffffff, FONT_BIG, 0xff000000);
+
+        pk::draw_text(pk::encode(desc), pk::point(width, 75), 0xffffffff, FONT_SMALL, 0xff000000);
       }
     }
   }
