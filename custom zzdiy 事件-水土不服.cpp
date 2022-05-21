@@ -57,7 +57,10 @@ namespace 事件_水土不服 {
           pk::person@ person_s = person_list[i];
           event_personinfo@ person_t = @person_event[i];
           int province_id = pk::get_province_id(person_s.get_pos());
-          person_t.set_地区时长(province_id, person_t.get_地区时长(province_id) + 1);
+          if (person_t.get_地区时长(province_id) < 3 * 12 * 3)
+          {
+            person_t.set_地区时长(province_id, person_t.get_地区时长(province_id) + 1);
+          }
         }
       }
     }
@@ -76,7 +79,7 @@ namespace 事件_水土不服 {
           )
             continue;
         int province_id = pk::get_province_id(person_s.get_pos());
-        if (person_t.get_地区时长(province_id) >= 3) continue;
+        if (person_t.get_地区时长(province_id) >= 3 * 12 * 3) continue;
         if (person_s.base_stat[武将能力_武力] < 70
           and pk::rand_bool(1)
           and person_s.shoubyou < 伤病_重症

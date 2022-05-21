@@ -20,6 +20,7 @@ namespace 事件数据结构体 {
       pk::bind(102, -1, pk::trigger102_t(剧本初始化_结构体_信息读取));
       pk::bind(105, pk::trigger105_t(儲存_结构体_信息储存));
       pk::bind(112, pk::trigger112_t(onTurnEnd));
+      pk::bind(151, pk::trigger151_t(武将死亡));
     }
     void 儲存_结构体_信息储存(int file_id) //儲存
     {
@@ -66,6 +67,11 @@ namespace 事件数据结构体 {
           person_event[i].天雷试炼时长序号 = 0;
           person_event[i].武将坐标_X = 0;
           person_event[i].武将坐标_Y = 0;
+
+          person_event[i].统率天罚次数 = 0;
+          person_event[i].武力天罚次数 = 0;
+          person_event[i].智力天罚次数 = 0;
+          person_event[i].政治天罚次数 = 0;
         }
 
         setting_event.天雷试炼标记 = false;
@@ -119,6 +125,31 @@ namespace 事件数据结构体 {
           }
         }
       }
+    }
+
+    void 武将死亡(pk::person@ dead, pk::person@ by, int type, int rettype)
+    {
+      event_personinfo@ event_person = @person_event[dead.get_id()];
+      event_person.幽州时长 = 0;
+      event_person.冀州时长 = 0;
+      event_person.青徐时长 = 0;
+      event_person.兖豫时长 = 0;
+      event_person.司隶时长 = 0;
+      event_person.京兆时长 = 0;
+      event_person.凉州时长 = 0;
+      event_person.扬州时长 = 0;
+      event_person.荆北时长 = 0;
+      event_person.荆南时长 = 0;
+      event_person.益州时长 = 0;
+      event_person.南中时长 = 0;
+      event_person.天雷试炼时长序号 = 0;
+      event_person.武将坐标_X = 0;
+      event_person.武将坐标_Y = 0;
+
+      event_person.统率天罚次数 = 0;
+      event_person.武力天罚次数 = 0;
+      event_person.智力天罚次数 = 0;
+      event_person.政治天罚次数 = 0;
     }
   }
 
@@ -242,37 +273,37 @@ class event_unitinfo {
 class event_personinfo {
   uint16 person_id_t;
 
-  int 幽州冀州时长序号 = 0;
-  int 青徐兖豫时长序号 = 1;
-  int 司隶京兆时长序号 = 2;
-  int 凉州扬州时长序号 = 3;
-  int 荆北荆南时长序号 = 4;
-  int 益州南中时长序号 = 5;
-  int 天雷试炼时长序号 = 6;
-  int 回合武将坐标序号 = 7;
+  int 幽冀青兖时长序号 = 0;
+  int 司京凉扬时长序号 = 1;
+  int 北南益中时长序号 = 2;
+  int 天雷试炼时长序号 = 3;
+  int 回合武将坐标序号 = 4;
+  int 五维天罚序号 = 5;
 
-  uint16 幽州时长 = 0;
-  uint16 冀州时长 = 0;
+  uint8 幽州时长 = 0;
+  uint8 冀州时长 = 0;
+  uint8 青徐时长 = 0;
+  uint8 兖豫时长 = 0;
 
-  uint16 青徐时长 = 0;
-  uint16 兖豫时长 = 0;
+  uint8 司隶时长 = 0;
+  uint8 京兆时长 = 0;
+  uint8 凉州时长 = 0;
+  uint8 扬州时长 = 0;
 
-  uint16 司隶时长 = 0;
-  uint16 京兆时长 = 0;
-
-  uint16 凉州时长 = 0;
-  uint16 扬州时长 = 0;
-
-  uint16 荆北时长 = 0;
-  uint16 荆南时长 = 0;
-
-  uint16 益州时长 = 0;
-  uint16 南中时长 = 0;
+  uint8 荆北时长 = 0;
+  uint8 荆南时长 = 0;
+  uint8 益州时长 = 0;
+  uint8 南中时长 = 0;
 
   uint16 天雷试炼时长 = 0;
 
   uint16 武将坐标_X = 0;
   uint16 武将坐标_Y = 0;
+
+  uint8 统率天罚次数 = 0;
+  uint8 武力天罚次数 = 0;
+  uint8 智力天罚次数 = 0;
+  uint8 政治天罚次数 = 0;
 
 
   //初始化
@@ -287,26 +318,22 @@ class event_personinfo {
 
   void get_info(int person_id)
   {
-    fromInt32_0(event_person_info_temp[幽州冀州时长序号][person_id]);
-    fromInt32_1(event_person_info_temp[青徐兖豫时长序号][person_id]);
-    fromInt32_2(event_person_info_temp[司隶京兆时长序号][person_id]);
-    fromInt32_3(event_person_info_temp[凉州扬州时长序号][person_id]);
-    fromInt32_4(event_person_info_temp[荆北荆南时长序号][person_id]);
-    fromInt32_5(event_person_info_temp[益州南中时长序号][person_id]);
-    fromInt32_6(event_person_info_temp[天雷试炼时长序号][person_id]);
-    fromInt32_7(event_person_info_temp[回合武将坐标序号][person_id]);
+    fromInt32_0(event_person_info_temp[幽冀青兖时长序号][person_id]);
+    fromInt32_1(event_person_info_temp[司京凉扬时长序号][person_id]);
+    fromInt32_2(event_person_info_temp[北南益中时长序号][person_id]);
+    fromInt32_3(event_person_info_temp[天雷试炼时长序号][person_id]);
+    fromInt32_4(event_person_info_temp[回合武将坐标序号][person_id]);
+    fromInt32_5(event_person_info_temp[五维天罚序号][person_id]);
   }
 
   void update(int person_id)
   {
-    event_person_info_temp[幽州冀州时长序号][person_id] = toInt32_0();
-    event_person_info_temp[青徐兖豫时长序号][person_id] = toInt32_1();
-    event_person_info_temp[司隶京兆时长序号][person_id] = toInt32_2();
-    event_person_info_temp[凉州扬州时长序号][person_id] = toInt32_3();
-    event_person_info_temp[荆北荆南时长序号][person_id] = toInt32_4();
-    event_person_info_temp[益州南中时长序号][person_id] = toInt32_5();
-    event_person_info_temp[天雷试炼时长序号][person_id] = toInt32_6();
-    event_person_info_temp[回合武将坐标序号][person_id] = toInt32_7();
+    event_person_info_temp[幽冀青兖时长序号][person_id] = toInt32_0();
+    event_person_info_temp[司京凉扬时长序号][person_id] = toInt32_1();
+    event_person_info_temp[北南益中时长序号][person_id] = toInt32_2();
+    event_person_info_temp[天雷试炼时长序号][person_id] = toInt32_3();
+    event_person_info_temp[回合武将坐标序号][person_id] = toInt32_4();
+    event_person_info_temp[五维天罚序号][person_id] = toInt32_5();
   }
 
   int get_地区时长(int province_id)
@@ -373,62 +400,79 @@ class event_personinfo {
     }
   }
 
+  int get_天罚时长(int stat)
+  {
+    int result;
+    switch(stat)
+    {
+      case 0: result = 统率天罚次数;
+        break;
+      case 1: result = 武力天罚次数;
+        break;
+      case 2: result = 智力天罚次数;
+        break;
+      case 3: result = 政治天罚次数;
+        break;
+    }
+    return result;
+  }
+
+  void set_天罚时长(int stat, int result)
+  {
+    switch(stat)
+    {
+      case 0: 统率天罚次数 = result;
+        break;
+      case 1: 武力天罚次数 = result;
+        break;
+      case 2: 智力天罚次数 = result;
+        break;
+      case 3: 政治天罚次数 = result;
+        break;
+    }
+  }
+
   uint32 toInt32_0(void)
   {
-    uint16 幽州时长_值 = 幽州时长;
-    uint16 冀州时长_值 = 冀州时长;
-    uint32 x = 幽州时长_值 + (冀州时长_值 << 16);
+    uint8 幽州时长_值 = 幽州时长;
+    uint8 冀州时长_值 = 冀州时长;
+    uint8 青徐时长_值 = 青徐时长;
+    uint8 兖豫时长_值 = 兖豫时长;
+    uint32 x = 幽州时长_值 + (冀州时长_值 << 8) + (青徐时长_值 << 16) + (兖豫时长_值 << 24);
     return x;
   }
 
   uint32 toInt32_1(void)
   {
-    uint16 青徐时长_值 = 青徐时长;
-    uint16 兖豫时长_值 = 兖豫时长;
-    uint32 x = 青徐时长_值 + (兖豫时长_值 << 16);
+    uint8 司隶时长_值 = 司隶时长;
+    uint8 京兆时长_值 = 京兆时长;
+    uint8 凉州时长_值 = 凉州时长;
+    uint8 扬州时长_值 = 扬州时长;
+    uint32 x = 司隶时长_值 + (京兆时长_值 << 8) + (凉州时长_值 << 16) + (扬州时长_值 << 24);
     return x;
   }
+
 
   uint32 toInt32_2(void)
   {
-    uint16 司隶时长_值 = 司隶时长;
-    uint16 京兆时长_值 = 京兆时长;
-    uint32 x = 司隶时长_值 + (京兆时长_值 << 16);
+    uint8 荆北时长_值 = 荆北时长;
+    uint8 荆南时长_值 = 荆南时长;
+    uint8 益州时长_值 = 益州时长;
+    uint8 南中时长_值 = 南中时长;
+    uint32 x = 荆北时长_值 + (荆南时长_值 << 8) + (益州时长_值 << 16) + (南中时长_值 << 24);
     return x;
   }
+
+
 
   uint32 toInt32_3(void)
-  {
-    uint16 凉州时长_值 = 凉州时长;
-    uint16 扬州时长_值 = 扬州时长;
-    uint32 x = 凉州时长_值 + (扬州时长_值 << 16);
-    return x;
-  }
-
-  uint32 toInt32_4(void)
-  {
-    uint16 荆北时长_值 = 荆北时长;
-    uint16 荆南时长_值 = 荆南时长;
-    uint32 x = 荆北时长_值 + (荆南时长_值 << 16);
-    return x;
-  }
-
-  uint32 toInt32_5(void)
-  {
-    uint16 益州时长_值 = 益州时长;
-    uint16 南中时长_值 = 南中时长;
-    uint32 x = 益州时长_值 + (南中时长_值 << 16);
-    return x;
-  }
-
-  uint32 toInt32_6(void)
   {
     uint16 天雷试炼时长_值 = 天雷试炼时长;
     uint32 x = 天雷试炼时长_值;
     return x;
   }
 
-  uint32 toInt32_7(void)
+  uint32 toInt32_4(void)
   {
     uint16 武将坐标_X_值 = 武将坐标_X;
     uint16 武将坐标_Y_值 = 武将坐标_Y;
@@ -436,51 +480,59 @@ class event_personinfo {
     return x;
   }
 
+  uint32 toInt32_5(void)
+  {
+    uint8 统率天罚次数_值 = 统率天罚次数;
+    uint8 武力天罚次数_值 = 武力天罚次数;
+    uint8 智力天罚次数_值 = 智力天罚次数;
+    uint8 政治天罚次数_值 = 政治天罚次数;
+    uint32 x = 统率天罚次数_值 + (武力天罚次数_值 << 8) + (智力天罚次数_值 << 16) + (政治天罚次数_值 << 24);
+    return x;
+  }
+
+
+
   void fromInt32_0(uint32 x)
   {
-    幽州时长 = ((x << 16) >> 16);
-    冀州时长 = (x >> 16);
+    兖豫时长 = (x << 0) >> 24;
+    青徐时长 = (x << 8) >> 24;
+    冀州时长 = (x << 16) >> 24;
+    幽州时长 = (x << 24) >> 24;
   }
 
   void fromInt32_1(uint32 x)
   {
-    青徐时长 = ((x << 16) >> 16);
-    兖豫时长 = (x >> 16);
+    扬州时长 = (x << 0) >> 24;
+    凉州时长 = (x << 8) >> 24;
+    京兆时长 = (x << 16) >> 24;
+    司隶时长 = (x << 24) >> 24;
   }
 
   void fromInt32_2(uint32 x)
   {
-    司隶时长 = ((x << 16) >> 16);
-    京兆时长 = (x >> 16);
+    南中时长 = (x << 0) >> 24;
+    益州时长 = (x << 8) >> 24;
+    荆南时长 = (x << 16) >> 24;
+    荆北时长 = (x << 24) >> 24;
   }
 
   void fromInt32_3(uint32 x)
   {
-    凉州时长 = ((x << 16) >> 16);
-    扬州时长 = (x >> 16);
+    天雷试炼时长 = x;
   }
 
   void fromInt32_4(uint32 x)
   {
-    荆北时长 = ((x << 16) >> 16);
-    荆南时长 = (x >> 16);
+    武将坐标_X = ((x << 16) >> 16);
+    武将坐标_Y = (x >> 16);
   }
 
   void fromInt32_5(uint32 x)
   {
-    益州时长 = ((x << 16) >> 16);
-    南中时长 = (x >> 16);
-  }
-
-  void fromInt32_6(uint32 x)
-  {
-    天雷试炼时长 = x;
-  }
-
-  void fromInt32_7(uint32 x)
-  {
-    武将坐标_X = ((x << 16) >> 16);
-    武将坐标_Y = (x >> 16);
+    政治天罚次数 = (x << 0) >> 24;
+    智力天罚次数 = (x << 8) >> 24;
+    武力天罚次数 = (x << 16) >> 24;
+    统率天罚次数 = (x << 24) >> 24;
   }
 }
 

@@ -1,3 +1,8 @@
+ /*
+
+  20220503 修复自定义武将头像不正确bug.
+
+ */
 
 namespace 神术数据结构体 {
   const int KEY = pk::hash("神术");
@@ -90,6 +95,11 @@ namespace 神术数据结构体 {
   bool isVisible_神术_名称(int 武将Id, int leader_Id)
   {
     return leader_Id == 武将Id;
+  }
+
+  bool isVisible_神技_名称(pk::unit@ unit, int weapon_id, int level)
+  {
+    return pk::get_tekisei(unit, weapon_id) >= level;
   }
 
   pk::array<pk::point_int> getTargets_神术_目标(int range, pk::point src_pos_)
@@ -531,7 +541,7 @@ namespace 神术数据结构体 {
         pk::point leftdown = pk::point(width + 42, offset_top + 40 + (i + 1) * 40);
         auto rect = pk::rectangle(rightup, leftdown);
 
-        pk::draw_face(FACE_SMALL, person_id, rect, FACE_L);
+        pk::draw_face(FACE_SMALL, person.face, rect, FACE_L);
 
         string 武将姓名 = pk::format("\x1b[1x{}\x1b[0x", pk::decode(pk::get_name(person)));
         string 武将杀敌数 = pk::format("击杀部队数：\x1b[1x{}\x1b[0x", sc_person.kill_unit);
@@ -650,8 +660,8 @@ namespace 神术数据结构体 {
 
 
 
-const int 神术武将结构体_uint32数 = 20;
-const int 神术部队结构体_uint32数 = 10;
+const int 神术武将结构体_uint32数 = 10;
+const int 神术部队结构体_uint32数 = 5;
 
 const int 游戏最大时间 = 1000 * 12 * 3 * 10;
 

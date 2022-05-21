@@ -23,11 +23,11 @@ namespace 地点事件_天雷渊 {
     array<pk::effect_handle> effects;
 
     Main() {
-      pk::bind(102,  pk::trigger102_t(load));
-      pk::bind2(108, pk::trigger108_t(onMonthStart), 10);
-      pk::bind2(107, pk::trigger107_t(onNewDay), 9);
-      pk::bind(104, pk::trigger104_t(onScenarioEnd));
-      pk::bind(120, pk::trigger120_t(地格信息显示));
+      // pk::bind(102,  pk::trigger102_t(load));
+      // pk::bind2(108, pk::trigger108_t(onMonthStart), 10);
+      // pk::bind2(107, pk::trigger107_t(onNewDay), 9);
+      // pk::bind(104, pk::trigger104_t(onScenarioEnd));
+      // pk::bind(120, pk::trigger120_t(地格信息显示));
     }
 
     void 历史日志(pk::person@ person, string name, string result)
